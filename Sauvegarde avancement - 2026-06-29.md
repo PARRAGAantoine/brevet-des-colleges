@@ -103,14 +103,14 @@ Etat actuel :
 ```txt
 Le dossier local est maintenant un depot Git.
 Branche locale : main.
-Remote GitHub : https://github.com/PARRAGAantoine/brevet-des-colleges.git
-Push GitHub bloque par les droits du compte actuellement connecte.
+Remote GitHub : https://PARRAGAantoine@github.com/PARRAGAantoine/brevet-des-colleges.git
+Push GitHub effectue vers origin/main.
 ```
 
 Consequence :
 
 - un commit local existe ;
-- le push GitHub necessite que le compte connecte ait les droits sur le depot ;
+- la branche locale `main` suit `origin/main` ;
 - il faudra probablement eviter de pousser les annales PDF et fichiers volumineux/proteges, sauf decision explicite.
 
 ## Prochaine priorite conseillee

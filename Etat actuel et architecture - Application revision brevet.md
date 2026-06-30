@@ -426,9 +426,11 @@ Dans ce projet, une demande de "sauvegarde" doit etre comprise comme une operati
 - creation d'un point de sauvegarde local ou Git ;
 - push sur GitHub si le depot distant est configure.
 
-Etat actuel : le dossier local est maintenant un depot Git, sur la branche `main`, avec le remote GitHub `https://github.com/PARRAGAantoine/brevet-des-colleges.git`.
+Etat actuel : le dossier local est maintenant un depot Git, sur la branche `main`, avec le remote GitHub `https://PARRAGAantoine@github.com/PARRAGAantoine/brevet-des-colleges.git`.
 
-Le premier commit local existe. Le push GitHub est bloque tant que le compte GitHub connecte localement (`FormaElan`) n'a pas les droits d'ecriture sur le depot `PARRAGAantoine/brevet-des-colleges`, ou tant que l'authentification n'est pas faite avec le compte proprietaire.
+Le push GitHub est effectue. La branche locale `main` suit `origin/main` sur le depot public `PARRAGAantoine/brevet-des-colleges`.
+
+Note technique : pour ne pas interferer avec les autres projets GitHub du poste, ce depot utilise une surcharge locale du gestionnaire d'identifiants afin de pousser avec le compte `PARRAGAantoine`.
 
 ## Mise a jour notions - etape 6
 

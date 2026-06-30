@@ -383,9 +383,11 @@ Le depot Git local a ete initialise sur la branche `main`.
 Remote configure :
 
 ```txt
-https://github.com/PARRAGAantoine/brevet-des-colleges.git
+https://PARRAGAantoine@github.com/PARRAGAantoine/brevet-des-colleges.git
 ```
 
 Les PDF d'annales, le dossier de documents supplementaires et les sauvegardes locales sont exclus via `.gitignore`.
 
-Etat du push : bloque pour le moment, car l'authentification GitHub locale utilise le compte `FormaElan`, qui n'a pas les droits d'ecriture sur le depot `PARRAGAantoine/brevet-des-colleges`.
+Etat du push : effectue. La branche locale `main` suit `origin/main` sur le depot public `PARRAGAantoine/brevet-des-colleges`.
+
+Note technique : une surcharge locale du helper d'identifiants Git a ete ajoutee pour ce depot afin d'utiliser Git Credential Manager, car la configuration globale GitHub CLI du poste est associee a un autre compte.
