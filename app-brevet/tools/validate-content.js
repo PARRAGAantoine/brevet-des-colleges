@@ -83,6 +83,10 @@ content.exercises.forEach((exercise) => validateExercise(exercise, "static"));
   });
 });
 
+(generators.errors || []).forEach((error) => {
+  errors.push(`generator ${error.generatorId} seed ${error.seed} : ${error.message}`);
+});
+
 const allIds = [
   ...content.exercises.map((exercise) => exercise.id),
   ...(content.guidedTasks || []).map((task) => task.id)

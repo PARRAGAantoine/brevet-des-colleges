@@ -338,3 +338,20 @@ Validation effectuee :
 - `node --check data\notions.js` : OK ;
 - `node tools\validate-content.js` : OK ;
 - controle navigateur local : session Mathematiques > Probabilites, cours et question coherents, aucune erreur console.
+
+## Robustesse technique - etape 14
+
+Deux protections techniques ont ete ajoutees apres analyse du depot :
+
+- workflow GitHub Actions `.github/workflows/validate.yml` pour executer les controles a chaque push et pull request ;
+- le workflow GitHub Pages execute maintenant la validation avant le deploiement ;
+- le registre des generateurs attrape les erreurs d'un generateur et renvoie `null` au lieu de faire planter l'application ;
+- le validateur echoue si une erreur de generateur est journalisee pendant les echantillons.
+
+Validation locale effectuee :
+
+- `node --check app.js` : OK ;
+- `node --check data\notions.js` : OK ;
+- `node --check generators\registry.js` : OK ;
+- `node --check tools\validate-content.js` : OK ;
+- `node tools\validate-content.js` : OK.

@@ -446,6 +446,11 @@ URL publique :
 https://parragaantoine.github.io/brevet-des-colleges/
 ```
 
+Le depot contient aussi une validation GitHub Actions :
+
+- `.github/workflows/validate.yml` controle la syntaxe JS et les contenus a chaque push ou pull request ;
+- `.github/workflows/pages.yml` execute cette validation avant de deployer GitHub Pages.
+
 ## Mise a jour notions - etape 6
 
 Le registre de notions couvre maintenant les 33 chapitres actuellement utilises par les exercices.

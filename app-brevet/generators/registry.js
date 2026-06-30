@@ -66,7 +66,20 @@
   root.generate = function generate(generatorId, seed, options = {}) {
     const generator = root.items[generatorId];
     if (!generator) return null;
-    return generator(seed, options);
+    try {
+      return generator(seed, options);
+    } catch (error) {
+      root.errors = root.errors || [];
+      root.errors.push({
+        generatorId,
+        seed,
+        message: error && error.message ? error.message : String(error)
+      });
+      if (typeof console !== "undefined" && console.warn) {
+        console.warn(`Generator ${generatorId} failed for seed ${seed}`, error);
+      }
+      return null;
+    }
   };
   root.generateForNotion = function generateForNotion(notion, count, seedBase) {
     const generators = notion.generators || [];
