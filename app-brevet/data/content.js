@@ -332,7 +332,7 @@ window.BREVET_CONTENT = {
       chapter: "Probabilites",
       stage: "Decouverte",
       type: "qcm",
-      question: "Une urne contient 6 boules dont 4 portent un nombre pair. Quelle est la probabilite de tirer un nombre pair ^2",
+      question: "Une urne contient 6 boules dont 4 portent un nombre pair. Quelle est la probabilite de tirer un nombre pair ?",
       choices: ["1/6", "2/3", "4", "3/2"],
       answer: "2/3",
       explanation: "Il y a 4 cas favorables sur 6 cas possibles. 4/6 se simplifie en 2/3."
@@ -343,7 +343,7 @@ window.BREVET_CONTENT = {
       chapter: "Statistiques",
       stage: "Decouverte",
       type: "qcm",
-      question: "Quelle est la mediane de la serie 6 ; 8 ; 12 ; 15 ; 19 ^2",
+      question: "Quelle est la mediane de la serie 6 ; 8 ; 12 ; 15 ; 19 ?",
       choices: ["8", "12", "15", "60"],
       answer: "12",
       explanation: "La serie est deja rangee. Avec 5 valeurs, la mediane est la 3e valeur."
@@ -354,7 +354,7 @@ window.BREVET_CONTENT = {
       chapter: "Geometrie",
       stage: "Decouverte",
       type: "qcm",
-      question: "Dans un triangle rectangle, quel cote est l'hypotenuse ^2",
+      question: "Dans un triangle rectangle, quel cote est l'hypotenuse ?",
       choices: ["Le plus petit cote", "Le cote oppose a l'angle droit", "Le cote horizontal", "Le cote adjacent a tous les angles"],
       answer: "Le cote oppose a l'angle droit",
       explanation: "L'hypotenuse est le plus long cote et il est toujours oppose a l'angle droit."
@@ -365,7 +365,7 @@ window.BREVET_CONTENT = {
       chapter: "Fonctions",
       stage: "Consolidation",
       type: "qcm",
-      question: "Si f(x) = 4x + 3, quelle est l'image de 2 ^2",
+      question: "Si f(x) = 4x + 3, quelle est l'image de 2 ?",
       choices: ["5", "8", "11", "14"],
       answer: "11",
       explanation: "On remplace x par 2 : f(2) = 4 x 2 + 3 = 11."
@@ -376,7 +376,7 @@ window.BREVET_CONTENT = {
       chapter: "Grammaire",
       stage: "Decouverte",
       type: "qcm",
-      question: "Dans la phrase 'La narratrice arrive a Marseille', quelle est la fonction de 'La narratrice' ^2",
+      question: "Dans la phrase 'La narratrice arrive a Marseille', quelle est la fonction de 'La narratrice' ?",
       choices: ["COD", "Sujet", "Attribut", "Complement circonstanciel"],
       answer: "Sujet",
       explanation: "Le groupe 'La narratrice' fait l'action du verbe 'arrive'. Il est sujet."
@@ -398,7 +398,7 @@ window.BREVET_CONTENT = {
       chapter: "Interpretation",
       stage: "Type brevet",
       type: "qcm",
-      question: "Dans une reponse de comprehension, que faut-il faire avec une citation ^2",
+      question: "Dans une reponse de comprehension, que faut-il faire avec une citation ?",
       choices: ["La recopier sans explication", "L'expliquer et la relier a l'idee", "La mettre seulement a la fin", "Eviter toute citation"],
       answer: "L'expliquer et la relier a l'idee",
       explanation: "Une citation sert de preuve. Elle doit etre analysee pour repondre a la question."
@@ -409,7 +409,7 @@ window.BREVET_CONTENT = {
       chapter: "Orthographe",
       stage: "Decouverte",
       type: "qcm",
-      question: "Quelle forme est correcte ^2",
+      question: "Quelle forme est correcte ?",
       choices: ["Je me perdais dans les rues", "Je me perder dans les rues", "Je me perdaient dans les rues", "Je me perdait dans les rues"],
       answer: "Je me perdais dans les rues",
       explanation: "A l'imparfait, avec 'je', la terminaison est -ais."
@@ -442,7 +442,7 @@ window.BREVET_CONTENT = {
       chapter: "Analyse de document",
       stage: "Consolidation",
       type: "qcm",
-      question: "Pourquoi faut-il presenter la source d'un document ^2",
+      question: "Pourquoi faut-il presenter la source d'un document ?",
       choices: ["Pour connaitre son origine et son contexte", "Pour allonger la copie", "Pour eviter de lire le document", "Pour remplacer la reponse"],
       answer: "Pour connaitre son origine et son contexte",
       explanation: "La source aide a comprendre qui parle, quand et dans quel but."
@@ -508,7 +508,7 @@ window.BREVET_CONTENT = {
       chapter: "Fonctions",
       stage: "Decouverte",
       type: "qcm",
-      question: "Un programme de calcul dit : choisir un nombre, le multiplier par 4, ajouter 3. Que donne-t-il avec 2 ^2",
+      question: "Un programme de calcul dit : choisir un nombre, le multiplier par 4, ajouter 3. Que donne-t-il avec 2 ?",
       choices: ["5", "8", "11", "14"],
       answer: "11",
       explanation: "On suit les etapes dans l'ordre : 2 x 4 = 8, puis 8 + 3 = 11."
@@ -519,7 +519,7 @@ window.BREVET_CONTENT = {
       chapter: "Fonctions",
       stage: "Consolidation",
       type: "qcm",
-      question: "Le programme 'multiplier par 4 puis ajouter 3' correspond a quelle expression ^2",
+      question: "Le programme 'multiplier par 4 puis ajouter 3' correspond a quelle expression ?",
       choices: ["4 + x + 3", "4x + 3", "3x + 4", "4(x + 3)"],
       answer: "4x + 3",
       explanation: "Si le nombre de depart est x, multiplier par 4 donne 4x, puis ajouter 3 donne 4x + 3."
@@ -530,7 +530,7 @@ window.BREVET_CONTENT = {
       chapter: "Geometrie",
       stage: "Consolidation",
       type: "qcm",
-      question: "Dans une configuration de Thales, que faut-il verifier avant d'ecrire des rapports ^2",
+      question: "Dans une configuration de Thales, que faut-il verifier avant d'ecrire des rapports ?",
       choices: ["Des droites paralleles et des points alignes", "Seulement deux angles droits", "Un cercle", "Une moyenne"],
       answer: "Des droites paralleles et des points alignes",
       explanation: "Le theoreme de Thales s'utilise avec deux droites secantes coupees par des paralleles."
@@ -541,7 +541,7 @@ window.BREVET_CONTENT = {
       chapter: "Probabilites",
       stage: "Type brevet",
       type: "qcm",
-      question: "Une roue a 12 cases de meme taille. 3 cases sont noires et paires. Quelle est la probabilite de tomber sur une case noire et paire ^2",
+      question: "Une roue a 12 cases de meme taille. 3 cases sont noires et paires. Quelle est la probabilite de tomber sur une case noire et paire ?",
       choices: ["3/12", "12/3", "3/9", "1/12"],
       answer: "3/12",
       explanation: "Les 12 cases sont equiprobables et 3 cases conviennent. La probabilite est donc 3/12, soit 1/4."
@@ -552,7 +552,7 @@ window.BREVET_CONTENT = {
       chapter: "Interpretation",
       stage: "Consolidation",
       type: "qcm",
-      question: "Quelle reponse est la mieux justifiee ^2",
+      question: "Quelle reponse est la mieux justifiee ?",
       choices: [
         "Elle est emue.",
         "Elle est emue car le texte dit 'emue', ce qui montre une reaction forte.",
@@ -590,7 +590,7 @@ window.BREVET_CONTENT = {
       chapter: "Grammaire",
       stage: "Type brevet",
       type: "qcm",
-      question: "Dans 'Je suivais la jetee battue par le vent', quel groupe donne une precision sur 'la jetee' ^2",
+      question: "Dans 'Je suivais la jetee battue par le vent', quel groupe donne une precision sur 'la jetee' ?",
       choices: ["Je", "suivais", "battue par le vent", "par"],
       answer: "battue par le vent",
       explanation: "Le groupe 'battue par le vent' complete le nom 'jetee' et donne une precision."
@@ -601,7 +601,7 @@ window.BREVET_CONTENT = {
       chapter: "Geographie",
       stage: "Consolidation",
       type: "qcm",
-      question: "Pour caracteriser un espace productif industriel, quelle information est la plus utile ^2",
+      question: "Pour caracteriser un espace productif industriel, quelle information est la plus utile ?",
       choices: ["Les usines et les emplois crees", "La couleur du document", "Le nombre de lignes", "Le prenom du candidat"],
       answer: "Les usines et les emplois crees",
       explanation: "Les activites, les acteurs et les emplois permettent de montrer qu'il s'agit d'un espace productif industriel."
@@ -623,7 +623,7 @@ window.BREVET_CONTENT = {
       chapter: "Developpement construit",
       stage: "Decouverte",
       type: "qcm",
-      question: "Quelle est la meilleure organisation pour un developpement construit ^2",
+      question: "Quelle est la meilleure organisation pour un developpement construit ?",
       choices: ["Deux ou trois idees classees avec exemples", "Une liste de mots", "Une seule phrase tres longue", "Des dessins sans explication"],
       answer: "Deux ou trois idees classees avec exemples",
       explanation: "Un developpement construit doit etre organise et argumente."
@@ -705,7 +705,7 @@ window.BREVET_CONTENT = {
       chapter: "Statistiques",
       stage: "Consolidation",
       type: "qcm",
-      question: "Les valeurs sont 5 ; 7 ; 9 ; 11 ; 18. Quelle est la mediane ^2",
+      question: "Les valeurs sont 5 ; 7 ; 9 ; 11 ; 18. Quelle est la mediane ?",
       choices: ["7", "9", "10", "18"],
       answer: "9",
       explanation: "La serie est rangee et contient 5 valeurs. La mediane est la 3e valeur : 9."
@@ -727,7 +727,7 @@ window.BREVET_CONTENT = {
       chapter: "Nombres et calculs",
       stage: "Consolidation",
       type: "qcm",
-      question: "Quelle fraction est egale a 6/9 ^2",
+      question: "Quelle fraction est egale a 6/9 ?",
       choices: ["1/3", "2/3", "3/2", "6/3"],
       answer: "2/3",
       explanation: "On divise le numerateur et le denominateur par 3 : 6/9 = 2/3."
@@ -738,7 +738,7 @@ window.BREVET_CONTENT = {
       chapter: "Grammaire",
       stage: "Consolidation",
       type: "qcm",
-      question: "Dans 'Je regarde la ville qui s'eveille', combien y a-t-il de verbes conjugues ^2",
+      question: "Dans 'Je regarde la ville qui s'eveille', combien y a-t-il de verbes conjugues ?",
       choices: ["1", "2", "3", "0"],
       answer: "2",
       explanation: "Les verbes conjugues sont 'regarde' et 's'eveille'."
@@ -771,7 +771,7 @@ window.BREVET_CONTENT = {
       chapter: "Orthographe",
       stage: "Decouverte",
       type: "qcm",
-      question: "Quel accord est correct ^2",
+      question: "Quel accord est correct ?",
       choices: ["des maisons ensoleillees", "des maisons ensoleille", "des maisons ensoleilles", "des maisons ensoleillait"],
       answer: "des maisons ensoleillees",
       explanation: "'Maisons' est feminin pluriel, donc l'adjectif prend -ees."
