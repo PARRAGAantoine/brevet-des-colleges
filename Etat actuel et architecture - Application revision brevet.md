@@ -432,6 +432,14 @@ Le push GitHub est effectue. La branche locale `main` suit `origin/main` sur le 
 
 Note technique : pour ne pas interferer avec les autres projets GitHub du poste, ce depot utilise une surcharge locale du gestionnaire d'identifiants afin de pousser avec le compte `PARRAGAantoine`.
 
+GitHub Pages est configure via le workflow `.github/workflows/pages.yml`.
+
+URL publique :
+
+```txt
+https://parragaantoine.github.io/brevet-des-colleges/
+```
+
 ## Mise a jour notions - etape 6
 
 Le registre de notions couvre maintenant les 33 chapitres actuellement utilises par les exercices.

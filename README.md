@@ -6,6 +6,14 @@ Objectif : aider un eleve qui passera le brevet en juin 2027 a apprendre progres
 
 ## Lancer l'application
 
+Version en ligne :
+
+```txt
+https://parragaantoine.github.io/brevet-des-colleges/
+```
+
+Version locale :
+
 Ouvrir `index.html` a la racine du projet, ou directement :
 
 ```txt

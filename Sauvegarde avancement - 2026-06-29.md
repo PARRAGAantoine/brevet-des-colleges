@@ -105,6 +105,7 @@ Le dossier local est maintenant un depot Git.
 Branche locale : main.
 Remote GitHub : https://PARRAGAantoine@github.com/PARRAGAantoine/brevet-des-colleges.git
 Push GitHub effectue vers origin/main.
+GitHub Pages : https://parragaantoine.github.io/brevet-des-colleges/
 ```
 
 Consequence :

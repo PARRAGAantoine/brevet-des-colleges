@@ -291,3 +291,21 @@ Validation effectuee :
 - `node --check app.js` : OK ;
 - `node tools\validate-content.js` : OK ;
 - controle navigateur local sur `http://127.0.0.1:4174/` : 14 cartes badges, 14 medailles, aucune erreur console.
+
+## Mise en ligne GitHub - etape 12
+
+Le projet a ete publie sur GitHub :
+
+```txt
+https://github.com/PARRAGAantoine/brevet-des-colleges
+```
+
+GitHub Pages est configure avec le workflow `.github/workflows/pages.yml`.
+
+URL publique de l'application :
+
+```txt
+https://parragaantoine.github.io/brevet-des-colleges/
+```
+
+Les PDF d'annales, les documents supplementaires et les sauvegardes locales restent exclus du depot via `.gitignore`.

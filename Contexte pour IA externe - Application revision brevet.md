@@ -391,3 +391,11 @@ Les PDF d'annales, le dossier de documents supplementaires et les sauvegardes lo
 Etat du push : effectue. La branche locale `main` suit `origin/main` sur le depot public `PARRAGAantoine/brevet-des-colleges`.
 
 Note technique : une surcharge locale du helper d'identifiants Git a ete ajoutee pour ce depot afin d'utiliser Git Credential Manager, car la configuration globale GitHub CLI du poste est associee a un autre compte.
+
+GitHub Pages est configure via `.github/workflows/pages.yml`.
+
+URL publique :
+
+```txt
+https://parragaantoine.github.io/brevet-des-colleges/
+```
