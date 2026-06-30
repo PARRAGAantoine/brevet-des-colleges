@@ -129,25 +129,42 @@
   }
 
   function getRecommendation() {
+    if (!progress.answers.length) {
+      return {
+        subject: "mixed",
+        title: "Melange decouverte",
+        status: "Pour commencer",
+        mode: "first-run",
+        text: "Choisis une matiere pour commencer, ou lance un petit melange pour decouvrir l'application."
+      };
+    }
+
     const availableSubjects = content.subjects.filter((subject) =>
       content.curriculum.some((item) => item.subject === subject.id && progress.chapterStatus?.[item.id] !== "unseen")
     );
     const ranked = (availableSubjects.length ? availableSubjects : content.subjects)
-      .map((subject) => ({ ...subject, stats: getSubjectStats(subject.id) }))
+      .map((subject) => {
+        const stats = getSubjectStats(subject.id);
+        const openMistakes = progress.mistakes.filter((mistake) => mistake.subject === subject.id && !mistake.repaired).length;
+        const lastAnswerIndex = progress.answers.map((answer) => answer.subject).lastIndexOf(subject.id);
+        const notWorkedRecently = lastAnswerIndex === -1 ? progress.answers.length : progress.answers.length - lastAnswerIndex - 1;
+        const score = openMistakes * 35 + (100 - stats.rate) + Math.max(0, 6 - stats.total) * 8 + Math.min(20, notWorkedRecently * 2);
+        return { ...subject, stats, openMistakes, score };
+      })
       .sort((a, b) => {
-        const aScore = a.stats.total === 0 ? -1 : a.stats.rate;
-        const bScore = b.stats.total === 0 ? -1 : b.stats.rate;
-        return aScore - bScore;
+        return b.score - a.score || content.subjects.findIndex((item) => item.id === a.id) - content.subjects.findIndex((item) => item.id === b.id);
       });
     const subject = ranked[0] || content.subjects[0];
-    const status = subject.stats.total === 0 ? "Commencer" : subject.stats.rate < 50 ? "Prioritaire" : "A consolider";
+    const status = subject.openMistakes ? "Erreur a reprendre" : subject.stats.total === 0 ? "A essayer" : subject.stats.rate < 50 ? "Prioritaire" : "A renforcer";
     return {
       subject: subject.id,
       title: subject.label,
       status,
       text: subject.stats.total === 0
-        ? `Commence par ${subject.label} pour lancer le suivi.`
-        : `${subject.label} est a ${subject.stats.rate} % de reussite. Quelques questions ciblees aideront.`
+        ? `${subject.label} n'a pas encore ete travaille. Une courte seance aidera a voir ou tu en es.`
+        : subject.openMistakes
+          ? `${subject.label} a ${subject.openMistakes} question${subject.openMistakes > 1 ? "s" : ""} a retravailler. On reprend avec le cours avant de recommencer.`
+          : `${subject.label} est a ${subject.stats.rate} % de reussite. Quelques questions ciblees aideront.`
     };
   }
 
@@ -277,8 +294,12 @@
     document.getElementById("dailyProgressBar").style.width = `${dailyPercent}%`;
     document.getElementById("dailyProgressText").textContent = `${todayAnswers.length} / 10 questions pour valider la journee.`;
     document.getElementById("sidebarGoal").textContent = `${todayAnswers.length} question${todayAnswers.length > 1 ? "s" : ""} repondue${todayAnswers.length > 1 ? "s" : ""}`;
-    document.getElementById("dailyMission").textContent = `Construire les bases en ${recommendation.title}`;
-    document.getElementById("dailyHint").textContent = `${recommendation.text} Objectif : arriver progressivement au niveau brevet avant juin 2027.`;
+    document.getElementById("dailyMission").textContent = recommendation.mode === "first-run"
+      ? "Choisis une matiere pour commencer"
+      : `Construire les bases en ${recommendation.title}`;
+    document.getElementById("dailyHint").textContent = recommendation.mode === "first-run"
+      ? "Tu peux choisir une matiere precise ou lancer un melange decouverte de 5 questions."
+      : `${recommendation.text} Objectif : arriver progressivement au niveau brevet avant juin 2027.`;
 
     const overview = document.getElementById("subjectOverview");
     overview.innerHTML = content.subjects.map((subject) => {
@@ -297,11 +318,12 @@
   function renderSubjectSelects() {
     const options = content.subjects.map((subject) => `<option value="${subject.id}">${subject.label}</option>`).join("");
     const sessionSelect = document.getElementById("sessionSubject");
+    const previousSessionSubject = sessionSelect.value || activeSubject;
     if (!sessionSelect.dataset.ready) {
-      sessionSelect.innerHTML = `<option value="mixed">Melange type brevet</option>${options}`;
       sessionSelect.dataset.ready = "true";
     }
-    if (!sessionSelect.value) sessionSelect.value = activeSubject;
+    sessionSelect.innerHTML = `<option value="mixed">${progress.answers.length ? "Melange type brevet" : "Melange decouverte"}</option>${options}`;
+    sessionSelect.value = ["mixed", ...content.subjects.map((subject) => subject.id)].includes(previousSessionSubject) ? previousSessionSubject : activeSubject;
     renderSessionNotions();
 
     const practiceSelect = document.getElementById("practiceSubject");

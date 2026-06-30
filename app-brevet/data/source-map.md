@@ -419,3 +419,17 @@ Les textes visibles par l'eleve ont ete simplifies pour eviter les formulations 
 - `Attendus` et `auto-evaluation` deviennent `Ce qu'on attend dans ta reponse` et `Je verifie mon travail`.
 
 Premier audit QCM applique : remplacement de plusieurs distracteurs absurdes par des distracteurs faux mais plausibles, notamment en EMC, citoyennete, laicite, mondialisation, redaction et mouvement. Regle a conserver pour les prochains lots : une mauvaise reponse doit etre fausse, mais credible et dans le meme univers que la bonne reponse.
+
+## Simplification accueil et menu - etape 19
+
+Le menu principal a ete simplifie pour rester plus lisible pour un eleve :
+
+- Accueil ;
+- Seance ;
+- Exercices ;
+- Progression ;
+- Badges.
+
+Les pages secondaires `Parcours`, `Cours` et `Sujets guides` restent accessibles depuis un bloc `Acces rapide` sur l'accueil.
+
+La page d'accueil ne commence plus automatiquement par les mathematiques lors du premier lancement. Si aucune question n'a encore ete faite, l'app affiche `Choisis une matiere pour commencer` et propose un `Melange decouverte`. Ensuite, la recommandation automatique tient compte des erreurs non reparees, du taux de reussite, du volume de questions et des matieres moins travaillees recemment.
