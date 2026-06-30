@@ -39,6 +39,7 @@ Vues principales :
 Fonctionnalites deja presentes :
 
 - choix de matiere ;
+- choix manuel d'une notion precise en session guidee ;
 - cours avant exercice ;
 - exercices QCM avec correction immediate ;
 - reponses melangees a l'affichage ;
@@ -497,3 +498,16 @@ Validation effectuee :
 - `node --check app.js` : OK ;
 - `node tools\validate-content.js` : OK ;
 - controle navigateur local : 14 cartes badges, aucune erreur console.
+
+## Mise a jour sessions par notion
+
+La session guidee propose maintenant un choix de notion apres la matiere. L'option automatique reste disponible, mais l'utilisateur peut forcer une notion comme probabilites, statistiques, calcul litteral, grammaire ou SVT.
+
+Quand une notion est choisie, le cours et les questions sont selectionnes dans cette meme notion. Cela reduit fortement les sessions incoherentes ou un cours est suivi d'exercices d'un autre chapitre.
+
+Validation effectuee :
+
+- `node --check app.js` : OK ;
+- `node --check data\notions.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- controle navigateur local : Mathematiques > Probabilites affiche un cours et une question de probabilites, sans erreur console.

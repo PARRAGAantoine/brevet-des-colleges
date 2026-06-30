@@ -319,3 +319,22 @@ Point a traiter plus tard :
 - profils locaux pour plusieurs utilisateurs sur un meme appareil ;
 - export/import ou QR code de sauvegarde pour transferer manuellement une progression ;
 - eventuelle synchronisation en ligne avec compte eleve, a cadrer en V2 avec backend, securite et RGPD.
+
+## Sessions par notion - etape 13
+
+La session guidee permet maintenant de choisir une notion precise apres la matiere.
+
+Comportement ajoute :
+
+- option "Automatique - notion recommandee" par defaut ;
+- liste des notions liees a la matiere choisie ;
+- desactivation du choix de notion pour la serie mixte ;
+- quand une notion est choisie, le cours et les questions sont filtres sur cette notion ;
+- les generateurs offline peuvent produire directement des questions pour la notion choisie.
+
+Validation effectuee :
+
+- `node --check app.js` : OK ;
+- `node --check data\notions.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- controle navigateur local : session Mathematiques > Probabilites, cours et question coherents, aucune erreur console.

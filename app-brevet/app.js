@@ -61,6 +61,12 @@
     return registry.generateForNotion(notion, count, getGeneratedSeedBase(subjectId, chapter, offset));
   }
 
+  function generateQuestionsForNotion(notion, count, offset = 0) {
+    const registry = window.BREVET_GENERATORS;
+    if (!registry || !notion || !notion.generators?.length) return [];
+    return registry.generateForNotion(notion, count, getGeneratedSeedBase(notion.subject, notion.id, offset));
+  }
+
   function findExerciseByReference(reference) {
     const staticExercise = content.exercises.find((exercise) => exercise.id === reference.exerciseId);
     if (staticExercise) return staticExercise;
@@ -287,6 +293,7 @@
       sessionSelect.dataset.ready = "true";
     }
     if (!sessionSelect.value) sessionSelect.value = activeSubject;
+    renderSessionNotions();
 
     const practiceSelect = document.getElementById("practiceSubject");
     if (!practiceSelect.dataset.ready) {
@@ -295,6 +302,24 @@
     }
     if (!practiceSelect.value) practiceSelect.value = activeSubject;
     renderPracticeChapters();
+  }
+
+  function renderSessionNotions() {
+    const subject = document.getElementById("sessionSubject").value || activeSubject;
+    const select = document.getElementById("sessionNotion");
+    const current = select.value || "auto";
+    if (subject === "mixed") {
+      select.innerHTML = `<option value="auto">Automatique - serie mixte</option>`;
+      select.disabled = true;
+      return;
+    }
+    const notions = (content.notions || [])
+      .filter((notion) => notion.subject === subject)
+      .slice()
+      .sort((a, b) => a.chapter.localeCompare(b.chapter) || a.title.localeCompare(b.title));
+    select.disabled = false;
+    select.innerHTML = `<option value="auto">Automatique - notion recommandee</option>${notions.map((notion) => `<option value="${notion.id}">${notion.title}</option>`).join("")}`;
+    select.value = notions.some((notion) => notion.id === current) ? current : "auto";
   }
 
   function renderPracticeChapters() {
@@ -758,7 +783,22 @@
       || lessons[0];
   }
 
-  function pickSessionQuestions(subjectId, count, focusChapter, lesson = null) {
+  function pickSessionLessonForNotion(notion, targetStage) {
+    const stageOrder = ["Decouverte", "Consolidation", "Type brevet"];
+    const targetIndex = stageOrder.indexOf(targetStage);
+    const lessons = content.lessons
+      .filter((lesson) => lesson.subject === notion.subject)
+      .filter((lesson) => lesson.notionId === notion.id || chapterMatches(notion.chapter, lesson.chapter));
+    return lessons
+      .sort((a, b) => {
+        const aStageGap = Math.abs(stageOrder.indexOf(a.stage || "Decouverte") - targetIndex);
+        const bStageGap = Math.abs(stageOrder.indexOf(b.stage || "Decouverte") - targetIndex);
+        return aStageGap - bStageGap || a.title.localeCompare(b.title);
+      })[0]
+      || pickSessionLesson(notion.subject, targetStage);
+  }
+
+  function pickSessionQuestions(subjectId, count, focusChapter, lesson = null, notion = null) {
     const targetStage = getTargetStage(subjectId);
     const stageOrder = ["Decouverte", "Consolidation", "Type brevet"];
     const targetIndex = stageOrder.indexOf(targetStage);
@@ -767,15 +807,23 @@
       answeredCounts.set(answer.exerciseId, (answeredCounts.get(answer.exerciseId) || 0) + 1);
     });
 
-    let pool = content.exercises
-      .filter((exercise) => exercise.subject === subjectId)
-      .filter((exercise) => !focusChapter || chapterMatches(focusChapter, exercise.chapter));
+    let pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
+
+    if (notion) {
+      const exactPool = pool.filter((exercise) => exercise.notionId === notion.id);
+      pool = exactPool.length ? exactPool : pool.filter((exercise) => chapterMatches(notion.chapter, exercise.chapter));
+    } else {
+      pool = pool.filter((exercise) => !focusChapter || chapterMatches(focusChapter, exercise.chapter));
+    }
 
     if (!pool.length) {
       pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
     }
 
-    if (focusChapter) {
+    if (notion) {
+      const generatedCount = Math.max(4, count + 3 - pool.length);
+      pool = [...pool, ...generateQuestionsForNotion(notion, generatedCount, pool.length)];
+    } else if (focusChapter) {
       const generatedCount = Math.max(4, count + 3 - pool.length);
       pool = [...pool, ...generateQuestionsForChapter(subjectId, focusChapter, generatedCount, pool.length)];
     }
@@ -1014,9 +1062,13 @@
 
   function startSession() {
     const subject = document.getElementById("sessionSubject").value || activeSubject;
+    const notionId = document.getElementById("sessionNotion").value || "auto";
     const duration = Number(document.getElementById("sessionDuration").value);
     const isMixed = subject === "mixed";
     const targetStage = isMixed ? "Type brevet" : getTargetStage(subject);
+    const selectedNotion = !isMixed && notionId !== "auto"
+      ? (content.notions || []).find((notion) => notion.id === notionId && notion.subject === subject)
+      : null;
     const lesson = isMixed ? {
       subject: "mixed",
       chapter: "Methodologie",
@@ -1024,15 +1076,16 @@
       summary: "Dans une serie mixte, le but est de changer vite de reflexe : lire la consigne, identifier la matiere, puis choisir la methode adaptee.",
       takeaway: "Avant de repondre, repere le verbe de consigne : calculer, justifier, relever, expliquer, comparer.",
       example: "En maths on pose le calcul ; en francais on cite le texte ; en histoire-geo on utilise document + connaissance ; en sciences on relie donnees et conclusion."
-    } : pickSessionLesson(subject, targetStage);
+    } : selectedNotion ? pickSessionLessonForNotion(selectedNotion, targetStage) : pickSessionLesson(subject, targetStage);
     const questionCount = duration === 30 ? (isMixed ? 8 : 5) : (isMixed ? 5 : 3);
-    const questions = isMixed ? pickMixedSessionQuestions(questionCount) : pickSessionQuestions(subject, questionCount, lesson.chapter, lesson);
+    const questions = isMixed ? pickMixedSessionQuestions(questionCount) : pickSessionQuestions(subject, questionCount, selectedNotion?.chapter || lesson.chapter, lesson, selectedNotion);
     addPoints(10);
     currentSession = {
       subject,
+      notionId: selectedNotion?.id || null,
       duration,
       lesson,
-      focusChapter: lesson.chapter,
+      focusChapter: selectedNotion?.chapter || lesson.chapter,
       questions,
       index: -1,
       correct: 0,
@@ -1371,10 +1424,15 @@
 
     document.querySelector("[data-start-recommended]").addEventListener("click", () => {
       document.getElementById("sessionSubject").value = activeSubject;
+      renderSessionNotions();
+      document.getElementById("sessionNotion").value = "auto";
       setView("session");
     });
 
     document.getElementById("startSessionButton").addEventListener("click", startSession);
+    document.getElementById("sessionSubject").addEventListener("change", () => {
+      renderSessionNotions();
+    });
     document.getElementById("newQuestionButton").addEventListener("click", () => {
       currentPracticeQuestion = pickQuestion(document.getElementById("practiceSubject").value);
       render();

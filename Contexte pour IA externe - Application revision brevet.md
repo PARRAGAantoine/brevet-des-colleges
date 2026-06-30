@@ -96,6 +96,7 @@ Fonctionnalites existantes :
 - parcours par chapitre ;
 - statut "pas encore vu" ;
 - sessions guidees ;
+- choix manuel de notion en session guidee ;
 - cours avant exercices ;
 - exercices QCM ;
 - reponses QCM melangees ;
@@ -388,6 +389,14 @@ Pistes a etudier :
 - synchronisation multi-appareils avec compte eleve, backend et base de donnees.
 
 Point de vigilance : la synchronisation en ligne sort du modele offline pur et implique securite, gestion des donnees personnelles et RGPD. Elle doit etre cadree comme V2, pas comme une petite option UI.
+
+## Mise a jour pour l'IA externe : sessions par notion
+
+La session guidee permet maintenant de choisir une notion precise apres la matiere. L'option automatique reste disponible.
+
+Quand une notion est choisie, le cours et les exercices sont filtres sur cette meme notion. Les generateurs offline peuvent aussi produire directement des questions pour la notion choisie.
+
+Point a ameliorer ensuite : certaines notions restent larges, par exemple geometrie ou sciences. Il faudra probablement les decouper en sous-notions pedagogiques plus fines pour obtenir des sessions encore plus coherentes.
 
 ## Mise a jour pour l'IA externe : GitHub
 

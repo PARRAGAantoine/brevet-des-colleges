@@ -110,7 +110,7 @@
       type: "interpretatif",
       prerequisites: [],
       coursePath: "cours/francais-lecture.html",
-      generators: ["sci.donnees.graphique", "sci.donnees.tableau"]
+      generators: []
     },
     {
       id: "fr.interpretation",
