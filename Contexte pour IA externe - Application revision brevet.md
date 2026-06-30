@@ -375,3 +375,17 @@ Validation recente :
 La gamification visuelle des badges a ete renforcee. Les badges non debloques sont maintenant affiches en version plate grisee "A gagner". Les badges debloques sont prepares en paliers bronze, argent et or, avec un rendu de medaille CSS offline.
 
 Point important pour la suite : les paliers visuels existent, mais le systeme de badges peut encore etre enrichi pedagogiquement avec davantage de badges par matiere, par notion, par perseverance et par progression dans les erreurs reparees.
+
+## Mise a jour pour l'IA externe : GitHub
+
+Le depot Git local a ete initialise sur la branche `main`.
+
+Remote configure :
+
+```txt
+https://github.com/PARRAGAantoine/brevet-des-colleges.git
+```
+
+Les PDF d'annales, le dossier de documents supplementaires et les sauvegardes locales sont exclus via `.gitignore`.
+
+Etat du push : bloque pour le moment, car l'authentification GitHub locale utilise le compte `FormaElan`, qui n'a pas les droits d'ecriture sur le depot `PARRAGAantoine/brevet-des-colleges`.

@@ -101,14 +101,16 @@ Dans ce projet, quand l'utilisateur demande de "sauvegarder", cela signifie :
 Etat actuel :
 
 ```txt
-Le dossier n'est pas encore un depot Git.
-Il n'existe pas encore de remote GitHub configure.
+Le dossier local est maintenant un depot Git.
+Branche locale : main.
+Remote GitHub : https://github.com/PARRAGAantoine/brevet-des-colleges.git
+Push GitHub bloque par les droits du compte actuellement connecte.
 ```
 
 Consequence :
 
-- un push GitHub n'est pas encore possible ;
-- la prochaine etape de sauvegarde complete devra initialiser Git ou utiliser un depot GitHub fourni par l'utilisateur ;
+- un commit local existe ;
+- le push GitHub necessite que le compte connecte ait les droits sur le depot ;
 - il faudra probablement eviter de pousser les annales PDF et fichiers volumineux/proteges, sauf decision explicite.
 
 ## Prochaine priorite conseillee
