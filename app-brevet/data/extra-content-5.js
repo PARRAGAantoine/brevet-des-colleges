@@ -1,0 +1,402 @@
+(function () {
+  const content = window.BREVET_CONTENT;
+
+  content.exercises.push(
+    {
+      id: "math-extra5-proba-1",
+      subject: "mathematiques",
+      chapter: "Probabilites",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Dans une boite, il y a 5 jetons rouges et 5 jetons bleus. Quelle est la probabilite de tirer un jeton rouge ?",
+      choices: ["1/2", "5", "1/5", "10/5"],
+      answer: "1/2",
+      explanation: "Il y a 5 jetons rouges sur 10 jetons au total : 5/10 = 1/2."
+    },
+    {
+      id: "math-extra5-proba-2",
+      subject: "mathematiques",
+      chapter: "Probabilites",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "On tire au hasard une lettre du mot BREVET. Quelle est la probabilite de tirer la lettre E ?",
+      choices: ["2/6", "1/6", "2/5", "1/3"],
+      answer: "2/6",
+      explanation: "Le mot BREVET contient 6 lettres, dont deux lettres E."
+    },
+    {
+      id: "math-extra5-proba-3",
+      subject: "mathematiques",
+      chapter: "Probabilites",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "On lance un de equilibre. Quelle est la probabilite d'obtenir un multiple de 3 ?",
+      choices: ["2/6", "3/6", "1/6", "4/6"],
+      answer: "2/6",
+      explanation: "Les multiples de 3 sur un de sont 3 et 6 : il y a 2 issues favorables sur 6."
+    },
+    {
+      id: "math-extra5-proba-4",
+      subject: "mathematiques",
+      chapter: "Probabilites",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Une roue a 12 secteurs egaux : 3 jaunes, 4 verts et 5 bleus. La probabilite de ne pas tomber sur bleu est :",
+      choices: ["7/12", "5/12", "3/12", "1/2"],
+      answer: "7/12",
+      explanation: "Ne pas tomber sur bleu signifie tomber sur jaune ou vert : 3 + 4 = 7 secteurs sur 12."
+    },
+    {
+      id: "math-extra5-proba-5",
+      subject: "mathematiques",
+      chapter: "Probabilites",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Dans un sac, 8 boules sont numerotees de 1 a 8. Quelle est la probabilite d'obtenir un nombre pair superieur a 3 ?",
+      choices: ["3/8", "4/8", "2/8", "5/8"],
+      answer: "3/8",
+      explanation: "Les nombres pairs superieurs a 3 sont 4, 6 et 8 : 3 issues favorables sur 8."
+    },
+    {
+      id: "math-extra5-equations-1",
+      subject: "mathematiques",
+      chapter: "Equations",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Quelle est la solution de x - 9 = 4 ?",
+      choices: ["13", "5", "-13", "36"],
+      answer: "13",
+      explanation: "On ajoute 9 aux deux membres : x = 4 + 9 = 13."
+    },
+    {
+      id: "math-extra5-equations-2",
+      subject: "mathematiques",
+      chapter: "Equations",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Quelle est la solution de 2x + 6 = 18 ?",
+      choices: ["6", "12", "24", "9"],
+      answer: "6",
+      explanation: "2x + 6 = 18 donc 2x = 12 puis x = 6."
+    },
+    {
+      id: "math-extra5-equations-3",
+      subject: "mathematiques",
+      chapter: "Equations",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Quelle equation correspond a : 'le triple d'un nombre augmente de 5 vaut 20' ?",
+      choices: ["3x + 5 = 20", "3 + x + 5 = 20", "5x + 3 = 20", "3x - 5 = 20"],
+      answer: "3x + 5 = 20",
+      explanation: "Le triple du nombre est 3x, puis on ajoute 5."
+    },
+    {
+      id: "math-extra5-equations-4",
+      subject: "mathematiques",
+      chapter: "Equations",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Un programme donne 4x - 3. Quelle valeur de x donne 25 ?",
+      choices: ["7", "22", "5,5", "28"],
+      answer: "7",
+      explanation: "On resout 4x - 3 = 25, donc 4x = 28 et x = 7."
+    },
+    {
+      id: "math-extra5-grandeurs-1",
+      subject: "mathematiques",
+      chapter: "Grandeurs et mesures",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Combien de secondes y a-t-il dans 3 minutes ?",
+      choices: ["180", "300", "30", "120"],
+      answer: "180",
+      explanation: "Une minute contient 60 secondes, donc 3 minutes contiennent 3 x 60 = 180 secondes."
+    },
+    {
+      id: "math-extra5-grandeurs-2",
+      subject: "mathematiques",
+      chapter: "Grandeurs et mesures",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Un objet coute 80 euros. Son prix augmente de 10 %. Le nouveau prix est :",
+      choices: ["88 euros", "90 euros", "72 euros", "8 euros"],
+      answer: "88 euros",
+      explanation: "10 % de 80 vaut 8, donc le nouveau prix est 80 + 8 = 88 euros."
+    },
+    {
+      id: "math-extra5-grandeurs-3",
+      subject: "mathematiques",
+      chapter: "Grandeurs et mesures",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Un robinet remplit 12 litres en 3 minutes. Son debit est :",
+      choices: ["4 L/min", "36 L/min", "9 L/min", "15 L/min"],
+      answer: "4 L/min",
+      explanation: "Debit = volume / duree = 12 / 3 = 4 litres par minute."
+    },
+    {
+      id: "math-extra5-tableur-1",
+      subject: "mathematiques",
+      chapter: "Algorithmique et tableur",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Dans un tableur, que designe la cellule C4 ?",
+      choices: ["La colonne C et la ligne 4", "La colonne 4 et la ligne C", "Le calcul C fois 4", "La quatrieme feuille"],
+      answer: "La colonne C et la ligne 4",
+      explanation: "Une reference de cellule indique d'abord la colonne, puis la ligne."
+    },
+    {
+      id: "math-extra5-tableur-2",
+      subject: "mathematiques",
+      chapter: "Algorithmique et tableur",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Si A1 vaut 6 et B1 vaut 4, que donne la formule =A1-B1 ?",
+      choices: ["2", "10", "24", "1,5"],
+      answer: "2",
+      explanation: "La formule calcule 6 - 4 = 2."
+    },
+    {
+      id: "math-extra5-tableur-3",
+      subject: "mathematiques",
+      chapter: "Algorithmique et tableur",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Un algorithme demande : choisir un nombre, ajouter 2, multiplier par 5. Si on choisit 4, on obtient :",
+      choices: ["30", "22", "20", "14"],
+      answer: "30",
+      explanation: "On ajoute 2 a 4 : 6, puis on multiplie par 5 : 30."
+    },
+    {
+      id: "fr-extra5-lecture-langue-1",
+      subject: "francais",
+      chapter: "Lecture et langue",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Dans un recit, le passe simple sert souvent a :",
+      choices: ["faire avancer l'action", "decrire une habitude", "exprimer un ordre", "poser une question"],
+      answer: "faire avancer l'action",
+      explanation: "Le passe simple presente souvent les actions principales et successives du recit."
+    },
+    {
+      id: "fr-extra5-lecture-langue-2",
+      subject: "francais",
+      chapter: "Lecture et langue",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Dans 'Il faisait froid et les arbres tremblaient', l'imparfait sert surtout a :",
+      choices: ["decrire le cadre", "annoncer un ordre", "terminer une action ponctuelle", "poser une condition"],
+      answer: "decrire le cadre",
+      explanation: "L'imparfait installe le decor et decrit une situation."
+    },
+    {
+      id: "fr-extra5-lecture-langue-3",
+      subject: "francais",
+      chapter: "Lecture et langue",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Dans 'Il marchait quand soudain la porte claqua', l'opposition entre imparfait et passe simple montre :",
+      choices: ["un decor interrompu par une action soudaine", "deux habitudes identiques", "un ordre donne au lecteur", "une question indirecte"],
+      answer: "un decor interrompu par une action soudaine",
+      explanation: "L'imparfait installe l'action en cours ; le passe simple marque l'evenement soudain."
+    },
+    {
+      id: "fr-extra5-reecriture-1",
+      subject: "francais",
+      chapter: "Reecriture",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Transforme 'Il finit son travail' avec 'ils'.",
+      choices: ["Ils finissent leur travail", "Ils finit leur travail", "Ils finir son travail", "Ils finissent son travail"],
+      answer: "Ils finissent leur travail",
+      explanation: "Le verbe s'accorde avec ils et le determinant devient leur."
+    },
+    {
+      id: "fr-extra5-reecriture-2",
+      subject: "francais",
+      chapter: "Reecriture",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Transforme 'Elle est heureuse' au masculin pluriel.",
+      choices: ["Ils sont heureux", "Ils est heureux", "Elles sont heureuses", "Ils sont heureuse"],
+      answer: "Ils sont heureux",
+      explanation: "Le masculin pluriel impose ils sont et l'adjectif heureux."
+    },
+    {
+      id: "fr-extra5-reecriture-3",
+      subject: "francais",
+      chapter: "Reecriture",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Transforme 'Je voyais la lumiere' avec 'nous' au meme temps.",
+      choices: ["Nous voyions la lumiere", "Nous voyons la lumiere", "Nous voyez la lumiere", "Nous voyait la lumiere"],
+      answer: "Nous voyions la lumiere",
+      explanation: "L'imparfait de voir avec nous s'ecrit : nous voyions."
+    },
+    {
+      id: "fr-extra5-redaction-1",
+      subject: "francais",
+      chapter: "Redaction",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Quel element aide le plus a organiser une redaction ?",
+      choices: ["Un plan rapide avant d'ecrire", "Une liste de mots au hasard", "Une conclusion au debut", "Aucune relecture"],
+      answer: "Un plan rapide avant d'ecrire",
+      explanation: "Un plan permet de classer les idees et d'eviter les repetitions."
+    },
+    {
+      id: "fr-extra5-redaction-2",
+      subject: "francais",
+      chapter: "Redaction",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Dans un sujet d'imagination, il faut surtout respecter :",
+      choices: ["la situation et les contraintes du sujet", "uniquement son avis personnel", "le plan d'un expose scientifique", "une liste sans phrases"],
+      answer: "la situation et les contraintes du sujet",
+      explanation: "Le texte invente doit rester coherent avec la consigne, le narrateur, le temps et le cadre demandes."
+    },
+    {
+      id: "fr-extra5-redaction-3",
+      subject: "francais",
+      chapter: "Redaction",
+      stage: "Type brevet",
+      type: "qcm",
+      question: "Pour conclure un sujet de reflexion, il faut :",
+      choices: ["repondre clairement a la question posee", "ouvrir un nouveau paragraphe d'exemple", "changer d'opinion sans expliquer", "copier l'introduction mot pour mot"],
+      answer: "repondre clairement a la question posee",
+      explanation: "La conclusion ferme le raisonnement en donnant une reponse nette ou nuancee."
+    },
+    {
+      id: "hist-extra5-citoyennete-1",
+      subject: "histoire",
+      chapter: "Citoyennete",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Etre citoyen francais donne notamment le droit de :",
+      choices: ["voter a partir de 18 ans", "ne jamais respecter la loi", "choisir les notes du brevet", "supprimer les institutions"],
+      answer: "voter a partir de 18 ans",
+      explanation: "Le droit de vote est un droit politique majeur du citoyen."
+    },
+    {
+      id: "hist-extra5-citoyennete-2",
+      subject: "histoire",
+      chapter: "Citoyennete",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Un devoir du citoyen est par exemple :",
+      choices: ["respecter la loi", "refuser toute regle commune", "voter plusieurs fois", "ignorer les autres"],
+      answer: "respecter la loi",
+      explanation: "La citoyennete associe des droits et des devoirs dans la vie commune."
+    },
+    {
+      id: "hist-extra5-monde-1",
+      subject: "histoire",
+      chapter: "Monde",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "La mondialisation augmente surtout :",
+      choices: ["les echanges entre territoires", "l'isolement total des pays", "la disparition des transports", "l'absence de flux"],
+      answer: "les echanges entre territoires",
+      explanation: "La mondialisation correspond a l'intensification des flux a l'echelle mondiale."
+    },
+    {
+      id: "hist-extra5-monde-2",
+      subject: "histoire",
+      chapter: "Monde",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Un flux de marchandises correspond a :",
+      choices: ["un deplacement de biens produits ou vendus", "une frontiere naturelle", "une montagne", "un discours politique"],
+      answer: "un deplacement de biens produits ou vendus",
+      explanation: "Les marchandises circulent entre espaces de production, de transport et de consommation."
+    },
+    {
+      id: "hist-extra5-valeurs-1",
+      subject: "histoire",
+      chapter: "Valeurs de la Republique",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "La valeur d'egalite signifie que :",
+      choices: ["les citoyens ont les memes droits devant la loi", "tout le monde a le meme metier", "les opinions sont interdites", "les elections disparaissent"],
+      answer: "les citoyens ont les memes droits devant la loi",
+      explanation: "L'egalite republicaine concerne notamment l'egalite devant la loi."
+    },
+    {
+      id: "hist-extra5-valeurs-2",
+      subject: "histoire",
+      chapter: "Valeurs de la Republique",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "La fraternite renvoie surtout a :",
+      choices: ["la solidarite entre les citoyens", "la separation des continents", "l'interdiction de voter", "la monarchie"],
+      answer: "la solidarite entre les citoyens",
+      explanation: "La fraternite exprime l'idee d'entraide et d'appartenance a une communaute politique."
+    },
+    {
+      id: "sci-extra5-donnees-1",
+      subject: "sciences",
+      chapter: "Donnees",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Dans un tableau scientifique, l'unite sert a :",
+      choices: ["comprendre ce qui est mesure", "decorer le tableau", "remplacer les valeurs", "indiquer le nom de l'eleve"],
+      answer: "comprendre ce qui est mesure",
+      explanation: "Sans unite, une valeur numerique peut etre mal interpretee."
+    },
+    {
+      id: "sci-extra5-donnees-2",
+      subject: "sciences",
+      chapter: "Donnees",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Si une courbe monte de gauche a droite, on peut dire que la grandeur mesuree :",
+      choices: ["augmente", "diminue toujours", "reste constante", "disparait"],
+      answer: "augmente",
+      explanation: "Une courbe montante indique une augmentation de la valeur lue sur l'axe vertical."
+    },
+    {
+      id: "sci-extra5-svt-1",
+      subject: "sciences",
+      chapter: "SVT",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Un micro-organisme est :",
+      choices: ["un etre vivant microscopique", "un organe du corps", "une unite de longueur", "un type d'energie"],
+      answer: "un etre vivant microscopique",
+      explanation: "Les bacteries ou certains champignons microscopiques sont des micro-organismes."
+    },
+    {
+      id: "sci-extra5-svt-2",
+      subject: "sciences",
+      chapter: "SVT",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Lors d'une experience, le facteur teste est :",
+      choices: ["le seul element que l'on fait varier", "le resultat final", "la conclusion", "la couleur du tableau"],
+      answer: "le seul element que l'on fait varier",
+      explanation: "Pour conclure correctement, on ne fait varier qu'un facteur a la fois."
+    },
+    {
+      id: "sci-extra5-techno-1",
+      subject: "sciences",
+      chapter: "Technologie",
+      stage: "Decouverte",
+      type: "qcm",
+      question: "Dans un systeme automatique, une information peut etre :",
+      choices: ["presence detectee", "masse d'un cahier uniquement", "une figure de style", "une date historique"],
+      answer: "presence detectee",
+      explanation: "Un capteur peut transmettre au systeme l'information qu'une presence est detectee."
+    },
+    {
+      id: "sci-extra5-techno-2",
+      subject: "sciences",
+      chapter: "Technologie",
+      stage: "Consolidation",
+      type: "qcm",
+      question: "Dans une chaine d'energie, distribuer l'energie signifie :",
+      choices: ["l'amener aux elements qui en ont besoin", "supprimer toutes les informations", "mesurer la temperature", "rediger une conclusion"],
+      answer: "l'amener aux elements qui en ont besoin",
+      explanation: "Distribuer l'energie consiste a la transmettre vers les composants qui l'utilisent."
+    }
+  );
+}());

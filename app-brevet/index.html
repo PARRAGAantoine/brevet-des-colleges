@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brevet Sprint</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigation principale">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">B</div>
+          <div>
+            <p class="eyebrow">Revision brevet</p>
+            <h1>Brevet Sprint</h1>
+          </div>
+        </div>
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="dashboard" type="button">Accueil</button>
+          <button class="nav-item" data-view="roadmap" type="button">Parcours</button>
+          <button class="nav-item" data-view="session" type="button">Session</button>
+          <button class="nav-item" data-view="courses" type="button">Cours</button>
+          <button class="nav-item" data-view="practice" type="button">Exercices</button>
+          <button class="nav-item" data-view="guided" type="button">Sujets guides</button>
+          <button class="nav-item" data-view="progress" type="button">Progression</button>
+          <button class="nav-item" data-view="badges" type="button">Badges</button>
+        </nav>
+        <div class="sidebar-card">
+          <p class="muted">Objectif</p>
+          <strong>15 minutes aujourd'hui</strong>
+          <span id="sidebarGoal">0 question repondue</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="view active" id="dashboardView">
+          <div class="hero-band">
+            <div>
+              <p class="eyebrow">Objectif brevet - juin 2027</p>
+              <h2 id="dailyMission">Reprendre une notion fragile</h2>
+              <p id="dailyHint">On construit les bases maintenant, puis on montera progressivement vers le type brevet.</p>
+            </div>
+            <button class="primary-action" data-start-recommended type="button">Commencer</button>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric">
+              <span>Points</span>
+              <strong id="pointsValue">0</strong>
+            </article>
+            <article class="metric">
+              <span>Serie</span>
+              <strong id="streakValue">0 j</strong>
+            </article>
+            <article class="metric">
+              <span>Meilleure serie</span>
+              <strong id="bestStreakValue">0 j</strong>
+            </article>
+            <article class="metric">
+              <span>Reussite</span>
+              <strong id="successValue">0 %</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-layout">
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Recommandation</p>
+                  <h3 id="recommendationTitle">Mathematiques</h3>
+                </div>
+                <span class="status-pill" id="recommendationStatus">A travailler</span>
+              </div>
+              <p id="recommendationText">Commence par quelques questions pour initialiser ta progression.</p>
+              <div class="actions-row">
+                <button class="secondary-action" data-view-target="session" type="button">Session guidee</button>
+                <button class="ghost-action" data-view-target="practice" type="button">Exercices libres</button>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Parcours</p>
+                  <h3>Progression douce</h3>
+                </div>
+              </div>
+              <div class="learning-steps" aria-label="Progression pedagogique">
+                <span class="step active">1. Decouverte</span>
+                <span class="step">2. Consolidation</span>
+                <span class="step">3. Type brevet</span>
+              </div>
+              <div class="progress-track" aria-label="Progression du jour">
+                <div id="dailyProgressBar"></div>
+              </div>
+              <p class="muted" id="dailyProgressText">0 / 10 questions pour valider la journee.</p>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Matieres</p>
+                <h3>Etat des forces</h3>
+              </div>
+            </div>
+            <div class="subject-grid" id="subjectOverview"></div>
+          </section>
+        </section>
+
+        <section class="view" id="roadmapView">
+          <div class="page-heading">
+            <p class="eyebrow">Objectif juin 2027</p>
+            <h2>Parcours du programme</h2>
+            <p>Les notions sont classees par etape : decouvrir, consolider, puis s'entrainer type brevet.</p>
+          </div>
+          <div class="filter-row" id="roadmapFilters"></div>
+          <div class="roadmap-list" id="roadmapList"></div>
+        </section>
+
+        <section class="view" id="sessionView">
+          <div class="page-heading">
+            <p class="eyebrow">Session guidee</p>
+            <h2>Choisis ton format</h2>
+            <p>Un vrai cours guide, puis une serie de questions corrigees.</p>
+          </div>
+          <div class="session-builder panel">
+            <label>
+              Matiere
+              <select id="sessionSubject"></select>
+            </label>
+            <label>
+              Duree
+              <select id="sessionDuration">
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="0">Libre</option>
+              </select>
+            </label>
+            <button class="primary-action" id="startSessionButton" type="button">Lancer la session</button>
+          </div>
+          <div class="session-stage" id="sessionStage"></div>
+        </section>
+
+        <section class="view" id="coursesView">
+          <div class="page-heading">
+            <p class="eyebrow">Cours courts</p>
+            <h2>Reviser une notion</h2>
+            <p>Des rappels courts pour passer vite a l'entrainement.</p>
+          </div>
+          <div class="filter-row" id="courseFilters"></div>
+          <div class="filter-row">
+            <label>
+              Niveau
+              <select id="courseStageFilter">
+                <option value="all">Tous les niveaux</option>
+                <option value="Decouverte">Decouverte</option>
+                <option value="Consolidation">Consolidation</option>
+                <option value="Type brevet">Type brevet</option>
+              </select>
+            </label>
+          </div>
+          <div class="cards-grid" id="courseList"></div>
+        </section>
+
+        <section class="view" id="practiceView">
+          <div class="page-heading">
+            <p class="eyebrow">Exercices</p>
+            <h2>Entrainement libre</h2>
+            <p>Questions type brevet avec correction immediate.</p>
+          </div>
+          <div class="practice-layout">
+            <aside class="panel compact-panel">
+              <label>
+                Matiere
+                <select id="practiceSubject"></select>
+              </label>
+              <label>
+                Niveau
+                <select id="practiceStage">
+                  <option value="auto">Automatique</option>
+                  <option value="Decouverte">Decouverte</option>
+                  <option value="Consolidation">Consolidation</option>
+                  <option value="Type brevet">Type brevet</option>
+                </select>
+              </label>
+              <label>
+                Chapitre
+                <select id="practiceChapter">
+                  <option value="all">Tous les chapitres</option>
+                </select>
+              </label>
+              <button class="ghost-action full" id="reviewMistakeButton" type="button">Revoir une erreur</button>
+              <button class="secondary-action full" id="newQuestionButton" type="button">Nouvelle question</button>
+            </aside>
+            <div class="panel question-panel" id="practiceQuestion"></div>
+          </div>
+        </section>
+
+        <section class="view" id="guidedView">
+          <div class="page-heading">
+            <p class="eyebrow">Type brevet</p>
+            <h2>Sujets guides</h2>
+            <p>Des exercices longs a faire sur cahier, avec methode, attendus et auto-evaluation.</p>
+          </div>
+          <div class="filter-row" id="guidedFilters"></div>
+          <div class="guided-list" id="guidedTaskList"></div>
+        </section>
+
+        <section class="view" id="progressView">
+          <div class="page-heading">
+            <p class="eyebrow">Progression</p>
+            <h2>Points forts et points faibles</h2>
+            <p>La recommandation se base sur ces resultats.</p>
+          </div>
+          <div class="progress-layout">
+            <section class="panel">
+              <h3>Par matiere</h3>
+              <div id="progressBySubject"></div>
+            </section>
+            <section class="panel">
+              <h3>Historique</h3>
+              <div id="sessionHistory"></div>
+            </section>
+          </div>
+          <section class="panel">
+            <h3>Sujets guides termines</h3>
+            <div id="guidedProgressList"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Persévérance</p>
+                <h3>Erreurs à transformer</h3>
+              </div>
+              <button class="secondary-action" id="progressReviewMistakeButton" type="button">Revoir une erreur</button>
+            </div>
+            <div id="mistakeList"></div>
+          </section>
+        </section>
+
+        <section class="view" id="badgesView">
+          <div class="page-heading">
+            <p class="eyebrow">Motivation</p>
+            <h2>Badges</h2>
+            <p>Des reperes simples pour garder l'elan.</p>
+          </div>
+          <div class="cards-grid" id="badgeList"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="data/content.js"></script>
+    <script src="data/extra-content.js"></script>
+    <script src="data/extra-content-2.js"></script>
+    <script src="data/extra-content-3.js"></script>
+    <script src="data/extra-content-4.js"></script>
+    <script src="data/extra-content-5.js"></script>
+    <script src="data/notions.js"></script>
+    <script src="generators/registry.js"></script>
+    <script src="generators/math-calcul.js"></script>
+    <script src="generators/science-calcul.js"></script>
+    <script src="generators/french-language.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

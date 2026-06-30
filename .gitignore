@@ -1,0 +1,16 @@
+# Local source documents and downloaded exam papers
+*.pdf
+Documents supplementaires - Brevet general France/
+Sauvegardes/
+
+# Local/editor/system files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Dependencies/build artifacts if added later
+node_modules/
+dist/
+build/
+coverage/
