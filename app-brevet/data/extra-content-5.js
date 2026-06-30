@@ -240,7 +240,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Quel element aide le plus a organiser une redaction ?",
-      choices: ["Un plan rapide avant d'ecrire", "Une liste de mots au hasard", "Une conclusion au debut", "Aucune relecture"],
+      choices: ["Un plan rapide avant d'ecrire", "Une liste d'idees sans ordre", "Une conclusion redigee avant les arguments", "Des exemples choisis sans lien avec le sujet"],
       answer: "Un plan rapide avant d'ecrire",
       explanation: "Un plan permet de classer les idees et d'eviter les repetitions."
     },
@@ -251,7 +251,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Dans un sujet d'imagination, il faut surtout respecter :",
-      choices: ["la situation et les contraintes du sujet", "uniquement son avis personnel", "le plan d'un expose scientifique", "une liste sans phrases"],
+      choices: ["la situation et les contraintes du sujet", "le theme general sans les personnages", "un plan de texte argumentatif", "le cadre sans tenir compte du narrateur"],
       answer: "la situation et les contraintes du sujet",
       explanation: "Le texte invente doit rester coherent avec la consigne, le narrateur, le temps et le cadre demandes."
     },
@@ -262,7 +262,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "Pour conclure un sujet de reflexion, il faut :",
-      choices: ["repondre clairement a la question posee", "ouvrir un nouveau paragraphe d'exemple", "changer d'opinion sans expliquer", "copier l'introduction mot pour mot"],
+      choices: ["repondre clairement a la question posee", "ajouter un nouvel argument sans le developper", "repeter l'introduction sans bilan", "changer d'avis sans explication"],
       answer: "repondre clairement a la question posee",
       explanation: "La conclusion ferme le raisonnement en donnant une reponse nette ou nuancee."
     },
@@ -317,7 +317,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "La valeur d'egalite signifie que :",
-      choices: ["les citoyens ont les memes droits devant la loi", "tout le monde a le meme metier", "les opinions sont interdites", "les elections disparaissent"],
+      choices: ["les citoyens ont les memes droits devant la loi", "les citoyens ont tous les memes conditions de vie", "les citoyens prennent tous les memes decisions", "les citoyens ont tous les memes responsabilites"],
       answer: "les citoyens ont les memes droits devant la loi",
       explanation: "L'egalite republicaine concerne notamment l'egalite devant la loi."
     },
@@ -328,7 +328,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "La fraternite renvoie surtout a :",
-      choices: ["la solidarite entre les citoyens", "la separation des continents", "l'interdiction de voter", "la monarchie"],
+      choices: ["la solidarite entre les citoyens", "l'egalite stricte des opinions", "l'autorite d'un seul dirigeant", "l'absence de devoirs communs"],
       answer: "la solidarite entre les citoyens",
       explanation: "La fraternite exprime l'idee d'entraide et d'appartenance a une communaute politique."
     },
@@ -339,7 +339,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Dans un tableau scientifique, l'unite sert a :",
-      choices: ["comprendre ce qui est mesure", "decorer le tableau", "remplacer les valeurs", "indiquer le nom de l'eleve"],
+      choices: ["comprendre ce qui est mesure", "comparer les valeurs sans calcul", "remplacer le titre du tableau", "identifier seulement la colonne"],
       answer: "comprendre ce qui est mesure",
       explanation: "Sans unite, une valeur numerique peut etre mal interpretee."
     },
@@ -372,7 +372,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Lors d'une experience, le facteur teste est :",
-      choices: ["le seul element que l'on fait varier", "le resultat final", "la conclusion", "la couleur du tableau"],
+      choices: ["le seul element que l'on fait varier", "la mesure obtenue a la fin", "l'hypothese formulee avant le test", "le materiel utilise sans changement"],
       answer: "le seul element que l'on fait varier",
       explanation: "Pour conclure correctement, on ne fait varier qu'un facteur a la fois."
     },
@@ -383,7 +383,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Dans un systeme automatique, une information peut etre :",
-      choices: ["presence detectee", "masse d'un cahier uniquement", "une figure de style", "une date historique"],
+      choices: ["presence detectee", "ordre envoye au moteur", "energie distribuee a l'actionneur", "piece mecanique qui ouvre la porte"],
       answer: "presence detectee",
       explanation: "Un capteur peut transmettre au systeme l'information qu'une presence est detectee."
     },
@@ -394,7 +394,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Dans une chaine d'energie, distribuer l'energie signifie :",
-      choices: ["l'amener aux elements qui en ont besoin", "supprimer toutes les informations", "mesurer la temperature", "rediger une conclusion"],
+      choices: ["l'amener aux elements qui en ont besoin", "convertir l'energie en mouvement", "acquerir une information avec un capteur", "traiter une consigne dans le programme"],
       answer: "l'amener aux elements qui en ont besoin",
       explanation: "Distribuer l'energie consiste a la transmettre vers les composants qui l'utilisent."
     }

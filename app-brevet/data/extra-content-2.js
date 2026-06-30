@@ -530,7 +530,7 @@
       stage: "Consolidation",
       type: "QCM",
       question: "Un objectif majeur de la construction europeenne apres 1945 est :",
-      choices: ["Installer une paix durable", "Relancer les guerres entre voisins", "Supprimer toutes les frontieres mondiales", "Creer une monarchie europeenne"],
+      choices: ["Installer une paix durable", "Retablir les rivalites militaires entre voisins", "Isoler chaque pays europeen", "Remplacer tous les Etats par un seul empire"],
       answer: "Installer une paix durable",
       explanation: "La cooperation economique et politique doit rendre une nouvelle guerre entre pays europeens moins probable.",
       source: "Entrainement inspire des sujets d'histoire du brevet general."
@@ -542,7 +542,7 @@
       stage: "Consolidation",
       type: "QCM",
       question: "Un espace de faible densite peut etre dynamique grace :",
-      choices: ["Au tourisme ou a l'agriculture specialisee", "A l'absence totale d'activites", "A la disparition des transports", "A l'interdiction d'habiter"],
+      choices: ["Au tourisme ou a l'agriculture specialisee", "A une activite uniquement industrielle lourde", "A une urbanisation tres dense", "A une absence de services et d'emplois"],
       answer: "Au tourisme ou a l'agriculture specialisee",
       explanation: "Faible densite ne signifie pas absence de ressources ou d'activites.",
       source: "Entrainement inspire des sujets de geographie du brevet general."
@@ -554,7 +554,7 @@
       stage: "Decouverte",
       type: "QCM",
       question: "La periurbanisation correspond :",
-      choices: ["A l'installation d'habitants autour des villes", "A la disparition des villes", "A la fermeture des campagnes", "A l'augmentation des glaciers"],
+      choices: ["A l'installation d'habitants autour des villes", "Au depart massif des habitants vers les centres-villes", "A la transformation des villes en espaces agricoles", "A la concentration de toute la population dans la ville-centre"],
       answer: "A l'installation d'habitants autour des villes",
       explanation: "Des habitants vivent dans des communes autour de la ville-centre tout en gardant des liens avec elle.",
       source: "Entrainement inspire des sujets de geographie du brevet general."
@@ -566,7 +566,7 @@
       stage: "Decouverte",
       type: "QCM",
       question: "Dans la mondialisation, un flux designe :",
-      choices: ["Une circulation de marchandises, personnes, capitaux ou informations", "Une frontiere fermee", "Un relief montagneux", "Une loi nationale"],
+      choices: ["Une circulation de marchandises, personnes, capitaux ou informations", "Une limite administrative entre deux territoires", "Une zone de faible densite sans echanges", "Une activite economique strictement locale"],
       answer: "Une circulation de marchandises, personnes, capitaux ou informations",
       explanation: "Les flux relient les territoires a differentes echelles.",
       source: "Entrainement inspire des sujets de geographie du brevet general."
@@ -614,7 +614,7 @@
       stage: "Consolidation",
       type: "QCM",
       question: "La defense nationale concerne :",
-      choices: ["La protection du territoire, de la population et des interets du pays", "Uniquement les clubs sportifs", "La gestion des cantines", "La meteo"],
+      choices: ["La protection du territoire, de la population et des interets du pays", "La securite des etablissements scolaires seulement", "La gestion des elections locales uniquement", "La protection des interets prives uniquement"],
       answer: "La protection du territoire, de la population et des interets du pays",
       explanation: "La defense mobilise plusieurs acteurs pour proteger la Nation.",
       source: "Entrainement inspire des sujets d'EMC du brevet general."
@@ -638,7 +638,7 @@
       stage: "Consolidation",
       type: "QCM",
       question: "Une solution de pH 10 est :",
-      choices: ["Basique", "Acide", "Neutre", "Toujours dangereuse"],
+      choices: ["Basique", "Acide", "Neutre", "Impossible a classer avec le pH"],
       answer: "Basique",
       explanation: "Un pH superieur a 7 indique une solution basique.",
       source: "Entrainement inspire des sujets de sciences du brevet general."
@@ -662,7 +662,7 @@
       stage: "Decouverte",
       type: "QCM",
       question: "Dans un circuit electrique simple, si l'interrupteur est ouvert :",
-      choices: ["Le courant ne circule pas", "Le courant augmente toujours", "La lampe brille davantage", "La pile disparait"],
+      choices: ["Le courant ne circule pas", "Le courant circule normalement", "La lampe brille plus fort", "La tension devient forcement nulle"],
       answer: "Le courant ne circule pas",
       explanation: "Un interrupteur ouvert coupe la boucle du circuit.",
       source: "Entrainement inspire des sujets de sciences du brevet general."
@@ -686,7 +686,7 @@
       stage: "Decouverte",
       type: "QCM",
       question: "Dans un algorithme, une boucle sert a :",
-      choices: ["Repeter des instructions", "Effacer le programme", "Changer la langue du logiciel", "Interdire les conditions"],
+      choices: ["Repeter des instructions", "Tester une condition une seule fois", "Afficher seulement le resultat final", "Remplacer toutes les variables"],
       answer: "Repeter des instructions",
       explanation: "Une boucle evite de reecrire plusieurs fois la meme suite d'instructions.",
       source: "Entrainement inspire des sujets de technologie du brevet general."

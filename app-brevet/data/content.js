@@ -432,7 +432,7 @@ window.BREVET_CONTENT = {
       stage: "Type brevet",
       type: "qcm",
       question: "Dans un developpement construit, une idee doit etre accompagnee...",
-      choices: ["d'un exemple precis", "d'un dessin obligatoire", "d'une citation latine", "d'une question sans reponse"],
+      choices: ["d'un exemple precis", "d'une date placee sans explication", "d'une phrase de transition seulement", "d'une definition non reliee au sujet"],
       answer: "d'un exemple precis",
       explanation: "L'exemple montre que l'idee est maitrisee et rattachee au cours."
     },
@@ -487,7 +487,7 @@ window.BREVET_CONTENT = {
       stage: "Decouverte",
       type: "qcm",
       question: "Avant d'interpreter un graphique, il faut d'abord regarder...",
-      choices: ["le titre, les axes et les unites", "la couleur de la page", "la derniere question seulement", "le nombre de lignes du texte"],
+      choices: ["le titre, les axes et les unites", "le titre sans les axes", "les valeurs sans les unites", "la legende sans comprendre les axes"],
       answer: "le titre, les axes et les unites",
       explanation: "Ces elements permettent de savoir ce qui est mesure et comment."
     },
@@ -498,7 +498,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Dans un algorithme, une condition sert a...",
-      choices: ["choisir une action selon une situation", "decorer le programme", "supprimer les variables", "mesurer une masse"],
+      choices: ["choisir une action selon une situation", "repeter toujours les memes instructions", "afficher seulement un resultat", "demarrer le programme sans test"],
       answer: "choisir une action selon une situation",
       explanation: "Une condition permet d'executer une instruction seulement si un test est verifie."
     },
@@ -602,7 +602,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Pour caracteriser un espace productif industriel, quelle information est la plus utile ?",
-      choices: ["Les usines et les emplois crees", "La couleur du document", "Le nombre de lignes", "Le prenom du candidat"],
+      choices: ["Les usines et les emplois crees", "Le nom de la region seulement", "La presence de logements sans activite productive", "La date du document sans autre information"],
       answer: "Les usines et les emplois crees",
       explanation: "Les activites, les acteurs et les emplois permettent de montrer qu'il s'agit d'un espace productif industriel."
     },
@@ -624,7 +624,7 @@ window.BREVET_CONTENT = {
       stage: "Decouverte",
       type: "qcm",
       question: "Quelle est la meilleure organisation pour un developpement construit ?",
-      choices: ["Deux ou trois idees classees avec exemples", "Une liste de mots", "Une seule phrase tres longue", "Des dessins sans explication"],
+      choices: ["Deux ou trois idees classees avec exemples", "Une liste de connaissances non classees", "Un seul exemple sans explication", "Une introduction sans developpement"],
       answer: "Deux ou trois idees classees avec exemples",
       explanation: "Un developpement construit doit etre organise et argumente."
     },
@@ -657,7 +657,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Une solution de pH 10 est...",
-      choices: ["acide", "neutre", "basique", "toujours dangereuse"],
+      choices: ["acide", "neutre", "basique", "impossible a classer avec le pH"],
       answer: "basique",
       explanation: "Un pH superieur a 7 indique une solution basique."
     },
@@ -684,7 +684,7 @@ window.BREVET_CONTENT = {
       stage: "Type brevet",
       type: "qcm",
       question: "Dans un systeme automatise, une information captee par un capteur sert surtout a...",
-      choices: ["prendre une decision ou declencher une action", "faire joli", "remplacer l'energie", "effacer le programme"],
+      choices: ["prendre une decision ou declencher une action", "stocker l'energie principale", "remplacer tous les capteurs", "afficher une information sans traitement"],
       answer: "prendre une decision ou declencher une action",
       explanation: "Un capteur fournit une information que le systeme peut utiliser pour agir."
     },
@@ -750,7 +750,7 @@ window.BREVET_CONTENT = {
       stage: "Decouverte",
       type: "qcm",
       question: "Avant de rediger un sujet de reflexion, l'etape la plus utile est...",
-      choices: ["faire un plan rapide", "compter les lignes", "choisir une couleur", "ecrire sans relire"],
+      choices: ["faire un plan rapide", "rediger la conclusion en premier", "chercher seulement des mots compliques", "ecrire directement sans organiser"],
       answer: "faire un plan rapide",
       explanation: "Le plan aide a organiser les idees et les exemples avant l'ecriture."
     },
@@ -783,7 +783,7 @@ window.BREVET_CONTENT = {
       stage: "Decouverte",
       type: "qcm",
       question: "Le Parlement a pour role principal de...",
-      choices: ["voter la loi", "calculer une probabilite", "faire la photosynthese", "diriger une usine"],
+      choices: ["voter la loi", "rendre les jugements", "diriger le gouvernement", "organiser les elections"],
       answer: "voter la loi",
       explanation: "Le Parlement est une institution qui discute et vote les lois."
     },
@@ -794,7 +794,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Une definition precise sert surtout a...",
-      choices: ["montrer que le vocabulaire du cours est compris", "remplir la page", "eviter les exemples", "remplacer la consigne"],
+      choices: ["montrer que le vocabulaire du cours est compris", "remplacer les exemples du cours", "allonger la reponse sans l'expliquer", "eviter de relier le mot au sujet"],
       answer: "montrer que le vocabulaire du cours est compris",
       explanation: "Le vocabulaire precis est attendu dans les reponses de brevet."
     },
@@ -838,7 +838,7 @@ window.BREVET_CONTENT = {
       stage: "Type brevet",
       type: "qcm",
       question: "Dans un systeme ferme, la masse totale lors d'une reaction chimique...",
-      choices: ["se conserve", "disparait toujours", "double toujours", "devient nulle"],
+      choices: ["se conserve", "diminue toujours", "augmente toujours", "depend seulement de l'aspect du produit"],
       answer: "se conserve",
       explanation: "Les atomes se rearrangent, mais la masse totale reste la meme."
     },
@@ -849,7 +849,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Pour comparer deux resultats experimentaux, il faut d'abord verifier...",
-      choices: ["ce qui change entre les deux experiences", "la police du document", "le nombre de pages", "le nom du correcteur"],
+      choices: ["ce qui change entre les deux experiences", "la valeur la plus grande uniquement", "la conclusion avant les resultats", "l'unite sans regarder les valeurs"],
       answer: "ce qui change entre les deux experiences",
       explanation: "Identifier le facteur teste permet de construire une conclusion valide."
     },
@@ -860,7 +860,7 @@ window.BREVET_CONTENT = {
       stage: "Decouverte",
       type: "qcm",
       question: "Un organe de reserve chez une plante sert a...",
-      choices: ["stocker de la matiere", "voter la loi", "mesurer un pH", "calculer une mediane"],
+      choices: ["stocker de la matiere", "produire uniquement du dioxygene", "transporter le pollen", "commander les mouvements de la plante"],
       answer: "stocker de la matiere",
       explanation: "Un organe de reserve accumule de la matiere utilisable par la plante."
     }

@@ -433,3 +433,21 @@ Le menu principal a ete simplifie pour rester plus lisible pour un eleve :
 Les pages secondaires `Parcours`, `Cours` et `Sujets guides` restent accessibles depuis un bloc `Acces rapide` sur l'accueil.
 
 La page d'accueil ne commence plus automatiquement par les mathematiques lors du premier lancement. Si aucune question n'a encore ete faite, l'app affiche `Choisis une matiere pour commencer` et propose un `Melange decouverte`. Ensuite, la recommandation automatique tient compte des erreurs non reparees, du taux de reussite, du volume de questions et des matieres moins travaillees recemment.
+
+## Audit QCM distracteurs - etape 20
+
+Un audit cible des QCM statiques a ete lance pour supprimer les mauvaises reponses trop absurdes ou hors matiere.
+
+Objectif pedagogique : un eleve ne doit pas pouvoir trouver la bonne reponse uniquement parce que les autres choix sont ridicules. Les distracteurs doivent rester faux, mais plausibles et proches du theme de la question.
+
+Lots corriges :
+
+- EMC, valeurs de la Republique, citoyennete et defense ;
+- geographie : espaces productifs, metropoles, mondialisation, periurbanisation ;
+- histoire : developpement construit, decolonisation, construction europeenne ;
+- francais : lecture, interpretation, redaction ;
+- sciences : graphiques, pH, masse, SVT, technologie, chaine d'information et chaine d'energie.
+
+Controle applique : detecteur local de termes suspects dans les choix QCM. Resultat apres corrections : 0 distracteur grossier detecte dans les banques statiques principales.
+
+Point important : cet audit ne remplace pas une relecture pedagogique humaine. Il corrige les anomalies evidentes ; il faudra ensuite relire les questions une par une par matiere pour verifier la precision disciplinaire et le niveau brevet.

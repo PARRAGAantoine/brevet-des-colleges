@@ -185,7 +185,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Pour justifier une reponse de comprehension, il faut surtout :",
-      choices: ["citer un passage precis du texte", "inventer une suite", "copier tout le texte", "donner seulement son avis"],
+      choices: ["citer un passage precis du texte", "resumer l'idee generale sans preuve", "donner une interpretation sans indice", "citer une phrase sans l'expliquer"],
       answer: "citer un passage precis du texte",
       explanation: "Une justification solide s'appuie sur un indice ou une citation courte du texte."
     },
@@ -207,7 +207,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Dans une reponse d'interpretation, le plus important est de :",
-      choices: ["expliquer l'effet produit par le texte", "recopier tout le passage", "repondre en un seul mot", "changer le texte"],
+      choices: ["expliquer l'effet produit par le texte", "relever une citation sans commentaire", "resumer l'action sans interpreter", "donner une impression sans indice"],
       answer: "expliquer l'effet produit par le texte",
       explanation: "Interpreter, c'est aller au-dela du reperage et expliquer le sens ou l'effet."
     },
@@ -284,7 +284,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Quel enchainement rend un paragraphe argumentatif plus clair ?",
-      choices: ["idee, explication, exemple", "exemple, exemple, exemple", "conclusion, titre, citation", "question, silence, avis"],
+      choices: ["idee, explication, exemple", "exemple, citation, autre exemple", "idee, idee, conclusion", "avis personnel, avis personnel, conclusion"],
       answer: "idee, explication, exemple",
       explanation: "Un paragraphe efficace annonce une idee, l'explique, puis l'appuie par un exemple."
     },
@@ -295,7 +295,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Presenter un document, c'est d'abord indiquer :",
-      choices: ["sa nature, son auteur, sa date et son sujet", "seulement sa couleur", "le nombre de lignes", "son prix"],
+      choices: ["sa nature, son auteur, sa date et son sujet", "son sujet seulement", "sa date seulement", "son auteur sans expliquer le sujet"],
       answer: "sa nature, son auteur, sa date et son sujet",
       explanation: "Ces informations permettent de comprendre d'ou vient le document et de quoi il parle."
     },
@@ -317,7 +317,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Un developpement construit doit etre organise avec :",
-      choices: ["une introduction courte, des idees classees et une conclusion", "une liste de mots sans phrases", "un dessin uniquement", "des reponses au hasard"],
+      choices: ["une introduction courte, des idees classees et une conclusion", "une liste de connaissances sans ordre", "un seul paragraphe sans exemples", "une conclusion plus longue que le developpement"],
       answer: "une introduction courte, des idees classees et une conclusion",
       explanation: "L'organisation aide a montrer les connaissances et le raisonnement."
     },
@@ -361,7 +361,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Un espace productif est :",
-      choices: ["un espace amenage pour produire des richesses", "un espace sans activite", "un pays entier sans villes", "une frontiere maritime"],
+      choices: ["un espace amenage pour produire des richesses", "un espace surtout residentiel sans activite productive", "un espace naturel protege sans production", "une zone administrative sans activite economique precise"],
       answer: "un espace amenage pour produire des richesses",
       explanation: "Un espace productif peut etre agricole, industriel, touristique ou de services."
     },
@@ -372,7 +372,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Une metropole mondiale se caracterise notamment par :",
-      choices: ["des fonctions de commandement et de nombreux flux", "l'absence de population", "un climat toujours froid", "la disparition des services"],
+      choices: ["des fonctions de commandement et de nombreux flux", "une faible connexion aux reseaux mondiaux", "des activites seulement agricoles", "des services limites a l'echelle locale"],
       answer: "des fonctions de commandement et de nombreux flux",
       explanation: "Les metropoles mondiales concentrent pouvoirs, activites, transports et connexions."
     },
@@ -383,7 +383,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "La devise de la Republique francaise est :",
-      choices: ["Liberte, Egalite, Fraternite", "Travail, Famille, Patrie", "Force, Ordre, Silence", "Paix, Empire, Roi"],
+      choices: ["Liberte, Egalite, Fraternite", "Liberte, Laicite, Citoyennete", "Egalite, Souverainete, Justice", "Fraternite, Nation, Defense"],
       answer: "Liberte, Egalite, Fraternite",
       explanation: "Cette devise resume trois valeurs fondamentales de la Republique."
     },
@@ -394,7 +394,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Respecter la loi dans une democratie permet surtout :",
-      choices: ["de garantir les droits et la vie commune", "de supprimer les libertes de tous", "d'empecher toute election", "de remplacer l'ecole"],
+      choices: ["de garantir les droits et la vie commune", "de donner les memes opinions a tous", "de remplacer le vote par une decision individuelle", "de permettre a chacun d'ignorer les regles communes"],
       answer: "de garantir les droits et la vie commune",
       explanation: "La loi fixe un cadre commun qui protege les libertes de chacun."
     },
@@ -405,7 +405,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "La Journee defense et citoyennete concerne les jeunes car elle vise a :",
-      choices: ["les informer sur la defense et la citoyennete", "les dispenser de toute obligation", "remplacer le brevet", "choisir leur metier a leur place"],
+      choices: ["les informer sur la defense et la citoyennete", "les preparer directement a un metier militaire", "leur faire passer un examen scolaire", "leur donner le droit de vote avant 18 ans"],
       answer: "les informer sur la defense et la citoyennete",
       explanation: "La JDC participe au parcours citoyen et informe sur les enjeux de defense."
     },
@@ -427,7 +427,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Avant d'interpreter un graphique, il faut d'abord regarder :",
-      choices: ["le titre, les axes et les unites", "seulement la couleur", "la derniere question", "le nombre de pages"],
+      choices: ["le titre, les axes et les unites", "le titre sans les axes", "les valeurs sans les unites", "la legende sans lire les axes"],
       answer: "le titre, les axes et les unites",
       explanation: "Ces elements indiquent ce qui est mesure et permettent de ne pas se tromper."
     },
@@ -504,7 +504,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Dans un objet technique, un actionneur sert a :",
-      choices: ["realiser une action physique", "mesurer une temperature", "afficher une consigne seulement", "effacer le programme"],
+      choices: ["realiser une action physique", "detecter une information", "traiter une donnee", "stocker une information sans agir"],
       answer: "realiser une action physique",
       explanation: "Un moteur, une lampe ou un buzzer sont des actionneurs : ils agissent sur le monde reel."
     },
@@ -515,7 +515,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "Choisir un materiau pour un objet depend notamment :",
-      choices: ["de ses proprietes et des contraintes d'usage", "uniquement de sa couleur", "du hasard", "du nom de l'utilisateur"],
+      choices: ["de ses proprietes et des contraintes d'usage", "de son aspect seulement", "du materiau le moins cher sans autre critere", "du premier materiau disponible sans contrainte"],
       answer: "de ses proprietes et des contraintes d'usage",
       explanation: "Resistance, masse, cout, recyclage ou conductivite peuvent orienter le choix."
     }

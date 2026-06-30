@@ -405,7 +405,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "La decolonisation signifie...",
-      choices: ["l'acces d'une colonie a l'independance", "la construction d'une usine", "un calcul de vitesse", "une figure de style"],
+      choices: ["l'acces d'une colonie a l'independance", "le controle renforce d'une colonie", "la creation d'une nouvelle frontiere en Europe", "une alliance militaire entre deux Etats"],
       answer: "l'acces d'une colonie a l'independance",
       explanation: "La decolonisation est un processus politique d'independance."
     },
@@ -438,7 +438,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "L'unite de base du vivant est...",
-      choices: ["la cellule", "la loi", "le triangle", "la citation"],
+      choices: ["la cellule", "le tissu", "l'organe", "l'appareil"],
       answer: "la cellule",
       explanation: "Tous les etres vivants sont constitues de cellules."
     },
@@ -449,7 +449,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Le lavage des mains limite surtout...",
-      choices: ["la transmission de certains microorganismes", "la resolution d'equations", "la formation des volcans", "le vote des lois"],
+      choices: ["la transmission de certains microorganismes", "la multiplication des bacteries sur les mains", "l'entree des microbes par la peau intacte", "la transformation d'un virus en bacterie"],
       answer: "la transmission de certains microorganismes",
       explanation: "L'hygiene reduit le passage de microbes d'une personne ou surface a une autre."
     },
@@ -471,7 +471,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Dans la chaine d'information, 'acquerir' signifie...",
-      choices: ["capter une information", "produire de l'energie", "calculer une aire", "rediger une conclusion"],
+      choices: ["capter une information", "traiter directement l'ordre final", "alimenter le moteur principal", "agir physiquement sur l'objet"],
       answer: "capter une information",
       explanation: "Un capteur acquiert une information depuis l'environnement."
     },
@@ -482,7 +482,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "La vitesse se calcule souvent avec...",
-      choices: ["distance / temps", "temps / distance", "masse / volume", "pH x masse"],
+      choices: ["distance / temps", "temps / distance", "distance x temps", "temps + distance"],
       answer: "distance / temps",
       explanation: "La relation de base est v = d / t."
     },
@@ -493,7 +493,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "Une conclusion scientifique doit s'appuyer sur...",
-      choices: ["les resultats observes", "une impression personnelle seulement", "la longueur du document", "le hasard"],
+      choices: ["les resultats observes", "l'hypothese sans les mesures", "la description du materiel seulement", "une idee non verifiee par l'experience"],
       answer: "les resultats observes",
       explanation: "On conclut a partir des donnees et de la comparaison des resultats."
     }
