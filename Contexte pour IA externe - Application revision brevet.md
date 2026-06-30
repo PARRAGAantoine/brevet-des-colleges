@@ -376,6 +376,19 @@ La gamification visuelle des badges a ete renforcee. Les badges non debloques so
 
 Point important pour la suite : les paliers visuels existent, mais le systeme de badges peut encore etre enrichi pedagogiquement avec davantage de badges par matiere, par notion, par perseverance et par progression dans les erreurs reparees.
 
+## Mise a jour pour l'IA externe : progression multi-appareils
+
+La progression est actuellement stockee en `localStorage`, donc elle est liee au navigateur et a l'appareil. Cela convient a une V1 offline, mais pose un probleme si un eleve utilise son telephone, son PC et sa tablette : badges, erreurs et historique ne suivent pas automatiquement.
+
+Pistes a etudier :
+
+- profils locaux pour separer plusieurs utilisateurs sur un meme appareil ;
+- export/import de progression ;
+- code ou QR code de sauvegarde pour transferer manuellement la progression ;
+- synchronisation multi-appareils avec compte eleve, backend et base de donnees.
+
+Point de vigilance : la synchronisation en ligne sort du modele offline pur et implique securite, gestion des donnees personnelles et RGPD. Elle doit etre cadree comme V2, pas comme une petite option UI.
+
 ## Mise a jour pour l'IA externe : GitHub
 
 Le depot Git local a ete initialise sur la branche `main`.

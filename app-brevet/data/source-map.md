@@ -309,3 +309,13 @@ https://parragaantoine.github.io/brevet-des-colleges/
 ```
 
 Les PDF d'annales, les documents supplementaires et les sauvegardes locales restent exclus du depot via `.gitignore`.
+
+## Decision a etudier - progression multi-appareils
+
+La progression actuelle est stockee dans `localStorage`, donc elle reste locale au navigateur.
+
+Point a traiter plus tard :
+
+- profils locaux pour plusieurs utilisateurs sur un meme appareil ;
+- export/import ou QR code de sauvegarde pour transferer manuellement une progression ;
+- eventuelle synchronisation en ligne avec compte eleve, a cadrer en V2 avec backend, securite et RGPD.

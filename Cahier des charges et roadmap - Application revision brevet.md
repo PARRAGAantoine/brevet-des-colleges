@@ -372,8 +372,13 @@ Limites :
 - PWA installable ;
 - IndexedDB ;
 - import/export de sauvegarde ;
+- profils locaux separes sur un meme appareil ;
+- transfert de progression entre appareils par export/import ou code de sauvegarde ;
+- reflexion sur une synchronisation multi-appareils avec compte eleve ;
 - mode parent/professeur ;
 - génération de rapports.
+
+Point a etudier : la V1 stocke la progression dans le navigateur. Cela protege l'usage offline, mais un eleve qui travaille sur telephone, tablette et PC ne retrouve pas automatiquement ses badges et son historique. Il faudra donc choisir entre une solution simple et offline, comme export/import ou QR code de sauvegarde, et une vraie synchronisation en ligne avec comptes, base de donnees, securite et contraintes RGPD.
 
 ## 12. Roadmap
 

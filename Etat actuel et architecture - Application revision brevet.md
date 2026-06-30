@@ -300,8 +300,8 @@ Les badges existent et ont ete redesignes.
 
 Etat visuel :
 
-- badges debloques : plus visibles, verts, avec icone de validation ;
-- badges a gagner : plus neutres et grises.
+- badges a gagner : version plate, grisee, non 3D ;
+- badges debloques : paliers bronze, argent et or avec medaille CSS.
 
 Badges importants :
 
@@ -351,7 +351,12 @@ Decisions encore ouvertes :
 - interface auteur pour relire et valider rapidement des contenus ;
 - exploitation complete du graphe de prerequis ;
 - repetition espacee ;
-- import/export de progression.
+- profils locaux separes sur un meme appareil ;
+- import/export de progression ;
+- transfert manuel de progression entre appareils ;
+- synchronisation multi-appareils avec compte eleve.
+
+Point de vigilance : la progression est aujourd'hui locale au navigateur. Un eleve qui passe du telephone au PC ne retrouve donc pas automatiquement ses badges. Une solution offline simple peut utiliser export/import ou QR code de sauvegarde ; une vraie synchronisation implique backend, comptes, securite et RGPD.
 
 ## 15. Prochaines priorites
 
