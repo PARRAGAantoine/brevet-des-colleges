@@ -379,3 +379,30 @@ Validation effectuee :
 - `node --check tools\validate-content.js` : OK ;
 - `node tools\validate-content.js` : OK ;
 - controle script : 194 QCM, 8 vrai/faux, 8 remises en ordre, 0 ordre incoherent.
+
+## Formats de session par exercices - etape 16
+
+Les sessions ne sont plus presentees comme des blocs de 15 ou 30 minutes. Le format principal est maintenant le nombre d'exercices :
+
+- courte : 5 exercices ;
+- standard : 10 exercices ;
+- longue : 15 exercices.
+
+Raison : une promesse de temps peut etre trompeuse si un eleve termine tres vite ou reste bloque sur une question. Le bilan affiche maintenant le temps reel passe, mais l'objectif de session reste le nombre d'exercices.
+
+Changements associes :
+
+- suppression des points donnes simplement au lancement d'une session ;
+- points calcules sur les bonnes reponses ;
+- bonus reduit pour session sans erreur ;
+- feedback d'erreur reformule de facon plus encourageante.
+
+## Decision badges pedagogiques - etape 17
+
+Les paliers bronze, argent et or ne doivent pas seulement etre decoratifs. Ils deviennent aussi une lecture pedagogique de la progression par notion :
+
+- bronze : niveau Decouverte valide ;
+- argent : niveau Consolidation valide ;
+- or : niveau Type brevet valide.
+
+Les badges de comportement restent a part : regularite, perseverance, erreurs reparees, volume de questions, streak. Cette distinction sera importante lors de la refonte logique des badges.

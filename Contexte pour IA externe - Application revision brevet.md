@@ -409,6 +409,26 @@ Un premier lot de 16 exercices a ete ajoute, ce qui porte la banque statique a 2
 
 Priorite suivante : produire davantage d'exercices dans ces nouveaux formats, puis ajouter association et reponse courte.
 
+## Mise a jour pour l'IA externe : formats de session
+
+Les sessions ne sont plus presentees comme des durees fixes de 15 ou 30 minutes. L'utilisateur choisit maintenant un nombre d'exercices :
+
+- courte : 5 exercices ;
+- standard : 10 exercices ;
+- longue : 15 exercices.
+
+Le temps reel passe est affiche au bilan. Cette decision evite l'effet de fausse promesse quand un eleve termine tres vite ou reste longtemps bloque sur une question.
+
+## Mise a jour pour l'IA externe : badges pedagogiques
+
+Decision prise : les paliers bronze, argent et or doivent devenir lisibles comme des niveaux pedagogiques par notion :
+
+- bronze = Decouverte ;
+- argent = Consolidation ;
+- or = Type brevet.
+
+Ces badges de progression par notion doivent coexister avec des badges de comportement separes : regularite, perseverance, erreurs reparees, volume de questions, streak. Une solution a proposer doit donc distinguer clairement la maitrise d'une notion et l'engagement de l'eleve.
+
 ## Mise a jour pour l'IA externe : GitHub
 
 Le depot Git local a ete initialise sur la branche `main`.

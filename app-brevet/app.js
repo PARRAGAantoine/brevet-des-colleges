@@ -1029,7 +1029,7 @@
 
     const feedback = panel.querySelector(".feedback");
     feedback.hidden = false;
-    feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "A revoir."}</strong><br>${question.explanation}`;
+    feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "Pas grave, on reprend ensemble."}</strong><br>${question.explanation}`;
 
     progress.answers.push({
       exerciseId: question.id,
@@ -1088,7 +1088,7 @@
   function startSession() {
     const subject = document.getElementById("sessionSubject").value || activeSubject;
     const notionId = document.getElementById("sessionNotion").value || "auto";
-    const duration = Number(document.getElementById("sessionDuration").value);
+    const questionTarget = Number(document.getElementById("sessionDuration").value) || 5;
     const isMixed = subject === "mixed";
     const targetStage = isMixed ? "Type brevet" : getTargetStage(subject);
     const selectedNotion = !isMixed && notionId !== "auto"
@@ -1102,13 +1102,11 @@
       takeaway: "Avant de repondre, repere le verbe de consigne : calculer, justifier, relever, expliquer, comparer.",
       example: "En maths on pose le calcul ; en francais on cite le texte ; en histoire-geo on utilise document + connaissance ; en sciences on relie donnees et conclusion."
     } : selectedNotion ? pickSessionLessonForNotion(selectedNotion, targetStage) : pickSessionLesson(subject, targetStage);
-    const questionCount = duration === 30 ? (isMixed ? 8 : 5) : (isMixed ? 5 : 3);
-    const questions = isMixed ? pickMixedSessionQuestions(questionCount) : pickSessionQuestions(subject, questionCount, selectedNotion?.chapter || lesson.chapter, lesson, selectedNotion);
-    addPoints(10);
+    const questions = isMixed ? pickMixedSessionQuestions(questionTarget) : pickSessionQuestions(subject, questionTarget, selectedNotion?.chapter || lesson.chapter, lesson, selectedNotion);
     currentSession = {
       subject,
       notionId: selectedNotion?.id || null,
-      duration,
+      questionTarget,
       lesson,
       focusChapter: selectedNotion?.chapter || lesson.chapter,
       questions,
@@ -1206,6 +1204,7 @@
           </div>
           <span class="status-pill">${subjectLabel(lesson.subject)}</span>
         </div>
+        <span class="tag">Objectif : ${currentSession.questions.length} exercices</span>
         <span class="tag">Notion travaillee : ${lesson.chapter}</span>
         ${renderLessonBody(lesson)}
         <button class="primary-action" id="startSessionQuestions" type="button">Passer aux questions</button>
@@ -1232,11 +1231,11 @@
   }
 
   function finishSession() {
-    const reachedDuration = currentSession.duration;
+    const elapsedMinutes = Math.max(1, Math.round((Date.now() - currentSession.startedAt) / 60000));
     const allCorrect = currentSession.correct === currentSession.questions.length;
-    let points = reachedDuration >= 30 ? 30 : reachedDuration >= 15 ? 20 : 0;
+    let points = currentSession.correct * 5;
     if (allCorrect) {
-      points += 15;
+      points += 10;
       progress.perfectRuns += 1;
     }
     addPoints(points);
@@ -1244,7 +1243,8 @@
     progress.sessions.push({
       id: `session_${Date.now()}`,
       date: today(),
-      durationMinutes: reachedDuration || Math.max(5, Math.round((Date.now() - currentSession.startedAt) / 60000)),
+      durationMinutes: elapsedMinutes,
+      plannedQuestions: currentSession.questionTarget,
       subject: currentSession.subject,
       questionsAnswered: currentSession.answered,
       correctAnswers: currentSession.correct,
@@ -1257,6 +1257,7 @@
         <p class="eyebrow">Bilan</p>
         <h3>${currentSession.correct} / ${currentSession.questions.length} bonnes reponses</h3>
         <p>${allCorrect ? "Session sans erreur. Tres solide." : "Bon travail. Les erreurs sont ajoutees a ta progression."}</p>
+        <p><strong>Temps reel :</strong> ${elapsedMinutes} min</p>
         <p><strong>Points gagnes :</strong> ${points}</p>
         <button class="secondary-action" data-view-target="progress" type="button">Voir la progression</button>
       </section>

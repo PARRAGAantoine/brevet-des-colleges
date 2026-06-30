@@ -526,3 +526,23 @@ Le moteur d'exercices accepte maintenant trois formats :
 - `order`.
 
 La banque statique contient maintenant 210 exercices : 194 QCM, 8 vrai/faux et 8 remises en ordre. Les prochains lots devront augmenter ces nouveaux formats et ajouter ensuite association et reponse courte.
+
+## Mise a jour formats de session
+
+Les sessions guidees sont maintenant choisies par nombre d'exercices, pas par duree annoncee :
+
+- courte : 5 exercices ;
+- standard : 10 exercices ;
+- longue : 15 exercices.
+
+Le temps reel est mesure et affiche au bilan. Cette decision evite de promettre une session de 15 minutes qui peut etre terminee en deux minutes par un eleve rapide.
+
+## Mise a jour badges pedagogiques
+
+Decision prise : les paliers bronze, argent et or doivent aussi devenir des repères pedagogiques par notion.
+
+- bronze = Decouverte validee ;
+- argent = Consolidation validee ;
+- or = Type brevet valide.
+
+Les badges de comportement restent separes : regularite, perseverance, erreurs reparees, volume de questions, streak. Cette separation evite de melanger "j'ai travaille beaucoup" et "je maitrise cette notion au niveau attendu".

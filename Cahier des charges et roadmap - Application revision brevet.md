@@ -4,7 +4,7 @@
 
 Créer une application offline de préparation au Diplôme national du brevet, série générale, France / Métropole.
 
-L'application doit aider un élève de 3e à réviser régulièrement, en sessions courtes de 15 à 30 minutes, avec :
+L'application doit aider un eleve de 3e a reviser regulierement, avec des sessions courtes calibrees par nombre d'exercices, avec :
 
 - des cours courts mais reels, structures et progressifs ;
 - des exercices interactifs ;
@@ -37,7 +37,7 @@ Les données de progression sont stockées localement dans le navigateur.
 - Fiches de révision courtes par matière.
 - Quiz interactifs simples.
 - Parcours progressif : découverte, consolidation, type brevet.
-- Timer de session 15 / 30 minutes.
+- Sessions courtes par nombre d'exercices, avec temps reel affiche au bilan.
 - Système de points.
 - Streak quotidien.
 - Badges simples.
@@ -94,18 +94,18 @@ Contenu :
 - points totaux ;
 - mission du jour ;
 - matière recommandée ;
-- temps conseillé : 15 ou 30 minutes ;
+- objectif du jour en nombre de questions ;
 - bouton "Commencer une session" ;
 - accès rapide aux annales ;
 - progression par matière.
 
 ### 6.2 Session quotidienne
 
-Objectif : guider l'élève pendant 15 à 30 minutes.
+Objectif : guider l'eleve sur une serie courte d'exercices coherents.
 
 Déroulé recommandé :
 
-1. Choix du mode : 15 min, 30 min, libre.
+1. Choix du format : courte, standard ou longue selon le nombre d'exercices.
 2. Choix de la matière ou recommandation automatique.
 3. Une fiche courte ou un rappel.
 4. Une série de questions.
@@ -203,17 +203,24 @@ Badges V1 :
 
 Principe important : les badges de persévérance ne doivent pas récompenser un nouvel essai au hasard. Ils sont débloqués seulement si l'élève suit le cycle complet : erreur, correction expliquée, fiche de révision liée, nouvelle tentative, réussite.
 
+Évolution décidée pour les badges de progression :
+
+- bronze = niveau Découverte validé sur une notion ;
+- argent = niveau Consolidation validé sur une notion ;
+- or = niveau Type brevet validé sur une notion.
+
+Ces badges de progression par notion doivent rester séparés des badges de comportement : régularité, persévérance, erreurs réparées, volume de questions, streak.
+
 ## 7. Règles de points
 
 Le système doit être motivant mais non punitif.
 
 Points gagnés :
 
-- +10 points quand une session est lancée ;
-- +20 points si la session atteint 15 minutes ;
-- +30 points si la session atteint 30 minutes ;
+- pas de points simplement pour lancer une session ;
+- points calcules sur les bonnes reponses et le travail termine ;
 - +5 points par bonne réponse ;
-- +15 points pour une série sans erreur ;
+- +10 points pour une série sans erreur ;
 - +25 points pour une annale terminée ;
 - +50 points pour 7 jours consécutifs ;
 - +100 points pour 30 jours consécutifs.
@@ -232,7 +239,7 @@ Option V2 :
 
 Une journée est validée si l'élève :
 
-- termine au moins une session de 15 minutes ;
+- termine une session courte, standard ou longue ;
 - ou répond à au moins 10 questions ;
 - ou termine une annale en mode entraînement.
 
@@ -527,7 +534,7 @@ La V1 est réussie si un élève peut :
 
 1. ouvrir l'app sans Internet ;
 2. voir sa mission du jour ;
-3. faire une session de 15 minutes ;
+3. faire une session courte ;
 4. répondre à des exercices ;
 5. voir ses corrections ;
 6. gagner des points ;
