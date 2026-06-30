@@ -187,7 +187,7 @@ window.BREVET_CONTENT = {
       stage: "Decouverte",
       prerequisite: "Savoir lire une legende simple.",
       title: "Completer une carte ou une frise",
-      summary: "Les exercices de reperes demandent de placer des lieux, dates ou notions avec precision.",
+      summary: "Les exercices de reperes demandent de placer des lieux, dates ou mots importants avec precision.",
       example: "Pour localiser une region industrielle, on peut utiliser les noms de villes, les frontieres et les axes de transport.",
       mistake: "Placer un repere approximativement sans utiliser la legende.",
       takeaway: "Lis la consigne, puis la legende, puis place seulement les informations demandees."

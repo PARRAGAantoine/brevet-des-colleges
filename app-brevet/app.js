@@ -318,7 +318,7 @@
       .slice()
       .sort((a, b) => a.chapter.localeCompare(b.chapter) || a.title.localeCompare(b.title));
     select.disabled = false;
-    select.innerHTML = `<option value="auto">Automatique - notion recommandee</option>${notions.map((notion) => `<option value="${notion.id}">${notion.title}</option>`).join("")}`;
+    select.innerHTML = `<option value="auto">Laisser l'application choisir</option>${notions.map((notion) => `<option value="${notion.id}">${notion.title}</option>`).join("")}`;
     select.value = notions.some((notion) => notion.id === current) ? current : "auto";
   }
 
@@ -368,7 +368,7 @@
     const subject = lesson.subject;
     const fallback = {
       theory: [
-        `Cette notion sert a resoudre une famille de questions que l'on retrouve souvent au brevet. Il faut d'abord comprendre ce que la consigne demande, puis choisir une methode stable.`,
+        `Ce chapitre sert a resoudre une famille de questions que l'on retrouve souvent au brevet. Il faut d'abord comprendre ce que la consigne demande, puis choisir une methode stable.`,
         `Le point important est de ne pas apprendre une phrase par coeur : il faut savoir reconnaitre la situation, utiliser les informations donnees et justifier la reponse.`
       ],
       method: [
@@ -484,7 +484,7 @@
       {
         match: subject === "mathematiques" && (chapter.includes("fonction") || chapter.includes("statistique") || chapter.includes("tableur") || chapter.includes("algorithm")),
         theory: [
-          "Ces notions demandent de lire une information organisee : formule, graphique, tableau, programme ou algorithme.",
+          "Ces chapitres demandent de lire une information organisee : formule, graphique, tableau, programme ou algorithme.",
           "Une fonction associe une valeur de depart a une valeur d'arrivee. Une statistique resume une serie de valeurs. Un algorithme decrit des actions dans l'ordre.",
           "Au brevet, il faut souvent passer du langage courant au langage mathematique : formule, cellule, variable, moyenne, mediane ou boucle."
         ],
@@ -539,11 +539,11 @@
       {
         match: subject === "histoire" && (chapter.includes("emc") || chapter.includes("citoy") || chapter.includes("valeurs") || chapter.includes("defense")),
         theory: [
-          "En EMC, les notions doivent etre reliees a la vie democratique : droits, devoirs, loi, citoyennete, laicite, institutions.",
+          "En EMC, relie toujours les idees du cours a la vie democratique : droits, devoirs, loi, citoyennete, laicite, institutions.",
           "Une bonne reponse ne se contente pas de citer une valeur : elle explique son role concret dans la vie collective.",
           "Les exemples sont importants : vote, liberte d'expression, neutralite de l'Etat, respect de la loi, engagement citoyen."
         ],
-        method: ["Definir la notion avec des mots simples.", "Expliquer a quoi elle sert dans une democratie.", "Donner un exemple concret.", "Conclure en reliant droit individuel et interet commun."],
+        method: ["Definir l'idee avec des mots simples.", "Expliquer a quoi elle sert dans une democratie.", "Donner un exemple concret.", "Conclure en reliant droit individuel et interet commun."],
         exampleDetail: "La laicite garantit la liberte de conscience et la neutralite de l'Etat : elle protege le droit de croire ou de ne pas croire.",
         check: "As-tu donne un exemple concret, pas seulement une definition ?"
       },
@@ -624,7 +624,7 @@
     return `
       <p class="course-intro">${lesson.summary}</p>
       <section class="course-section">
-        <h4>Comprendre la notion</h4>
+        <h4>Ce qu'il faut comprendre</h4>
         ${details.theory.map((paragraph) => `<p>${paragraph}</p>`).join("")}
       </section>
       <section class="course-section">
@@ -1205,7 +1205,7 @@
           <span class="status-pill">${subjectLabel(lesson.subject)}</span>
         </div>
         <span class="tag">Objectif : ${currentSession.questions.length} exercices</span>
-        <span class="tag">Notion travaillee : ${lesson.chapter}</span>
+        <span class="tag">Chapitre travaille : ${lesson.chapter}</span>
         ${renderLessonBody(lesson)}
         <button class="primary-action" id="startSessionQuestions" type="button">Passer aux questions</button>
       </section>
