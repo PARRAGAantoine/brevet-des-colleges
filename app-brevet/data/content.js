@@ -634,8 +634,8 @@ window.BREVET_CONTENT = {
       chapter: "EMC",
       stage: "Consolidation",
       type: "qcm",
-      question: "En EMC, une valeur de la Republique francaise est...",
-      choices: ["la liberte", "la vitesse", "la masse", "la metropole"],
+      question: "Parmi ces mots, lequel fait partie de la devise de la Republique francaise ?",
+      choices: ["la liberte", "la laicite", "la citoyennete", "la souverainete nationale"],
       answer: "la liberte",
       explanation: "La devise republicaine est Liberte, Egalite, Fraternite."
     },
@@ -827,7 +827,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Un mouvement circulaire uniforme signifie que...",
-      choices: ["la trajectoire est un cercle et la vitesse est constante", "l'objet ne bouge pas", "la masse change", "le pH augmente"],
+      choices: ["la trajectoire est un cercle et la vitesse est constante", "la trajectoire est droite et la vitesse constante", "la trajectoire est un cercle et la vitesse varie", "la trajectoire change sans vitesse constante"],
       answer: "la trajectoire est un cercle et la vitesse est constante",
       explanation: "Circulaire decrit la trajectoire ; uniforme indique une vitesse constante."
     },
@@ -866,19 +866,19 @@ window.BREVET_CONTENT = {
     }
   ],
   badges: [
-    { id: "first_session", title: "Premier pas", description: "Terminer une premiere session.", test: "sessions:1" },
-    { id: "three_days", title: "Regulier", description: "Atteindre 3 jours de serie.", test: "streak:3" },
-    { id: "seven_days", title: "Serie solide", description: "Atteindre 7 jours de serie.", test: "streak:7" },
+    { id: "first_session", title: "Premier pas", description: "Terminer une premiere seance.", test: "sessions:1" },
+    { id: "three_days", title: "Regulier", description: "Travailler 3 jours de suite.", test: "streak:3" },
+    { id: "seven_days", title: "Belle regularite", description: "Travailler 7 jours de suite.", test: "streak:7" },
     { id: "hundred_points", title: "Cap des 100", description: "Gagner 100 points.", test: "points:100" },
     { id: "ten_questions", title: "Echauffement", description: "Repondre a 10 questions.", test: "questions:10" },
     { id: "fifty_questions", title: "Endurance", description: "Repondre a 50 questions.", test: "questions:50" },
-    { id: "perfect_run", title: "Sans faute", description: "Reussir une serie sans erreur.", test: "perfect:1" },
+    { id: "perfect_run", title: "Sans faute", description: "Reussir une seance sans erreur.", test: "perfect:1" },
     { id: "all_subjects", title: "Tour d'horizon", description: "Repondre dans les quatre matieres.", test: "subjects:4" },
-    { id: "discovery_step", title: "Bases posees", description: "Reussir 8 questions de niveau decouverte.", test: "stage:Decouverte:8" },
-    { id: "consolidation_step", title: "Ca se consolide", description: "Reussir 8 questions de niveau consolidation.", test: "stage:Consolidation:8" },
-    { id: "brevet_step", title: "Mode brevet", description: "Reussir 5 questions type brevet.", test: "stage:Type brevet:5" },
+    { id: "discovery_step", title: "Bases posees", description: "Reussir 8 questions en mode J'apprends.", test: "stage:Decouverte:8" },
+    { id: "consolidation_step", title: "Ca progresse", description: "Reussir 8 questions en mode Je m'entraine.", test: "stage:Consolidation:8" },
+    { id: "brevet_step", title: "Mode brevet", description: "Reussir 5 questions comme au brevet.", test: "stage:Type brevet:5" },
     { id: "first_repair", title: "Erreur reparee", description: "Revoir le cours puis reussir une question ratee.", test: "repairs:1" },
     { id: "three_repairs", title: "Je corrige mes traces", description: "Reparer trois erreurs apres revision.", test: "repairs:3" },
-    { id: "bounce_back", title: "Rebond", description: "Terminer une session avec au moins une erreur puis corriger une question ratee.", test: "bounce:1" }
+    { id: "bounce_back", title: "Rebond", description: "Terminer une seance avec au moins une erreur puis corriger une question ratee.", test: "bounce:1" }
   ]
 };

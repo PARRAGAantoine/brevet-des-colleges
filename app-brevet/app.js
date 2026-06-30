@@ -41,8 +41,17 @@
   }
 
   function subjectLabel(subjectId) {
-    if (subjectId === "mixed") return "Serie mixte";
+    if (subjectId === "mixed") return "Melange type brevet";
     return content.subjects.find((subject) => subject.id === subjectId)?.label || subjectId;
+  }
+
+  function stageLabel(stage) {
+    const labels = {
+      Decouverte: "J'apprends",
+      Consolidation: "Je m'entraine",
+      "Type brevet": "Comme au brevet"
+    };
+    return labels[stage] || stage || "Progressif";
   }
 
   function getNotionForChapter(subjectId, chapter) {
@@ -103,13 +112,13 @@
       status = "En decouverte";
       stage = "Decouverte";
     } else if (answers.length >= 3 && rate < 50) {
-      status = "A revoir avec un cours";
+      status = "A reprendre avec un cours";
       stage = "Decouverte";
     } else if (answers.length >= 3 && rate < 80) {
-      status = "A consolider";
+      status = "A renforcer";
       stage = "Consolidation";
     } else if (answers.length >= 3) {
-      status = "Pret pour type brevet";
+      status = "Pret pour le brevet";
       stage = "Type brevet";
     }
     if (manualStatus === "unseen") {
@@ -274,7 +283,7 @@
     const overview = document.getElementById("subjectOverview");
     overview.innerHTML = content.subjects.map((subject) => {
       const stats = getSubjectStats(subject.id);
-      const level = stats.total === 0 ? "Pas encore commence" : stats.rate >= 80 ? "Fort" : stats.rate >= 50 ? "Moyen" : "Fragile";
+      const level = stats.total === 0 ? "Pas encore commence" : stats.rate >= 80 ? "Solide" : stats.rate >= 50 ? "En progres" : "A reprendre";
       return `
         <article class="subject-card">
           <div class="subject-meta"><span>${subject.label}</span><strong>${stats.rate} %</strong></div>
@@ -289,7 +298,7 @@
     const options = content.subjects.map((subject) => `<option value="${subject.id}">${subject.label}</option>`).join("");
     const sessionSelect = document.getElementById("sessionSubject");
     if (!sessionSelect.dataset.ready) {
-      sessionSelect.innerHTML = `<option value="mixed">Serie mixte type brevet</option>${options}`;
+      sessionSelect.innerHTML = `<option value="mixed">Melange type brevet</option>${options}`;
       sessionSelect.dataset.ready = "true";
     }
     if (!sessionSelect.value) sessionSelect.value = activeSubject;
@@ -309,7 +318,7 @@
     const select = document.getElementById("sessionNotion");
     const current = select.value || "auto";
     if (subject === "mixed") {
-      select.innerHTML = `<option value="auto">Automatique - serie mixte</option>`;
+      select.innerHTML = `<option value="auto">L'application choisit le melange</option>`;
       select.disabled = true;
       return;
     }
@@ -346,7 +355,7 @@
 
     document.getElementById("courseList").innerHTML = lessons.map((lesson) => `
       <article class="course-card">
-        <span class="tag">${lesson.stage} - ${subjectLabel(lesson.subject)} - ${lesson.chapter}</span>
+        <span class="tag">${stageLabel(lesson.stage)} - ${subjectLabel(lesson.subject)} - ${lesson.chapter}</span>
         <h3>${lesson.title}</h3>
         ${renderLessonBody(lesson)}
         <button class="secondary-action" data-train-subject="${lesson.subject}" type="button">S'entrainer</button>
@@ -463,7 +472,7 @@
         match: subject === "mathematiques" && chapter.includes("geometrie") && (title.includes("pythagore") || title.includes("thales") || title.includes("trigonometrie") || title.includes("volume")),
         theory: [
           "La geometrie du brevet demande de choisir le bon outil : Pythagore pour un triangle rectangle, Thales pour des droites paralleles, trigonometrie pour relier angle et longueurs.",
-          "Avant tout calcul, il faut justifier que les conditions sont reunies. Un theoreme utilise sans condition explicite est une reponse fragile.",
+          "Avant tout calcul, il faut justifier que les conditions sont reunies. Un theoreme utilise sans condition claire risque de faire perdre des points.",
           "Les longueurs doivent etre dans la meme unite, et la conclusion doit repondre a la question posee."
         ],
         method: ["Identifier la figure : triangle rectangle, paralleles, angle aigu.", "Ecrire la condition qui autorise le theoreme.", "Poser l'egalite ou le rapport adapte.", "Calculer proprement en gardant les unites.", "Conclure par une phrase."],
@@ -620,7 +629,7 @@
 
   function renderLessonBody(lesson) {
     const details = getCourseDetails(lesson);
-    const prerequisite = lesson.prerequisite || "Aucun prerequis complexe : commence par lire la methode, puis observe l'exemple.";
+    const prerequisite = lesson.prerequisite || "Tu peux commencer directement : lis la methode, puis observe l'exemple.";
     return `
       <p class="course-intro">${lesson.summary}</p>
       <section class="course-section">
@@ -685,9 +694,9 @@
             <p><strong>${item.title}</strong></p>
             <p class="muted">${stats.total} question${stats.total > 1 ? "s" : ""} traitee${stats.total > 1 ? "s" : ""} - ${stats.rate} % de reussite</p>
             <div class="roadmap-stages">
-              <span class="step ${stats.stage === "Decouverte" ? "active" : ""}">Decouverte</span>
-              <span class="step ${stats.stage === "Consolidation" ? "active" : ""}">Consolidation</span>
-              <span class="step ${stats.stage === "Type brevet" ? "active" : ""}">Type brevet</span>
+              <span class="step ${stats.stage === "Decouverte" ? "active" : ""}">J'apprends</span>
+              <span class="step ${stats.stage === "Consolidation" ? "active" : ""}">Je m'entraine</span>
+              <span class="step ${stats.stage === "Type brevet" ? "active" : ""}">Comme au brevet</span>
             </div>
           </div>
           <div class="roadmap-actions">
@@ -912,7 +921,7 @@
           <article class="guided-card">
             <div class="panel-header">
               <div>
-                <span class="tag">${subjectLabel(task.subject)} - ${task.chapter} - ${task.stage}</span>
+                <span class="tag">${subjectLabel(task.subject)} - ${task.chapter} - ${stageLabel(task.stage)}</span>
                 <h3>${task.title}</h3>
               </div>
               <span class="status-pill">${task.duration} min</span>
@@ -930,16 +939,16 @@
             </section>
             <div class="guided-columns">
               <section class="course-note">
-                <strong>Attendus</strong>
+                <strong>Ce qu'on attend dans ta reponse</strong>
                 <ul>${task.expected.map((item) => `<li>${item}</li>`).join("")}</ul>
               </section>
               <section class="course-note">
-                <strong>Auto-verification</strong>
+                <strong>Je verifie mon travail</strong>
                 <ul>${task.selfCheck.map((item) => `<li>${item}</li>`).join("")}</ul>
               </section>
             </div>
             <div class="guided-actions">
-              <span class="muted">${completion ? `Derniere auto-evaluation : ${completion.score}/4 le ${completion.date}` : "A faire sur cahier, puis a evaluer."}</span>
+              <span class="muted">${completion ? `Derniere verification : ${completion.score}/4 le ${completion.date}` : "A faire sur cahier, puis a verifier."}</span>
               <div>
                 <button class="ghost-action" data-guided-score="${task.id}" data-score="2" type="button">A retravailler</button>
                 <button class="secondary-action" data-guided-score="${task.id}" data-score="3" type="button">Correct</button>
@@ -957,7 +966,7 @@
     const choices = getShuffledChoices(question, context);
     return `
       <span class="tag">${subjectLabel(question.subject)} - ${question.chapter}</span>
-      <span class="tag">${question.stage || "Progressif"}</span>
+      <span class="tag">${stageLabel(question.stage)}</span>
       ${question.type === "true_false" ? `<span class="tag">Vrai / Faux</span>` : ""}
       <h3 class="question-title">${question.question || question.prompt}</h3>
       <div class="choice-list">
@@ -971,7 +980,7 @@
     const choices = getShuffledChoices(question, context);
     return `
       <span class="tag">${subjectLabel(question.subject)} - ${question.chapter}</span>
-      <span class="tag">${question.stage || "Progressif"}</span>
+      <span class="tag">${stageLabel(question.stage)}</span>
       <span class="tag">Remise en ordre</span>
       <h3 class="question-title">${question.question || question.prompt}</h3>
       <div class="order-builder" data-order-context="${context}">
@@ -1097,8 +1106,8 @@
     const lesson = isMixed ? {
       subject: "mixed",
       chapter: "Methodologie",
-      title: "Methode pour une serie mixte",
-      summary: "Dans une serie mixte, le but est de changer vite de reflexe : lire la consigne, identifier la matiere, puis choisir la methode adaptee.",
+      title: "Methode pour un melange type brevet",
+      summary: "Dans un melange de questions, le but est de changer vite de reflexe : lire la consigne, identifier la matiere, puis choisir la methode adaptee.",
       takeaway: "Avant de repondre, repere le verbe de consigne : calculer, justifier, relever, expliquer, comparer.",
       example: "En maths on pose le calcul ; en francais on cite le texte ; en histoire-geo on utilise document + connaissance ; en sciences on relie donnees et conclusion."
     } : selectedNotion ? pickSessionLessonForNotion(selectedNotion, targetStage) : pickSessionLesson(subject, targetStage);
@@ -1256,7 +1265,7 @@
       <section class="panel">
         <p class="eyebrow">Bilan</p>
         <h3>${currentSession.correct} / ${currentSession.questions.length} bonnes reponses</h3>
-        <p>${allCorrect ? "Session sans erreur. Tres solide." : "Bon travail. Les erreurs sont ajoutees a ta progression."}</p>
+        <p>${allCorrect ? "Seance sans erreur. Tres solide." : "Bon travail. Les questions ratees sont gardees pour les retravailler."}</p>
         <p><strong>Temps reel :</strong> ${elapsedMinutes} min</p>
         <p><strong>Points gagnes :</strong> ${points}</p>
         <button class="secondary-action" data-view-target="progress" type="button">Voir la progression</button>
@@ -1269,7 +1278,7 @@
   function renderProgress() {
     document.getElementById("progressBySubject").innerHTML = content.subjects.map((subject) => {
       const stats = getSubjectStats(subject.id);
-      const label = stats.total === 0 ? "A commencer" : stats.rate >= 80 ? "Fort" : stats.rate >= 50 ? "Moyen" : "Faible";
+      const label = stats.total === 0 ? "A commencer" : stats.rate >= 80 ? "Solide" : stats.rate >= 50 ? "En progres" : "A reprendre";
       return `
         <div class="progress-row">
           <strong>${subject.label}</strong>
@@ -1287,7 +1296,7 @@
             <strong>${session.correctAnswers}/${session.questionsAnswered}</strong>
           </div>
         `).join("")}</div>`
-      : `<p class="muted">Aucune session terminee pour le moment.</p>`;
+      : `<p class="muted">Aucune seance terminee pour le moment.</p>`;
 
     const mistakes = progress.mistakes.filter((mistake) => !mistake.repaired);
     document.getElementById("mistakeList").innerHTML = mistakes.length
@@ -1295,9 +1304,9 @@
           <div class="mistake-item">
             <div>
               <strong>${subjectLabel(mistake.subject)} - ${mistake.chapter}</strong>
-              <p class="muted">Ratee ${mistake.count} fois. Une fiche de revision sera proposee avant de recommencer.</p>
+              <p class="muted">Ratee ${mistake.count} fois. Un cours sera propose avant de recommencer.</p>
             </div>
-            <span class="status-pill">${mistake.reviewed ? "Revision vue" : "A revoir"}</span>
+            <span class="status-pill">${mistake.reviewed ? "Cours relu" : "A retravailler"}</span>
           </div>
         `).join("")}</div>`
       : `<p class="muted">Aucune erreur en attente. Les prochaines erreurs deviendront des occasions de progresser.</p>`;
@@ -1337,7 +1346,7 @@
             <span class="badge-state">${unlocked ? tierMeta.label : "A gagner"}</span>
             <h3>${badge.title}</h3>
             <p>${badge.description}</p>
-            <small>${unlocked ? tierMeta.palier : `${tierMeta.label} a debloquer`}</small>
+            <small>${unlocked ? tierMeta.level : `${tierMeta.label} a debloquer`}</small>
           </div>
         </article>
       `;
@@ -1366,9 +1375,9 @@
 
   function getBadgeTierMeta(tier) {
     const meta = {
-      bronze: { label: "Bronze", palier: "Palier 1", number: "1" },
-      silver: { label: "Argent", palier: "Palier 2", number: "2" },
-      gold: { label: "Or", palier: "Palier 3", number: "3" }
+      bronze: { label: "Bronze", level: "Niveau 1", number: "1" },
+      silver: { label: "Argent", level: "Niveau 2", number: "2" },
+      gold: { label: "Or", level: "Niveau 3", number: "3" }
     };
     return meta[tier] || meta.bronze;
   }
@@ -1377,11 +1386,11 @@
     const parts = String(badge.test || "").split(":");
     const kind = parts[0];
     const value = parts[parts.length - 1];
-    if (kind === "sessions") return `${value} session`;
+    if (kind === "sessions") return `${value} seance`;
     if (kind === "streak") return `${value} jours`;
     if (kind === "points") return `${value} points`;
     if (kind === "questions") return `${value} questions`;
-    if (kind === "perfect") return `${value} serie`;
+    if (kind === "perfect") return `${value} sans erreur`;
     if (kind === "subjects") return `${value} matieres`;
     if (kind === "stage") return `${value} reussites`;
     if (kind === "repairs") return `${value} erreurs`;

@@ -427,7 +427,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "La citoyennete associe...",
-      choices: ["droits, devoirs et participation", "masse, volume et pH", "hypotenuse et mediane", "auteur et narrateur uniquement"],
+      choices: ["droits, devoirs et participation", "nationalite, age et adresse seulement", "liberte, securite et impots seulement", "vote, justice et diplome uniquement"],
       answer: "droits, devoirs et participation",
       explanation: "Un citoyen participe a la vie democratique et respecte des devoirs."
     },

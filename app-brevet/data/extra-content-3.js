@@ -273,7 +273,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Dans un sujet de reflexion, une introduction doit au minimum :",
-      choices: ["presenter le theme et annoncer la question", "donner la conclusion", "copier le sujet trois fois", "n'utiliser que des exemples"],
+      choices: ["presenter le theme et annoncer la question", "commencer directement par un exemple", "donner seulement son avis personnel", "annoncer la conclusion des le debut"],
       answer: "presenter le theme et annoncer la question",
       explanation: "L'introduction aide le lecteur a comprendre de quoi on va discuter."
     },
@@ -471,7 +471,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Un mouvement est uniforme si :",
-      choices: ["la vitesse reste constante", "la vitesse augmente toujours", "l'objet est immobile", "la masse diminue"],
+      choices: ["la vitesse reste constante", "la trajectoire est toujours circulaire", "la distance parcourue est nulle", "la direction ne change jamais"],
       answer: "la vitesse reste constante",
       explanation: "Uniforme signifie que la vitesse ne change pas au cours du mouvement."
     },

@@ -406,3 +406,16 @@ Les paliers bronze, argent et or ne doivent pas seulement etre decoratifs. Ils d
 - or : niveau Type brevet valide.
 
 Les badges de comportement restent a part : regularite, perseverance, erreurs reparees, volume de questions, streak. Cette distinction sera importante lors de la refonte logique des badges.
+
+## Correctifs vocabulaire eleve et distracteurs QCM - etape 18
+
+Les textes visibles par l'eleve ont ete simplifies pour eviter les formulations trop abstraites ou demotivantes :
+
+- `Session` devient `Seance` dans l'interface ;
+- `Format` devient `Nombre d'exercices` ;
+- `Recommandation` devient `Conseil du jour` ;
+- `Decouverte`, `Consolidation`, `Type brevet` sont affiches comme `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
+- les etats `Fort`, `Moyen`, `Faible`, `Fragile` sont remplaces par `Solide`, `En progres`, `A reprendre` ;
+- `Attendus` et `auto-evaluation` deviennent `Ce qu'on attend dans ta reponse` et `Je verifie mon travail`.
+
+Premier audit QCM applique : remplacement de plusieurs distracteurs absurdes par des distracteurs faux mais plausibles, notamment en EMC, citoyennete, laicite, mondialisation, redaction et mouvement. Regle a conserver pour les prochains lots : une mauvaise reponse doit etre fausse, mais credible et dans le meme univers que la bonne reponse.

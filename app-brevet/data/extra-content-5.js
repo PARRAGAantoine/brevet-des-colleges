@@ -273,7 +273,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Etre citoyen francais donne notamment le droit de :",
-      choices: ["voter a partir de 18 ans", "ne jamais respecter la loi", "choisir les notes du brevet", "supprimer les institutions"],
+      choices: ["voter a partir de 18 ans", "etre elu a tout age", "rendre une decision de justice", "ecrire seul les lois"],
       answer: "voter a partir de 18 ans",
       explanation: "Le droit de vote est un droit politique majeur du citoyen."
     },
@@ -284,7 +284,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Un devoir du citoyen est par exemple :",
-      choices: ["respecter la loi", "refuser toute regle commune", "voter plusieurs fois", "ignorer les autres"],
+      choices: ["respecter la loi", "choisir librement toutes les lois", "etre dispense de toute obligation", "remplacer les juges"],
       answer: "respecter la loi",
       explanation: "La citoyennete associe des droits et des devoirs dans la vie commune."
     },
@@ -295,7 +295,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "La mondialisation augmente surtout :",
-      choices: ["les echanges entre territoires", "l'isolement total des pays", "la disparition des transports", "l'absence de flux"],
+      choices: ["les echanges entre territoires", "les frontieres totalement fermees", "les activites uniquement locales", "les territoires sans connexion"],
       answer: "les echanges entre territoires",
       explanation: "La mondialisation correspond a l'intensification des flux a l'echelle mondiale."
     },

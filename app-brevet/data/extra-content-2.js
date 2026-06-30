@@ -578,7 +578,7 @@
       stage: "Type brevet",
       type: "QCM",
       question: "Amenager un territoire, c'est principalement :",
-      choices: ["Organiser l'espace pour repondre a des besoins", "Effacer toutes les villes", "Changer uniquement les noms des regions", "Interdire les transports"],
+      choices: ["Organiser l'espace pour repondre a des besoins", "Classer les paysages sans les transformer", "Remplacer toutes les activites par du tourisme", "Decider uniquement du nom des regions"],
       answer: "Organiser l'espace pour repondre a des besoins",
       explanation: "Les amenagements peuvent concerner transports, logements, services, zones d'activite ou environnement.",
       source: "Entrainement inspire des sujets de geographie du brevet general."
@@ -590,7 +590,7 @@
       stage: "Decouverte",
       type: "QCM",
       question: "La laicite garantit d'abord :",
-      choices: ["La liberte de conscience et la neutralite de l'Etat", "L'obligation d'avoir une religion", "La suppression des lois", "Le vote obligatoire a 12 ans"],
+      choices: ["La liberte de conscience et la neutralite de l'Etat", "La souverainete nationale uniquement", "La liberte d'entreprendre uniquement", "L'egalite devant l'impot uniquement"],
       answer: "La liberte de conscience et la neutralite de l'Etat",
       explanation: "La laicite protege le droit de croire ou de ne pas croire dans le cadre de la loi.",
       source: "Entrainement inspire des sujets d'EMC du brevet general."
@@ -601,9 +601,9 @@
       chapter: "Citoyennete",
       stage: "Consolidation",
       type: "QCM",
-      question: "Dans une democratie, voter permet :",
-      choices: ["De participer aux choix collectifs", "De supprimer les lois", "De remplacer les tribunaux", "D'eviter tout debat"],
-      answer: "De participer aux choix collectifs",
+      question: "Dans une democratie representative, voter sert surtout a :",
+      choices: ["Choisir des representants ou trancher une question", "Rendre une decision de justice", "Nommer directement les professeurs", "Appliquer une sanction penale"],
+      answer: "Choisir des representants ou trancher une question",
       explanation: "Le vote est un droit politique qui permet de choisir des representants ou de trancher une question.",
       source: "Entrainement inspire des sujets d'EMC du brevet general."
     },

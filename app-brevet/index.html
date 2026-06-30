@@ -19,7 +19,7 @@
         <nav class="nav-list">
           <button class="nav-item active" data-view="dashboard" type="button">Accueil</button>
           <button class="nav-item" data-view="roadmap" type="button">Parcours</button>
-          <button class="nav-item" data-view="session" type="button">Session</button>
+          <button class="nav-item" data-view="session" type="button">Seance</button>
           <button class="nav-item" data-view="courses" type="button">Cours</button>
           <button class="nav-item" data-view="practice" type="button">Exercices</button>
           <button class="nav-item" data-view="guided" type="button">Sujets guides</button>
@@ -38,7 +38,7 @@
           <div class="hero-band">
             <div>
               <p class="eyebrow">Objectif brevet - juin 2027</p>
-              <h2 id="dailyMission">Reprendre un chapitre fragile</h2>
+              <h2 id="dailyMission">Retravailler un chapitre</h2>
               <p id="dailyHint">On construit les bases maintenant, puis on montera progressivement vers le type brevet.</p>
             </div>
             <button class="primary-action" data-start-recommended type="button">Commencer</button>
@@ -50,11 +50,11 @@
               <strong id="pointsValue">0</strong>
             </article>
             <article class="metric">
-              <span>Serie</span>
+              <span>Jours de suite</span>
               <strong id="streakValue">0 j</strong>
             </article>
             <article class="metric">
-              <span>Meilleure serie</span>
+              <span>Record</span>
               <strong id="bestStreakValue">0 j</strong>
             </article>
             <article class="metric">
@@ -67,14 +67,14 @@
             <section class="panel">
               <div class="panel-header">
                 <div>
-                  <p class="eyebrow">Recommandation</p>
+                  <p class="eyebrow">Conseil du jour</p>
                   <h3 id="recommendationTitle">Mathematiques</h3>
                 </div>
                 <span class="status-pill" id="recommendationStatus">A travailler</span>
               </div>
-              <p id="recommendationText">Commence par quelques questions pour initialiser ta progression.</p>
+              <p id="recommendationText">Commence par quelques questions pour voir ou tu en es.</p>
               <div class="actions-row">
-                <button class="secondary-action" data-view-target="session" type="button">Session guidee</button>
+                <button class="secondary-action" data-view-target="session" type="button">Seance guidee</button>
                 <button class="ghost-action" data-view-target="practice" type="button">Exercices libres</button>
               </div>
             </section>
@@ -83,13 +83,13 @@
               <div class="panel-header">
                 <div>
                   <p class="eyebrow">Parcours</p>
-                  <h3>Progression douce</h3>
+                  <h3>Ton parcours</h3>
                 </div>
               </div>
               <div class="learning-steps" aria-label="Progression pedagogique">
-                <span class="step active">1. Decouverte</span>
-                <span class="step">2. Consolidation</span>
-                <span class="step">3. Type brevet</span>
+                <span class="step active">1. J'apprends</span>
+                <span class="step">2. Je m'entraine</span>
+                <span class="step">3. Comme au brevet</span>
               </div>
               <div class="progress-track" aria-label="Progression du jour">
                 <div id="dailyProgressBar"></div>
@@ -102,7 +102,7 @@
             <div class="panel-header">
               <div>
                 <p class="eyebrow">Matieres</p>
-                <h3>Etat des forces</h3>
+                <h3>Ou tu en es</h3>
               </div>
             </div>
             <div class="subject-grid" id="subjectOverview"></div>
@@ -121,9 +121,9 @@
 
         <section class="view" id="sessionView">
           <div class="page-heading">
-            <p class="eyebrow">Session guidee</p>
+            <p class="eyebrow">Seance guidee</p>
             <h2>Choisis ton format</h2>
-            <p>Un vrai cours guide, puis une serie de questions corrigees.</p>
+            <p>Un vrai cours guide, puis plusieurs questions corrigees.</p>
           </div>
           <div class="session-builder panel">
             <label>
@@ -135,14 +135,14 @@
               <select id="sessionNotion"></select>
             </label>
             <label>
-              Format
+              Nombre d'exercices
               <select id="sessionDuration">
                 <option value="5">Courte - 5 exercices</option>
                 <option value="10">Standard - 10 exercices</option>
                 <option value="15">Longue - 15 exercices</option>
               </select>
             </label>
-            <button class="primary-action" id="startSessionButton" type="button">Lancer la session</button>
+            <button class="primary-action" id="startSessionButton" type="button">Lancer la seance</button>
           </div>
           <div class="session-stage" id="sessionStage"></div>
         </section>
@@ -159,9 +159,9 @@
               Niveau
               <select id="courseStageFilter">
                 <option value="all">Tous les niveaux</option>
-                <option value="Decouverte">Decouverte</option>
-                <option value="Consolidation">Consolidation</option>
-                <option value="Type brevet">Type brevet</option>
+                <option value="Decouverte">J'apprends</option>
+                <option value="Consolidation">Je m'entraine</option>
+                <option value="Type brevet">Comme au brevet</option>
               </select>
             </label>
           </div>
@@ -184,9 +184,9 @@
                 Niveau
                 <select id="practiceStage">
                   <option value="auto">Automatique</option>
-                  <option value="Decouverte">Decouverte</option>
-                  <option value="Consolidation">Consolidation</option>
-                  <option value="Type brevet">Type brevet</option>
+                  <option value="Decouverte">J'apprends</option>
+                  <option value="Consolidation">Je m'entraine</option>
+                  <option value="Type brevet">Comme au brevet</option>
                 </select>
               </label>
               <label>
@@ -206,7 +206,7 @@
           <div class="page-heading">
             <p class="eyebrow">Type brevet</p>
             <h2>Sujets guides</h2>
-            <p>Des exercices longs a faire sur cahier, avec methode, attendus et auto-evaluation.</p>
+            <p>Des exercices longs a faire sur cahier, avec methode, reponse attendue et verification.</p>
           </div>
           <div class="filter-row" id="guidedFilters"></div>
           <div class="guided-list" id="guidedTaskList"></div>
