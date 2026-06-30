@@ -425,7 +425,7 @@ Etat du push : effectue. La branche locale `main` suit `origin/main` sur le depo
 
 Note technique : une surcharge locale du helper d'identifiants Git a ete ajoutee pour ce depot afin d'utiliser Git Credential Manager, car la configuration globale GitHub CLI du poste est associee a un autre compte.
 
-GitHub Pages est configure via `.github/workflows/pages.yml`.
+GitHub Pages est configure en mode legacy avec la branche `gh-pages` comme source.
 
 URL publique :
 

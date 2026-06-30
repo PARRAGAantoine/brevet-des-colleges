@@ -300,7 +300,7 @@ Le projet a ete publie sur GitHub :
 https://github.com/PARRAGAantoine/brevet-des-colleges
 ```
 
-GitHub Pages est configure avec le workflow `.github/workflows/pages.yml`.
+GitHub Pages est configure en mode legacy avec la branche `gh-pages` comme source.
 
 URL publique de l'application :
 
@@ -344,7 +344,7 @@ Validation effectuee :
 Deux protections techniques ont ete ajoutees apres analyse du depot :
 
 - workflow GitHub Actions `.github/workflows/validate.yml` pour executer les controles a chaque push et pull request ;
-- le workflow GitHub Pages execute maintenant la validation avant le deploiement ;
+- GitHub Pages reste publie depuis la branche `gh-pages` ;
 - le registre des generateurs attrape les erreurs d'un generateur et renvoie `null` au lieu de faire planter l'application ;
 - le validateur echoue si une erreur de generateur est journalisee pendant les echantillons.
 

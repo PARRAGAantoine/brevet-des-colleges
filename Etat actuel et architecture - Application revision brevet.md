@@ -438,7 +438,7 @@ Le push GitHub est effectue. La branche locale `main` suit `origin/main` sur le 
 
 Note technique : pour ne pas interferer avec les autres projets GitHub du poste, ce depot utilise une surcharge locale du gestionnaire d'identifiants afin de pousser avec le compte `PARRAGAantoine`.
 
-GitHub Pages est configure via le workflow `.github/workflows/pages.yml`.
+GitHub Pages est configure en mode legacy avec la branche `gh-pages` comme source.
 
 URL publique :
 
@@ -449,7 +449,7 @@ https://parragaantoine.github.io/brevet-des-colleges/
 Le depot contient aussi une validation GitHub Actions :
 
 - `.github/workflows/validate.yml` controle la syntaxe JS et les contenus a chaque push ou pull request ;
-- `.github/workflows/pages.yml` execute cette validation avant de deployer GitHub Pages.
+- la publication GitHub Pages reste servie depuis la branche `gh-pages`.
 
 ## Mise a jour notions - etape 6
 
