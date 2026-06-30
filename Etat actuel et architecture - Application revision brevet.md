@@ -60,7 +60,7 @@ Validation actuelle :
 ```txt
 Matieres : 4
 Cours : 66
-Exercices statiques : 194
+Exercices statiques : 210
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -115,7 +115,7 @@ Le projet utilise maintenant deux sources d'exercices.
 
 ### Banque statique
 
-Les 194 exercices deja crees restent utiles.
+Les 210 exercices deja crees restent utiles.
 
 Ils constituent une banque controlee et doivent etre conserves. Ils servent notamment pour :
 
@@ -458,7 +458,7 @@ Le registre de notions couvre maintenant les 33 chapitres actuellement utilises 
 Tous les contenus existants sont relies a une notion stable :
 
 - 66 cours avec `notionId` ;
-- 194 exercices statiques avec `notionId` ;
+- 210 exercices statiques avec `notionId` ;
 - 12 sujets guides avec `notionId`.
 
 Le validateur controle maintenant que chaque cours, exercice et sujet guide possede un `notionId` connu.
@@ -516,3 +516,13 @@ Validation effectuee :
 - `node --check data\notions.js` : OK ;
 - `node tools\validate-content.js` : OK ;
 - controle navigateur local : Mathematiques > Probabilites affiche un cours et une question de probabilites, sans erreur console.
+
+## Mise a jour types d'exercices
+
+Le moteur d'exercices accepte maintenant trois formats :
+
+- `qcm` ;
+- `true_false` ;
+- `order`.
+
+La banque statique contient maintenant 210 exercices : 194 QCM, 8 vrai/faux et 8 remises en ordre. Les prochains lots devront augmenter ces nouveaux formats et ajouter ensuite association et reponse courte.

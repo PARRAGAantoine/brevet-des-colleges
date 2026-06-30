@@ -8,6 +8,7 @@ const files = [
   "data/extra-content-3.js",
   "data/extra-content-4.js",
   "data/extra-content-5.js",
+  "data/extra-content-6.js",
   "data/notions.js",
   "generators/registry.js",
   "generators/math-calcul.js",
@@ -34,12 +35,28 @@ function requireField(item, field, label) {
 
 function validateExercise(exercise, label = "exercise") {
   ["id", "subject", "chapter", "question", "answer", "explanation"].forEach((field) => requireField(exercise, field, label));
+  const exerciseType = String(exercise.type || "qcm").toLowerCase();
   if (!subjectIds.has(exercise.subject)) errors.push(`${label} ${exercise.id} : matiere inconnue ${exercise.subject}`);
   if (!exercise.notionId) errors.push(`${label} ${exercise.id} : notionId manquant`);
   if (exercise.notionId && !notionIds.has(exercise.notionId)) errors.push(`${label} ${exercise.id} : notionId inconnu ${exercise.notionId}`);
-  if (!Array.isArray(exercise.choices) || exercise.choices.length < 3) errors.push(`${label} ${exercise.id} : choix insuffisants`);
-  if (Array.isArray(exercise.choices) && !exercise.choices.includes(String(exercise.answer)) && !exercise.choices.includes(exercise.answer)) {
+  if (!["qcm", "true_false", "order"].includes(exerciseType)) errors.push(`${label} ${exercise.id} : type inconnu ${exercise.type}`);
+  const minChoices = exerciseType === "true_false" ? 2 : 3;
+  if (!Array.isArray(exercise.choices) || exercise.choices.length < minChoices) errors.push(`${label} ${exercise.id} : choix insuffisants`);
+  if (exerciseType !== "order" && Array.isArray(exercise.choices) && !exercise.choices.includes(String(exercise.answer)) && !exercise.choices.includes(exercise.answer)) {
     errors.push(`${label} ${exercise.id} : la bonne reponse est absente des choix`);
+  }
+  if (exerciseType === "true_false") {
+    const expected = ["Vrai", "Faux"];
+    expected.forEach((choice) => {
+      if (!exercise.choices.includes(choice)) errors.push(`${label} ${exercise.id} : choix vrai/faux manquant ${choice}`);
+    });
+  }
+  if (exerciseType === "order") {
+    const ordered = String(exercise.answer).split("|||");
+    if (ordered.length !== exercise.choices.length) errors.push(`${label} ${exercise.id} : ordre attendu incoherent`);
+    ordered.forEach((choice) => {
+      if (!exercise.choices.includes(choice)) errors.push(`${label} ${exercise.id} : element d'ordre absent des choix`);
+    });
   }
 }
 

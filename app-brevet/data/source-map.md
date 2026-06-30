@@ -146,7 +146,7 @@ La correction des QCM reste fiable car chaque bouton garde la valeur reelle de l
 
 ## Architecture generateurs offline - etape 5
 
-L'application conserve les 194 exercices statiques deja crees comme banque validee, puis ajoute une architecture de generation offline.
+L'application conserve les exercices statiques deja crees comme banque validee, puis ajoute une architecture de generation offline.
 
 Ajouts :
 
@@ -355,3 +355,27 @@ Validation locale effectuee :
 - `node --check generators\registry.js` : OK ;
 - `node --check tools\validate-content.js` : OK ;
 - `node tools\validate-content.js` : OK.
+
+## Types d'exercices varies - etape 15
+
+Le moteur d'exercices accepte maintenant plusieurs formats :
+
+- `qcm` : choix multiple classique ;
+- `true_false` : vrai/faux ;
+- `order` : remise en ordre par clics successifs.
+
+Un premier lot de 16 exercices statiques a ete ajoute dans `data/extra-content-6.js` :
+
+- 8 vrai/faux ;
+- 8 remises en ordre ;
+- repartition sur mathematiques, francais, histoire-geographie-EMC et sciences.
+
+Le nombre total d'exercices statiques passe de 194 a 210.
+
+Validation effectuee :
+
+- `node --check app.js` : OK ;
+- `node --check data\extra-content-6.js` : OK ;
+- `node --check tools\validate-content.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- controle script : 194 QCM, 8 vrai/faux, 8 remises en ordre, 0 ordre incoherent.

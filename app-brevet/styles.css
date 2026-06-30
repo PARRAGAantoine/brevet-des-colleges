@@ -709,6 +709,47 @@ input[type="text"] {
   background: #fff0f0;
 }
 
+.order-builder,
+.order-choice-list,
+.order-answer {
+  display: grid;
+  gap: 10px;
+}
+
+.order-answer {
+  min-height: 62px;
+  align-content: start;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfd;
+}
+
+.order-token {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #b8c7d8;
+  border-radius: 8px;
+  background: #eef5f4;
+  color: var(--text);
+  text-align: left;
+  font-weight: 800;
+  padding: 10px 12px;
+}
+
+.order-token::before {
+  content: "✓ ";
+  color: var(--primary);
+}
+
+.order-submit.correct {
+  background: #55a786;
+}
+
+.order-submit.wrong {
+  background: var(--rose);
+}
+
 .feedback {
   margin-top: 16px;
   padding: 16px;

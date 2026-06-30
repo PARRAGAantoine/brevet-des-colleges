@@ -37,7 +37,7 @@ http://127.0.0.1:4174/
 
 - 4 matieres : mathematiques, francais, histoire-geographie-EMC, sciences.
 - 66 cours.
-- 194 exercices statiques.
+- 210 exercices statiques.
 - 12 sujets guides longs.
 - 33 notions referencees.
 - 46 generateurs offline.

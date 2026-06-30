@@ -953,13 +953,35 @@
   }
 
   function renderQuestion(question, context) {
+    if (question.type === "order") return renderOrderQuestion(question, context);
     const choices = getShuffledChoices(question, context);
     return `
       <span class="tag">${subjectLabel(question.subject)} - ${question.chapter}</span>
       <span class="tag">${question.stage || "Progressif"}</span>
+      ${question.type === "true_false" ? `<span class="tag">Vrai / Faux</span>` : ""}
       <h3 class="question-title">${question.question || question.prompt}</h3>
       <div class="choice-list">
-        ${choices.map((choice) => `<button class="choice-button" data-answer-context="${context}" data-answer="${escapeHtml(choice)}" type="button">${choice}</button>`).join("")}
+        ${choices.map((choice) => `<button class="choice-button" data-answer-context="${context}" data-answer="${escapeHtml(choice)}" type="button">${escapeHtml(choice)}</button>`).join("")}
+      </div>
+      <div class="feedback" hidden></div>
+    `;
+  }
+
+  function renderOrderQuestion(question, context) {
+    const choices = getShuffledChoices(question, context);
+    return `
+      <span class="tag">${subjectLabel(question.subject)} - ${question.chapter}</span>
+      <span class="tag">${question.stage || "Progressif"}</span>
+      <span class="tag">Remise en ordre</span>
+      <h3 class="question-title">${question.question || question.prompt}</h3>
+      <div class="order-builder" data-order-context="${context}">
+        <div class="order-choice-list">
+          ${choices.map((choice) => `<button class="choice-button order-choice" data-order-choice="${escapeHtml(choice)}" type="button">${escapeHtml(choice)}</button>`).join("")}
+        </div>
+        <div class="order-answer" aria-live="polite">
+          <span class="muted">Clique les elements dans le bon ordre.</span>
+        </div>
+        <button class="primary-action order-submit" data-order-submit data-answer-context="${context}" type="button" disabled>Valider l'ordre</button>
       </div>
       <div class="feedback" hidden></div>
     `;
@@ -996,11 +1018,14 @@
     const correct = String(selected) === String(question.answer);
     const panel = button.closest(".question-panel, .session-stage");
 
-    panel.querySelectorAll(".choice-button").forEach((choiceButton) => {
+    panel.querySelectorAll(".choice-button, .order-submit").forEach((choiceButton) => {
       choiceButton.disabled = true;
       if (String(choiceButton.dataset.answer) === String(question.answer)) choiceButton.classList.add("correct");
       if (choiceButton === button && !correct) choiceButton.classList.add("wrong");
     });
+    if (question.type === "order") {
+      button.classList.add(correct ? "correct" : "wrong");
+    }
 
     const feedback = panel.querySelector(".feedback");
     feedback.hidden = false;
@@ -1420,6 +1445,15 @@
 
       const answer = event.target.closest("[data-answer]");
       if (answer && !answer.disabled) answerQuestion(answer);
+
+      const orderChoice = event.target.closest("[data-order-choice]");
+      if (orderChoice && !orderChoice.disabled) addOrderChoice(orderChoice);
+
+      const orderToken = event.target.closest("[data-order-remove]");
+      if (orderToken && !orderToken.disabled) removeOrderChoice(orderToken);
+
+      const orderSubmit = event.target.closest("[data-order-submit]");
+      if (orderSubmit && !orderSubmit.disabled) submitOrderAnswer(orderSubmit);
     });
 
     document.querySelector("[data-start-recommended]").addEventListener("click", () => {
@@ -1456,6 +1490,43 @@
       selectedCourseStage = event.target.value;
       renderCourses();
     });
+  }
+
+  function addOrderChoice(button) {
+    const builder = button.closest(".order-builder");
+    const answer = builder.querySelector(".order-answer");
+    const value = button.dataset.orderChoice;
+    const empty = answer.querySelector(".muted");
+    if (empty) empty.remove();
+    button.disabled = true;
+    answer.insertAdjacentHTML("beforeend", `<button class="order-token" data-order-remove="${escapeHtml(value)}" type="button">${escapeHtml(value)}</button>`);
+    updateOrderSubmit(builder);
+  }
+
+  function removeOrderChoice(button) {
+    const builder = button.closest(".order-builder");
+    const value = button.dataset.orderRemove;
+    const choice = [...builder.querySelectorAll("[data-order-choice]")].find((item) => item.dataset.orderChoice === value);
+    if (choice) choice.disabled = false;
+    button.remove();
+    const answer = builder.querySelector(".order-answer");
+    if (!answer.querySelector("[data-order-remove]")) {
+      answer.innerHTML = `<span class="muted">Clique les elements dans le bon ordre.</span>`;
+    }
+    updateOrderSubmit(builder);
+  }
+
+  function updateOrderSubmit(builder) {
+    const total = builder.querySelectorAll("[data-order-choice]").length;
+    const selected = builder.querySelectorAll("[data-order-remove]").length;
+    builder.querySelector("[data-order-submit]").disabled = selected !== total;
+  }
+
+  function submitOrderAnswer(button) {
+    const builder = button.closest(".order-builder");
+    const selected = [...builder.querySelectorAll("[data-order-remove]")].map((item) => item.dataset.orderRemove);
+    button.dataset.answer = selected.join("|||");
+    answerQuestion(button);
   }
 
   bindEvents();

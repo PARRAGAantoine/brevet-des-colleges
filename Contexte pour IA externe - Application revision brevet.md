@@ -83,7 +83,7 @@ Etat valide actuellement :
 ```txt
 Matieres : 4
 Cours : 66
-Exercices statiques : 194
+Exercices statiques : 210
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -342,7 +342,7 @@ Si GitHub n'est pas encore configure, l'assistant doit le dire clairement et pro
 
 Le registre de notions est passe a 33 notions, couvrant tous les chapitres actuellement presents dans les exercices.
 
-Les 66 cours, 194 exercices statiques et 12 sujets guides ont maintenant un `notionId` valide.
+Les 66 cours, 210 exercices statiques et 12 sujets guides ont maintenant un `notionId` valide.
 
 Il reste a proposer une strategie pour decouper les notions larges en sous-notions pedagogiques plus fines.
 
@@ -350,7 +350,7 @@ Il reste a proposer une strategie pour decouper les notions larges en sous-notio
 
 Le nombre de generateurs offline est passe a 20. Le nouveau lot porte surtout sur les mathematiques : fractions, puissances, priorites, proportionnalite, fonctions, Pythagore, Thales et trigonometrie.
 
-Les generateurs restent complementaires de la banque statique de 194 exercices.
+Les generateurs restent complementaires de la banque statique de 210 exercices.
 
 ## Mise a jour pour l'IA externe : generateurs sciences
 
@@ -397,6 +397,17 @@ La session guidee permet maintenant de choisir une notion precise apres la matie
 Quand une notion est choisie, le cours et les exercices sont filtres sur cette meme notion. Les generateurs offline peuvent aussi produire directement des questions pour la notion choisie.
 
 Point a ameliorer ensuite : certaines notions restent larges, par exemple geometrie ou sciences. Il faudra probablement les decouper en sous-notions pedagogiques plus fines pour obtenir des sessions encore plus coherentes.
+
+## Mise a jour pour l'IA externe : types d'exercices
+
+Le moteur d'exercices ne se limite plus au QCM. Deux nouveaux formats sont pris en charge :
+
+- `true_false` : vrai/faux ;
+- `order` : remise en ordre par clics successifs.
+
+Un premier lot de 16 exercices a ete ajoute, ce qui porte la banque statique a 210 exercices : 194 QCM, 8 vrai/faux et 8 remises en ordre.
+
+Priorite suivante : produire davantage d'exercices dans ces nouveaux formats, puis ajouter association et reponse courte.
 
 ## Mise a jour pour l'IA externe : GitHub
 
