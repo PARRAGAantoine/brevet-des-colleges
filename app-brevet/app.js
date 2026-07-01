@@ -632,14 +632,65 @@
     return templates.find((template) => template.match) || fallback;
   }
 
+  function getStudentCourseIntro(lesson) {
+    return `Tu vas travailler ${lesson.chapter}. Le but est de comprendre l'idee principale, puis de t'entrainer avec des questions progressives.`;
+  }
+
+  function getCourseVocabulary(lesson) {
+    const subject = lesson.subject;
+    const text = `${lesson.chapter || ""} ${lesson.title || ""}`.toLowerCase();
+    const entries = [
+      [subject === "mathematiques" && text.includes("probabil"), ["issue", "evenement", "cas favorables", "cas possibles"]],
+      [subject === "mathematiques" && text.includes("statistique"), ["moyenne", "mediane", "serie", "valeur"]],
+      [subject === "mathematiques" && text.includes("geometrie"), ["triangle rectangle", "theoreme", "longueur", "unite"]],
+      [subject === "mathematiques" && text.includes("fonction"), ["fonction", "image", "antecedent", "valeur de depart"]],
+      [subject === "mathematiques" && text.includes("litteral"), ["expression", "developper", "factoriser", "remplacer x"]],
+      [subject === "mathematiques" && text.includes("equation"), ["equation", "inconnue", "solution", "verifier"]],
+      [subject === "francais" && text.includes("grammaire"), ["verbe", "sujet", "COD", "fonction"]],
+      [subject === "francais" && text.includes("orthographe"), ["accord", "sujet", "pluriel", "participe passe"]],
+      [subject === "francais" && text.includes("lecture"), ["indice", "citation", "idee", "justifier"]],
+      [subject === "francais" && text.includes("redaction"), ["sujet", "plan", "paragraphe", "exemple"]],
+      [subject === "histoire" && (text.includes("emc") || text.includes("citoy")), ["droit", "devoir", "loi", "citoyen"]],
+      [subject === "histoire" && text.includes("valeurs"), ["liberte", "egalite", "fraternite", "laicite"]],
+      [subject === "histoire" && text.includes("document"), ["nature", "auteur", "date", "sujet"]],
+      [subject === "histoire", ["repere", "acteur", "cause", "consequence"]],
+      [subject === "sciences" && text.includes("donnees"), ["donnee", "unite", "graphique", "conclusion"]],
+      [subject === "sciences" && text.includes("svt"), ["experience", "facteur teste", "resultat", "vivant"]],
+      [subject === "sciences" && text.includes("physique"), ["mesure", "unite", "formule", "pH"]],
+      [subject === "sciences" && text.includes("technologie"), ["capteur", "actionneur", "information", "algorithme"]]
+    ];
+    return entries.find(([match]) => match)?.[1] || ["consigne", "methode", "exemple", "verification"];
+  }
+
+  function getCourseWarmup(lesson) {
+    const chapter = String(lesson.chapter || "").toLowerCase();
+    if (lesson.subject === "mathematiques") return "Avant de calculer, demande-toi : qu'est-ce que je cherche ? quelles donnees sont utiles ?";
+    if (lesson.subject === "francais") return "Avant de repondre, cherche les mots importants de la consigne et un indice precis dans le texte.";
+    if (lesson.subject === "histoire") return "Avant de repondre, situe le sujet : quand ? ou ? qui ? quel mot du cours faut-il utiliser ?";
+    if (chapter.includes("technologie")) return "Avant de repondre, separe ce qui detecte, ce qui traite l'information et ce qui agit.";
+    return "Avant de repondre, repere ce qui est donne, ce qui change et ce que tu dois conclure.";
+  }
+
   function renderLessonBody(lesson) {
     const details = getCourseDetails(lesson);
+    const vocabulary = getCourseVocabulary(lesson);
     const prerequisite = lesson.prerequisite || "Tu peux commencer directement : lis la methode, puis observe l'exemple.";
     return `
-      <p class="course-intro">${lesson.summary}</p>
+      <p class="course-intro">${getStudentCourseIntro(lesson)}</p>
+      <div class="course-note course-note-wide">
+        <strong>Ce que tu dois savoir au depart</strong>
+        <p>${prerequisite}</p>
+      </div>
       <section class="course-section">
-        <h4>Ce qu'il faut comprendre</h4>
+        <h4>L'idee simple</h4>
+        <p>${lesson.summary}</p>
         ${details.theory.map((paragraph) => `<p>${paragraph}</p>`).join("")}
+      </section>
+      <section class="course-section">
+        <h4>Mots a connaitre</h4>
+        <div class="keyword-list">
+          ${vocabulary.map((word) => `<span>${word}</span>`).join("")}
+        </div>
       </section>
       <section class="course-section">
         <h4>Methode pas a pas</h4>
@@ -648,26 +699,24 @@
         </ol>
       </section>
       <div class="lesson-callout">
-        <strong>Exemple guide</strong>
-        <p>${lesson.example || details.exampleDetail}</p>
-        <p>${details.exampleDetail}</p>
+        <strong>Exemple explique</strong>
+        <p><strong>Situation :</strong> ${lesson.example || details.exampleDetail}</p>
+        <p><strong>Comment raisonner :</strong> ${details.exampleDetail}</p>
+        <p><strong>A faire toi-meme :</strong> cache la correction, refais l'exemple, puis compare les etapes.</p>
+      </div>
+      <div class="lesson-callout soft">
+        <strong>Avant les questions</strong>
+        <p>${getCourseWarmup(lesson)}</p>
+        <p>${details.check}</p>
       </div>
       <div class="course-grid">
         <div class="course-note">
-          <strong>Avant de commencer</strong>
-          <p>${prerequisite}</p>
-        </div>
-        <div class="course-note">
-          <strong>A retenir</strong>
+          <strong>Phrase a retenir</strong>
           <p>${getLessonTakeaway(lesson)}</p>
         </div>
         <div class="course-note warning">
-          <strong>Piege frequent</strong>
+          <strong>Erreur a eviter</strong>
           <p>${getLessonMistake(lesson)}</p>
-        </div>
-        <div class="course-note">
-          <strong>Je verifie</strong>
-          <p>${details.check}</p>
         </div>
       </div>
     `;

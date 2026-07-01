@@ -562,3 +562,19 @@ Familles de badges :
 Les derniers badges sont volontairement difficiles : 750 questions, 100 jours de suite, 30 erreurs reparees, 120 reussites Comme au brevet, 15 sujets guides, or dans les quatre matieres.
 
 Objectif : garder une motivation rapide au debut, mais empecher que tous les badges soient obtenus en quelques seances.
+
+## Mise a jour affichage des cours
+
+Les cours affiches avant les exercices ont ete restructures pour etre plus comprehensibles par un eleve qui n'a pas encore vu le chapitre.
+
+Nouvelle structure commune :
+
+- introduction courte ;
+- ce qu'il faut savoir au depart ;
+- idee simple ;
+- mots a connaitre ;
+- methode pas a pas ;
+- exemple explique ;
+- conseil avant de passer aux questions.
+
+Cette evolution ameliore immediatement toutes les fiches sans changer la banque d'exercices. Prochaine etape pedagogique : relire et simplifier progressivement les textes de cours eux-memes, matiere par matiere, avec des phrases courtes et un vocabulaire de 4e/3e.

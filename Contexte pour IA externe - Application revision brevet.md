@@ -464,3 +464,19 @@ URL publique :
 ```txt
 https://parragaantoine.github.io/brevet-des-colleges/
 ```
+
+## Mise a jour pour l'IA externe : cours plus accessibles
+
+Les cours avant exercices ont maintenant une structure commune pensee pour un eleve qui decouvre le chapitre :
+
+- introduction simple ;
+- connaissances de depart ;
+- idee simple ;
+- mots a connaitre ;
+- methode pas a pas ;
+- exemple explique ;
+- conseil avant les questions.
+
+Le but est de passer d'un simple rappel a un vrai mini-cours. Cette couche est globale et immediatement appliquee a toutes les fiches.
+
+Point important pour les prochaines propositions : il reste a reecrire progressivement le fond de chaque cours pour simplifier les phrases, limiter le vocabulaire technique non explique et ajouter davantage d'exemples concrets. Les futures contributions doivent viser un niveau eleve de 4e/3e qui n'a pas encore vu tout le programme, car l'objectif est juin 2027.

@@ -596,6 +596,11 @@ input[type="text"] {
   border-radius: 8px;
 }
 
+.lesson-callout.soft {
+  border-left-color: var(--gold);
+  background: #fff8e8;
+}
+
 .course-intro {
   font-weight: 650;
   color: var(--text);
@@ -609,6 +614,24 @@ input[type="text"] {
 .course-section h4 {
   margin: 8px 0 0;
   font-size: 1rem;
+}
+
+.keyword-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.keyword-list span {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 12px;
+  background: #eef5f4;
+  color: var(--primary-dark);
+  font-weight: 800;
+  font-size: 0.88rem;
 }
 
 .course-method {
@@ -633,6 +656,11 @@ input[type="text"] {
   border-radius: 8px;
   padding: 12px;
   background: #fff;
+}
+
+.course-note-wide {
+  margin-bottom: 12px;
+  background: #f8fbfd;
 }
 
 .course-note.warning {

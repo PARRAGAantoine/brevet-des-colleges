@@ -499,3 +499,26 @@ Le fichier `data/extra-content-7.js` ajoute 40 nouveaux exercices :
 - sciences : donnees, SVT, physique-chimie, technologie.
 
 Le total passe a 250 exercices statiques, 12 sujets guides, 46 generateurs offline.
+
+## Clarification des cours pour debutants - etape 23
+
+L'affichage des cours a ete retravaille pour un eleve qui n'a pas encore vu le chapitre en classe.
+
+Chaque cours presente maintenant une structure plus guidee :
+
+- une introduction simple sur ce qui va etre travaille ;
+- un bloc `Ce que tu dois savoir au depart` ;
+- une partie `L'idee simple` ;
+- une liste de `Mots a connaitre` adaptee a la matiere et au chapitre ;
+- une `Methode pas a pas` ;
+- un `Exemple explique` ;
+- un rappel `Avant les questions` pour aider l'eleve a se lancer.
+
+Objectif : eviter les fiches qui ressemblent seulement a des rappels rapides. Les contenus existants restent a relire et simplifier progressivement, mais l'interface force deja une presentation plus claire, plus progressive et moins technique.
+
+Validation effectuee :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : 226 QCM audites, 0 alerte ;
+- controle navigateur local : cours affiche avec les blocs attendus, aucune erreur console.
