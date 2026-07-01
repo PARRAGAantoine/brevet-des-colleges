@@ -40,7 +40,7 @@ Les données de progression sont stockées localement dans le navigateur.
 - Sessions courtes par nombre d'exercices, avec temps reel affiche au bilan.
 - Système de points.
 - Streak quotidien.
-- Badges simples.
+- Badges progressifs par chapitre, matiere et defi long terme.
 - Suivi par matière et chapitre.
 - Historique des sessions.
 - Recommandation automatique d'une matière à travailler.
@@ -202,6 +202,18 @@ Badges V1 :
 - Rebond : terminer une session avec au moins une erreur, puis corriger une question ratée après révision.
 
 Principe important : les badges de persévérance ne doivent pas récompenser un nouvel essai au hasard. Ils sont débloqués seulement si l'élève suit le cycle complet : erreur, correction expliquée, fiche de révision liée, nouvelle tentative, réussite.
+
+Evolution appliquee : le systeme doit maintenant proposer beaucoup plus de badges, avec une difficulte progressive. Il ne faut pas que tous les badges puissent etre obtenus en quelques seances.
+
+Familles attendues :
+
+- badges de chapitre : bronze, argent, or ;
+- badges de matiere : bronze, argent, or ;
+- badges de regularite ;
+- badges d'erreurs reparees ;
+- badges de volume de questions ;
+- badges de sujets guides ;
+- badges rares de fin de parcours.
 
 Évolution décidée pour les badges de progression :
 

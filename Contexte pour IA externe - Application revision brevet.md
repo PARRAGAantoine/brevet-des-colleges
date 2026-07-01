@@ -429,6 +429,16 @@ Decision prise : les paliers bronze, argent et or doivent devenir lisibles comme
 
 Ces badges de progression par notion doivent coexister avec des badges de comportement separes : regularite, perseverance, erreurs reparees, volume de questions, streak. Une solution a proposer doit donc distinguer clairement la maitrise d'une notion et l'engagement de l'eleve.
 
+## Mise a jour pour l'IA externe : refonte badges
+
+Le systeme de badges a ete refondu. Il ne repose plus principalement sur une petite liste de badges statiques. L'application genere maintenant :
+
+- des badges par chapitre, avec bronze = bases, argent = entrainement, or = niveau Comme au brevet ;
+- des badges par matiere ;
+- des badges defi de long terme : volume de questions, regularite, erreurs reparees, sujets guides, seances parfaites.
+
+Les derniers badges sont volontairement longs a obtenir pour eviter que l'eleve ait tout debloque en quelques seances. Toute proposition future doit conserver cet equilibre : gratification rapide au debut, objectifs rares et difficiles a la fin.
+
 ## Mise a jour pour l'IA externe : GitHub
 
 Le depot Git local a ete initialise sur la branche `main`.

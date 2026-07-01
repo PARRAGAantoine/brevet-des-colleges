@@ -451,3 +451,28 @@ Lots corriges :
 Controle applique : detecteur local de termes suspects dans les choix QCM. Resultat apres corrections : 0 distracteur grossier detecte dans les banques statiques principales.
 
 Point important : cet audit ne remplace pas une relecture pedagogique humaine. Il corrige les anomalies evidentes ; il faudra ensuite relire les questions une par une par matiere pour verifier la precision disciplinaire et le niveau brevet.
+
+## Refonte logique des badges - etape 21
+
+Le systeme de badges n'est plus limite aux 14 badges statiques historiques. La vue Badges utilise maintenant une fabrique de badges generee au lancement de l'app :
+
+- badges de chapitre : 3 niveaux par chapitre du curriculum ;
+- badges de matiere : bronze, argent, or par matiere ;
+- badges defi : regularite, volume de questions, seances terminees, erreurs reparees, seances sans erreur, sujets guides, niveau type brevet.
+
+Objectif : eviter que l'eleve debloque tous les badges en quelques seances. Les premiers badges restent accessibles vite, mais les derniers demandent un vrai travail long :
+
+- 300 puis 750 questions ;
+- 30 puis 100 jours de suite ;
+- 30 erreurs reparees apres cours ;
+- 120 questions reussies en mode Comme au brevet ;
+- 15 sujets guides termines ;
+- or dans les quatre matieres.
+
+Les badges de chapitre suivent la logique pedagogique de l'app :
+
+- bronze : bases du chapitre validees ;
+- argent : entrainement regulier ;
+- or : niveau Comme au brevet avec plusieurs questions type brevet reussies.
+
+Le rendu visuel existant est conserve : badge verrouille plat, badge debloque en medaille bronze, argent ou or.

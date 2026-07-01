@@ -546,3 +546,17 @@ Decision prise : les paliers bronze, argent et or doivent aussi devenir des repÃ
 - or = Type brevet valide.
 
 Les badges de comportement restent separes : regularite, perseverance, erreurs reparees, volume de questions, streak. Cette separation evite de melanger "j'ai travaille beaucoup" et "je maitrise cette notion au niveau attendu".
+
+## Mise a jour refonte badges
+
+Le systeme de badges est passe d'une petite liste statique a une generation automatique.
+
+Familles de badges :
+
+- badges de chapitre : bronze, argent, or pour chaque chapitre du curriculum ;
+- badges de matiere : bronze, argent, or pour mathematiques, francais, histoire-geo EMC et sciences ;
+- badges defi : seances, questions, jours de suite, erreurs reparees, seances sans erreur, sujets guides, mode Comme au brevet.
+
+Les derniers badges sont volontairement difficiles : 750 questions, 100 jours de suite, 30 erreurs reparees, 120 reussites Comme au brevet, 15 sujets guides, or dans les quatre matieres.
+
+Objectif : garder une motivation rapide au debut, mais empecher que tous les badges soient obtenus en quelques seances.

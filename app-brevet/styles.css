@@ -329,6 +329,23 @@ button {
   padding: 18px;
 }
 
+.badge-summary {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 6px;
+  background: linear-gradient(135deg, #ffffff 0%, #eef7f5 100%);
+}
+
+.badge-summary strong {
+  font-size: 1.2rem;
+}
+
+.badge-summary p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+}
+
 .badge-card {
   --badge-main: #9aa1a4;
   --badge-dark: #666d6e;
