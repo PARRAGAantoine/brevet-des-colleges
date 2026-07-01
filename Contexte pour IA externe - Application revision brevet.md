@@ -480,3 +480,19 @@ Les cours avant exercices ont maintenant une structure commune pensee pour un el
 Le but est de passer d'un simple rappel a un vrai mini-cours. Cette couche est globale et immediatement appliquee a toutes les fiches.
 
 Point important pour les prochaines propositions : il reste a reecrire progressivement le fond de chaque cours pour simplifier les phrases, limiter le vocabulaire technique non explique et ajouter davantage d'exemples concrets. Les futures contributions doivent viser un niveau eleve de 4e/3e qui n'a pas encore vu tout le programme, car l'objectif est juin 2027.
+
+## Mise a jour pour l'IA externe : relecture matiere par matiere
+
+La reecriture precise des cours a commence par les mathematiques.
+
+Les profils suivants ont ete enrichis : pourcentages, proportionnalite, priorites, puissances, statistiques, probabilites, equations, factorisation, programmes de calcul, tableur, Pythagore, Thales, trigonometrie, aires et volumes, echelles, vitesse.
+
+Pour les prochaines contributions, la priorite n'est pas seulement d'ajouter du volume. Il faut aussi verifier que chaque cours :
+
+- peut etre compris par un eleve qui decouvre le chapitre ;
+- explique les mots techniques avant de les utiliser ;
+- donne une methode concrete ;
+- propose un exemple different des exercices qui suivent ;
+- evite les phrases trop longues.
+
+Matieres restantes pour cette passe : francais, histoire-geo EMC, sciences.

@@ -397,6 +397,182 @@
 
     const templates = [
       {
+        match: subject === "mathematiques" && title.includes("pourcentage"),
+        theory: [
+          "Un pourcentage sert a prendre une partie d'une quantite. Le symbole % veut dire sur 100.",
+          "Calculer 25 % d'un nombre, c'est prendre 25 parts sur 100. On peut donc ecrire 25/100 x la quantite.",
+          "Un pourcentage ne s'ajoute pas automatiquement au nombre de depart. Il faut d'abord comprendre si la question demande une partie, une augmentation ou une reduction."
+        ],
+        method: ["Repere la quantite de depart.", "Transforme le pourcentage en fraction sur 100.", "Multiplie la quantite par cette fraction.", "Donne une phrase de reponse avec l'unite."],
+        exampleDetail: "Pour calculer 25 % de 80, on fait 25/100 x 80. Cela donne 20. Donc 25 % de 80 vaut 20.",
+        check: "As-tu bien calcule une partie de la quantite, sans ajouter le pourcentage au hasard ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("proportionnalite"),
+        theory: [
+          "Deux grandeurs sont proportionnelles quand on passe toujours de l'une a l'autre avec le meme multiplicateur.",
+          "Exemple simple : si 1 cahier coute 2 euros, alors 3 cahiers coutent 6 euros et 5 cahiers coutent 10 euros. Le prix est toujours le nombre de cahiers multiplie par 2.",
+          "Attention : si deux valeurs augmentent en meme temps, ce n'est pas forcement proportionnel. Il faut verifier que le meme coefficient fonctionne partout."
+        ],
+        method: ["Compare deux colonnes ou deux grandeurs.", "Cherche le nombre qui permet de passer de l'une a l'autre.", "Verifie ce nombre sur plusieurs lignes.", "Utilise ce coefficient pour calculer la valeur manquante."],
+        exampleDetail: "Si 4 stylos coutent 6 euros, 1 stylo coute 6 / 4 = 1,50 euro. Alors 10 stylos coutent 10 x 1,50 = 15 euros.",
+        check: "Le meme coefficient fonctionne-t-il pour toutes les lignes du tableau ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("priorites"),
+        theory: [
+          "Dans un calcul avec plusieurs operations, on ne calcule pas toujours de gauche a droite.",
+          "On fait d'abord ce qui est dans les parentheses. Ensuite on calcule les multiplications et les divisions. A la fin, on fait les additions et les soustractions.",
+          "Ecrire une seule etape par ligne aide beaucoup : cela evite de changer deux choses en meme temps et de perdre le fil."
+        ],
+        method: ["Recopie le calcul sans le modifier.", "Calcule d'abord les parentheses.", "Calcule ensuite les multiplications et divisions.", "Termine par les additions et soustractions.", "Relis le resultat pour voir s'il est raisonnable."],
+        exampleDetail: "Pour 3 + 4 x 2, on commence par 4 x 2 = 8. Le calcul devient 3 + 8, donc le resultat est 11.",
+        check: "As-tu fait les multiplications avant les additions quand il n'y avait pas de parentheses ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("puissances"),
+        theory: [
+          "Une puissance sert a ecrire une multiplication repetee. Par exemple, 10^3 veut dire 10 x 10 x 10.",
+          "Avec les puissances de 10, l'exposant indique combien de fois on multiplie par 10. Ce n'est pas 10 x 3.",
+          "Dans l'ecriture scientifique, on garde un nombre entre 1 et 10, puis on multiplie par une puissance de 10."
+        ],
+        method: ["Lis l'exposant.", "Traduis la puissance si besoin en multiplication repetee.", "Pour une puissance de 10 positive, deplace la virgule vers la droite.", "Verifie l'ordre de grandeur du nombre obtenu."],
+        exampleDetail: "4,7 x 10^3 signifie 4,7 x 1000. On deplace la virgule de 3 rangs vers la droite : 4700.",
+        check: "As-tu evite de confondre 10^3 avec 10 x 3 ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("moyenne") && title.includes("mediane"),
+        theory: [
+          "La moyenne et la mediane servent a resumer une liste de nombres, mais elles ne disent pas la meme chose.",
+          "La moyenne donne une valeur de partage equitable : on additionne tout, puis on divise par le nombre de valeurs.",
+          "La mediane est la valeur du milieu quand la serie est rangee. Elle coupe la serie en deux parties de meme taille ou presque."
+        ],
+        method: ["Pour la moyenne, additionne toutes les valeurs.", "Divise par le nombre de valeurs.", "Pour la mediane, range d'abord les valeurs dans l'ordre.", "Compte les valeurs et repere le milieu.", "Ecris une phrase qui dit ce que le resultat signifie."],
+        exampleDetail: "Pour 6 ; 8 ; 12 ; 15 ; 19, il y a 5 valeurs rangees. La 3e valeur est au milieu : la mediane est 12.",
+        check: "As-tu range la serie avant de chercher la mediane ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("probabilite"),
+        theory: [
+          "Une probabilite mesure la chance qu'un evenement arrive. Elle est toujours entre 0 et 1.",
+          "Dans un exercice simple, on compte d'abord tous les cas possibles. Ensuite on compte seulement les cas qui repondent a la question.",
+          "La formule est : probabilite = cas favorables / cas possibles. Les mots de la consigne sont tres importants : pair, impair, au moins, exactement, superieur a."
+        ],
+        method: ["Liste ou compte tous les cas possibles.", "Souligne la condition demandee dans la question.", "Compte les cas favorables.", "Ecris la fraction cas favorables / cas possibles.", "Simplifie la fraction si tu peux."],
+        exampleDetail: "Dans une urne avec 6 boules dont 4 portent un nombre pair, il y a 6 cas possibles et 4 cas favorables. La probabilite est 4/6, donc 2/3.",
+        check: "Ton denominateur correspond-il bien au nombre total de cas possibles ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("equation"),
+        theory: [
+          "Une equation est une egalite avec un nombre inconnu, souvent note x.",
+          "Resoudre l'equation, c'est trouver la valeur de x qui rend l'egalite vraie.",
+          "L'idee principale est de garder l'equilibre : si tu fais une operation a gauche du signe egal, tu fais la meme a droite."
+        ],
+        method: ["Repere l'inconnue.", "Enleve d'abord ce qui est ajoute ou retire autour de l'inconnue.", "Enleve ensuite ce qui multiplie ou divise l'inconnue.", "Ecris la solution.", "Verifie en remplacant x par la valeur trouvee."],
+        exampleDetail: "Pour 4x - 3 = 17, on ajoute 3 des deux cotes : 4x = 20. Puis on divise par 4 : x = 5.",
+        check: "Quand tu remplaces x par ta solution, l'egalite de depart est-elle vraie ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("factoriser"),
+        theory: [
+          "Factoriser, c'est transformer une somme en produit. On fait l'inverse du developpement.",
+          "Pour commencer, on cherche un facteur commun : un nombre ou une lettre que l'on retrouve dans plusieurs termes.",
+          "Apres avoir factorise, on peut verifier en redeveloppant. Si on retrouve l'expression de depart, la factorisation est correcte."
+        ],
+        method: ["Observe chaque terme de l'expression.", "Cherche le facteur commun le plus simple.", "Ecris ce facteur devant une parenthese.", "Complete la parenthese avec ce qui reste.", "Redeveloppe mentalement pour verifier."],
+        exampleDetail: "Dans 6x + 9, le facteur commun est 3. On ecrit 6x + 9 = 3(2x + 3), car 3 x 2x = 6x et 3 x 3 = 9.",
+        check: "Si tu redeveloppes ta reponse, retrouves-tu exactement l'expression de depart ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("programme de calcul"),
+        theory: [
+          "Un programme de calcul est une suite d'actions appliquees a un nombre de depart.",
+          "On peut le faire avec un nombre precis, ou avec une lettre comme x pour obtenir une expression.",
+          "L'ordre des etapes compte beaucoup. Si on inverse deux actions, on n'obtient pas toujours le meme resultat."
+        ],
+        method: ["Ecris le nombre de depart ou la lettre x.", "Applique la premiere consigne.", "Ecris le resultat intermediaire.", "Continue une etape par ligne.", "Simplifie seulement a la fin."],
+        exampleDetail: "Choisir x, multiplier par 4, puis ajouter 3 donne d'abord 4x, puis 4x + 3.",
+        check: "As-tu garde le meme ordre que le programme de calcul ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("tableur"),
+        theory: [
+          "Un tableur est un tableau compose de cellules. Chaque cellule a un nom, comme B2 ou C5.",
+          "Une formule de tableur commence par le signe =. Elle peut utiliser des nombres, des operations et des noms de cellules.",
+          "Quand une formule contient B2, il faut utiliser la valeur qui se trouve dans la cellule B2, pas les lettres B et 2."
+        ],
+        method: ["Repere la cellule ou se trouve la formule.", "Lis les cellules utilisees dans la formule.", "Remplace chaque nom de cellule par sa valeur.", "Effectue le calcul dans le bon ordre.", "Verifie que le resultat correspond a la ligne ou la colonne demandee."],
+        exampleDetail: "Si B2 contient 7 et C2 contient 3, la formule =B2*C2 calcule 7 x 3. Le resultat est 21.",
+        check: "As-tu remplace les references de cellules par les bonnes valeurs ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("pythagore"),
+        theory: [
+          "Le theoreme de Pythagore sert dans un triangle rectangle. Il permet de calculer une longueur.",
+          "Dans un triangle rectangle, l'hypotenuse est le cote en face de l'angle droit. C'est aussi le plus long cote.",
+          "La formule dit : hypotenuse^2 = cote1^2 + cote2^2. Il faut donc bien identifier l'hypotenuse avant de calculer."
+        ],
+        method: ["Verifie que le triangle est rectangle.", "Identifie l'hypotenuse.", "Ecris la formule de Pythagore avec les noms des cotes.", "Remplace par les longueurs connues.", "Calcule puis conclus avec l'unite."],
+        exampleDetail: "Si un triangle est rectangle et que les deux cotes de l'angle droit mesurent 3 cm et 4 cm, alors l'hypotenuse verifie h^2 = 3^2 + 4^2 = 25. Donc h = 5 cm.",
+        check: "As-tu bien mis l'hypotenuse seule dans la formule ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("thales"),
+        theory: [
+          "Le theoreme de Thales sert dans une figure avec deux droites secantes et deux droites paralleles.",
+          "Il permet d'ecrire des egalites de rapports. Ces rapports servent ensuite a calculer une longueur manquante.",
+          "Avant d'utiliser Thales, il faut verifier ou dire que les droites sont paralleles. Sans parallelisme, le theoreme ne s'applique pas."
+        ],
+        method: ["Repere les deux triangles de la figure.", "Verifie les points alignes.", "Verifie les droites paralleles.", "Associe les cotes qui se correspondent.", "Ecris les rapports puis calcule la longueur cherchee."],
+        exampleDetail: "Si A, D, B sont alignes, A, E, C sont alignes et (DE) est parallele a (BC), alors on peut ecrire AD/AB = AE/AC = DE/BC.",
+        check: "As-tu associe les cotes dans le meme ordre dans chaque rapport ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("sinus"),
+        theory: [
+          "La trigonometrie sert dans un triangle rectangle quand on relie un angle et des longueurs.",
+          "Il faut d'abord choisir un angle aigu. Par rapport a cet angle, on nomme les cotes : oppose, adjacent et hypotenuse.",
+          "Les trois rapports sont sinus, cosinus et tangente. On choisit celui qui utilise les deux longueurs de l'exercice."
+        ],
+        method: ["Verifie que le triangle est rectangle.", "Choisis l'angle donne ou cherche.", "Nomme hypotenuse, cote oppose et cote adjacent.", "Choisis sinus, cosinus ou tangente.", "Remplace dans la formule et calcule."],
+        exampleDetail: "Si on connait le cote adjacent a un angle et l'hypotenuse, on utilise le cosinus : cos(angle) = adjacent / hypotenuse.",
+        check: "As-tu nomme les cotes par rapport au bon angle ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("aires") && title.includes("volumes"),
+        theory: [
+          "Une longueur mesure une distance. Une aire mesure une surface. Un volume mesure la place prise par un solide.",
+          "Les unites changent selon ce que l'on mesure : cm pour une longueur, cm2 pour une aire, cm3 pour un volume.",
+          "Avant de choisir une formule, il faut reconnaitre la figure ou le solide : rectangle, triangle, disque, pave droit, cylindre."
+        ],
+        method: ["Dis si on cherche une longueur, une aire ou un volume.", "Reconnais la figure ou le solide.", "Choisis la formule adaptee.", "Remplace par les mesures donnees.", "Ecris la bonne unite a la fin."],
+        exampleDetail: "Un rectangle de longueur 5 cm et de largeur 3 cm a pour aire 5 x 3 = 15 cm2.",
+        check: "Ton unite correspond-elle bien a une longueur, une aire ou un volume ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("echelle"),
+        theory: [
+          "Une echelle relie une distance sur un plan a une distance reelle.",
+          "A l'echelle 1:1000, 1 cm sur le plan represente 1000 cm dans la realite.",
+          "Le piege principal vient des unites : on calcule souvent en centimetres, puis on convertit en metres ou en kilometres."
+        ],
+        method: ["Lis l'echelle.", "Traduis ce que represente 1 cm sur le plan.", "Multiplie ou divise selon le sens demande.", "Convertis l'unite si necessaire.", "Ecris une phrase de reponse."],
+        exampleDetail: "A l'echelle 1:1000, 4 cm sur le plan representent 4000 cm en realite, donc 40 m.",
+        check: "As-tu converti les centimetres en metres ou kilometres quand la consigne le demande ?"
+      },
+      {
+        match: subject === "mathematiques" && title.includes("vitesse"),
+        theory: [
+          "La vitesse relie une distance et une duree. Elle indique la distance parcourue en une unite de temps.",
+          "Les formules utiles sont : distance = vitesse x temps, vitesse = distance / temps, temps = distance / vitesse.",
+          "Avant de calculer, il faut mettre les unites ensemble : par exemple km avec h, ou m avec s."
+        ],
+        method: ["Repere ce que tu cherches : distance, vitesse ou duree.", "Note les deux grandeurs connues.", "Convertis les unites si besoin.", "Choisis la formule.", "Calcule et indique l'unite."],
+        exampleDetail: "A 80 km/h pendant 1,5 h, la distance parcourue est 80 x 1,5 = 120 km.",
+        check: "As-tu transforme 30 min en 0,5 h si la vitesse est en km/h ?"
+      },
+      {
         match: subject === "mathematiques" && chapter.includes("statistique"),
         theory: [
           "Les statistiques servent a resumer une serie de valeurs. Au brevet, les questions portent souvent sur moyenne, mediane, et lecture de tableau ou graphique.",

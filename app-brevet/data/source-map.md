@@ -522,3 +522,35 @@ Validation effectuee :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : 226 QCM audites, 0 alerte ;
 - controle navigateur local : cours affiche avec les blocs attendus, aucune erreur console.
+
+## Relecture pedagogique des cours - mathematiques - etape 24
+
+Premiere passe de reecriture precise des contenus de cours, matiere par matiere.
+
+La matiere commencee est `mathematiques`. Des profils de cours plus explicatifs ont ete ajoutes pour :
+
+- pourcentages ;
+- proportionnalite ;
+- priorites de calcul ;
+- puissances de 10 ;
+- moyenne et mediane ;
+- probabilites ;
+- equations ;
+- factorisation ;
+- programmes de calcul ;
+- tableur ;
+- Pythagore ;
+- Thales ;
+- trigonometrie ;
+- aires et volumes ;
+- echelles ;
+- vitesse, distance et duree.
+
+Objectif : chaque chapitre doit avoir une explication simple, une methode en etapes et un exemple explique. Le vocabulaire reste volontairement simple pour un eleve de 4e/3e qui n'a pas encore vu tout le programme.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : 226 QCM audites, 0 alerte ;
+- controle navigateur local : seance Mathematiques > Probabilites affiche un cours detaille sans erreur console.

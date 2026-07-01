@@ -578,3 +578,19 @@ Nouvelle structure commune :
 - conseil avant de passer aux questions.
 
 Cette evolution ameliore immediatement toutes les fiches sans changer la banque d'exercices. Prochaine etape pedagogique : relire et simplifier progressivement les textes de cours eux-memes, matiere par matiere, avec des phrases courtes et un vocabulaire de 4e/3e.
+
+## Mise a jour contenus de cours - mathematiques
+
+La reecriture progressive des cours precis a commence par les mathematiques.
+
+Des contenus plus detailles existent maintenant pour les chapitres suivants : pourcentages, proportionnalite, priorites de calcul, puissances, statistiques, probabilites, equations, factorisation, programmes de calcul, tableur, Pythagore, Thales, trigonometrie, aires et volumes, echelles, vitesse.
+
+Chaque profil vise :
+
+- des phrases courtes ;
+- une idee principale claire ;
+- une methode applicable en plusieurs etapes ;
+- un exemple explique ;
+- un point de verification avant exercice.
+
+Reste a faire sur ce chantier : appliquer la meme logique au francais, a l'histoire-geo EMC, puis aux sciences.
