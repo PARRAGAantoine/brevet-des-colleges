@@ -683,6 +683,226 @@
         check: "As-tu confondu la valeur de depart avec la valeur obtenue ?"
       },
       {
+        match: subject === "francais" && title.includes("nature et fonction"),
+        theory: [
+          "La nature d'un mot dit ce qu'il est : nom, verbe, adjectif, pronom, determinant.",
+          "La fonction dit a quoi il sert dans la phrase : sujet, COD, COI, complement de phrase, attribut.",
+          "Le meme mot peut garder la meme nature mais changer de fonction selon la phrase. Il faut donc poser deux questions differentes."
+        ],
+        method: ["Trouve d'abord le verbe conjugue.", "Demande-toi ce qu'est le mot ou le groupe : c'est sa nature.", "Demande-toi son role par rapport au verbe ou au nom : c'est sa fonction.", "Verifie avec une question simple : qui ? quoi ? a qui ? ou ? quand ?"],
+        exampleDetail: "Dans 'Le vent souffle', 'le vent' est un groupe nominal. Sa fonction est sujet, car c'est lui qui fait l'action de souffler.",
+        check: "As-tu bien donne une nature et une fonction, sans les melanger ?"
+      },
+      {
+        match: subject === "francais" && title.includes("cod") && title.includes("coi"),
+        theory: [
+          "Un complement d'objet complete le verbe. Il explique sur quoi porte l'action.",
+          "Le COD est relie directement au verbe : il n'y a pas de preposition comme a ou de. Le COI est relie avec une preposition.",
+          "Pour les trouver, on part toujours du verbe, pas d'un mot au hasard dans la phrase."
+        ],
+        method: ["Repere le verbe conjugue.", "Pose la question verbe + qui ? ou verbe + quoi ? pour chercher un COD.", "Pose la question verbe + a qui ? a quoi ? de qui ? de quoi ? pour chercher un COI.", "Verifie que le groupe complete bien le verbe."],
+        exampleDetail: "Dans 'Elle lit un roman', elle lit quoi ? un roman : c'est un COD. Dans 'Elle parle a son frere', elle parle a qui ? a son frere : c'est un COI.",
+        check: "As-tu pose la question a partir du verbe ?"
+      },
+      {
+        match: subject === "francais" && (title.includes("proposition") || title.includes("phrase complexe")),
+        theory: [
+          "Une proposition est un morceau de phrase organise autour d'un verbe conjugue.",
+          "Une phrase simple contient souvent un seul verbe conjugue. Une phrase complexe contient plusieurs verbes conjugues, donc plusieurs propositions.",
+          "Les mots comme qui, que, quand, parce que ou lorsque peuvent introduire une proposition subordonnee."
+        ],
+        method: ["Souligne tous les verbes conjugues.", "Compte les verbes : cela donne souvent le nombre de propositions.", "Separe les propositions avec des crochets.", "Cherche le mot qui relie les propositions si la phrase est complexe."],
+        exampleDetail: "Dans 'Je regarde la ville qui s'eveille', il y a deux verbes conjugues : regarde et s'eveille. Il y a donc deux propositions.",
+        check: "As-tu compte les verbes conjugues plutot que les virgules ?"
+      },
+      {
+        match: subject === "francais" && title.includes("homophones"),
+        theory: [
+          "Des homophones se prononcent de la meme facon, mais ils ne s'ecrivent pas pareil.",
+          "Pour choisir la bonne ecriture, il ne faut pas se fier au son. Il faut faire un test de remplacement.",
+          "Par exemple, 'a' peut souvent etre remplace par 'avait'. 'est' peut souvent etre remplace par 'etait'."
+        ],
+        method: ["Lis la phrase entiere.", "Choisis l'homophone a tester.", "Remplace-le par le mot de test.", "Si la phrase garde du sens, l'ecriture est probablement la bonne.", "Relis la phrase corrigee."],
+        exampleDetail: "Dans 'Il a faim', on peut dire 'Il avait faim' : on ecrit a. Dans 'Il va a Paris', on ne peut pas dire 'Il va avait Paris' : on ecrit a avec accent.",
+        check: "As-tu fait un test de remplacement avant de choisir ?"
+      },
+      {
+        match: subject === "francais" && (title.includes("participe") || title.includes("accords dans le groupe nominal") || title.includes("dictee") || title.includes("accord")),
+        theory: [
+          "Un accord sert a faire correspondre les mots entre eux : singulier ou pluriel, masculin ou feminin.",
+          "Dans le groupe nominal, le determinant, le nom et souvent l'adjectif s'accordent ensemble.",
+          "Avec l'auxiliaire etre, le participe passe s'accorde generalement avec le sujet. Avec avoir, il faut etre plus prudent."
+        ],
+        method: ["Cherche le nom ou le sujet qui commande l'accord.", "Demande-toi s'il est masculin ou feminin.", "Demande-toi s'il est singulier ou pluriel.", "Ajoute les marques necessaires : e, s, es.", "Relis seulement les accords a la fin."],
+        exampleDetail: "Dans 'les petites maisons blanches', 'maisons' est feminin pluriel. 'petites' et 'blanches' prennent donc -es.",
+        check: "As-tu accorde avec le bon mot, pas seulement avec le mot le plus proche ?"
+      },
+      {
+        match: subject === "francais" && title.includes("reecriture"),
+        theory: [
+          "Une reecriture demande de transformer un passage en respectant une consigne precise.",
+          "Changer une personne, un temps ou un genre entraine souvent plusieurs changements dans la phrase.",
+          "Il ne faut pas seulement modifier le premier mot visible. Il faut verifier les verbes, les pronoms, les adjectifs et les participes passes."
+        ],
+        method: ["Souligne la consigne exacte.", "Repere les mots qui vont changer.", "Transforme une phrase a la fois.", "Verifie les verbes.", "Relis les accords et les pronoms."],
+        exampleDetail: "Si 'je suis parti' devient 'nous', il faut changer le pronom, l'auxiliaire et l'accord : 'nous sommes partis'.",
+        check: "As-tu relu tous les mots touches par la transformation ?"
+      },
+      {
+        match: subject === "francais" && (title.includes("citation") || title.includes("comparaison") || title.includes("point de vue") || chapter.includes("interpretation")),
+        theory: [
+          "Interpreter un texte, c'est expliquer une idee en s'appuyant sur des indices du texte.",
+          "Une citation ne suffit pas seule. Il faut dire ce qu'elle montre.",
+          "Les indices peuvent etre un mot, une expression, une image, un point de vue, un temps verbal ou une figure de style."
+        ],
+        method: ["Lis la question avant de relire le texte.", "Cherche un indice precis.", "Ecris ton idee avec tes mots.", "Ajoute une citation courte.", "Explique le lien entre la citation et ton idee."],
+        exampleDetail: "Si le texte dit 'la mer brille comme un miroir', on peut dire qu'il y a une comparaison qui donne une image lumineuse et calme de la mer.",
+        check: "Ta reponse contient-elle une idee, une citation et une explication ?"
+      },
+      {
+        match: subject === "francais" && title.includes("temps du recit"),
+        theory: [
+          "Les temps du recit ne servent pas seulement a situer une action dans le passe. Ils donnent aussi un rythme au texte.",
+          "L'imparfait sert souvent a decrire, a presenter une habitude ou a installer une ambiance.",
+          "Le passe simple sert souvent a raconter une action importante, precise et terminee."
+        ],
+        method: ["Repere les verbes conjugues.", "Identifie leur temps.", "Demande-toi si le passage decrit ou raconte une action.", "Explique l'effet produit par le temps utilise."],
+        exampleDetail: "Dans 'Il marchait quand une voiture surgit', l'imparfait installe la situation et le passe simple marque l'action qui arrive soudain.",
+        check: "As-tu explique l'effet du temps, pas seulement donne son nom ?"
+      },
+      {
+        match: subject === "francais" && (title.includes("redaction") || title.includes("paragraphe argument")),
+        theory: [
+          "Une redaction reussie se prepare avant d'ecrire. Le plan evite de partir dans tous les sens.",
+          "Dans un sujet de reflexion, chaque paragraphe defend une idee. Cette idee doit etre expliquee puis illustree par un exemple.",
+          "Dans un sujet d'imagination, il faut respecter la situation donnee, le point de vue, le temps du recit et le ton attendu."
+        ],
+        method: ["Lis le sujet et souligne les contraintes.", "Choisis deux ou trois idees principales.", "Prepare un plan tres court.", "Ecris un paragraphe par idee.", "Relis la ponctuation, les accords et les repetitions."],
+        exampleDetail: "Un paragraphe argumentatif simple suit : idee, explication, exemple. Par exemple : 'La lecture aide a comprendre les autres, car elle fait entrer dans des points de vue differents.'",
+        check: "Ton texte suit-il un plan visible et respecte-t-il la consigne ?"
+      },
+      {
+        match: subject === "histoire" && title.includes("document"),
+        theory: [
+          "Analyser un document, ce n'est pas le recopier. Il faut montrer ce qu'il nous apprend.",
+          "On commence par presenter le document : sa nature, son auteur si on le connait, sa date, son sujet.",
+          "Ensuite, on releve une information precise et on l'explique avec une connaissance du cours."
+        ],
+        method: ["Presente le document en une phrase.", "Lis la question pour savoir quoi chercher.", "Preleve une information precise.", "Explique cette information avec le cours.", "Redige une reponse courte et claire."],
+        exampleDetail: "Une carte des espaces productifs peut montrer des usines, des ports ou des axes de transport. On peut alors expliquer comment un territoire produit et echange.",
+        check: "As-tu explique le document au lieu de seulement le recopier ?"
+      },
+      {
+        match: subject === "histoire" && title.includes("developpement"),
+        theory: [
+          "Un developpement construit est une reponse longue et organisee.",
+          "Il ne faut pas faire une liste d'idees. Il faut classer les informations en deux ou trois parties simples.",
+          "Chaque paragraphe doit contenir une idee principale, une explication et au moins un exemple precis."
+        ],
+        method: ["Lis le sujet et repere le verbe de consigne.", "Note deux ou trois idees au brouillon.", "Classe les idees dans un ordre logique.", "Redige un paragraphe par idee.", "Termine par une courte phrase de bilan."],
+        exampleDetail: "Pour expliquer la decolonisation, on peut organiser la reponse ainsi : contexte apres 1945, acteurs des independances, consequences politiques.",
+        check: "Chaque paragraphe contient-il une idee claire et un exemple ?"
+      },
+      {
+        match: subject === "histoire" && (title.includes("reperes") || title.includes("carte") || title.includes("frise") || title.includes("vocabulaire")),
+        theory: [
+          "Les reperes sont les dates, lieux et mots essentiels qui permettent de situer un sujet.",
+          "Un repere n'est utile que s'il est precis : une date, une periode, un lieu, une definition courte.",
+          "Sur une carte ou une frise, la legende et la consigne guident toujours ce qu'il faut placer."
+        ],
+        method: ["Lis la consigne.", "Repere s'il faut une date, un lieu ou un mot de vocabulaire.", "Utilise la legende ou les bornes de la frise.", "Place seulement ce qui est demande.", "Verifie l'orthographe des noms importants."],
+        exampleDetail: "1914-1918 correspond a la Premiere Guerre mondiale. 1939-1945 correspond a la Seconde Guerre mondiale.",
+        check: "Ton repere est-il assez precis pour etre reconnu au brevet ?"
+      },
+      {
+        match: subject === "histoire" && (title.includes("guerre froide") || title.includes("mondiales") || title.includes("totalitaire") || title.includes("resistance") || title.includes("decolonisation")),
+        theory: [
+          "En histoire, il faut toujours situer le sujet dans le temps et identifier les acteurs principaux.",
+          "Un evenement historique s'explique avec des causes, des faits et des consequences.",
+          "Les mots precis du cours sont importants : regime totalitaire, Resistance, Liberation, blocs, decolonisation."
+        ],
+        method: ["Situe le sujet avec une date ou une periode.", "Identifie les acteurs.", "Explique deux idees importantes.", "Ajoute un exemple precis.", "Termine par une consequence ou un bilan."],
+        exampleDetail: "Pour la guerre froide, il faut citer les Etats-Unis, l'URSS, les deux blocs et l'opposition entre deux modeles politiques.",
+        check: "As-tu donne au moins une date, un acteur et un mot precis du cours ?"
+      },
+      {
+        match: subject === "histoire" && (title.includes("aires urbaines") || title.includes("espace productif") || title.includes("faible densite") || title.includes("mondialisation")),
+        theory: [
+          "En geographie, on decrit un espace puis on explique son organisation.",
+          "Il faut parler des acteurs, des activites, des amenagements et des liens avec d'autres territoires.",
+          "Les exemples concrets sont essentiels : ville, region, axe de transport, usine, service, tourisme, commerce mondial."
+        ],
+        method: ["Localise l'espace et donne son echelle.", "Decris ce que l'on observe.", "Explique les activites et les acteurs.", "Ajoute un exemple concret.", "Conclus sur les effets pour le territoire."],
+        exampleDetail: "Un espace productif industriel peut etre decrit avec ses usines, ses emplois, ses transports et ses liens avec d'autres regions ou pays.",
+        check: "As-tu localise le territoire avant de l'expliquer ?"
+      },
+      {
+        match: subject === "histoire" && title.includes("institution"),
+        theory: [
+          "Les institutions sont les organisations qui font fonctionner la Republique.",
+          "Elles ont des roles differents : voter la loi, gouverner, juger, representer les citoyens ou faire appliquer les decisions.",
+          "Il faut distinguer une valeur et une institution. La liberte est une valeur. Le Parlement est une institution."
+        ],
+        method: ["Repere le nom de l'institution.", "Demande-toi quel est son role.", "Relie ce role a la democratie.", "Donne un exemple concret d'action ou de decision."],
+        exampleDetail: "Le Parlement vote la loi. Le gouvernement dirige la politique du pays et met les lois en application. La justice juge en appliquant le droit.",
+        check: "As-tu explique le role de l'institution, pas seulement cite son nom ?"
+      },
+      {
+        match: subject === "histoire" && (title.includes("institution") || title.includes("citoyen") || title.includes("laicite") || title.includes("droits") || chapter.includes("emc") || chapter.includes("valeurs")),
+        theory: [
+          "En EMC, on explique comment les personnes vivent ensemble dans une democratie.",
+          "Une valeur est un principe important, comme la liberte ou l'egalite. Une institution est une organisation publique, comme le Parlement ou le gouvernement.",
+          "Un droit donne une liberte ou une protection. Un devoir rappelle ce que chacun doit respecter pour vivre avec les autres."
+        ],
+        method: ["Definis le mot important avec une phrase simple.", "Explique son role dans la vie collective.", "Donne un exemple concret.", "Relie l'exemple a la loi, a la citoyennete ou a la Republique."],
+        exampleDetail: "La laicite protege la liberte de conscience : chacun peut croire ou ne pas croire, et l'Etat reste neutre.",
+        check: "As-tu donne un exemple concret, pas seulement une definition ?"
+      },
+      {
+        match: subject === "sciences" && title.includes("graphique"),
+        theory: [
+          "Un graphique sert a montrer comment une grandeur change.",
+          "Avant de conclure, il faut lire le titre, les axes et les unites. Sinon on risque de parler de la mauvaise grandeur.",
+          "Une conclusion scientifique doit rester proche des donnees. On ne doit pas inventer une information absente du graphique."
+        ],
+        method: ["Lis le titre du graphique.", "Lis l'axe horizontal et l'axe vertical.", "Repere les unites.", "Compare les valeurs importantes.", "Ecris une conclusion courte appuyee sur un chiffre."],
+        exampleDetail: "Si la masse diminue quand la surface des feuilles diminue, on peut dire que les donnees montrent un lien entre surface des feuilles et production de matiere.",
+        check: "Ta conclusion cite-t-elle une donnee ou une tendance visible ?"
+      },
+      {
+        match: subject === "sciences" && (title.includes("cellule") || title.includes("adn") || title.includes("microorganismes") || title.includes("experience")),
+        theory: [
+          "En SVT, on explique le vivant avec des observations, des experiences et du vocabulaire precis.",
+          "La cellule est une unite de base du vivant. Les chromosomes, les genes et l'ADN portent des informations hereditaires.",
+          "Pour une experience, il faut distinguer le facteur teste, le resultat observe et la conclusion possible."
+        ],
+        method: ["Identifie le phenomene etudie.", "Repere ce qui est observe ou mesure.", "Cherche le facteur qui change si c'est une experience.", "Relie le resultat au vocabulaire du cours.", "Conclus sans aller plus loin que les donnees."],
+        exampleDetail: "Si seule la quantite de lumiere change et que la croissance change aussi, on peut etudier l'effet de la lumiere sur la croissance.",
+        check: "As-tu separe observation, resultat et conclusion ?"
+      },
+      {
+        match: subject === "sciences" && (title.includes("masse volumique") || title.includes("mouvement") || title.includes("conservation") || title.includes("ph") || title.includes("circuit") || title.includes("energie")),
+        theory: [
+          "En physique-chimie, on utilise souvent une mesure, une unite, une formule ou un modele.",
+          "Une formule ne sert que si les grandeurs et les unites sont bien identifiees.",
+          "Pour interpreter un resultat, il faut nommer le phenomene : acidite, mouvement, masse volumique, circuit ferme, reaction chimique ou conversion d'energie."
+        ],
+        method: ["Repere les grandeurs donnees.", "Note les unites.", "Choisis la formule ou le vocabulaire utile.", "Fais le calcul ou l'interpretation.", "Ecris une phrase avec l'unite ou le phenomene observe."],
+        exampleDetail: "Pour une masse volumique, on calcule masse / volume. Si m = 50 g et V = 25 cm3, alors la masse volumique vaut 2 g/cm3.",
+        check: "As-tu garde la bonne unite dans ta reponse ?"
+      },
+      {
+        match: subject === "sciences" && (title.includes("boucle") || title.includes("chaine d'information") || title.includes("fonction d'usage") || chapter.includes("technologie")),
+        theory: [
+          "En technologie, on etudie un objet technique ou un systeme automatique.",
+          "Le besoin explique pourquoi l'objet existe. La fonction d'usage explique ce que l'objet permet de faire.",
+          "Dans un systeme automatique, un capteur detecte une information, un programme la traite, puis un actionneur realise une action."
+        ],
+        method: ["Identifie l'objet ou le systeme.", "Dis a quel besoin il repond.", "Separe capteur, traitement et actionneur.", "Lis l'algorithme dans l'ordre.", "Repere les conditions et les boucles."],
+        exampleDetail: "Dans une porte automatique, le detecteur de presence est un capteur. Le programme traite l'information. Le moteur est un actionneur.",
+        check: "As-tu distingue ce qui detecte, ce qui decide et ce qui agit ?"
+      },
+      {
         match: subject === "francais" && (chapter.includes("lecture") || chapter.includes("interpretation")),
         theory: [
           "Lire un texte au brevet, ce n'est pas seulement comprendre l'histoire. Il faut aussi expliquer comment le texte produit un effet sur le lecteur.",

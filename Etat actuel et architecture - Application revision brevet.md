@@ -593,4 +593,16 @@ Chaque profil vise :
 - un exemple explique ;
 - un point de verification avant exercice.
 
-Reste a faire sur ce chantier : appliquer la meme logique au francais, a l'histoire-geo EMC, puis aux sciences.
+Cette premiere passe a ensuite ete etendue aux autres matieres.
+
+## Mise a jour contenus de cours - francais, histoire-geo EMC, sciences
+
+La meme logique de cours guides a ete appliquee aux autres matieres.
+
+Francais : grammaire, COD/COI, phrase complexe, orthographe, reecriture, interpretation, valeurs des temps, redaction.
+
+Histoire-geo EMC : document, developpement construit, reperes, grands chapitres historiques, geographie des territoires, institutions, citoyennete, laicite, droits et devoirs.
+
+Sciences : lecture de donnees, SVT, physique-chimie et technologie.
+
+Le projet dispose maintenant d'une premiere passe globale de cours plus explicites sur les quatre matieres. Les prochains travaux pedagogiques devront porter sur la profondeur : ajouter davantage d'exemples par chapitre, creer des variantes de cours selon le niveau, et relire les formulations avec un vrai regard d'eleve.

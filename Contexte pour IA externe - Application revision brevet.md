@@ -495,4 +495,22 @@ Pour les prochaines contributions, la priorite n'est pas seulement d'ajouter du 
 - propose un exemple different des exercices qui suivent ;
 - evite les phrases trop longues.
 
-Matieres restantes pour cette passe : francais, histoire-geo EMC, sciences.
+Cette passe a ensuite ete etendue au francais, a l'histoire-geo EMC et aux sciences.
+
+## Mise a jour pour l'IA externe : premiere passe terminee
+
+La premiere passe de relecture pedagogique couvre maintenant les quatre matieres.
+
+Francais : grammaire, COD/COI, phrase complexe, orthographe, reecriture, interpretation, valeurs des temps, redaction.
+
+Histoire-geo EMC : documents, developpement construit, reperes, grands chapitres historiques, geographie, institutions, citoyennete, laicite, droits et devoirs.
+
+Sciences : donnees, SVT, physique-chimie, technologie.
+
+Les propositions futures doivent maintenant chercher a augmenter la qualite et la progressivite :
+
+- plusieurs exemples par chapitre ;
+- cours differencies selon Decouverte, Consolidation et Type brevet ;
+- definitions encore plus simples ;
+- exercices directement relies au cours affiche ;
+- relecture des formulations avec un niveau eleve de 4e/3e.

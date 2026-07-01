@@ -554,3 +554,42 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : 226 QCM audites, 0 alerte ;
 - controle navigateur local : seance Mathematiques > Probabilites affiche un cours detaille sans erreur console.
+
+## Relecture pedagogique des cours - autres matieres - etape 25
+
+La meme passe de reecriture precise a ete appliquee aux trois autres matieres.
+
+Francais :
+
+- nature et fonction ;
+- COD / COI ;
+- propositions et phrase complexe ;
+- homophones ;
+- accords, dictee, participe passe ;
+- reecriture ;
+- interpretation, citation, comparaison, point de vue ;
+- valeurs des temps ;
+- redaction et paragraphe argumente.
+
+Histoire-geo EMC :
+
+- analyse de document ;
+- developpement construit ;
+- reperes, carte, frise et vocabulaire ;
+- guerres mondiales, guerre froide, totalitarismes, Resistance, decolonisation ;
+- geographie : espaces productifs, aires urbaines, espaces de faible densite, mondialisation ;
+- EMC : institutions, citoyennete, laicite, droits et devoirs.
+
+Sciences :
+
+- lecture de graphique ;
+- SVT : cellule, ADN, micro-organismes, experience ;
+- physique-chimie : pH, masse volumique, mouvement, conservation de la masse, circuit, energie ;
+- technologie : chaine d'information, algorithme, besoin, fonction d'usage, solution technique.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : 226 QCM audites, 0 alerte ;
+- controle navigateur local : echantillons francais, histoire-geo EMC et sciences affiches sans erreur console.
