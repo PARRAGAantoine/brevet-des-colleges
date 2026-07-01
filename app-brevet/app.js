@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const content = window.BREVET_CONTENT;
   const storageKey = "brevetSprintProgress";
   const today = () => new Date().toISOString().slice(0, 10);
@@ -29,106 +29,106 @@
   let selectedGuidedSubject = "all";
 
   const textPolishRules = [
-    ["Seance", "Séance"],
-    ["seance", "séance"],
-    ["guidee", "guidée"],
-    ["guide", "guidé"],
-    ["Mathematiques", "Mathématiques"],
-    ["Francais", "Français"],
-    ["Geographie", "Géographie"],
-    ["geographie", "géographie"],
-    ["Histoire-Geo", "Histoire-Géo"],
-    ["Reussite", "Réussite"],
-    ["Reussir", "Réussir"],
-    ["reussir", "réussir"],
-    ["reussite", "réussite"],
-    ["reponse", "réponse"],
-    ["reponses", "réponses"],
-    ["repondu", "répondu"],
-    ["repondue", "répondue"],
-    ["repondues", "répondues"],
-    ["repondre", "répondre"],
-    ["reviser", "réviser"],
-    ["Reviser", "Réviser"],
-    ["revision", "révision"],
-    ["Revision", "Révision"],
-    ["regulier", "régulier"],
-    ["reguliere", "régulière"],
-    ["reparer", "réparer"],
-    ["reparee", "réparée"],
-    ["ratee", "ratée"],
-    ["ratees", "ratées"],
-    ["gagne", "gagné"],
-    ["gagnes", "gagnés"],
-    ["debloque", "débloqué"],
-    ["debloques", "débloqués"],
-    ["a debloquer", "à débloquer"],
-    ["a gagner", "à gagner"],
-    ["A gagner", "À gagner"],
-    ["a retravailler", "à retravailler"],
-    ["A retravailler", "À retravailler"],
-    ["a voir", "à voir"],
-    ["A voir", "À voir"],
-    ["a travailler", "à travailler"],
-    ["A travailler", "À travailler"],
-    ["a reprendre", "à reprendre"],
-    ["A reprendre", "À reprendre"],
-    ["a valider", "à valider"],
-    ["A valider", "À valider"],
-    ["a essayer", "à essayer"],
-    ["A essayer", "À essayer"],
-    ["ou tu en es", "où tu en es"],
-    ["Ou tu en es", "Où tu en es"],
-    ["ete", "été"],
-    ["travaille", "travaillé"],
-    ["journee", "journée"],
-    ["matiere", "matière"],
-    ["matieres", "matières"],
-    ["Matiere", "Matière"],
-    ["Matieres", "Matières"],
-    ["Melange", "Mélange"],
-    ["melange", "mélange"],
-    ["decouvrir", "découvrir"],
-    ["Decouvrir", "Découvrir"],
-    ["precise", "précise"],
-    ["Precise", "Précise"],
-    ["pedagogique", "pédagogique"],
-    ["Pedagogique", "Pédagogique"],
-    ["commence", "commencé"],
-    ["Commence", "Commencé"],
-    ["Acces", "Accès"],
-    ["acces", "accès"],
-    ["eleve", "élève"],
-    ["ecole", "école"],
-    ["egalite", "égalité"],
-    ["liberte", "liberté"],
-    ["laicite", "laïcité"],
-    ["citoyennete", "citoyenneté"],
-    ["Republique", "République"],
-    ["Europeenne", "Européenne"],
-    ["donnees", "données"],
-    ["Developpement", "Développement"],
-    ["developpement", "développement"],
-    ["Decouverte", "Découverte"],
-    ["decouverte", "découverte"],
-    ["entrainement", "entraînement"],
-    ["entrainer", "entraîner"],
-    ["entraine", "entraîne"],
-    ["maitrise", "maîtrise"],
-    ["Maitrise", "Maîtrise"],
-    ["hypothenuse", "hypoténuse"],
-    ["hypotenuse", "hypoténuse"],
-    ["theoreme", "théorème"],
-    ["Theoreme", "Théorème"],
-    ["probleme", "problème"],
-    ["echelle", "échelle"],
-    ["Echelle", "Échelle"],
-    ["energie", "énergie"],
-    ["eprouvette", "éprouvette"],
-    ["ecriture", "écriture"],
-    ["Ecriture", "Écriture"],
-    ["etat", "état"],
-    ["Etat", "État"]
+    ["Seance", "SÃ©ance"],
+    ["seance", "sÃ©ance"],
+    ["guidee", "guidÃ©e"],
+    ["guide", "guidÃ©"],
+    ["Mathematiques", "MathÃ©matiques"],
+    ["Francais", "FranÃ§ais"],
+    ["Geographie", "GÃ©ographie"],
+    ["geographie", "gÃ©ographie"],
+    ["Histoire-Geo", "Histoire-GÃ©o"],
+    ["Reussite", "RÃ©ussite"],
+    ["Reussir", "RÃ©ussir"],
+    ["reussir", "rÃ©ussir"],
+    ["reussite", "rÃ©ussite"],
+    ["reponse", "rÃ©ponse"],
+    ["reponses", "rÃ©ponses"],
+    ["repondu", "rÃ©pondu"],
+    ["repondue", "rÃ©pondue"],
+    ["repondues", "rÃ©pondues"],
+    ["repondre", "rÃ©pondre"],
+    ["reviser", "rÃ©viser"],
+    ["Reviser", "RÃ©viser"],
+    ["revision", "rÃ©vision"],
+    ["Revision", "RÃ©vision"],
+    ["regulier", "rÃ©gulier"],
+    ["reguliere", "rÃ©guliÃ¨re"],
+    ["reparer", "rÃ©parer"],
+    ["reparee", "rÃ©parÃ©e"],
+    ["ratee", "ratÃ©e"],
+    ["ratees", "ratÃ©es"],
+    ["gagne", "gagnÃ©"],
+    ["gagnes", "gagnÃ©s"],
+    ["debloque", "dÃ©bloquÃ©"],
+    ["debloques", "dÃ©bloquÃ©s"],
+    ["a debloquer", "Ã  dÃ©bloquer"],
+    ["a gagner", "Ã  gagner"],
+    ["A gagner", "Ã€ gagner"],
+    ["a retravailler", "Ã  retravailler"],
+    ["A retravailler", "Ã€ retravailler"],
+    ["a voir", "Ã  voir"],
+    ["A voir", "Ã€ voir"],
+    ["a travailler", "Ã  travailler"],
+    ["A travailler", "Ã€ travailler"],
+    ["a reprendre", "Ã  reprendre"],
+    ["A reprendre", "Ã€ reprendre"],
+    ["a valider", "Ã  valider"],
+    ["A valider", "Ã€ valider"],
+    ["a essayer", "Ã  essayer"],
+    ["A essayer", "Ã€ essayer"],
+    ["ou tu en es", "oÃ¹ tu en es"],
+    ["Ou tu en es", "OÃ¹ tu en es"],
+    ["ete", "Ã©tÃ©"],
+    ["travaille", "travaillÃ©"],
+    ["journee", "journÃ©e"],
+    ["matiere", "matiÃ¨re"],
+    ["matieres", "matiÃ¨res"],
+    ["Matiere", "MatiÃ¨re"],
+    ["Matieres", "MatiÃ¨res"],
+    ["Melange", "MÃ©lange"],
+    ["melange", "mÃ©lange"],
+    ["decouvrir", "dÃ©couvrir"],
+    ["Decouvrir", "DÃ©couvrir"],
+    ["precise", "prÃ©cise"],
+    ["Precise", "PrÃ©cise"],
+    ["pedagogique", "pÃ©dagogique"],
+    ["Pedagogique", "PÃ©dagogique"],
+    ["commence", "commencÃ©"],
+    ["Commence", "CommencÃ©"],
+    ["Acces", "AccÃ¨s"],
+    ["acces", "accÃ¨s"],
+    ["eleve", "Ã©lÃ¨ve"],
+    ["ecole", "Ã©cole"],
+    ["egalite", "Ã©galitÃ©"],
+    ["liberte", "libertÃ©"],
+    ["laicite", "laÃ¯citÃ©"],
+    ["citoyennete", "citoyennetÃ©"],
+    ["Republique", "RÃ©publique"],
+    ["Europeenne", "EuropÃ©enne"],
+    ["donnees", "donnÃ©es"],
+    ["Developpement", "DÃ©veloppement"],
+    ["developpement", "dÃ©veloppement"],
+    ["Decouverte", "DÃ©couverte"],
+    ["decouverte", "dÃ©couverte"],
+    ["entrainement", "entraÃ®nement"],
+    ["entrainer", "entraÃ®ner"],
+    ["entraine", "entraÃ®ne"],
+    ["maitrise", "maÃ®trise"],
+    ["Maitrise", "MaÃ®trise"],
+    ["hypothenuse", "hypotÃ©nuse"],
+    ["hypotenuse", "hypotÃ©nuse"],
+    ["theoreme", "thÃ©orÃ¨me"],
+    ["Theoreme", "ThÃ©orÃ¨me"],
+    ["probleme", "problÃ¨me"],
+    ["echelle", "Ã©chelle"],
+    ["Echelle", "Ã‰chelle"],
+    ["energie", "Ã©nergie"],
+    ["eprouvette", "Ã©prouvette"],
+    ["ecriture", "Ã©criture"],
+    ["Ecriture", "Ã‰criture"],
+    ["etat", "Ã©tat"],
+    ["Etat", "Ã‰tat"]
   ];
 
   function loadProgress() {
@@ -149,7 +149,7 @@
 
   function polishText(value) {
     return textPolishRules.reduce((text, [from, to]) => {
-      const pattern = new RegExp(`(^|[^A-Za-zÀ-ÖØ-öø-ÿ0-9])${escapeRegExp(from)}(?=$|[^A-Za-zÀ-ÖØ-öø-ÿ0-9])`, "g");
+      const pattern = new RegExp(`(^|[^A-Za-zÃ€-Ã–Ã˜-Ã¶Ã¸-Ã¿0-9])${escapeRegExp(from)}(?=$|[^A-Za-zÃ€-Ã–Ã˜-Ã¶Ã¸-Ã¿0-9])`, "g");
       return text.replace(pattern, `$1${to}`);
     }, String(value || ""));
   }
@@ -383,8 +383,8 @@
     const firstBadge = badges[0];
     const tierMeta = getBadgeTierMeta(firstBadge.tier);
     const message = badges.length === 1
-      ? `Badge débloqué : ${firstBadge.title}`
-      : `${badges.length} badges débloqués`;
+      ? `Badge dÃ©bloquÃ© : ${firstBadge.title}`
+      : `${badges.length} badges dÃ©bloquÃ©s`;
     const toast = document.getElementById("toast");
     toast.innerHTML = `
       <div class="badge-toast">
@@ -2031,32 +2031,54 @@
   function renderBadges() {
     const badges = getAllBadges();
     const unlockedCount = badges.filter((badge) => progress.badges.includes(badge.id) || isBadgeUnlocked(badge)).length;
+    const groups = [
+      { id: "ultimate", title: "Badge ultime", description: "Le grand objectif de fin de pr\u00e9paration.", badges: badges.filter((badge) => badge.tier === "ultimate") },
+      { id: "subjects", title: "Mati\u00e8res", description: "Bronze, argent et or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
+      { id: "challenges", title: "D\u00e9fis", description: "R\u00e9gularit\u00e9, pr\u00e9cision, erreurs r\u00e9par\u00e9es et sujets longs.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate") },
+      { id: "chapters", title: "Chapitres", description: "La progression d\u00e9taill\u00e9e du programme.", badges: badges.filter((badge) => badge.category === "Chapitre") }
+    ].filter((group) => group.badges.length);
     document.getElementById("badgeList").innerHTML = `
       <article class="badge-summary panel">
-        <strong>${unlockedCount} / ${badges.length} badges debloques</strong>
+        <strong>${unlockedCount} / ${badges.length} badges d\u00e9bloqu\u00e9s</strong>
+        <span>${content.subjects.filter((subject) => isSubjectTierUnlocked(subject.id, "gold")).length} / ${content.subjects.length} mati\u00e8res au niveau or</span>
       </article>
-      ${badges.map((badge) => {
-      const unlocked = isBadgeUnlocked(badge);
-      const tier = badge.tier || "bronze";
-      const tierMeta = getBadgeTierMeta(tier);
-      const requirement = badge.requirement || "Objectif";
-      return `
-        <article class="badge-card ${unlocked ? `unlocked tier-${tier}` : "locked"}">
-          <div class="badge-award" aria-hidden="true">
-            <div class="badge-rays"></div>
-            <div class="badge-shield"><span>${unlocked ? tierMeta.number : "?"}</span></div>
-            <div class="badge-ribbon">${requirement}</div>
+      ${groups.map((group) => `
+        <section class="badge-section badge-section-${group.id}">
+          <div class="badge-section-heading">
+            <h3>${group.title}</h3>
+            <p>${group.description}</p>
           </div>
-          <div class="badge-icon" aria-hidden="true">${unlocked ? "✓" : "B"}</div>
-          <div class="badge-content">
-            <span class="badge-state">${unlocked ? tierMeta.label : "A gagner"}</span>
-            <h3>${badge.title}</h3>
-            <p>${badge.description}</p>
-            <small>${unlocked ? `${tierMeta.level} - ${badge.category}` : `${tierMeta.label} a debloquer`}</small>
+          <div class="badge-grid">
+            ${group.badges.map(renderBadgeCard).join("")}
           </div>
-        </article>
-      `;
-      }).join("")}
+        </section>
+      `).join("")}
+    `;
+  }
+
+  function renderBadgeCard(badge) {
+    const unlocked = isBadgeUnlocked(badge);
+    const tier = badge.tier || "bronze";
+    const tierMeta = getBadgeTierMeta(tier);
+    const requirement = badge.requirement || "Objectif";
+    const icon = badge.icon || getBadgeIcon(badge);
+    return `
+      <article class="badge-card ${unlocked ? `unlocked tier-${tier}` : `locked tier-${tier}`} ${tier === "ultimate" ? "badge-ultimate" : ""}">
+        <div class="badge-award" aria-hidden="true">
+          <div class="badge-halo"></div>
+          <div class="badge-medal">
+            <div class="badge-inner-ring"></div>
+            <div class="badge-mark">${unlocked ? icon : "?"}</div>
+          </div>
+          <div class="badge-ribbon">${requirement}</div>
+        </div>
+        <div class="badge-content">
+          <span class="badge-state">${unlocked ? tierMeta.label : "Verrouill\u00e9"}</span>
+          <h3>${badge.title}</h3>
+          <p>${badge.description}</p>
+          <small>${unlocked ? `${tierMeta.level} - ${badge.category}` : `${tierMeta.label} \u00e0 d\u00e9bloquer`}</small>
+        </div>
+      </article>
     `;
   }
 
@@ -2064,9 +2086,46 @@
     const meta = {
       bronze: { label: "Bronze", level: "Niveau 1", number: "1" },
       silver: { label: "Argent", level: "Niveau 2", number: "2" },
-      gold: { label: "Or", level: "Niveau 3", number: "3" }
+      gold: { label: "Or", level: "Niveau 3", number: "3" },
+      ultimate: { label: "Ultime", level: "Complet", number: "\u2605" }
     };
     return meta[tier] || meta.bronze;
+  }
+
+  function getSubjectBadgeIcon(subjectId) {
+    const icons = {
+      mathematiques: "\u03c0",
+      francais: "A",
+      histoire: "§",
+      sciences: "\u269b",
+      mixed: "\u2605"
+    };
+    return icons[subjectId] || "B";
+  }
+
+  function badgeSubjectLabel(subjectId) {
+    const labels = {
+      mathematiques: "Math\u00e9matiques",
+      francais: "Fran\u00e7ais",
+      histoire: "Histoire-G\u00e9o EMC",
+      sciences: "Sciences"
+    };
+    return labels[subjectId] || subjectLabel(subjectId);
+  }
+
+  function getBadgeIcon(badge) {
+    if (badge.subject) return getSubjectBadgeIcon(badge.subject);
+    if (badge.category === "Chapitre") {
+      const item = content.curriculum.find((curriculumItem) => badge.id.startsWith(`chapter:${curriculumItem.id}:`));
+      return getSubjectBadgeIcon(item?.subject);
+    }
+    if (badge.id.includes("streak")) return "\u25f7";
+    if (badge.id.includes("questions")) return "\u00d7";
+    if (badge.id.includes("repairs")) return "!";
+    if (badge.id.includes("perfect")) return "\u2713";
+    if (badge.id.includes("guided")) return "\u25a3";
+    if (badge.id.includes("stage")) return "\u25c6";
+    return "B";
   }
 
   function getAllBadges() {
@@ -2084,6 +2143,7 @@
         {
           id: `chapter:${item.id}:bronze`,
           category: "Chapitre",
+          subject: item.subject,
           tier: "bronze",
           title: `${item.chapter} - J'apprends`,
           description: `Valider les bases du chapitre ${base}.`,
@@ -2096,6 +2156,7 @@
         {
           id: `chapter:${item.id}:silver`,
           category: "Chapitre",
+          subject: item.subject,
           tier: "silver",
           title: `${item.chapter} - Je m'entraine`,
           description: `Montrer une maitrise reguliere du chapitre ${base}.`,
@@ -2108,6 +2169,7 @@
         {
           id: `chapter:${item.id}:gold`,
           category: "Chapitre",
+          subject: item.subject,
           tier: "gold",
           title: `${item.chapter} - Comme au brevet`,
           description: `Reussir le chapitre ${base} dans des questions exigeantes.`,
@@ -2122,44 +2184,53 @@
   }
 
   function getSubjectBadges() {
-    return content.subjects.flatMap((subject) => [
-      {
-        id: `subject:${subject.id}:bronze`,
-        category: "Matiere",
-        tier: "bronze",
-        title: `${subject.label} bronze`,
-        description: `Installer les bases en ${subject.label}.`,
-        requirement: "18 bonnes / 25 questions",
-        evaluate: () => {
-          const stats = getSubjectBadgeStats(subject.id);
-          return stats.total >= 25 && stats.correct >= 18 && stats.rate >= 60;
+    return content.subjects.flatMap((subject) => {
+      const label = badgeSubjectLabel(subject.id);
+      return [
+        {
+          id: `subject:${subject.id}:bronze`,
+          category: "Matiere",
+          subject: subject.id,
+          icon: getSubjectBadgeIcon(subject.id),
+          tier: "bronze",
+          title: `${label} bronze`,
+          description: `Installer les bases en ${label}.`,
+          requirement: "18 bonnes / 25 questions",
+          evaluate: () => {
+            const stats = getSubjectBadgeStats(subject.id);
+            return stats.total >= 25 && stats.correct >= 18 && stats.rate >= 60;
+          }
+        },
+        {
+          id: `subject:${subject.id}:silver`,
+          category: "Matiere",
+          subject: subject.id,
+          icon: getSubjectBadgeIcon(subject.id),
+          tier: "silver",
+          title: `${label} argent`,
+          description: `Etre regulier dans plusieurs chapitres de ${label}.`,
+          requirement: "60 questions, 70 %, 2 chapitres argent",
+          evaluate: () => {
+            const stats = getSubjectBadgeStats(subject.id);
+            return stats.total >= 60 && stats.rate >= 70 && countUnlockedChapterBadges(subject.id, "silver") >= 2;
+          }
+        },
+        {
+          id: `subject:${subject.id}:gold`,
+          category: "Matiere",
+          subject: subject.id,
+          icon: getSubjectBadgeIcon(subject.id),
+          tier: "gold",
+          title: `${label} or`,
+          description: `Atteindre un niveau solide et durable en ${label}.`,
+          requirement: "120 questions, 80 %, 3 chapitres or",
+          evaluate: () => {
+            const stats = getSubjectBadgeStats(subject.id);
+            return stats.total >= 120 && stats.rate >= 80 && countUnlockedChapterBadges(subject.id, "gold") >= 3;
+          }
         }
-      },
-      {
-        id: `subject:${subject.id}:silver`,
-        category: "Matiere",
-        tier: "silver",
-        title: `${subject.label} argent`,
-        description: `Etre regulier dans plusieurs chapitres de ${subject.label}.`,
-        requirement: "60 questions, 70 %, 2 chapitres argent",
-        evaluate: () => {
-          const stats = getSubjectBadgeStats(subject.id);
-          return stats.total >= 60 && stats.rate >= 70 && countUnlockedChapterBadges(subject.id, "silver") >= 2;
-        }
-      },
-      {
-        id: `subject:${subject.id}:gold`,
-        category: "Matiere",
-        tier: "gold",
-        title: `${subject.label} or`,
-        description: `Atteindre un niveau solide et durable en ${subject.label}.`,
-        requirement: "120 questions, 80 %, 3 chapitres or",
-        evaluate: () => {
-          const stats = getSubjectBadgeStats(subject.id);
-          return stats.total >= 120 && stats.rate >= 80 && countUnlockedChapterBadges(subject.id, "gold") >= 3;
-        }
-      }
-    ]);
+      ];
+    });
   }
 
   function getSpecialBadges() {
@@ -2168,41 +2239,44 @@
     const guidedDone = () => (progress.guidedTasks || []).length;
     const guidedSolid = () => (progress.guidedTasks || []).filter((task) => task.score >= 4).length;
     const specials = [
-      ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", () => progress.sessions.length >= 1],
-      ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", () => progress.sessions.length >= 10],
-      ["sessions:30", "gold", "Vrai rythme", "Terminer 30 seances.", "30 seances", () => progress.sessions.length >= 30],
-      ["sessions:75", "gold", "Marathon revision", "Terminer 75 seances.", "75 seances", () => progress.sessions.length >= 75],
-      ["questions:10", "bronze", "Echauffement", "Repondre a 10 questions.", "10 questions", () => progress.answers.length >= 10],
-      ["questions:100", "silver", "Cap des 100", "Repondre a 100 questions.", "100 questions", () => progress.answers.length >= 100],
-      ["questions:300", "gold", "Gros entrainement", "Repondre a 300 questions.", "300 questions", () => progress.answers.length >= 300],
-      ["questions:750", "gold", "Machine de revision", "Repondre a 750 questions.", "750 questions", () => progress.answers.length >= 750],
-      ["streak:3", "bronze", "Trois jours de suite", "Travailler 3 jours de suite.", "3 jours", () => progress.currentStreak >= 3],
-      ["streak:7", "silver", "Semaine solide", "Travailler 7 jours de suite.", "7 jours", () => progress.currentStreak >= 7],
-      ["streak:30", "gold", "Mois complet", "Travailler 30 jours de suite.", "30 jours", () => progress.currentStreak >= 30],
-      ["streak:100", "gold", "Cent jours", "Travailler 100 jours de suite.", "100 jours", () => progress.currentStreak >= 100],
-      ["repairs:1", "bronze", "Erreur reparee", "Relire le cours puis reussir une question ratee.", "1 erreur", () => progress.repairs.length >= 1],
-      ["repairs:10", "silver", "Je transforme mes erreurs", "Reparer 10 erreurs apres revision.", "10 erreurs", () => progress.repairs.length >= 10],
-      ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", () => progress.repairs.length >= 30],
-      ["perfect:1", "bronze", "Sans faute", "Reussir une seance sans erreur.", "1 seance", () => progress.perfectRuns >= 1],
-      ["perfect:5", "silver", "Precision", "Reussir 5 seances sans erreur.", "5 seances", () => progress.perfectRuns >= 5],
-      ["perfect:20", "gold", "Maitrise froide", "Reussir 20 seances sans erreur.", "20 seances", () => progress.perfectRuns >= 20],
-      ["subjects:4", "silver", "Tour d'horizon", "Travailler les quatre matieres.", "4 matieres", () => subjectsDone() >= 4],
-      ["stage:Decouverte:40", "bronze", "Bases posees", "Reussir 40 questions en mode J'apprends.", "40 reussites", () => stageCorrect("Decouverte") >= 40],
-      ["stage:Consolidation:80", "silver", "Ca tient", "Reussir 80 questions en mode Je m'entraine.", "80 reussites", () => stageCorrect("Consolidation") >= 80],
-      ["stage:Type brevet:120", "gold", "Mode brevet", "Reussir 120 questions Comme au brevet.", "120 reussites", () => stageCorrect("Type brevet") >= 120],
-      ["guided:1", "bronze", "Premier sujet long", "Terminer un sujet guide.", "1 sujet", () => guidedDone() >= 1],
-      ["guided:5", "silver", "Copies qui montent", "Terminer 5 sujets guides.", "5 sujets", () => guidedDone() >= 5],
-      ["guided:15", "gold", "Pret pour les sujets longs", "Terminer 15 sujets guides.", "15 sujets", () => guidedDone() >= 15],
-      ["guided-solid:8", "gold", "Copies solides", "Obtenir 8 sujets guides solides.", "8 solides", () => guidedSolid() >= 8],
-      ["all-subject-gold", "gold", "Complet", "Obtenir l'or dans les quatre matieres.", "4 matieres or", () => content.subjects.every((subject) => isSubjectTierUnlocked(subject.id, "gold"))]
+      ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", "◆", () => progress.sessions.length >= 1],
+      ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", "◆", () => progress.sessions.length >= 10],
+      ["sessions:30", "gold", "Vrai rythme", "Terminer 30 seances.", "30 seances", "◆", () => progress.sessions.length >= 30],
+      ["sessions:75", "gold", "Marathon revision", "Terminer 75 seances.", "75 seances", "◆", () => progress.sessions.length >= 75],
+      ["questions:50", "bronze", "Volume d'exercices", "Repondre a 50 questions.", "50 questions", "×", () => progress.answers.length >= 50],
+      ["questions:150", "silver", "Cap des 150", "Repondre a 150 questions.", "150 questions", "×", () => progress.answers.length >= 150],
+      ["questions:500", "gold", "Gros entrainement", "Repondre a 500 questions.", "500 questions", "×", () => progress.answers.length >= 500],
+      ["questions:1000", "gold", "Mille questions", "Repondre a 1000 questions.", "1000 questions", "×", () => progress.answers.length >= 1000],
+      ["streak:3", "bronze", "Regularite", "Travailler 3 jours de suite.", "3 jours", "◷", () => progress.currentStreak >= 3],
+      ["streak:7", "silver", "Semaine solide", "Travailler 7 jours de suite.", "7 jours", "◷", () => progress.currentStreak >= 7],
+      ["streak:30", "gold", "Mois complet", "Travailler 30 jours de suite.", "30 jours", "◷", () => progress.currentStreak >= 30],
+      ["streak:100", "gold", "Cent jours", "Travailler 100 jours de suite.", "100 jours", "◷", () => progress.currentStreak >= 100],
+      ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", () => progress.repairs.length >= 1],
+      ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", () => progress.repairs.length >= 10],
+      ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", "!", () => progress.repairs.length >= 30],
+      ["repairs:75", "gold", "Expert des reprises", "Reparer 75 erreurs avec methode.", "75 erreurs", "!", () => progress.repairs.length >= 75],
+      ["perfect:1", "bronze", "Precision", "Reussir une seance sans erreur.", "1 sans faute", "✓", () => progress.perfectRuns >= 1],
+      ["perfect:5", "silver", "Precision argent", "Reussir 5 seances sans erreur.", "5 sans faute", "✓", () => progress.perfectRuns >= 5],
+      ["perfect:20", "gold", "Precision or", "Reussir 20 seances sans erreur.", "20 sans faute", "✓", () => progress.perfectRuns >= 20],
+      ["perfect:50", "gold", "Maitrise complete", "Reussir 50 seances sans erreur.", "50 sans faute", "✓", () => progress.perfectRuns >= 50],
+      ["subjects:4", "silver", "Tour d'horizon", "Travailler les quatre matieres.", "4 matieres", "★", () => subjectsDone() >= 4],
+      ["stage:Decouverte:60", "bronze", "J'apprends", "Reussir 60 questions en mode J'apprends.", "60 reussites", "1", () => stageCorrect("Decouverte") >= 60],
+      ["stage:Consolidation:120", "silver", "Je m'entraine", "Reussir 120 questions en mode Je m'entraine.", "120 reussites", "2", () => stageCorrect("Consolidation") >= 120],
+      ["stage:Type brevet:200", "gold", "Comme au brevet", "Reussir 200 questions Comme au brevet.", "200 reussites", "3", () => stageCorrect("Type brevet") >= 200],
+      ["guided:1", "bronze", "Premier sujet long", "Terminer un sujet guide.", "1 sujet", "▣", () => guidedDone() >= 1],
+      ["guided:5", "silver", "Sujets longs", "Terminer 5 sujets guides.", "5 sujets", "▣", () => guidedDone() >= 5],
+      ["guided:15", "gold", "Pret pour les sujets longs", "Terminer 15 sujets guides.", "15 sujets", "▣", () => guidedDone() >= 15],
+      ["guided-solid:8", "gold", "Copies solides", "Obtenir 8 sujets guides solides.", "8 solides", "▣", () => guidedSolid() >= 8],
+      ["all-subject-gold", "ultimate", "Badge ultime", "Obtenir l'or dans les quatre matieres et garder un vrai rythme.", "Complet", "★", () => content.subjects.every((subject) => isSubjectTierUnlocked(subject.id, "gold")) && progress.perfectRuns >= 20 && progress.repairs.length >= 30]
     ];
-    return specials.map(([id, tier, title, description, requirement, evaluate]) => ({
+    return specials.map(([id, tier, title, description, requirement, icon, evaluate]) => ({
       id: `special:${id}`,
       category: "Defi",
       tier,
       title,
       description,
       requirement,
+      icon,
       evaluate
     }));
   }

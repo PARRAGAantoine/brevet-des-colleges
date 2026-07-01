@@ -654,3 +654,18 @@ Corrections techniques liees :
 - une couche de correction d'accents est appliquee aux textes de l'interface.
 
 Inventaire local des annales : 172 PDF sont presents. La couverture 2025 est complete sur les quatre matieres avec sujets et corriges. Les annees anterieures restent inegales, surtout pour les corriges d'histoire-geo EMC, de sciences et de certaines epreuves de francais. L'annee 2026 contient surtout des sujets officiels et des sujets zero de mathematiques ; elle n'est pas encore complete toutes matieres avec corriges.
+
+## Mise a jour badges - style medaille et objectifs longs
+
+La page Badges a ete reorganisee pour mieux correspondre a l'app actuelle.
+
+Nouvelle structure :
+
+- Badge ultime ;
+- Matieres ;
+- Defis ;
+- Chapitres.
+
+Le design utilise maintenant des cartes sombres et des medailles rondes en bronze, argent, or et ultime. Les badges verrouilles sont gris et moins lumineux.
+
+Le nombre total actuel est de 89 badges. Les derniers sont volontairement longs a obtenir : 1000 questions, 100 jours de suite, 75 erreurs reparees, 50 seances sans faute, 200 reussites type brevet et un badge ultime conditionne par l'or dans les quatre matieres.

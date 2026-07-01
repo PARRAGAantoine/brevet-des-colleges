@@ -663,3 +663,31 @@ Controle effectue :
 - `node tools\audit-qcm.js` : 265 QCM audites, 0 alerte ;
 - `node tools\audit-course-coverage.js` : 13 notions encore trop courtes pour tenir confortablement les formats longs ;
 - controle navigateur local : menu simplifie, format 10/20/30, page Seance vide sans ancien bilan.
+
+## Refonte visuelle et organisation des badges - etape 28
+
+La page Badges a ete refondue dans un style medaille sombre inspire de la reference fournie par l'utilisateur.
+
+Organisation :
+
+- badge ultime en tete ;
+- badges de matiere ;
+- badges de defi : regularite, volume, precision, erreurs reparees, niveaux, sujets longs ;
+- badges de chapitre.
+
+Evolution des seuils :
+
+- volume : 50, 150, 500, 1000 questions ;
+- regularite : 3, 7, 30, 100 jours ;
+- erreurs reparees : 1, 10, 30, 75 ;
+- seances sans faute : 1, 5, 20, 50 ;
+- niveaux : 60 reussites Decouverte, 120 Consolidation, 200 Type brevet ;
+- sujets longs : 1, 5, 15 et 8 sujets solides ;
+- badge ultime : or dans les quatre matieres, 20 seances sans faute et 30 erreurs reparees.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK ;
+- controle navigateur local : 89 badges, sections correctes, accents visibles, aucune erreur console.
