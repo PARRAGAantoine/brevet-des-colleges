@@ -1245,16 +1245,31 @@
   function pickSessionLessonForNotion(notion, targetStage) {
     const stageOrder = ["Decouverte", "Consolidation", "Type brevet"];
     const targetIndex = stageOrder.indexOf(targetStage);
-    const lessons = content.lessons
+    const exactLessons = content.lessons
       .filter((lesson) => lesson.subject === notion.subject)
-      .filter((lesson) => lesson.notionId === notion.id || chapterMatches(notion.chapter, lesson.chapter));
+      .filter((lesson) => lesson.notionId === notion.id);
+    const nearbyLessons = content.lessons
+      .filter((lesson) => lesson.subject === notion.subject)
+      .filter((lesson) => chapterMatches(notion.chapter, lesson.chapter));
+    const lessons = exactLessons.length ? exactLessons : nearbyLessons;
     return lessons
       .sort((a, b) => {
         const aStageGap = Math.abs(stageOrder.indexOf(a.stage || "Decouverte") - targetIndex);
         const bStageGap = Math.abs(stageOrder.indexOf(b.stage || "Decouverte") - targetIndex);
         return aStageGap - bStageGap || a.title.localeCompare(b.title);
       })[0]
-      || pickSessionLesson(notion.subject, targetStage);
+      || {
+        id: `fallback-${notion.id}`,
+        subject: notion.subject,
+        chapter: notion.chapter,
+        stage: targetStage,
+        title: notion.title,
+        summary: `Ce chapitre sert a travailler ${notion.title}. Commence par comprendre les mots importants, puis applique la methode sur les questions.`,
+        prerequisite: "Lis lentement la consigne et repere les mots importants du chapitre.",
+        example: "Pour reussir, commence par identifier le chapitre, puis choisis la methode adaptee.",
+        mistake: "Partir sur un autre chapitre parce qu'un mot semble familier.",
+        takeaway: "Reste toujours sur le chapitre choisi et justifie ta reponse avec la methode du cours."
+      };
   }
 
   function pickSessionQuestions(subjectId, count, focusChapter, lesson = null, notion = null) {
@@ -1275,16 +1290,20 @@
       pool = pool.filter((exercise) => !focusChapter || chapterMatches(focusChapter, exercise.chapter));
     }
 
-    if (!pool.length) {
-      pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
-    }
-
     if (notion) {
       const generatedCount = Math.max(4, count + 3 - pool.length);
       pool = [...pool, ...generateQuestionsForNotion(notion, generatedCount, pool.length)];
     } else if (focusChapter) {
       const generatedCount = Math.max(4, count + 3 - pool.length);
       pool = [...pool, ...generateQuestionsForChapter(subjectId, focusChapter, generatedCount, pool.length)];
+    }
+
+    if (!pool.length && !notion && !focusChapter) {
+      pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
+    }
+
+    if (!pool.length) {
+      pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
     }
 
     const sortedPool = pool

@@ -606,3 +606,20 @@ Histoire-geo EMC : document, developpement construit, reperes, grands chapitres 
 Sciences : lecture de donnees, SVT, physique-chimie et technologie.
 
 Le projet dispose maintenant d'une premiere passe globale de cours plus explicites sur les quatre matieres. Les prochains travaux pedagogiques devront porter sur la profondeur : ajouter davantage d'exemples par chapitre, creer des variantes de cours selon le niveau, et relire les formulations avec un vrai regard d'eleve.
+
+## Mise a jour alignement cours-exercices
+
+La selection des seances est plus stricte lorsqu'un chapitre est choisi. L'application privilegie le cours et les questions de la notion selectionnee. Si aucun cours exact n'existe, elle genere un cours de secours lie a la notion au lieu de prendre un cours d'un autre chapitre.
+
+Un nouvel audit existe : `app-brevet/tools/audit-course-coverage.js`.
+
+Il repere les notions qui manquent encore de volume. Etat actuel :
+
+- 70 cours ;
+- 292 exercices statiques ;
+- 12 sujets guides ;
+- 46 generateurs ;
+- 265 QCM audites sans alerte ;
+- 13 notions encore signalees comme trop courtes pour tenir confortablement une seance de 10 questions.
+
+Les prochaines densifications doivent cibler en priorite l'histoire-geo EMC : reperes, developpement construit, Seconde Guerre mondiale, guerre froide, construction europeenne, geographie, citoyennete, valeurs de la Republique, defense.

@@ -593,3 +593,41 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : 226 QCM audites, 0 alerte ;
 - controle navigateur local : echantillons francais, histoire-geo EMC et sciences affiches sans erreur console.
+
+## Alignement cours-exercices et lot exercices 8 - etape 26
+
+La selection des seances a ete renforcee : quand un chapitre est choisi explicitement, l'application privilegie maintenant le cours et les exercices rattaches a cette notion. Si aucun cours exact n'est trouve, elle cree un cours de secours a partir de la notion choisie au lieu de prendre un cours d'un autre chapitre.
+
+Un nouvel audit `tools/audit-course-coverage.js` a ete ajoute. Il mesure pour chaque notion :
+
+- le nombre de cours rattaches ;
+- le nombre d'exercices statiques ;
+- le nombre de generateurs ;
+- les niveaux couverts ;
+- les reserves trop courtes pour une seance de 10 questions.
+
+Le fichier `data/extra-content-8.js` ajoute 4 cours et 42 exercices supplementaires.
+
+Cours ajoutes :
+
+- lecture en francais ;
+- guerre froide ;
+- construction europeenne ;
+- defense et securite.
+
+Exercices ajoutes :
+
+- mathematiques : probabilites, statistiques, priorites, equations, calcul litteral, geometrie, grandeurs, tableur ;
+- francais : grammaire, COD, orthographe, reecriture, lecture, interpretation, redaction ;
+- histoire-geo EMC : reperes, document, developpement construit, Seconde Guerre mondiale, guerre froide, construction europeenne, geographie, EMC, citoyennete, defense ;
+- sciences : donnees, SVT, physique-chimie, technologie.
+
+Total apres ajout : 70 cours, 292 exercices statiques, 12 sujets guides, 46 generateurs.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node --check data\extra-content-8.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : 265 QCM audites, 0 alerte ;
+- `node tools\audit-course-coverage.js` : 13 notions signalees comme encore trop courtes, surtout en histoire-geo EMC.

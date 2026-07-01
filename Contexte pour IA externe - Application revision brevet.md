@@ -514,3 +514,17 @@ Les propositions futures doivent maintenant chercher a augmenter la qualite et l
 - definitions encore plus simples ;
 - exercices directement relies au cours affiche ;
 - relecture des formulations avec un niveau eleve de 4e/3e.
+
+## Mise a jour pour l'IA externe : alignement cours-exercices
+
+La logique de seance a ete renforcee. Quand l'eleve choisit un chapitre, le cours et les exercices doivent rester dans cette notion. Si l'app ne trouve pas de cours exact, elle cree un cours de secours a partir de la notion choisie au lieu de prendre un cours voisin.
+
+Un audit de couverture existe :
+
+```txt
+app-brevet/tools/audit-course-coverage.js
+```
+
+Il indique les notions qui manquent encore de volume. Apres le lot `extra-content-8.js`, le projet contient 70 cours et 292 exercices statiques. L'audit signale encore 13 notions courtes, surtout en histoire-geo EMC.
+
+Priorite pour une IA externe : proposer des lots d'exercices par notion, en visant au moins 10 questions automatiques par chapitre sans melanger les sujets.

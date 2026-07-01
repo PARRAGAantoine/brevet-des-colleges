@@ -10,6 +10,7 @@ const files = [
   "data/extra-content-5.js",
   "data/extra-content-6.js",
   "data/extra-content-7.js",
+  "data/extra-content-8.js",
   "data/notions.js"
 ].filter((file) => fs.existsSync(file));
 

@@ -29,7 +29,17 @@ jobs:
           node --check generators/science-calcul.js
           node --check generators/french-language.js
           node --check tools/validate-content.js
+          node --check tools/audit-qcm.js
+          node --check tools/audit-course-coverage.js
 
       - name: Validate content and generators
         working-directory: app-brevet
         run: node tools/validate-content.js
+
+      - name: Audit QCM quality
+        working-directory: app-brevet
+        run: node tools/audit-qcm.js
+
+      - name: Audit course exercise coverage
+        working-directory: app-brevet
+        run: node tools/audit-course-coverage.js
