@@ -691,3 +691,33 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : OK ;
 - controle navigateur local : 89 badges, sections correctes, accents visibles, aucune erreur console.
+
+## Accueil, parametres et preparation PWA - etape 29
+
+L'accueil a ete transforme en vraie page d'entree :
+
+- hero de bienvenue ;
+- bouton `Installer l'app` prepare pour la future PWA ;
+- bouton `Continuer en ligne` vers GitHub Pages ;
+- choix rapides : seance guidee, exercices libres, progression, badges ;
+- le constructeur de seance n'est plus l'element principal de l'accueil.
+
+Une page Parametres a ete ajoutee :
+
+- version installee ;
+- bouton manuel `Verifier les mises a jour` ;
+- zone future `Se connecter` ;
+- choix du theme clair/sombre.
+
+Regle produit confirmee : l'app ne verifie aucune mise a jour automatiquement. La verification se fait uniquement apres un clic utilisateur, car l'app doit rester offline par defaut.
+
+Fichier ajoute :
+
+- `version.json` : version disponible pour verification manuelle.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK ;
+- controle navigateur local : accueil, bouton en ligne, parametres, verification manuelle de version et mode sombre OK.

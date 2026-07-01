@@ -1,6 +1,8 @@
 ﻿(function () {
   const content = window.BREVET_CONTENT;
   const storageKey = "brevetSprintProgress";
+  const settingsKey = "brevetSprintSettings";
+  const appVersion = "1.0.0";
   const today = () => new Date().toISOString().slice(0, 10);
   const dayMs = 24 * 60 * 60 * 1000;
 
@@ -20,6 +22,7 @@
   };
 
   let progress = loadProgress();
+  let settings = loadSettings();
   let activeSubject = getRecommendation().subject;
   let currentPracticeQuestion = null;
   let currentSession = null;
@@ -27,6 +30,7 @@
   let selectedCourseStage = "all";
   let selectedRoadmapSubject = "all";
   let selectedGuidedSubject = "all";
+  applyTheme(settings.theme);
 
   const textPolishRules = [
     ["Seance", "SÃ©ance"],
@@ -86,6 +90,10 @@
     ["matieres", "matiÃ¨res"],
     ["Matiere", "MatiÃ¨re"],
     ["Matieres", "MatiÃ¨res"],
+    ["Parametres", "Param\u00e8tres"],
+    ["parametres", "param\u00e8tres"],
+    ["installee", "install\u00e9e"],
+    ["Installee", "Install\u00e9e"],
     ["Melange", "MÃ©lange"],
     ["melange", "mÃ©lange"],
     ["decouvrir", "dÃ©couvrir"],
@@ -141,6 +149,24 @@
 
   function saveProgress() {
     localStorage.setItem(storageKey, JSON.stringify(progress));
+  }
+
+  function loadSettings() {
+    try {
+      return { theme: "light", ...JSON.parse(localStorage.getItem(settingsKey)) };
+    } catch (error) {
+      return { theme: "light" };
+    }
+  }
+
+  function saveSettings() {
+    localStorage.setItem(settingsKey, JSON.stringify(settings));
+  }
+
+  function applyTheme(theme) {
+    const safeTheme = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = safeTheme;
+    document.documentElement.style.colorScheme = safeTheme;
   }
 
   function escapeRegExp(value) {
@@ -418,6 +444,7 @@
     renderGuidedTasks();
     renderProgress();
     renderBadges();
+    renderSettings();
     applyTextPolish();
   }
 
@@ -443,12 +470,9 @@
     document.getElementById("sidebarGoal").textContent = perfectToday && pendingMistakes === 0
       ? "Objectif valide"
       : `${pendingMistakes} erreur${pendingMistakes > 1 ? "s" : ""} a reprendre`;
-    document.getElementById("dailyMission").textContent = recommendation.mode === "first-run"
-      ? "Choisis une matiere pour commencer"
-      : `Construire les bases en ${recommendation.title}`;
     document.getElementById("dailyHint").textContent = recommendation.mode === "first-run"
-      ? "Tu peux choisir une matiere precise ou lancer un melange decouverte."
-      : `${recommendation.text} Objectif : arriver progressivement au niveau brevet avant juin 2027.`;
+      ? "Choisis une matiere, fais une seance guidee ou lance un melange decouverte."
+      : `${recommendation.text} Tu peux commencer par le conseil du jour ou choisir une autre entree.`;
 
     const overview = document.getElementById("subjectOverview");
     overview.innerHTML = content.subjects.map((subject) => {
@@ -2324,12 +2348,65 @@
     return Boolean(badge && isBadgeUnlocked(badge));
   }
 
+  function renderSettings() {
+    const version = document.getElementById("settingsVersion");
+    const themeSelect = document.getElementById("themeSelect");
+    if (version) version.textContent = appVersion;
+    if (themeSelect && themeSelect.value !== settings.theme) themeSelect.value = settings.theme;
+  }
+
+  function compareVersions(a, b) {
+    const left = String(a || "0").split(".").map((part) => Number(part) || 0);
+    const right = String(b || "0").split(".").map((part) => Number(part) || 0);
+    const length = Math.max(left.length, right.length);
+    for (let index = 0; index < length; index += 1) {
+      const diff = (left[index] || 0) - (right[index] || 0);
+      if (diff !== 0) return diff;
+    }
+    return 0;
+  }
+
+  async function checkForUpdates() {
+    const status = document.getElementById("updateStatus");
+    const button = document.getElementById("checkUpdateButton");
+    if (!status || !button) return;
+    button.disabled = true;
+    status.textContent = "Verification en cours...";
+    try {
+      const response = await fetch(`version.json?check=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error("version unavailable");
+      const remote = await response.json();
+      const remoteVersion = remote.version || "0.0.0";
+      if (compareVersions(remoteVersion, appVersion) > 0) {
+        status.textContent = `Mise a jour disponible : version ${remoteVersion}. Le telechargement sera active avec l'installation PWA.`;
+      } else {
+        status.textContent = `Tu as deja la derniere version disponible (${appVersion}).`;
+      }
+    } catch (error) {
+      status.textContent = "Connexion necessaire pour verifier les mises a jour.";
+    } finally {
+      button.disabled = false;
+      applyTextPolish(status);
+    }
+  }
+
   function bindEvents() {
     document.querySelectorAll(".nav-item").forEach((button) => {
       button.addEventListener("click", () => setView(button.dataset.view));
     });
 
     document.body.addEventListener("click", (event) => {
+      const updateButton = event.target.closest("#checkUpdateButton");
+      if (updateButton) {
+        checkForUpdates();
+      }
+
+      const installButton = event.target.closest("#installAppButton");
+      if (installButton) {
+        setView("settings");
+        showToast("Installation bientot disponible. La prochaine etape est la PWA hors ligne.");
+      }
+
       const viewButton = event.target.closest("[data-view-target]");
       if (viewButton) setView(viewButton.dataset.viewTarget);
 
@@ -2403,6 +2480,14 @@
 
       const orderSubmit = event.target.closest("[data-order-submit]");
       if (orderSubmit && !orderSubmit.disabled) submitOrderAnswer(orderSubmit);
+    });
+
+    document.body.addEventListener("change", (event) => {
+      if (event.target.id === "themeSelect") {
+        settings.theme = event.target.value === "dark" ? "dark" : "light";
+        saveSettings();
+        applyTheme(settings.theme);
+      }
     });
 
     document.querySelector("[data-start-recommended]").addEventListener("click", () => {

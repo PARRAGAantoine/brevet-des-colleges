@@ -595,3 +595,21 @@ Il faut rapidement mettre le projet en ligne sur GitHub pour :
 - pouvoir revenir en arriere si une evolution casse l'application.
 
 Cette mise en ligne ne doit pas changer la contrainte principale : l'application doit rester utilisable offline.
+
+## Priorite proche - Parametres, PWA et mise a jour volontaire
+
+Avant l'installateur PWA complet, l'application doit disposer d'une page Parametres claire.
+
+Elements attendus :
+
+- version installee ;
+- bouton manuel `Verifier les mises a jour` ;
+- zone future `Se connecter` / `S'identifier` ;
+- mode clair / mode sombre ;
+- explication que les revisions fonctionnent hors ligne.
+
+Regle obligatoire : l'application ne doit pas verifier les mises a jour automatiquement au demarrage. Tous les eleves n'ont pas une connexion permanente. La verification de mise a jour doit donc etre une action volontaire, lancee uniquement par clic depuis les Parametres.
+
+Logique visee :
+
+`Installer une fois -> reviser sans Internet -> verifier les mises a jour seulement quand on le decide.`

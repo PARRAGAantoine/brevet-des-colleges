@@ -547,3 +547,16 @@ Cette contrainte doit guider les futurs generateurs : chaque generateur utile de
 Un inventaire local a ete refait. Le dossier contient 172 PDF classes comme annales ou sujets/corriges. La couverture 2025 est complete sur les quatre matieres. Les annees 2017 a 2024 sont utiles, mais inegales : beaucoup de sujets, corriges surtout disponibles en mathematiques, et manques frequents en histoire-geo EMC, sciences et parfois francais. L'annee 2026 est partielle : sujets officiels et sujets zero de mathematiques, sans jeu complet toutes matieres avec corriges.
 
 Pour une IA externe, il ne faut donc pas supposer que toutes les annees disposent de toutes les corrections. Les annales servent surtout de source d'inspiration et de calibration du niveau brevet, pas de banque exhaustive parfaite.
+
+## Mise a jour pour l'IA externe : PWA offline et mises a jour
+
+Le projet doit rester offline par defaut. Une page Parametres existe pour regrouper :
+
+- version installee ;
+- verification manuelle des mises a jour ;
+- futur login ;
+- mode clair / sombre.
+
+Point non negociable : l'app ne doit pas contacter GitHub automatiquement au demarrage. La verification de mise a jour se fait uniquement apres un clic utilisateur, car certains eleves n'ont pas une connexion permanente.
+
+La future PWA devra respecter cette logique : installer une fois, reviser sans Internet, verifier les mises a jour seulement quand l'utilisateur le decide.

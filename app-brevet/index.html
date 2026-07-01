@@ -22,6 +22,7 @@
           <button class="nav-item" data-view="practice" type="button">Exercices</button>
           <button class="nav-item" data-view="progress" type="button">Progression</button>
           <button class="nav-item" data-view="badges" type="button">Badges</button>
+          <button class="nav-item" data-view="settings" type="button">Parametres</button>
         </nav>
         <div class="sidebar-card">
           <p class="muted">Objectif</p>
@@ -35,10 +36,13 @@
           <div class="hero-band">
             <div>
               <p class="eyebrow">Objectif brevet - juin 2027</p>
-              <h2 id="dailyMission">Retravailler un chapitre</h2>
-              <p id="dailyHint">On construit les bases maintenant, puis on montera progressivement vers le type brevet.</p>
+              <h2>Bienvenue dans Brevet Sprint</h2>
+              <p id="dailyHint">Cours, exercices, erreurs a reprendre et badges : tout est pret pour reviser sans connexion.</p>
             </div>
-            <button class="primary-action" data-start-recommended type="button">Commencer</button>
+            <div class="hero-actions">
+              <button class="primary-action" id="installAppButton" type="button">Installer l'app</button>
+              <a class="secondary-link" href="https://parragaantoine.github.io/brevet-des-colleges/app-brevet/" target="_blank" rel="noopener">Continuer en ligne</a>
+            </div>
           </div>
 
           <div class="metrics-grid">
@@ -59,6 +63,33 @@
               <strong id="successValue">0 %</strong>
             </article>
           </div>
+
+          <section class="home-actions panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Que veux-tu faire ?</p>
+                <h3>Choisis ton entree</h3>
+              </div>
+            </div>
+            <div class="home-action-grid">
+              <button class="home-action" data-view-target="session" type="button">
+                <strong>Seance guidee</strong>
+                <span>Un cours, puis une serie d'exercices corriges.</span>
+              </button>
+              <button class="home-action" data-view-target="practice" type="button">
+                <strong>Exercices libres</strong>
+                <span>Une question rapide ou une erreur a reprendre.</span>
+              </button>
+              <button class="home-action" data-view-target="progress" type="button">
+                <strong>Voir ma progression</strong>
+                <span>Points forts, erreurs et historique.</span>
+              </button>
+              <button class="home-action" data-view-target="badges" type="button">
+                <strong>Badges</strong>
+                <span>Les medailles a gagner sur la duree.</span>
+              </button>
+            </div>
+          </section>
 
           <div class="dashboard-layout">
             <section class="panel">
@@ -262,6 +293,55 @@
             <p>Des reperes simples pour garder l'elan.</p>
           </div>
           <div class="cards-grid" id="badgeList"></div>
+        </section>
+
+        <section class="view" id="settingsView">
+          <div class="page-heading">
+            <p class="eyebrow">Application</p>
+            <h2>Parametres</h2>
+            <p>L'app reste utilisable hors ligne. Internet sert seulement aux actions que tu demandes.</p>
+          </div>
+          <div class="settings-grid">
+            <section class="panel settings-panel">
+              <div>
+                <p class="eyebrow">Application</p>
+                <h3>Installation et mises a jour</h3>
+              </div>
+              <div class="settings-row">
+                <span>Version installee</span>
+                <strong id="settingsVersion">-</strong>
+              </div>
+              <p class="muted">Les revisions, cours, exercices, generateurs et badges fonctionnent sans connexion.</p>
+              <div class="actions-row">
+                <button class="secondary-action" id="checkUpdateButton" type="button">Verifier les mises a jour</button>
+              </div>
+              <p class="settings-status" id="updateStatus">Aucune verification lancee.</p>
+            </section>
+
+            <section class="panel settings-panel">
+              <div>
+                <p class="eyebrow">Compte</p>
+                <h3>Se connecter</h3>
+              </div>
+              <p class="muted">Plus tard, cette zone servira a retrouver la progression sur telephone, tablette et ordinateur.</p>
+              <button class="ghost-action" type="button" disabled>Se connecter - bientot</button>
+            </section>
+
+            <section class="panel settings-panel">
+              <div>
+                <p class="eyebrow">Affichage</p>
+                <h3>Mode de couleur</h3>
+              </div>
+              <label>
+                Theme
+                <select id="themeSelect">
+                  <option value="light">Clair</option>
+                  <option value="dark">Sombre</option>
+                </select>
+              </label>
+              <p class="muted">Le choix est garde sur cet appareil.</p>
+            </section>
+          </div>
         </section>
       </main>
     </div>

@@ -669,3 +669,23 @@ Nouvelle structure :
 Le design utilise maintenant des cartes sombres et des medailles rondes en bronze, argent, or et ultime. Les badges verrouilles sont gris et moins lumineux.
 
 Le nombre total actuel est de 89 badges. Les derniers sont volontairement longs a obtenir : 1000 questions, 100 jours de suite, 75 erreurs reparees, 50 seances sans faute, 200 reussites type brevet et un badge ultime conditionne par l'or dans les quatre matieres.
+
+## Mise a jour accueil et parametres
+
+L'accueil n'est plus centre directement sur une seance. Il sert maintenant de vraie porte d'entree :
+
+- bouton Installer l'app, prepare pour la future PWA ;
+- bouton Continuer en ligne vers GitHub Pages ;
+- acces rapides vers seance guidee, exercices libres, progression et badges ;
+- rappel que l'app est utilisable hors ligne.
+
+Une page Parametres existe maintenant dans le menu principal.
+
+Elle contient :
+
+- la version installee, actuellement `1.0.0` ;
+- un bouton manuel de verification des mises a jour ;
+- une zone Compte / Se connecter marquee comme future ;
+- un choix de theme clair ou sombre.
+
+Important : la verification de mise a jour n'est jamais automatique. L'eleve ou le parent doit cliquer volontairement sur le bouton. C'est conforme a la contrainte centrale : l'app doit rester offline par defaut et ne jamais donner l'impression qu'Internet est necessaire pour reviser.
