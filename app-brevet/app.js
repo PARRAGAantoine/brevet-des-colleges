@@ -2567,6 +2567,22 @@
     answerQuestion(button);
   }
 
-  bindEvents();
-  render();
+  let appInitialized = false;
+
+  function initApp() {
+    if (appInitialized) return;
+    appInitialized = true;
+    bindEvents();
+    render();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initApp, { once: true });
+  } else {
+    initApp();
+  }
+
+  window.addEventListener("pageshow", () => {
+    if (appInitialized) render();
+  });
 }());

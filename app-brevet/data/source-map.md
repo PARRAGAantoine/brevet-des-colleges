@@ -721,3 +721,19 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : OK ;
 - controle navigateur local : accueil, bouton en ligne, parametres, verification manuelle de version et mode sombre OK.
+
+## Correction initialisation accueil - etape 30
+
+Un decalage pouvait apparaitre entre l'ouverture initiale de `index.html` et un clic sur Accueil : l'ecran pouvait afficher les valeurs HTML par defaut avant que le rendu JavaScript ne remette la progression reelle.
+
+Correction appliquee :
+
+- initialisation protegee par `DOMContentLoaded` si necessaire ;
+- prevention du double branchement des evenements ;
+- nouveau rendu sur `pageshow`, utile quand le navigateur restaure un onglet ou une page locale.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK.
