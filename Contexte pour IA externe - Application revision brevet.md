@@ -528,3 +528,22 @@ app-brevet/tools/audit-course-coverage.js
 Il indique les notions qui manquent encore de volume. Apres le lot `extra-content-8.js`, le projet contient 70 cours et 292 exercices statiques. L'audit signale encore 13 notions courtes, surtout en histoire-geo EMC.
 
 Priorite pour une IA externe : proposer des lots d'exercices par notion, en visant au moins 10 questions automatiques par chapitre sans melanger les sujets.
+
+## Mise a jour pour l'IA externe : objectif quotidien et reprise d'erreur
+
+L'objectif quotidien a change. Il ne faut plus raisonner comme un compteur simple de questions faites. L'objectif produit est maintenant : reussir une seance sans faute.
+
+Si l'eleve se trompe, l'erreur doit rester visible comme travail a reprendre. La reprise ne doit pas seulement redonner exactement la meme question, car l'eleve pourrait memoriser la reponse. La bonne logique est :
+
+- afficher une correction et/ou un rappel de cours ;
+- proposer une question proche du meme type de resolution ;
+- faire reussir plusieurs questions proches ;
+- considerer l'erreur reparee seulement quand la methode semble comprise.
+
+Cette contrainte doit guider les futurs generateurs : chaque generateur utile devrait pouvoir produire des variantes proches d'une question ratee, avec la meme competence visee mais des donnees ou formulations differentes.
+
+## Mise a jour pour l'IA externe : annales locales
+
+Un inventaire local a ete refait. Le dossier contient 172 PDF classes comme annales ou sujets/corriges. La couverture 2025 est complete sur les quatre matieres. Les annees 2017 a 2024 sont utiles, mais inegales : beaucoup de sujets, corriges surtout disponibles en mathematiques, et manques frequents en histoire-geo EMC, sciences et parfois francais. L'annee 2026 est partielle : sujets officiels et sujets zero de mathematiques, sans jeu complet toutes matieres avec corriges.
+
+Pour une IA externe, il ne faut donc pas supposer que toutes les annees disposent de toutes les corrections. Les annales servent surtout de source d'inspiration et de calibration du niveau brevet, pas de banque exhaustive parfaite.

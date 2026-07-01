@@ -28,6 +28,109 @@
   let selectedRoadmapSubject = "all";
   let selectedGuidedSubject = "all";
 
+  const textPolishRules = [
+    ["Seance", "Séance"],
+    ["seance", "séance"],
+    ["guidee", "guidée"],
+    ["guide", "guidé"],
+    ["Mathematiques", "Mathématiques"],
+    ["Francais", "Français"],
+    ["Geographie", "Géographie"],
+    ["geographie", "géographie"],
+    ["Histoire-Geo", "Histoire-Géo"],
+    ["Reussite", "Réussite"],
+    ["Reussir", "Réussir"],
+    ["reussir", "réussir"],
+    ["reussite", "réussite"],
+    ["reponse", "réponse"],
+    ["reponses", "réponses"],
+    ["repondu", "répondu"],
+    ["repondue", "répondue"],
+    ["repondues", "répondues"],
+    ["repondre", "répondre"],
+    ["reviser", "réviser"],
+    ["Reviser", "Réviser"],
+    ["revision", "révision"],
+    ["Revision", "Révision"],
+    ["regulier", "régulier"],
+    ["reguliere", "régulière"],
+    ["reparer", "réparer"],
+    ["reparee", "réparée"],
+    ["ratee", "ratée"],
+    ["ratees", "ratées"],
+    ["gagne", "gagné"],
+    ["gagnes", "gagnés"],
+    ["debloque", "débloqué"],
+    ["debloques", "débloqués"],
+    ["a debloquer", "à débloquer"],
+    ["a gagner", "à gagner"],
+    ["A gagner", "À gagner"],
+    ["a retravailler", "à retravailler"],
+    ["A retravailler", "À retravailler"],
+    ["a voir", "à voir"],
+    ["A voir", "À voir"],
+    ["a travailler", "à travailler"],
+    ["A travailler", "À travailler"],
+    ["a reprendre", "à reprendre"],
+    ["A reprendre", "À reprendre"],
+    ["a valider", "à valider"],
+    ["A valider", "À valider"],
+    ["a essayer", "à essayer"],
+    ["A essayer", "À essayer"],
+    ["ou tu en es", "où tu en es"],
+    ["Ou tu en es", "Où tu en es"],
+    ["ete", "été"],
+    ["travaille", "travaillé"],
+    ["journee", "journée"],
+    ["matiere", "matière"],
+    ["matieres", "matières"],
+    ["Matiere", "Matière"],
+    ["Matieres", "Matières"],
+    ["Melange", "Mélange"],
+    ["melange", "mélange"],
+    ["decouvrir", "découvrir"],
+    ["Decouvrir", "Découvrir"],
+    ["precise", "précise"],
+    ["Precise", "Précise"],
+    ["pedagogique", "pédagogique"],
+    ["Pedagogique", "Pédagogique"],
+    ["commence", "commencé"],
+    ["Commence", "Commencé"],
+    ["Acces", "Accès"],
+    ["acces", "accès"],
+    ["eleve", "élève"],
+    ["ecole", "école"],
+    ["egalite", "égalité"],
+    ["liberte", "liberté"],
+    ["laicite", "laïcité"],
+    ["citoyennete", "citoyenneté"],
+    ["Republique", "République"],
+    ["Europeenne", "Européenne"],
+    ["donnees", "données"],
+    ["Developpement", "Développement"],
+    ["developpement", "développement"],
+    ["Decouverte", "Découverte"],
+    ["decouverte", "découverte"],
+    ["entrainement", "entraînement"],
+    ["entrainer", "entraîner"],
+    ["entraine", "entraîne"],
+    ["maitrise", "maîtrise"],
+    ["Maitrise", "Maîtrise"],
+    ["hypothenuse", "hypoténuse"],
+    ["hypotenuse", "hypoténuse"],
+    ["theoreme", "théorème"],
+    ["Theoreme", "Théorème"],
+    ["probleme", "problème"],
+    ["echelle", "échelle"],
+    ["Echelle", "Échelle"],
+    ["energie", "énergie"],
+    ["eprouvette", "éprouvette"],
+    ["ecriture", "écriture"],
+    ["Ecriture", "Écriture"],
+    ["etat", "état"],
+    ["Etat", "État"]
+  ];
+
   function loadProgress() {
     try {
       return { ...initialProgress, ...JSON.parse(localStorage.getItem(storageKey)) };
@@ -38,6 +141,37 @@
 
   function saveProgress() {
     localStorage.setItem(storageKey, JSON.stringify(progress));
+  }
+
+  function escapeRegExp(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function polishText(value) {
+    return textPolishRules.reduce((text, [from, to]) => {
+      const pattern = new RegExp(`(^|[^A-Za-zÀ-ÖØ-öø-ÿ0-9])${escapeRegExp(from)}(?=$|[^A-Za-zÀ-ÖØ-öø-ÿ0-9])`, "g");
+      return text.replace(pattern, `$1${to}`);
+    }, String(value || ""));
+  }
+
+  function applyTextPolish(root = document.body) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent || ["SCRIPT", "STYLE"].includes(parent.tagName)) return NodeFilter.FILTER_REJECT;
+        return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      node.nodeValue = polishText(node.nodeValue);
+    });
+  }
+
+  function clearSessionStage() {
+    const stage = document.getElementById("sessionStage");
+    if (stage) stage.innerHTML = "";
   }
 
   function subjectLabel(subjectId) {
@@ -198,12 +332,15 @@
   }
 
   function awardBadges() {
-    const before = progress.badges.length;
+    const unlockedNow = [];
     getAllBadges().forEach((badge) => {
       if (progress.badges.includes(badge.id)) return;
-      if (isBadgeUnlocked(badge)) progress.badges.push(badge.id);
+      if (isBadgeUnlocked(badge)) {
+        progress.badges.push(badge.id);
+        unlockedNow.push(badge);
+      }
     });
-    if (progress.badges.length > before) showToast("Nouveau badge debloque.");
+    if (unlockedNow.length) showBadgeUnlock(unlockedNow);
   }
 
   function addPoints(value) {
@@ -236,12 +373,34 @@
 
   function showToast(message) {
     const toast = document.getElementById("toast");
+    toast.classList.remove("badge-unlock-toast");
     toast.textContent = message;
     toast.classList.add("visible");
     window.setTimeout(() => toast.classList.remove("visible"), 2400);
   }
 
+  function showBadgeUnlock(badges) {
+    const firstBadge = badges[0];
+    const tierMeta = getBadgeTierMeta(firstBadge.tier);
+    const message = badges.length === 1
+      ? `Badge débloqué : ${firstBadge.title}`
+      : `${badges.length} badges débloqués`;
+    const toast = document.getElementById("toast");
+    toast.innerHTML = `
+      <div class="badge-toast">
+        <div class="badge-toast-medal tier-${firstBadge.tier || "bronze"}">${tierMeta.number}</div>
+        <div>
+          <strong>${message}</strong>
+          <span>${tierMeta.label} - ${firstBadge.requirement || "Objectif atteint"}</span>
+        </div>
+      </div>
+    `;
+    toast.classList.add("visible", "badge-unlock-toast");
+    window.setTimeout(() => toast.classList.remove("visible", "badge-unlock-toast"), 4200);
+  }
+
   function setView(viewName) {
+    if (viewName === "session" && !currentSession) clearSessionStage();
     document.querySelectorAll(".view").forEach((view) => view.classList.remove("active"));
     document.getElementById(`${viewName}View`).classList.add("active");
     document.querySelectorAll(".nav-item").forEach((item) => {
@@ -259,13 +418,16 @@
     renderGuidedTasks();
     renderProgress();
     renderBadges();
+    applyTextPolish();
   }
 
   function renderDashboard() {
     const recommendation = getRecommendation();
     activeSubject = recommendation.subject;
     const todayAnswers = getTodayAnswers();
-    const dailyPercent = Math.min(100, Math.round((todayAnswers.length / 10) * 100));
+    const perfectToday = progress.sessions.some((session) => session.date === today() && session.correctAnswers === session.questionsAnswered && session.questionsAnswered > 0);
+    const pendingMistakes = progress.mistakes.filter((mistake) => !mistake.repaired).length;
+    const dailyPercent = perfectToday && pendingMistakes === 0 ? 100 : Math.min(90, Math.round((todayAnswers.length / 20) * 100));
 
     document.getElementById("pointsValue").textContent = progress.points;
     document.getElementById("streakValue").textContent = `${progress.currentStreak} j`;
@@ -275,13 +437,17 @@
     document.getElementById("recommendationStatus").textContent = recommendation.status;
     document.getElementById("recommendationText").textContent = recommendation.text;
     document.getElementById("dailyProgressBar").style.width = `${dailyPercent}%`;
-    document.getElementById("dailyProgressText").textContent = `${todayAnswers.length} / 10 questions pour valider la journee.`;
-    document.getElementById("sidebarGoal").textContent = `${todayAnswers.length} question${todayAnswers.length > 1 ? "s" : ""} repondue${todayAnswers.length > 1 ? "s" : ""}`;
+    document.getElementById("dailyProgressText").textContent = perfectToday && pendingMistakes === 0
+      ? "Objectif valide : seance sans faute."
+      : `${todayAnswers.length} questions faites. Objectif : reussir une seance sans faute.`;
+    document.getElementById("sidebarGoal").textContent = perfectToday && pendingMistakes === 0
+      ? "Objectif valide"
+      : `${pendingMistakes} erreur${pendingMistakes > 1 ? "s" : ""} a reprendre`;
     document.getElementById("dailyMission").textContent = recommendation.mode === "first-run"
       ? "Choisis une matiere pour commencer"
       : `Construire les bases en ${recommendation.title}`;
     document.getElementById("dailyHint").textContent = recommendation.mode === "first-run"
-      ? "Tu peux choisir une matiere precise ou lancer un melange decouverte de 5 questions."
+      ? "Tu peux choisir une matiere precise ou lancer un melange decouverte."
       : `${recommendation.text} Objectif : arriver progressivement au niveau brevet avant juin 2027.`;
 
     const overview = document.getElementById("subjectOverview");
@@ -1151,6 +1317,7 @@
           </div>
           <div class="roadmap-actions">
             <span class="status-pill">${stats.status}</span>
+            <button class="secondary-action" data-start-curriculum="${item.id}" type="button">Travailler</button>
             <button class="${isUnseen ? "secondary-action" : "ghost-action"}" data-chapter-status="${item.id}" data-status-value="${isUnseen ? "active" : "unseen"}" type="button">${isUnseen ? "Je commence" : "Pas encore vu"}</button>
           </div>
         </article>
@@ -1302,10 +1469,6 @@
       pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
     }
 
-    if (!pool.length) {
-      pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
-    }
-
     const sortedPool = pool
       .sort((a, b) => {
         const aStageGap = Math.abs(stageOrder.indexOf(a.stage || "Decouverte") - targetIndex);
@@ -1317,7 +1480,14 @@
         return aTooClose - bTooClose || aStageGap - bStageGap || (answeredCounts.get(a.id) || 0) - (answeredCounts.get(b.id) || 0);
       });
 
-    const selected = sortedPool.slice(0, Math.min(count, sortedPool.length));
+    const selected = [];
+    const usedQuestions = new Set();
+    sortedPool.forEach((exercise) => {
+      const questionKey = normalizeText(exercise.question || exercise.prompt || exercise.id);
+      if (selected.length >= count || usedQuestions.has(questionKey)) return;
+      selected.push(exercise);
+      usedQuestions.add(questionKey);
+    });
     const generatedCandidate = sortedPool.find((exercise) => exercise.mode === "generated" && !selected.some((item) => item.id === exercise.id));
     if (generatedCandidate && selected.length >= 3 && !selected.some((exercise) => exercise.mode === "generated")) {
       selected[selected.length - 1] = generatedCandidate;
@@ -1508,6 +1678,7 @@
     const feedback = panel.querySelector(".feedback");
     feedback.hidden = false;
     feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "Pas grave, on reprend ensemble."}</strong><br>${question.explanation}`;
+    let repairOutcome = null;
 
     progress.answers.push({
       exerciseId: question.id,
@@ -1530,8 +1701,8 @@
     if (correct) {
       addPoints(5);
       if (question.retryOf && question.reviewedBeforeRetry) {
-        registerRepair(question);
-        addPoints(10);
+        repairOutcome = registerRepair(question);
+        if (repairOutcome.repaired) addPoints(10);
       }
     }
     awardBadges();
@@ -1548,12 +1719,17 @@
       feedback.appendChild(document.createElement("br"));
       feedback.appendChild(next);
     } else {
+      const retryMistake = repairOutcome && !repairOutcome.repaired
+        ? progress.mistakes.find((mistake) => mistake.id === question.retryOf)
+        : null;
       const next = document.createElement("button");
       next.className = "secondary-action";
       next.type = "button";
-      next.textContent = "Nouvelle question";
+      next.textContent = retryMistake ? "Question proche suivante" : "Nouvelle question";
       next.addEventListener("click", () => {
-        currentPracticeQuestion = pickQuestion(question.subject);
+        currentPracticeQuestion = retryMistake
+          ? (getRetryQuestionForMistake(retryMistake) || pickQuestion(question.subject))
+          : pickQuestion(question.subject);
         render();
       });
       feedback.appendChild(document.createElement("br"));
@@ -1602,6 +1778,8 @@
     if (existing) {
       existing.count += 1;
       existing.lastDate = today();
+      existing.repairProgress = 0;
+      existing.repairQuestionIds = [];
       return;
     }
     progress.mistakes.push({
@@ -1617,13 +1795,24 @@
       lastDate: today(),
       reviewed: false,
       repaired: false,
+      repairProgress: 0,
+      repairTarget: 2,
+      repairQuestionIds: [],
       sessionHadError: Boolean(currentSession)
     });
   }
 
   function registerRepair(question) {
     const mistake = progress.mistakes.find((item) => item.id === question.retryOf);
-    if (!mistake || mistake.repaired) return;
+    if (!mistake || mistake.repaired) return { repaired: false, remaining: 0 };
+    mistake.repairTarget = mistake.repairTarget || 2;
+    mistake.repairProgress = (mistake.repairProgress || 0) + 1;
+    mistake.repairQuestionIds = [...new Set([...(mistake.repairQuestionIds || []), question.id])];
+    if (mistake.repairProgress < mistake.repairTarget) {
+      const remaining = mistake.repairTarget - mistake.repairProgress;
+      showToast(`${remaining} question${remaining > 1 ? "s" : ""} proche${remaining > 1 ? "s" : ""} encore a reussir.`);
+      return { repaired: false, remaining };
+    }
     mistake.repaired = true;
     mistake.repairedDate = today();
     progress.repairs.push({
@@ -1637,8 +1826,39 @@
       date: today(),
       afterSessionError: Boolean(mistake.sessionHadError)
     });
-    showToast("Erreur reparee apres revision : +10 points.");
+    showToast("Erreur reparee apres plusieurs questions : +10 points.");
     awardBadges();
+    return { repaired: true, remaining: 0 };
+  }
+
+  function getRetryQuestionForMistake(mistake) {
+    const original = findExerciseByReference(mistake);
+    const usedIds = new Set([mistake.exerciseId, ...(mistake.repairQuestionIds || [])]);
+    let pool = content.exercises
+      .filter((exercise) => exercise.subject === mistake.subject)
+      .filter((exercise) => exercise.notionId && mistake.notionId ? exercise.notionId === mistake.notionId : chapterMatches(mistake.chapter, exercise.chapter))
+      .filter((exercise) => !usedIds.has(exercise.id));
+
+    const notion = mistake.notionId
+      ? (content.notions || []).find((item) => item.id === mistake.notionId)
+      : getNotionForChapter(mistake.subject, mistake.chapter);
+    if (notion) {
+      pool = [...pool, ...generateQuestionsForNotion(notion, 8, pool.length).filter((exercise) => !usedIds.has(exercise.id))];
+    }
+
+    if (original) {
+      const originalText = `${original.question || original.prompt} ${original.explanation || ""}`;
+      pool = pool
+        .filter((exercise) => normalizeText(exercise.question || exercise.prompt) !== normalizeText(original.question || original.prompt))
+        .sort((a, b) => {
+          const aScore = textSimilarityScore(originalText, `${a.question || a.prompt} ${a.explanation || ""}`);
+          const bScore = textSimilarityScore(originalText, `${b.question || b.prompt} ${b.explanation || ""}`);
+          return bScore - aScore;
+        });
+    }
+
+    const retry = pool[0] || original;
+    return retry ? { ...retry, retryOf: mistake.id, reviewedBeforeRetry: true, retryVariant: retry.id !== mistake.exerciseId } : null;
   }
 
   function startMistakeReview() {
@@ -1647,14 +1867,21 @@
       showToast("Aucune erreur a revoir pour le moment.");
       return;
     }
-    const question = findExerciseByReference(mistake);
-    if (!question) {
-      showToast("Impossible de retrouver cette question pour le moment.");
-      return;
-    }
     const lesson = content.lessons.find((item) => item.subject === mistake.subject && item.chapter === mistake.chapter)
-      || content.lessons.find((item) => item.subject === mistake.subject);
+      || content.lessons.find((item) => item.subject === mistake.subject)
+      || {
+        subject: mistake.subject,
+        chapter: mistake.chapter,
+        title: `Revoir ${mistake.chapter}`,
+        summary: "Relis la consigne, repere ce qui est demande, puis applique la methode pas a pas.",
+        prerequisite: "Aucun prerequis particulier : commence par reprendre la correction de ton erreur.",
+        example: "Observe la correction, puis refais une question proche sans regarder la reponse.",
+        mistake: "Repondre trop vite sans changer de methode.",
+        takeaway: "Une erreur est reparee quand tu sais reussir une question proche, pas seulement la meme question."
+      };
     mistake.reviewed = true;
+    mistake.repairTarget = mistake.repairTarget || 2;
+    mistake.repairProgress = mistake.repairProgress || 0;
     saveProgress();
     setView("practice");
     const container = document.getElementById("practiceQuestion");
@@ -1662,10 +1889,14 @@
       <span class="tag">Revision avant reprise</span>
       <h3>${lesson.title}</h3>
       ${renderLessonBody(lesson)}
-      <button class="primary-action" id="retryMistakeNow" type="button">Refaire la question</button>
+      <div class="course-note">
+        <strong>Objectif de reprise</strong>
+        <p>Reussis ${mistake.repairTarget} questions proches pour montrer que la methode est comprise.</p>
+      </div>
+      <button class="primary-action" id="retryMistakeNow" type="button">S'entrainer sur une question proche</button>
     `;
     document.getElementById("retryMistakeNow").addEventListener("click", () => {
-      currentPracticeQuestion = { ...question, retryOf: mistake.id, reviewedBeforeRetry: true };
+      currentPracticeQuestion = getRetryQuestionForMistake(mistake) || pickQuestion(mistake.subject);
       renderPracticeQuestion();
     });
   }
@@ -1803,7 +2034,6 @@
     document.getElementById("badgeList").innerHTML = `
       <article class="badge-summary panel">
         <strong>${unlockedCount} / ${badges.length} badges debloques</strong>
-        <p>Les premiers badges arrivent vite. Les derniers demandent plusieurs semaines de travail regulier.</p>
       </article>
       ${badges.map((badge) => {
       const unlocked = isBadgeUnlocked(badge);
@@ -2063,6 +2293,19 @@
         render();
       }
 
+      const startCurriculum = event.target.closest("[data-start-curriculum]");
+      if (startCurriculum) {
+        const item = content.curriculum.find((curriculumItem) => curriculumItem.id === startCurriculum.dataset.startCurriculum);
+        if (item) {
+          const notion = getNotionForChapter(item.subject, item.chapter);
+          document.getElementById("sessionSubject").value = item.subject;
+          renderSessionNotions();
+          document.getElementById("sessionNotion").value = notion?.id || "auto";
+          clearSessionStage();
+          setView("session");
+        }
+      }
+
       const train = event.target.closest("[data-train-subject]");
       if (train) {
         document.getElementById("practiceSubject").value = train.dataset.trainSubject;
@@ -2092,13 +2335,17 @@
       document.getElementById("sessionSubject").value = activeSubject;
       renderSessionNotions();
       document.getElementById("sessionNotion").value = "auto";
+      clearSessionStage();
       setView("session");
     });
 
     document.getElementById("startSessionButton").addEventListener("click", startSession);
     document.getElementById("sessionSubject").addEventListener("change", () => {
+      clearSessionStage();
       renderSessionNotions();
     });
+    document.getElementById("sessionNotion").addEventListener("change", clearSessionStage);
+    document.getElementById("sessionDuration").addEventListener("change", clearSessionStage);
     document.getElementById("newQuestionButton").addEventListener("click", () => {
       currentPracticeQuestion = pickQuestion(document.getElementById("practiceSubject").value);
       render();

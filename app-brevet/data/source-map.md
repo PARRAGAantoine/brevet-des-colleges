@@ -631,3 +631,35 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : 265 QCM audites, 0 alerte ;
 - `node tools\audit-course-coverage.js` : 13 notions signalees comme encore trop courtes, surtout en histoire-geo EMC.
+
+## Corrections UX seance, objectif quotidien et annales - etape 27
+
+Corrections appliquees :
+
+- le menu principal est simplifie : Accueil, Seance, Exercices, Progression, Badges ;
+- au premier lancement, l'accueil propose un melange decouverte au lieu de demarrer automatiquement par les mathematiques ;
+- la page Seance efface l'ancien bilan lorsqu'on change de matiere, de chapitre, de format ou lorsqu'on arrive depuis l'accueil ;
+- les formats de seance passent a 10, 20 et 30 exercices ;
+- l'objectif quotidien devient une seance sans faute ;
+- si une erreur existe, elle reste a reprendre avant validation ;
+- la reprise d'erreur ne redonne plus seulement la meme question : l'application cherche des questions proches du meme chapitre ou en genere via le generateur de la notion ;
+- une erreur est reparee apres plusieurs questions proches reussies ;
+- les questions d'une seance sont dedoublonnees par enonce pour eviter deux fois la meme question ;
+- le deverrouillage d'un badge est affiche par un toast plus visible ;
+- la phrase explicative inutile de la page Badges a ete retiree ;
+- une couche de correction d'accents est appliquee aux textes rendus dans l'interface.
+
+Inventaire local des annales :
+
+- 172 PDF trouves localement ;
+- couverture complete sujet + corrige/bareme pour 2025 dans les quatre matieres ;
+- lacunes locales encore visibles sur plusieurs annees : surtout corriges d'histoire-geo EMC, sciences et certaines annees de francais ;
+- 2026 contient surtout les sujets officiels disponibles et les sujets zero mathematiques, mais pas encore un jeu complet toutes matieres avec corriges.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : 265 QCM audites, 0 alerte ;
+- `node tools\audit-course-coverage.js` : 13 notions encore trop courtes pour tenir confortablement les formats longs ;
+- controle navigateur local : menu simplifie, format 10/20/30, page Seance vide sans ancien bilan.

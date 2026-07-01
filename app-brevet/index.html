@@ -18,15 +18,15 @@
         </div>
         <nav class="nav-list">
           <button class="nav-item active" data-view="dashboard" type="button">Accueil</button>
-          <button class="nav-item" data-view="session" type="button">Seance</button>
+          <button class="nav-item" data-view="session" type="button">Séance</button>
           <button class="nav-item" data-view="practice" type="button">Exercices</button>
           <button class="nav-item" data-view="progress" type="button">Progression</button>
           <button class="nav-item" data-view="badges" type="button">Badges</button>
         </nav>
         <div class="sidebar-card">
           <p class="muted">Objectif</p>
-          <strong>10 questions aujourd'hui</strong>
-          <span id="sidebarGoal">0 question repondue</span>
+          <strong>Séance sans faute aujourd'hui</strong>
+          <span id="sidebarGoal">A valider</span>
         </div>
       </aside>
 
@@ -124,7 +124,7 @@
           <div class="page-heading">
             <p class="eyebrow">Objectif juin 2027</p>
             <h2>Parcours du programme</h2>
-            <p>Les chapitres sont classes par etape : decouvrir, consolider, puis s'entrainer type brevet.</p>
+            <p>Choisis un chapitre a travailler ou indique ceux que tu n'as pas encore vus en classe.</p>
           </div>
           <div class="filter-row" id="roadmapFilters"></div>
           <div class="roadmap-list" id="roadmapList"></div>
@@ -132,7 +132,7 @@
 
         <section class="view" id="sessionView">
           <div class="page-heading">
-            <p class="eyebrow">Seance guidee</p>
+              <p class="eyebrow">Séance guidée</p>
             <h2>Choisis ton format</h2>
             <p>Un vrai cours guide, puis plusieurs questions corrigees.</p>
           </div>
@@ -148,9 +148,9 @@
             <label>
               Nombre d'exercices
               <select id="sessionDuration">
-                <option value="5">Courte - 5 exercices</option>
-                <option value="10">Standard - 10 exercices</option>
-                <option value="15">Longue - 15 exercices</option>
+                <option value="10">Courte - 10 exercices</option>
+                <option value="20">Standard - 20 exercices</option>
+                <option value="30">Longue - 30 exercices</option>
               </select>
             </label>
             <button class="primary-action" id="startSessionButton" type="button">Lancer la seance</button>

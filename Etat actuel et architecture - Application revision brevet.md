@@ -623,3 +623,34 @@ Il repere les notions qui manquent encore de volume. Etat actuel :
 - 13 notions encore signalees comme trop courtes pour tenir confortablement une seance de 10 questions.
 
 Les prochaines densifications doivent cibler en priorite l'histoire-geo EMC : reperes, developpement construit, Seconde Guerre mondiale, guerre froide, construction europeenne, geographie, citoyennete, valeurs de la Republique, defense.
+
+## Mise a jour UX - seances, objectif quotidien et erreurs
+
+L'interface de navigation est maintenant plus simple : Accueil, Seance, Exercices, Progression, Badges.
+
+Le premier lancement ne pousse plus automatiquement les mathematiques. Si aucune donnee de progression n'existe, l'accueil propose de choisir une matiere ou de lancer un melange decouverte.
+
+Les seances sont maintenant calibrees en nombre d'exercices :
+
+- courte : 10 exercices ;
+- standard : 20 exercices ;
+- longue : 30 exercices.
+
+L'objectif quotidien n'est plus un simple compteur de 10 questions. Il devient : reussir une seance sans faute. Si l'eleve fait une erreur, l'objectif n'est pas vraiment valide tant que l'erreur n'a pas ete reprise.
+
+La reprise d'erreur suit maintenant un cycle plus pedagogique :
+
+- rappel de cours avant de recommencer ;
+- question proche du meme type, pas seulement la meme question ;
+- plusieurs questions proches a reussir pour montrer que la methode est comprise ;
+- reparation enregistree seulement apres cette reussite.
+
+Corrections techniques liees :
+
+- l'ancien bilan de seance ne reste plus visible lorsqu'on arrive sur une nouvelle seance ;
+- les questions d'une seance sont dedoublonnees par enonce ;
+- les badges debloques sont signales par un affichage plus visible ;
+- la phrase inutile de la page Badges a ete retiree ;
+- une couche de correction d'accents est appliquee aux textes de l'interface.
+
+Inventaire local des annales : 172 PDF sont presents. La couverture 2025 est complete sur les quatre matieres avec sujets et corriges. Les annees anterieures restent inegales, surtout pour les corriges d'histoire-geo EMC, de sciences et de certaines epreuves de francais. L'annee 2026 contient surtout des sujets officiels et des sujets zero de mathematiques ; elle n'est pas encore complete toutes matieres avec corriges.

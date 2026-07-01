@@ -481,6 +481,9 @@ Tâches :
 - animation de réussite ;
 - message de fin de session.
 - badges de persévérance conditionnés à une révision réelle avant de refaire une question ratée.
+- objectif quotidien base sur une séance sans faute, et non sur un simple compteur de questions.
+- si une erreur bloque l'objectif quotidien, l'eleve doit revoir le cours puis reussir plusieurs questions proches du meme type avant que l'erreur soit consideree comme reparee.
+- les badges debloques doivent etre visibles immediatement dans l'interface, avec un signal graphique plus fort qu'un simple texte.
 
 Livrable :
 
