@@ -83,7 +83,7 @@ Etat valide actuellement :
 ```txt
 Matieres : 4
 Cours : 66
-Exercices statiques : 210
+Exercices statiques : 250
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -342,7 +342,7 @@ Si GitHub n'est pas encore configure, l'assistant doit le dire clairement et pro
 
 Le registre de notions est passe a 33 notions, couvrant tous les chapitres actuellement presents dans les exercices.
 
-Les 66 cours, 210 exercices statiques et 12 sujets guides ont maintenant un `notionId` valide.
+Les 66 cours, 250 exercices statiques et 12 sujets guides ont maintenant un `notionId` valide.
 
 Il reste a proposer une strategie pour decouper les notions larges en sous-notions pedagogiques plus fines.
 
@@ -350,7 +350,7 @@ Il reste a proposer une strategie pour decouper les notions larges en sous-notio
 
 Le nombre de generateurs offline est passe a 20. Le nouveau lot porte surtout sur les mathematiques : fractions, puissances, priorites, proportionnalite, fonctions, Pythagore, Thales et trigonometrie.
 
-Les generateurs restent complementaires de la banque statique de 210 exercices.
+Les generateurs restent complementaires de la banque statique de 250 exercices.
 
 ## Mise a jour pour l'IA externe : generateurs sciences
 
@@ -405,7 +405,9 @@ Le moteur d'exercices ne se limite plus au QCM. Deux nouveaux formats sont pris 
 - `true_false` : vrai/faux ;
 - `order` : remise en ordre par clics successifs.
 
-Un premier lot de 16 exercices a ete ajoute, ce qui porte la banque statique a 210 exercices : 194 QCM, 8 vrai/faux et 8 remises en ordre.
+Les lots successifs portent maintenant la banque statique a 250 exercices : 226 QCM, 12 vrai/faux et 12 remises en ordre.
+
+Un outil d'audit QCM existe dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 226 QCM audites, 0 alerte.
 
 Priorite suivante : produire davantage d'exercices dans ces nouveaux formats, puis ajouter association et reponse courte.
 

@@ -378,7 +378,7 @@ Validation effectuee :
 - `node --check data\extra-content-6.js` : OK ;
 - `node --check tools\validate-content.js` : OK ;
 - `node tools\validate-content.js` : OK ;
-- controle script : 194 QCM, 8 vrai/faux, 8 remises en ordre, 0 ordre incoherent.
+- controle script de cette etape : 194 QCM, 8 vrai/faux, 8 remises en ordre, 0 ordre incoherent.
 
 ## Formats de session par exercices - etape 16
 
@@ -476,3 +476,26 @@ Les badges de chapitre suivent la logique pedagogique de l'app :
 - or : niveau Comme au brevet avec plusieurs questions type brevet reussies.
 
 Le rendu visuel existant est conserve : badge verrouille plat, badge debloque en medaille bronze, argent ou or.
+
+## Audit QCM et lot exercices 7 - etape 22
+
+Un outil d'audit QCM a ete ajoute dans `tools/audit-qcm.js`.
+
+Il controle notamment :
+
+- choix dupliques ;
+- bonne reponse absente ;
+- distracteurs grossiers ou hors sujet ;
+- bonne reponse anormalement longue par rapport aux distracteurs ;
+- repartition des QCM par matiere et par niveau.
+
+Resultat apres corrections : 226 QCM audites, 0 alerte.
+
+Le fichier `data/extra-content-7.js` ajoute 40 nouveaux exercices :
+
+- mathematiques : fractions, priorites, probabilites, statistiques, Pythagore, fonctions, tableur, grandeurs ;
+- francais : grammaire, orthographe, lecture, interpretation, reecriture, redaction, valeurs des temps ;
+- histoire-geo EMC : reperes, document, developpement construit, guerre, Europe, geographie, citoyennete, institutions ;
+- sciences : donnees, SVT, physique-chimie, technologie.
+
+Le total passe a 250 exercices statiques, 12 sujets guides, 46 generateurs offline.

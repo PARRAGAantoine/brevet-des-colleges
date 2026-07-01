@@ -9,6 +9,7 @@ const files = [
   "data/extra-content-4.js",
   "data/extra-content-5.js",
   "data/extra-content-6.js",
+  "data/extra-content-7.js",
   "data/notions.js",
   "generators/registry.js",
   "generators/math-calcul.js",

@@ -416,7 +416,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Une aire urbaine comprend...",
-      choices: ["ville-centre, banlieue, couronne periurbaine", "seulement des champs", "un seul village", "un ocean"],
+      choices: ["ville-centre, banlieue, couronne periurbaine", "ville-centre et centre historique seulement", "banlieue et espaces ruraux sans lien", "commune isolee et zone agricole"],
       answer: "ville-centre, banlieue, couronne periurbaine",
       explanation: "L'aire urbaine depasse le centre de la ville."
     },

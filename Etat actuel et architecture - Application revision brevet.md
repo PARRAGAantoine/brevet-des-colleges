@@ -60,7 +60,7 @@ Validation actuelle :
 ```txt
 Matieres : 4
 Cours : 66
-Exercices statiques : 210
+Exercices statiques : 250
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -115,7 +115,7 @@ Le projet utilise maintenant deux sources d'exercices.
 
 ### Banque statique
 
-Les 210 exercices deja crees restent utiles.
+Les 250 exercices deja crees restent utiles.
 
 Ils constituent une banque controlee et doivent etre conserves. Ils servent notamment pour :
 
@@ -458,7 +458,7 @@ Le registre de notions couvre maintenant les 33 chapitres actuellement utilises 
 Tous les contenus existants sont relies a une notion stable :
 
 - 66 cours avec `notionId` ;
-- 210 exercices statiques avec `notionId` ;
+- 250 exercices statiques avec `notionId` ;
 - 12 sujets guides avec `notionId`.
 
 Le validateur controle maintenant que chaque cours, exercice et sujet guide possede un `notionId` connu.
@@ -525,7 +525,9 @@ Le moteur d'exercices accepte maintenant trois formats :
 - `true_false` ;
 - `order`.
 
-La banque statique contient maintenant 210 exercices : 194 QCM, 8 vrai/faux et 8 remises en ordre. Les prochains lots devront augmenter ces nouveaux formats et ajouter ensuite association et reponse courte.
+La banque statique contient maintenant 250 exercices : 226 QCM, 12 vrai/faux et 12 remises en ordre. Les prochains lots devront continuer a augmenter ces nouveaux formats et ajouter ensuite association et reponse courte.
+
+Un outil d'audit QCM existe maintenant dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 226 QCM audites, 0 alerte.
 
 ## Mise a jour formats de session
 

@@ -306,7 +306,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Un flux de marchandises correspond a :",
-      choices: ["un deplacement de biens produits ou vendus", "une frontiere naturelle", "une montagne", "un discours politique"],
+      choices: ["un deplacement de biens produits ou vendus", "un deplacement quotidien de travailleurs", "une limite entre deux territoires", "une decision prise par un Etat"],
       answer: "un deplacement de biens produits ou vendus",
       explanation: "Les marchandises circulent entre espaces de production, de transport et de consommation."
     },

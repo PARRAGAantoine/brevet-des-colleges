@@ -531,7 +531,7 @@ window.BREVET_CONTENT = {
       stage: "Consolidation",
       type: "qcm",
       question: "Dans une configuration de Thales, que faut-il verifier avant d'ecrire des rapports ?",
-      choices: ["Des droites paralleles et des points alignes", "Seulement deux angles droits", "Un cercle", "Une moyenne"],
+      choices: ["Des droites paralleles et des points alignes", "Des droites perpendiculaires et des angles egaux", "Un triangle rectangle et une hypotenuse", "Un cercle et deux rayons egaux"],
       answer: "Des droites paralleles et des points alignes",
       explanation: "Le theoreme de Thales s'utilise avec deux droites secantes coupees par des paralleles."
     },
@@ -554,12 +554,12 @@ window.BREVET_CONTENT = {
       type: "qcm",
       question: "Quelle reponse est la mieux justifiee ?",
       choices: [
-        "Elle est emue.",
-        "Elle est emue car le texte dit 'emue', ce qui montre une reaction forte.",
-        "Le texte est bien.",
-        "Elle marche dans une ville."
+        "Elle est emue car une expression du texte montre sa reaction.",
+        "Elle est emue, sans qu'on ait besoin de citer le texte.",
+        "Elle est emue parce que le lecteur peut l'imaginer.",
+        "Elle est emue car tous les personnages le sont."
       ],
-      answer: "Elle est emue car le texte dit 'emue', ce qui montre une reaction forte.",
+      answer: "Elle est emue car une expression du texte montre sa reaction.",
       explanation: "La reponse affirme une idee, cite un mot du texte et l'explique."
     },
     {
@@ -613,7 +613,7 @@ window.BREVET_CONTENT = {
       stage: "Type brevet",
       type: "qcm",
       question: "Une bonne reponse d'analyse de document doit...",
-      choices: ["citer le document et utiliser le cours", "recopier tout le document", "ignorer la consigne", "donner seulement son avis"],
+      choices: ["citer le document et utiliser le cours", "citer le document sans expliquer", "utiliser le cours sans le document", "donner une opinion sur le document"],
       answer: "citer le document et utiliser le cours",
       explanation: "Au brevet, il faut prelever une information et l'expliquer avec ses connaissances."
     },
@@ -816,8 +816,8 @@ window.BREVET_CONTENT = {
       stage: "Type brevet",
       type: "qcm",
       question: "Le mot 'reconversion industrielle' designe...",
-      choices: ["la transformation d'une ancienne region industrielle vers de nouvelles activites", "une bataille", "une election", "un climat"],
-      answer: "la transformation d'une ancienne region industrielle vers de nouvelles activites",
+      choices: ["la transformation vers de nouvelles activites", "le retour aux anciennes usines", "la disparition de toute activite economique", "la creation d'une region administrative"],
+      answer: "la transformation vers de nouvelles activites",
       explanation: "La reconversion correspond a une adaptation economique d'un territoire."
     },
     {

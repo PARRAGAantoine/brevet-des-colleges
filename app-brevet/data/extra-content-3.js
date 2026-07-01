@@ -240,7 +240,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Dans 'Je viendrai demain', le mot 'demain' indique :",
-      choices: ["un complement circonstanciel de temps", "un COD", "un sujet", "un attribut"],
+      choices: ["un complement circonstanciel de temps", "un complement circonstanciel de lieu", "un complement d'objet direct", "un attribut du sujet"],
       answer: "un complement circonstanciel de temps",
       explanation: "Demain repond a la question quand ?"
     },
@@ -438,7 +438,7 @@
       stage: "Decouverte",
       type: "qcm",
       question: "Le role principal des poumons est :",
-      choices: ["realiser les echanges de dioxygene et de dioxyde de carbone", "produire le sang", "digerer les aliments", "commander les muscles"],
+      choices: ["realiser les echanges de dioxygene et de dioxyde de carbone", "faire circuler le sang dans tout le corps", "transformer les aliments en nutriments", "commander les mouvements volontaires"],
       answer: "realiser les echanges de dioxygene et de dioxyde de carbone",
       explanation: "Les poumons permettent les echanges gazeux entre l'air et le sang."
     },
