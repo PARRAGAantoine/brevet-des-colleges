@@ -1542,9 +1542,16 @@
   function renderLessonBody(lesson) {
     const details = getCourseDetails(lesson);
     const vocabulary = getCourseVocabulary(lesson);
+    const stage = currentSession?.lesson === lesson ? currentSession.targetStage : lesson.stage;
+    const stageFocus = getStageCourseFocus(lesson, stage);
     const prerequisite = lesson.prerequisite || "Tu peux commencer directement : lis la methode, puis observe l'exemple.";
     return `
       <p class="course-intro">${getStudentCourseIntro(lesson)}</p>
+      <div class="course-level-card">
+        <span class="tag">${stageLabel(stage)}</span>
+        <strong>${stageFocus.title}</strong>
+        <p>${stageFocus.text}</p>
+      </div>
       <div class="course-note course-note-wide">
         <strong>Ce que tu dois savoir au depart</strong>
         <p>${prerequisite}</p>
@@ -1588,6 +1595,37 @@
         </div>
       </div>
     `;
+  }
+
+  function getStageCourseFocus(lesson, stage) {
+    const chapter = String(lesson.chapter || "").toLowerCase();
+    const isMath = lesson.subject === "mathematiques";
+    if (stage === "Consolidation") {
+      return {
+        title: "Objectif : appliquer sans aide",
+        text: isMath
+          ? "Tu connais l'idee principale. Maintenant, entraine-toi a choisir la bonne operation, a ecrire les etapes et a verifier le resultat."
+          : "Tu connais les mots importants. Maintenant, entraine-toi a utiliser la methode sur des consignes proches, sans recopier le cours."
+      };
+    }
+    if (stage === "Type brevet") {
+      return {
+        title: "Objectif : repondre comme au brevet",
+        text: isMath
+          ? `Pour ${lesson.chapter}, lis toute la consigne, repere les donnees utiles, pose ton calcul proprement et termine par une phrase reponse avec l'unite si besoin.`
+          : `Pour ${lesson.chapter}, commence par identifier la consigne, utilise un vocabulaire precis et justifie ta reponse avec un exemple, un document ou une citation.`
+      };
+    }
+    if (isMath && chapter.includes("equation")) {
+      return {
+        title: "Objectif : comprendre la balance",
+        text: "Une equation garde le meme equilibre si tu fais la meme operation des deux cotes. Avant de calculer vite, cherche ce qui cache l'inconnue."
+      };
+    }
+    return {
+      title: "Objectif : comprendre avant de repondre",
+      text: "Commence par les mots importants, observe l'exemple, puis refais la methode lentement. Le but est de savoir pourquoi la reponse est juste."
+    };
   }
 
   function renderRoadmap() {
@@ -2109,10 +2147,31 @@
       .replace(/[\u0300-\u036f]/g, "");
   }
 
+  function parseNumericAnswer(value) {
+    const normalized = normalizeStudentAnswer(value)
+      .replace(/€/g, "")
+      .replace(/(cm2|cm3|km\/h|m\/s|min|km|cm|mm|kg|ohms?|m|h|s|g|l|v|a|%)/g, "");
+    if (/^-?\d+(?:\.\d+)?\/-?\d+(?:\.\d+)?$/.test(normalized)) {
+      const [numerator, denominator] = normalized.split("/").map(Number);
+      if (denominator !== 0) return numerator / denominator;
+    }
+    if (/^-?\d+(?:\.\d+)?$/.test(normalized)) return Number(normalized);
+    const equationMatch = normalized.match(/^[a-z]\s*=\s*(-?\d+(?:\.\d+)?(?:\/-?\d+(?:\.\d+)?)?)$/);
+    if (equationMatch) return parseNumericAnswer(equationMatch[1]);
+    return null;
+  }
+
   function isAnswerCorrect(question, selected) {
     if (question.type !== "short_answer") return String(selected) === String(question.answer);
     const accepted = [question.answer, ...(question.acceptedAnswers || [])].map(normalizeStudentAnswer);
-    return accepted.includes(normalizeStudentAnswer(selected));
+    const selectedText = normalizeStudentAnswer(selected);
+    if (accepted.includes(selectedText)) return true;
+    const selectedNumber = parseNumericAnswer(selected);
+    if (selectedNumber === null) return false;
+    return [question.answer, ...(question.acceptedAnswers || [])].some((answer) => {
+      const expectedNumber = parseNumericAnswer(answer);
+      return expectedNumber !== null && Math.abs(selectedNumber - expectedNumber) < 1e-9;
+    });
   }
 
   function answerQuestion(button) {
@@ -2221,6 +2280,7 @@
     currentSession = {
       subject,
       notionId: selectedNotion?.id || null,
+      targetStage,
       questionTarget,
       lesson,
       focusChapter: selectedNotion?.chapter || lesson.chapter,
@@ -3032,6 +3092,18 @@
       }
     });
 
+    document.body.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      const input = event.target.closest(".short-answer-input");
+      if (!input || input.disabled) return;
+      const panel = input.closest(".question-panel, .session-stage");
+      const button = panel?.querySelector("[data-short-answer-submit]");
+      if (button && !button.disabled) {
+        event.preventDefault();
+        submitShortAnswer(button);
+      }
+    });
+
     const recommendedButton = document.querySelector("[data-start-recommended]");
     if (recommendedButton) {
       recommendedButton.addEventListener("click", () => {
@@ -3115,6 +3187,11 @@
   function submitShortAnswer(button) {
     const panel = button.closest(".question-panel, .session-stage");
     const input = panel.querySelector(".short-answer-input");
+    if (!input || !input.value.trim()) {
+      showToast("Ecris une reponse avant de valider.");
+      input?.focus();
+      return;
+    }
     button.dataset.answer = input ? input.value : "";
     answerQuestion(button);
   }

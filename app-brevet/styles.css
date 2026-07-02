@@ -788,6 +788,30 @@ input[type="text"] {
   color: var(--text);
 }
 
+.course-level-card {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--primary), var(--line) 55%);
+  border-radius: 8px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface-soft), #ffffff 42%), var(--surface-soft));
+}
+
+.course-level-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .course-level-card {
+  background: #132936;
+  border-color: #3e6173;
+}
+
+:root[data-theme="dark"] .course-level-card p {
+  color: #c4d2d9;
+}
+
 .course-section {
   display: grid;
   gap: 8px;

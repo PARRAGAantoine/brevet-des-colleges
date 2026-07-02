@@ -637,12 +637,15 @@ Etat applique :
 - badges Annales bronze/argent/or selon la meilleure note ;
 - badges supplementaires pour le volume d'annales et les matieres couvertes ;
 - medailles WebP locales par famille de badge.
+- premiere differentiation des cours par niveau dans les seances ;
+- premiers exercices de mathematiques avec reponse a ecrire inspires du type d'attendus des annales ;
+- correction des reponses ecrites renforcee pour les fractions equivalentes, decimaux et unites simples.
 
 Prochaines etapes :
 
-- differencier les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
+- approfondir les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` avec des exemples vraiment differents ;
 - creer de nouveaux exercices a partir des annales ajoutees ;
-- developper les exercices de mathematiques avec reponse a ecrire, notamment a partir des premiers exercices d'annales ;
+- developper encore les exercices de mathematiques avec reponse a ecrire, notamment a partir des premiers exercices d'annales ;
 - transformer certains exercices d'annales en parcours progressifs : cours, exercice simple, exercice type brevet ;
 - tester l'installation PWA sur Android et verifier que l'aide iPhone/iPad explique bien l'ajout a l'ecran d'accueil ;
 - construire plus tard le compte utilisateur / synchronisation, sans casser l'usage offline.

@@ -26,7 +26,8 @@ Derniere validation :
 ```txt
 Matieres : 4
 Cours : 70
-Exercices statiques : 322
+Exercices statiques : 342
+Reponses a ecrire : 26
 QCM audites : 289
 Sujets guides longs : 12
 Notions referencees : 33
@@ -43,7 +44,9 @@ Ajouts recents :
 - badges d'annales pour la note, le volume d'examens refaits et les matieres couvertes ;
 - reprise d'erreurs renforcee : cours obligatoire puis 3 questions proches a reussir ;
 - nouvelle banque `data/extra-content-9.js` avec des exercices supplementaires dans les quatre matieres.
-- premiers exercices `short_answer` en mathematiques : l'eleve ecrit la reponse au lieu de choisir dans un QCM.
+- cours differencies par niveau affiche dans la seance : `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
+- 26 exercices `short_answer` en mathematiques : l'eleve ecrit la reponse au lieu de choisir dans un QCM ;
+- correction des reponses ecrites renforcee : fractions equivalentes, decimaux avec virgule, unites simples et variantes comme `x = 5`.
 
 Prochaine priorite demandee : differencier davantage les cours par niveau (`J'apprends`, `Je m'entraine`, `Comme au brevet`) et creer encore plus d'exercices, notamment a partir des annales ajoutees.
 
@@ -88,7 +91,7 @@ Validation actuelle :
 ```txt
 Matieres : 4
 Cours : 70
-Exercices statiques : 322
+Exercices statiques : 342
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -553,7 +556,7 @@ Le moteur d'exercices accepte maintenant trois formats :
 - `true_false` ;
 - `order`.
 
-La banque statique contient maintenant 322 exercices. Elle inclut des QCM, des vrai/faux, des remises en ordre et les premiers exercices de mathematiques avec reponse a ecrire.
+La banque statique contient maintenant 342 exercices. Elle inclut des QCM, des vrai/faux, des remises en ordre et 26 exercices de mathematiques avec reponse a ecrire.
 
 Un outil d'audit QCM existe maintenant dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 289 QCM audites, 0 alerte.
 
@@ -644,7 +647,7 @@ Un nouvel audit existe : `app-brevet/tools/audit-course-coverage.js`.
 Il repere les notions qui manquent encore de volume. Etat actuel :
 
 - 70 cours ;
-- 322 exercices statiques ;
+- 342 exercices statiques ;
 - 12 sujets guides ;
 - 46 generateurs ;
 - 289 QCM audites sans alerte ;

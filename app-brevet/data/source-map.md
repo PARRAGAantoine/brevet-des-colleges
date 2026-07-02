@@ -260,6 +260,26 @@ Premiere utilisation :
 
 Objectif : eviter que l'eleve reussisse seulement par elimination dans un QCM. Ce format est particulierement adapte aux premiers exercices d'annales de mathematiques, quand la correction peut etre controlee automatiquement.
 
+## Reponses a ecrire - lot annales maths
+
+Le fichier `data/extra-content-10.js` ajoute 20 exercices supplementaires de mathematiques avec reponse a ecrire.
+
+Chapitres couverts :
+
+- nombres et calculs ;
+- grandeurs et mesures ;
+- equations ;
+- fonctions ;
+- probabilites ;
+- statistiques ;
+- geometrie ;
+- calcul litteral ;
+- algorithmique et tableur.
+
+La correction accepte les variantes simples : fractions equivalentes, virgule ou point decimal, unites courantes, et formes comme `x = 5`.
+
+Total apres ajout : 70 cours, 342 exercices statiques, dont 26 reponses a ecrire, 12 sujets guides, 46 generateurs.
+
 Validation effectuee :
 
 - `node tools\validate-content.js` : OK ;
