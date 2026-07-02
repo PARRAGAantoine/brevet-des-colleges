@@ -674,6 +674,8 @@ Les badges sont maintenant affiches comme des familles evolutives : une seule ca
 
 Une famille de badges `Annales` est disponible : bronze a 10/20, argent a 14/20, or a 17/20. La page Annales permet de choisir une annee et une matiere, puis d'enregistrer la note obtenue apres avoir fait le PDF dans les conditions du brevet.
 
+Les medailles ont ete regenerees par familles pour eviter les erreurs visuelles : les badges de defi n'utilisent plus de badge mathematiques decoupe par erreur. Chaque famille dispose maintenant de variantes verrouille, bronze, argent et or.
+
 ## Mise a jour accueil et parametres
 
 L'accueil n'est plus centre directement sur une seance. Il sert maintenant de vraie porte d'entree :

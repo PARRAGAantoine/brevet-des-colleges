@@ -2236,13 +2236,28 @@
 
   function getDefaultBadgeImage(badge) {
     const tier = badge.tier || "bronze";
-    if (tier === "locked") return "assets/badges/badge-generic-locked.webp";
-    if (badge.id?.includes("annales-exam")) return `assets/badges/badge-annales-${tier === "locked" ? "bronze" : tier}.webp`;
-    if (badge.id?.includes("guided")) return `assets/badges/badge-guided-${tier === "gold" ? "gold" : "bronze"}.webp`;
-    if (badge.id?.includes("questions") && tier === "gold") return "assets/badges/badge-volume-gold.webp";
-    if (badge.id?.includes("streak") && tier === "gold") return "assets/badges/badge-streak-gold.webp";
-    if (tier === "ultimate") return "assets/badges/badge-generic-ultimate.webp";
-    return `assets/badges/badge-generic-${tier}.webp`;
+    const family = getBadgeImageFamily(badge);
+    return `assets/badges/badge-${family}-${tier}.webp`;
+  }
+
+  function getBadgeImageFamily(badge) {
+    if (badge.tier === "ultimate" || badge.id?.includes("all-subject-gold")) return "ultimate";
+    if (badge.category === "Chapitre") return "chapter";
+    if (badge.subject === "mathematiques") return "subject-math";
+    if (badge.subject === "francais") return "subject-french";
+    if (badge.subject === "histoire") return "subject-history";
+    if (badge.subject === "sciences") return "subject-science";
+    if (badge.id?.includes("sessions")) return "sessions";
+    if (badge.id?.includes("questions")) return "questions";
+    if (badge.id?.includes("streak")) return "streak";
+    if (badge.id?.includes("repairs")) return "repairs";
+    if (badge.id?.includes("perfect")) return "perfect";
+    if (badge.id?.includes("stage:Decouverte")) return "stage-discovery";
+    if (badge.id?.includes("stage:Consolidation")) return "stage-training";
+    if (badge.id?.includes("stage:Type brevet")) return "stage-exam";
+    if (badge.id?.includes("guided")) return "guided";
+    if (badge.id?.includes("annales-exam")) return "annales";
+    return "chapter";
   }
 
   function getSubjectBadgeIcon(subjectId) {
@@ -2399,7 +2414,6 @@
     const guidedSolid = () => (progress.guidedTasks || []).filter((task) => task.score >= 4).length;
     const bestAnnalExamScore = () => Math.max(0, ...(progress.annalExamRuns || []).map((run) => Number(run.score) || 0));
     const annalExamCount = () => (progress.annalExamRuns || []).length;
-    const errorBadgeImage = (tier) => `assets/badges/badge-errors-${tier}.webp`;
     const specials = [
       ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", "◆", () => progress.sessions.length >= 1],
       ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", "◆", () => progress.sessions.length >= 10],
@@ -2413,10 +2427,10 @@
       ["streak:7", "silver", "Semaine solide", "Travailler 7 jours de suite.", "7 jours", "◷", () => progress.currentStreak >= 7],
       ["streak:30", "gold", "Mois complet", "Travailler 30 jours de suite.", "30 jours", "◷", () => progress.currentStreak >= 30],
       ["streak:100", "gold", "Cent jours", "Travailler 100 jours de suite.", "100 jours", "◷", () => progress.currentStreak >= 100],
-      ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", errorBadgeImage("bronze"), () => progress.repairs.length >= 1],
-      ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", errorBadgeImage("silver"), () => progress.repairs.length >= 10],
-      ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", "!", errorBadgeImage("gold"), () => progress.repairs.length >= 30],
-      ["repairs:75", "gold", "Expert des reprises", "Reparer 75 erreurs avec methode.", "75 erreurs", "!", errorBadgeImage("gold"), () => progress.repairs.length >= 75],
+      ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", () => progress.repairs.length >= 1],
+      ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", () => progress.repairs.length >= 10],
+      ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", "!", () => progress.repairs.length >= 30],
+      ["repairs:75", "gold", "Expert des reprises", "Reparer 75 erreurs avec methode.", "75 erreurs", "!", () => progress.repairs.length >= 75],
       ["perfect:1", "bronze", "Precision", "Reussir une seance sans erreur.", "1 sans faute", "✓", () => progress.perfectRuns >= 1],
       ["perfect:5", "silver", "Precision argent", "Reussir 5 seances sans erreur.", "5 sans faute", "✓", () => progress.perfectRuns >= 5],
       ["perfect:20", "gold", "Precision or", "Reussir 20 seances sans erreur.", "20 sans faute", "✓", () => progress.perfectRuns >= 20],
@@ -2444,7 +2458,7 @@
       requirement,
       icon,
       image: typeof imageOrEvaluate === "string" ? imageOrEvaluate : null,
-      lockedImage: id.startsWith("repairs:") ? errorBadgeImage("locked") : null,
+      lockedImage: null,
       evaluate: typeof imageOrEvaluate === "function" ? imageOrEvaluate : maybeEvaluate
     }));
   }

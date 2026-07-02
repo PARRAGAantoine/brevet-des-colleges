@@ -854,3 +854,23 @@ Controle effectue :
 - stockage local OK ;
 - badge Annales argent affiche avec prochain palier 17/20 ;
 - aucune erreur console.
+
+## Badges premium par famille - etape 35
+
+Les anciens badges generiques issus d'une decoupe trop large de la planche utilisateur ont ete remplaces. Probleme corrige : des badges de defi comme `Premiere seance` ou `Precision` pouvaient afficher une medaille avec un symbole ou libelle de mathematiques.
+
+Nouvelle production :
+
+- 4 planches generees : verrouille, bronze, argent, or ;
+- 16 familles graphiques : mathematiques, francais, histoire-geo, sciences, seances, volume, regularite, erreurs reparees, precision, decouverte, entrainement, type brevet, sujets guides, annales, chapitres, badge ultime ;
+- 64 fichiers WebP decoupes proprement dans `app-brevet/assets/badges/` ;
+- mapping explicite dans `getBadgeImageFamily()` pour eviter toute reutilisation accidentelle d'une medaille de matiere sur un badge de defi.
+
+Les anciens assets problematiques `badge-generic-*`, `badge-errors-*` et `badge-volume-gold.webp` ont ete retires.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK ;
+- controle navigateur local avec progression simulee : `Premiere seance` utilise `badge-sessions-bronze.webp`, `Precision` utilise `badge-perfect-bronze.webp`, `Erreurs` utilise `badge-repairs-bronze.webp`, et seul le badge mathematiques utilise `badge-subject-math-*`.
