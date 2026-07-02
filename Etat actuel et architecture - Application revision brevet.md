@@ -676,6 +676,8 @@ Une famille de badges `Annales` est disponible : bronze a 10/20, argent a 14/20,
 
 Les medailles ont ete regenerees par familles pour eviter les erreurs visuelles : les badges de defi n'utilisent plus de badge mathematiques decoupe par erreur. Chaque famille dispose maintenant de variantes verrouille, bronze, argent et or.
 
+La page Annales dispose aussi d'un catalogue integre : elle affiche les sujets et corriges connus pour l'annee et la matiere choisies, avec lien web quand il existe. Les PDF restent hors GitHub pour ne pas alourdir le depot.
+
 ## Mise a jour accueil et parametres
 
 L'accueil n'est plus centre directement sur une seance. Il sert maintenant de vraie porte d'entree :

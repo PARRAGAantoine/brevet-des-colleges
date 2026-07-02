@@ -1666,6 +1666,7 @@
     subjectSelect.innerHTML = content.subjects.map((subject) => `<option value="${subject.id}">${subject.label}</option>`).join("");
     yearSelect.value = annalYears.map(String).includes(previousYear) ? previousYear : String(annalYears[0]);
     subjectSelect.value = content.subjects.some((subject) => subject.id === previousSubject) ? previousSubject : defaultSubject;
+    renderAnnalDocuments(Number(yearSelect.value), subjectSelect.value);
 
     const runs = (progress.annalExamRuns || []).slice().sort((left, right) => `${right.date}${right.id}`.localeCompare(`${left.date}${left.id}`));
     const best = runs.length ? Math.max(...runs.map((run) => Number(run.score) || 0)) : 0;
@@ -1703,6 +1704,48 @@
           `).join("")}</div>`
         : `<p class="muted">Aucune annale complete enregistree pour le moment.</p>`;
     }
+  }
+
+  function renderAnnalDocuments(year, subject) {
+    const container = document.getElementById("annalDocuments");
+    if (!container) return;
+    const docs = dedupeAnnalDocuments((window.BREVET_ANNALES || []).filter((item) => Number(item.year) === Number(year) && item.subject === subject));
+    const subjects = docs.filter((item) => item.kind !== "corrige");
+    const corrections = docs.filter((item) => item.kind === "corrige");
+    if (!docs.length) {
+      container.innerHTML = `<p class="muted">Aucun document reference pour ce choix. Essaie une autre annee ou une autre matiere.</p>`;
+      return;
+    }
+    container.innerHTML = `
+      <div class="annal-document-summary">
+        <span class="status-pill">${subjects.length} sujet${subjects.length > 1 ? "s" : ""}</span>
+        <span class="status-pill">${corrections.length} corrige${corrections.length > 1 ? "s" : ""}</span>
+      </div>
+      <div class="annal-document-list">
+        ${docs.slice(0, 8).map((doc) => `
+          <article class="annal-document-item">
+            <div>
+              <strong>${doc.title}</strong>
+              <p class="muted">${doc.kind === "corrige" ? "Corrige / bareme" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
+            </div>
+            ${doc.url
+              ? `<a class="ghost-action" href="${doc.url}" target="_blank" rel="noopener">Ouvrir</a>`
+              : `<span class="status-pill">Dossier local</span>`}
+          </article>
+        `).join("")}
+      </div>
+      ${docs.length > 8 ? `<p class="muted">${docs.length - 8} autre${docs.length - 8 > 1 ? "s" : ""} document${docs.length - 8 > 1 ? "s" : ""} dans le corpus local.</p>` : ""}
+    `;
+  }
+
+  function dedupeAnnalDocuments(docs) {
+    const seen = new Set();
+    return docs.filter((doc) => {
+      const key = `${doc.kind}:${doc.title}:${doc.source}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
   function renderQuestion(question, context) {
@@ -2649,6 +2692,9 @@
         settings.theme = event.target.value === "dark" ? "dark" : "light";
         saveSettings();
         applyTheme(settings.theme);
+      }
+      if (event.target.id === "annalYear" || event.target.id === "annalSubject") {
+        renderAnnalDocuments(Number(document.getElementById("annalYear").value), document.getElementById("annalSubject").value);
       }
     });
 

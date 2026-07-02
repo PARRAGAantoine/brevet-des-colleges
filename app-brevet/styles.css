@@ -1064,6 +1064,33 @@ input[type="text"] {
   background: #f7f9fb;
 }
 
+.annal-document-summary {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.annal-document-list {
+  display: grid;
+  gap: 10px;
+}
+
+.annal-document-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+}
+
+.annal-document-item p {
+  margin: 4px 0 0;
+}
+
 .mistake-list {
   display: grid;
   gap: 10px;

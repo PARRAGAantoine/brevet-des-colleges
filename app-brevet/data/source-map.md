@@ -874,3 +874,27 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : OK ;
 - controle navigateur local avec progression simulee : `Premiere seance` utilise `badge-sessions-bronze.webp`, `Precision` utilise `badge-perfect-bronze.webp`, `Erreurs` utilise `badge-repairs-bronze.webp`, et seul le badge mathematiques utilise `badge-subject-math-*`.
+
+## Catalogue annales dans l'app - etape 36
+
+La page Annales affiche maintenant les documents disponibles pour le couple annee/matiere choisi.
+
+Fichier ajoute :
+
+- `data/annales.js` : catalogue leger genere a partir de `sources.csv`, sans embarquer les PDF dans GitHub.
+
+Fonctionnement :
+
+- affichage du nombre de sujets et de corriges connus ;
+- liste compacte des documents disponibles ;
+- bouton `Ouvrir` quand une URL source existe ;
+- indication `Dossier local` quand le PDF est seulement dans le corpus local ;
+- dedoublonnage a l'affichage pour eviter de montrer plusieurs fois le meme corrige.
+
+Controle effectue :
+
+- `node --check data/annales.js` : OK ;
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK ;
+- controle navigateur local : page Annales chargee, documents affiches, liens presents, pas de mojibake.
