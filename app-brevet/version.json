@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.1.5",
+  "version": "1.1.6",
   "publishedAt": "2026-07-02",
-  "notes": "Polish avant test eleve, badges plus visibles et contexte IA externe reecrit en version courte."
+  "notes": "Correction du contraste des cartes et pastilles claires en mode sombre."
 }

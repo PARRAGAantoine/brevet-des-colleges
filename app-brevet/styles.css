@@ -406,13 +406,23 @@ button:disabled {
   border-radius: 8px;
   padding: 0 12px;
   background: #f2f5f8;
-  color: var(--muted);
+  color: #42576a;
   font-weight: 800;
 }
 
 .step.active {
   background: #e8f5f2;
-  color: var(--primary-dark);
+  color: #174a5a;
+}
+
+:root[data-theme="dark"] .step {
+  background: #edf4f7;
+  color: #42576a;
+}
+
+:root[data-theme="dark"] .step.active {
+  background: #dff4ee;
+  color: #174a5a;
 }
 
 .progress-track {
@@ -835,9 +845,14 @@ input[type="text"] {
   border-radius: 999px;
   padding: 0 12px;
   background: #eef5f4;
-  color: var(--primary-dark);
+  color: #174a5a;
   font-weight: 800;
   font-size: 0.88rem;
+}
+
+:root[data-theme="dark"] .keyword-list span {
+  background: #edf4f7;
+  color: #174a5a;
 }
 
 .course-method {
@@ -1013,16 +1028,25 @@ input[type="text"] {
   background: #fbfcfd;
 }
 
+:root[data-theme="dark"] .order-answer {
+  background: #132936;
+}
+
 .order-token {
   width: 100%;
   min-height: 42px;
   border: 1px solid #b8c7d8;
   border-radius: 8px;
   background: #eef5f4;
-  color: var(--text);
+  color: #174a5a;
   text-align: left;
   font-weight: 800;
   padding: 10px 12px;
+}
+
+:root[data-theme="dark"] .order-token {
+  background: #edf4f7;
+  color: #174a5a;
 }
 
 .order-token::before {
@@ -1100,9 +1124,30 @@ input[type="text"] {
   border-radius: 999px;
   padding: 0 10px;
   background: #edf1f7;
-  color: var(--muted);
+  color: #42576a;
   font-size: 0.8rem;
   font-weight: 800;
+}
+
+:root[data-theme="dark"] .tag {
+  background: #edf4f7;
+  color: #31495a;
+}
+
+:root[data-theme="dark"] .tag *,
+:root[data-theme="dark"] .keyword-list span *,
+:root[data-theme="dark"] .step *,
+:root[data-theme="dark"] .history-item *,
+:root[data-theme="dark"] .mistake-item *,
+:root[data-theme="dark"] .order-token * {
+  color: inherit;
+}
+
+:root[data-theme="dark"] .history-item .muted,
+:root[data-theme="dark"] .mistake-item .muted,
+:root[data-theme="dark"] .history-item p,
+:root[data-theme="dark"] .mistake-item p {
+  color: #42576a;
 }
 
 .progress-row {
@@ -1167,6 +1212,22 @@ input[type="text"] {
   padding: 12px;
   border-radius: 8px;
   background: #f7f9fb;
+  color: #172033;
+}
+
+.history-item .muted,
+.history-item span {
+  color: #42576a;
+}
+
+:root[data-theme="dark"] .history-item {
+  background: #edf4f7;
+  color: #172033;
+}
+
+:root[data-theme="dark"] .history-item .muted,
+:root[data-theme="dark"] .history-item span {
+  color: #42576a;
 }
 
 .annal-document-summary {
@@ -1229,6 +1290,23 @@ input[type="text"] {
   border-radius: 8px;
   background: #fff7ec;
   border: 1px solid #f4d6a4;
+  color: #172033;
+}
+
+.mistake-item .muted,
+.mistake-item p {
+  color: #42576a;
+}
+
+:root[data-theme="dark"] .mistake-item {
+  background: #fff7ec;
+  border-color: #f4d6a4;
+  color: #172033;
+}
+
+:root[data-theme="dark"] .mistake-item .muted,
+:root[data-theme="dark"] .mistake-item p {
+  color: #42576a;
 }
 
 .toast {
