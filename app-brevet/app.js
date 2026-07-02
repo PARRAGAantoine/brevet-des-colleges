@@ -693,9 +693,10 @@
       ? `Badge dÃ©bloquÃ© : ${firstBadge.title}`
       : `${badges.length} badges dÃ©bloquÃ©s`;
     const toast = document.getElementById("toast");
+    const image = firstBadge.image || getDefaultBadgeImage(firstBadge);
     toast.innerHTML = `
       <div class="badge-toast">
-        <div class="badge-toast-medal tier-${firstBadge.tier || "bronze"}">${tierMeta.number}</div>
+        ${image ? `<img class="badge-toast-image" src="${image}" alt="">` : `<div class="badge-toast-medal tier-${firstBadge.tier || "bronze"}">${tierMeta.number}</div>`}
         <div>
           <strong>${message}</strong>
           <span>${tierMeta.label} - ${firstBadge.requirement || "Objectif atteint"}</span>
@@ -2084,7 +2085,7 @@
       <div class="short-answer-box">
         <label>
           Ta reponse
-          <input class="short-answer-input" data-short-answer-input="${context}" type="text" autocomplete="off" inputmode="decimal" placeholder="Ecris ta reponse">
+          <input class="short-answer-input" data-short-answer-input="${context}" type="text" autocomplete="off" inputmode="decimal" placeholder="Exemple : 3/4, 12,5 ou x = 5">
         </label>
         <button class="primary-action" data-short-answer-submit data-answer-context="${context}" type="button">Valider</button>
       </div>
@@ -2196,7 +2197,7 @@
 
     const feedback = panel.querySelector(".feedback");
     feedback.hidden = false;
-    feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "Pas grave, on reprend ensemble."}</strong><br>${!correct && question.type === "short_answer" ? `Reponse attendue : ${question.answer}.<br>` : ""}${question.explanation}`;
+    feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "Pas grave, on reprend ensemble."}</strong><br>${!correct && question.type === "short_answer" ? `Reponse attendue : ${escapeHtml(question.answer)}.<br>` : ""}${question.explanation}`;
     let repairOutcome = null;
 
     progress.answers.push({

@@ -649,3 +649,15 @@ Prochaines etapes :
 - transformer certains exercices d'annales en parcours progressifs : cours, exercice simple, exercice type brevet ;
 - tester l'installation PWA sur Android et verifier que l'aide iPhone/iPad explique bien l'ajout a l'ecran d'accueil ;
 - construire plus tard le compte utilisateur / synchronisation, sans casser l'usage offline.
+
+## Apres finalisation V1 - repartir proprement
+
+Quand l'application sera consideree comme terminee pour un premier test eleve, il faudra repartir sur une base documentaire plus courte :
+
+- reecrire `Contexte pour IA externe - Application revision brevet.md` depuis un fichier vierge ;
+- creer une nouvelle roadmap courte centree sur les prochaines evolutions ;
+- nettoyer les anciens fichiers `.md` devenus trop longs ou redondants ;
+- garder seulement l'etat reel, les decisions importantes, les commandes de validation et les prochaines priorites ;
+- economiser les tokens pour les futures discussions avec d'autres IA.
+
+Principe : la prochaine evolution de l'app devra repartir de tout ce qui a ete construit, mais sans transporter tout l'historique detaille de cette premiere phase.
