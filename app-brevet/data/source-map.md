@@ -245,6 +245,21 @@ Prochain travail contenu :
 - transformer davantage les annales en exercices progressifs, sans recopier les sujets ;
 - continuer a augmenter la diversite des questions pour eviter la repetition.
 
+## Reponses a ecrire - premiere etape
+
+Le type `short_answer` est ajoute au schema et au moteur d'exercices.
+
+Premiere utilisation :
+
+- mathematiques ;
+- calculs courts ;
+- equations simples ;
+- probabilites sous forme de fraction ;
+- statistiques ;
+- fonctions.
+
+Objectif : eviter que l'eleve reussisse seulement par elimination dans un QCM. Ce format est particulierement adapte aux premiers exercices d'annales de mathematiques, quand la correction peut etre controlee automatiquement.
+
 Validation effectuee :
 
 - `node tools\validate-content.js` : OK ;

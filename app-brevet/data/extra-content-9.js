@@ -69,6 +69,72 @@
       explanation: "On ajoute 7 des deux cotes : x = 19."
     },
     {
+      id: "extra9_math_short_001",
+      subject: "mathematiques",
+      chapter: "Nombres et calculs",
+      stage: "Decouverte",
+      type: "short_answer",
+      question: "Calcule : 7 + 3 x 5.",
+      answer: "22",
+      acceptedAnswers: ["22"],
+      explanation: "La multiplication est prioritaire : 3 x 5 = 15, puis 7 + 15 = 22."
+    },
+    {
+      id: "extra9_math_short_002",
+      subject: "mathematiques",
+      chapter: "Equations",
+      stage: "Consolidation",
+      type: "short_answer",
+      question: "Resous l'equation : x + 8 = 21. Quelle est la valeur de x ?",
+      answer: "13",
+      acceptedAnswers: ["x=13", "x = 13"],
+      explanation: "On retire 8 des deux cotes : x = 21 - 8 = 13."
+    },
+    {
+      id: "extra9_math_short_003",
+      subject: "mathematiques",
+      chapter: "Equations",
+      stage: "Consolidation",
+      type: "short_answer",
+      question: "Resous l'equation : 4x = 28. Quelle est la valeur de x ?",
+      answer: "7",
+      acceptedAnswers: ["x=7", "x = 7"],
+      explanation: "On divise les deux cotes par 4 : x = 28 / 4 = 7."
+    },
+    {
+      id: "extra9_math_short_004",
+      subject: "mathematiques",
+      chapter: "Probabilites",
+      stage: "Consolidation",
+      type: "short_answer",
+      question: "Un sac contient 10 jetons dont 4 rouges. Ecris la probabilite de tirer un jeton rouge sous forme de fraction.",
+      answer: "4/10",
+      acceptedAnswers: ["2/5"],
+      explanation: "Il y a 10 jetons en tout et 4 rouges. La probabilite est 4/10, que l'on peut simplifier en 2/5."
+    },
+    {
+      id: "extra9_math_short_005",
+      subject: "mathematiques",
+      chapter: "Statistiques",
+      stage: "Decouverte",
+      type: "short_answer",
+      question: "Calcule la moyenne de 6, 8 et 10.",
+      answer: "8",
+      acceptedAnswers: ["8"],
+      explanation: "On additionne : 6 + 8 + 10 = 24. On divise par 3 : 24 / 3 = 8."
+    },
+    {
+      id: "extra9_math_short_006",
+      subject: "mathematiques",
+      chapter: "Fonctions",
+      stage: "Type brevet",
+      type: "short_answer",
+      question: "On donne f(x) = 2x + 3. Calcule f(5).",
+      answer: "13",
+      acceptedAnswers: ["f(5)=13", "f(5) = 13"],
+      explanation: "On remplace x par 5 : f(5) = 2 x 5 + 3 = 13."
+    },
+    {
       id: "extra9_fr_gram_001",
       subject: "francais",
       chapter: "Grammaire",
@@ -104,7 +170,7 @@
     {
       id: "extra9_fr_conj_001",
       subject: "francais",
-      chapter: "Conjugaison",
+      chapter: "Lecture et langue",
       stage: "Decouverte",
       type: "qcm",
       question: "Quelle forme est au futur simple ?",
@@ -119,7 +185,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "Pour justifier une reponse de lecture, il faut surtout...",
-      choices: ["citer un indice du texte et l'expliquer", "donner son avis sans exemple", "recopier toute la page", "changer le sens du texte"],
+      choices: ["citer un indice du texte et l'expliquer", "resumer le passage avec ses mots", "nommer le personnage principal", "indiquer le genre du texte"],
       answer: "citer un indice du texte et l'expliquer",
       explanation: "Au brevet, une reponse de lecture doit s'appuyer sur le texte."
     },
@@ -185,7 +251,7 @@
       stage: "Consolidation",
       type: "qcm",
       question: "Une metropole est une ville qui...",
-      choices: ["concentre des habitants, des emplois et des fonctions importantes", "n'a aucun transport", "est toujours rurale", "ne change jamais"],
+      choices: ["concentre des habitants, des emplois et des fonctions importantes", "depend surtout d'une petite commune voisine", "regroupe seulement des espaces agricoles", "perd toutes ses fonctions de commandement"],
       answer: "concentre des habitants, des emplois et des fonctions importantes",
       explanation: "Une metropole attire et organise un territoire grace a ses fonctions importantes."
     },
@@ -262,7 +328,7 @@
       stage: "Type brevet",
       type: "qcm",
       question: "Dans un tableau de mesures, avant de calculer, il faut d'abord...",
-      choices: ["identifier la grandeur et l'unite", "ignorer les titres", "prendre le plus grand nombre au hasard", "changer les valeurs"],
+      choices: ["identifier la grandeur et l'unite", "comparer seulement la premiere ligne", "chercher uniquement la valeur maximale", "arrondir toutes les valeurs avant de lire le titre"],
       answer: "identifier la grandeur et l'unite",
       explanation: "Les titres et les unites indiquent ce que mesurent les nombres. Ils evitent les erreurs de calcul."
     }

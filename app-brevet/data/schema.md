@@ -12,7 +12,7 @@ L'application doit manipuler le meme objet exercice, que la question vienne d'un
   chapter: "Probabilites",
   notionId: "math.probabilites",
   stage: "Decouverte" | "Consolidation" | "Type brevet",
-  type: "qcm" | "true_false" | "order",
+  type: "qcm" | "true_false" | "order" | "short_answer",
   question: "Une urne contient...",
   choices: ["1/2", "1/3", "2/5", "5/2"],
   answer: "1/2",
@@ -29,6 +29,7 @@ L'application doit manipuler le meme objet exercice, que la question vienne d'un
 - `answer` est compare sous forme de texte pour accepter les reponses numeriques ou textuelles.
 - Pour `true_false`, `choices` contient `Vrai` et `Faux`.
 - Pour `order`, `choices` contient les elements a classer et `answer` contient le bon ordre separe par `|||`.
+- Pour `short_answer`, `choices` est inutile. L'eleve ecrit la reponse et `acceptedAnswers` peut ajouter des variantes acceptees.
 - Un exercice genere doit stocker `generatorId` et `seed` pour etre reconstruit a l'identique.
 - Les exercices statiques deja presents restent une banque validee et peuvent cohabiter avec les exercices generes.
 - Les sessions doivent rester coherentes : un cours donne doit etre suivi d'exercices du meme chapitre ou de la meme notion.

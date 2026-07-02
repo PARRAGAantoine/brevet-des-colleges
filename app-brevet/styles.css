@@ -778,6 +778,11 @@ input[type="text"] {
   background: #fff8e8;
 }
 
+:root[data-theme="dark"] .lesson-callout.soft {
+  background: #2a2214;
+  color: var(--text);
+}
+
 .course-intro {
   font-weight: 650;
   color: var(--text);
@@ -833,6 +838,7 @@ input[type="text"] {
   border-radius: 8px;
   padding: 12px;
   background: #fff;
+  color: #07111d;
 }
 
 .course-note-wide {
@@ -843,6 +849,26 @@ input[type="text"] {
 .course-note.warning {
   border-color: #f1c7c2;
   background: #fff6f4;
+}
+
+:root[data-theme="dark"] .course-note {
+  background: #172b36;
+  color: var(--text);
+  border-color: #355163;
+}
+
+:root[data-theme="dark"] .course-note-wide {
+  background: #142733;
+}
+
+:root[data-theme="dark"] .course-note.warning {
+  background: #302019;
+  border-color: #8d5a4b;
+}
+
+:root[data-theme="dark"] .course-note .muted,
+:root[data-theme="dark"] .lesson-callout .muted {
+  color: #c4d2d9;
 }
 
 .course-note p,
@@ -921,6 +947,12 @@ input[type="text"] {
   padding: 12px 14px;
 }
 
+:root[data-theme="dark"] .choice-button {
+  background: #10202b;
+  color: var(--text);
+  border-color: #355163;
+}
+
 .choice-button.correct {
   border-color: #55a786;
   background: #e9f7f1;
@@ -929,6 +961,16 @@ input[type="text"] {
 .choice-button.wrong {
   border-color: var(--rose);
   background: #fff0f0;
+}
+
+:root[data-theme="dark"] .choice-button.correct {
+  background: #173528;
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .choice-button.wrong {
+  background: #3a1f24;
+  color: var(--text);
 }
 
 .order-builder,
@@ -977,6 +1019,45 @@ input[type="text"] {
   padding: 16px;
   border-radius: 8px;
   background: #f2f5f8;
+}
+
+:root[data-theme="dark"] .feedback {
+  background: #172b36;
+  color: var(--text);
+  border: 1px solid #355163;
+}
+
+.short-answer-box {
+  display: grid;
+  gap: 12px;
+  max-width: 420px;
+}
+
+.short-answer-box label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.short-answer-input.correct {
+  border-color: #55a786;
+  background: #e9f7f1;
+}
+
+.short-answer-input.wrong {
+  border-color: var(--rose);
+  background: #fff0f0;
+}
+
+:root[data-theme="dark"] .short-answer-input.correct {
+  background: #173528;
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .short-answer-input.wrong {
+  background: #3a1f24;
+  color: var(--text);
 }
 
 .course-card {

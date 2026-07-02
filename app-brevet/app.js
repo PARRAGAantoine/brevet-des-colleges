@@ -107,6 +107,14 @@
     ["A travailler", "\u00c0 travailler"],
     ["a reprendre", "\u00e0 reprendre"],
     ["A reprendre", "\u00c0 reprendre"],
+    ["a gauche", "\u00e0 gauche"],
+    ["a droite", "\u00e0 droite"],
+    ["a la fin", "\u00e0 la fin"],
+    ["a partir", "\u00e0 partir"],
+    ["a chaque", "\u00e0 chaque"],
+    ["a quoi", "\u00e0 quoi"],
+    ["a qui", "\u00e0 qui"],
+    ["a voix haute", "\u00e0 voix haute"],
     ["a valider", "\u00e0 valider"],
     ["A valider", "\u00c0 valider"],
     ["a essayer", "\u00e0 essayer"],
@@ -139,12 +147,14 @@
     ["eleve", "\u00e9l\u00e8ve"],
     ["ecole", "\u00e9cole"],
     ["egalite", "\u00e9galit\u00e9"],
+    ["egalites", "\u00e9galit\u00e9s"],
     ["liberte", "libert\u00e9"],
     ["laicite", "la\u00efcit\u00e9"],
     ["citoyennete", "citoyennet\u00e9"],
     ["Republique", "R\u00e9publique"],
     ["Europeenne", "Europ\u00e9enne"],
     ["donnees", "donn\u00e9es"],
+    ["donnee", "donn\u00e9e"],
     ["Developpement", "D\u00e9veloppement"],
     ["developpement", "d\u00e9veloppement"],
     ["Decouverte", "D\u00e9couverte"],
@@ -152,6 +162,7 @@
     ["entrainement", "entra\u00eenement"],
     ["entrainer", "entra\u00eener"],
     ["entraine", "entra\u00eene"],
+    ["t'entrainer", "t'entra\u00eener"],
     ["maitrise", "ma\u00eetrise"],
     ["Maitrise", "Ma\u00eetrise"],
     ["hypothenuse", "hypot\u00e9nuse"],
@@ -159,6 +170,7 @@
     ["theoreme", "th\u00e9or\u00e8me"],
     ["Theoreme", "Th\u00e9or\u00e8me"],
     ["probleme", "probl\u00e8me"],
+    ["Probleme", "Probl\u00e8me"],
     ["echelle", "\u00e9chelle"],
     ["Echelle", "\u00c9chelle"],
     ["energie", "\u00e9nergie"],
@@ -166,7 +178,160 @@
     ["ecriture", "\u00e9criture"],
     ["Ecriture", "\u00c9criture"],
     ["etat", "\u00e9tat"],
-    ["Etat", "\u00c9tat"]
+    ["Etat", "\u00c9tat"],
+    ["deja", "d\u00e9j\u00e0"],
+    ["Deja", "D\u00e9j\u00e0"],
+    ["apres", "apr\u00e8s"],
+    ["Apres", "Apr\u00e8s"],
+    ["tres", "tr\u00e8s"],
+    ["Tres", "Tr\u00e8s"],
+    ["necessaire", "n\u00e9cessaire"],
+    ["necessaires", "n\u00e9cessaires"],
+    ["necessite", "n\u00e9cessite"],
+    ["different", "diff\u00e9rent"],
+    ["differente", "diff\u00e9rente"],
+    ["differents", "diff\u00e9rents"],
+    ["differentes", "diff\u00e9rentes"],
+    ["difference", "diff\u00e9rence"],
+    ["reduire", "r\u00e9duire"],
+    ["reduction", "r\u00e9duction"],
+    ["quantite", "quantit\u00e9"],
+    ["quantites", "quantit\u00e9s"],
+    ["meme", "m\u00eame"],
+    ["memes", "m\u00eames"],
+    ["plutot", "plut\u00f4t"],
+    ["role", "r\u00f4le"],
+    ["roles", "r\u00f4les"],
+    ["icone", "ic\u00f4ne"],
+    ["zone", "zone"],
+    ["unite", "unit\u00e9"],
+    ["unites", "unit\u00e9s"],
+    ["etape", "\u00e9tape"],
+    ["etapes", "\u00e9tapes"],
+    ["intermediaire", "interm\u00e9diaire"],
+    ["intermediaires", "interm\u00e9diaires"],
+    ["premier", "premier"],
+    ["element", "\u00e9l\u00e9ment"],
+    ["elements", "\u00e9l\u00e9ments"],
+    ["numero", "num\u00e9ro"],
+    ["numerateur", "num\u00e9rateur"],
+    ["denominateur", "d\u00e9nominateur"],
+    ["denominateurs", "d\u00e9nominateurs"],
+    ["perimetre", "p\u00e9rim\u00e8tre"],
+    ["metre", "m\u00e8tre"],
+    ["metres", "m\u00e8tres"],
+    ["kilometre", "kilom\u00e8tre"],
+    ["kilometres", "kilom\u00e8tres"],
+    ["centimetre", "centim\u00e8tre"],
+    ["centimetres", "centim\u00e8tres"],
+    ["parallele", "parall\u00e8le"],
+    ["paralleles", "parall\u00e8les"],
+    ["reciproque", "r\u00e9ciproque"],
+    ["angle donne", "angle donn\u00e9"],
+    ["propriete", "propri\u00e9t\u00e9"],
+    ["proprietes", "propri\u00e9t\u00e9s"],
+    ["geometrie", "g\u00e9om\u00e9trie"],
+    ["Geometrie", "G\u00e9om\u00e9trie"],
+    ["trigonometrie", "trigonom\u00e9trie"],
+    ["symetrie", "sym\u00e9trie"],
+    ["perpendiculaire", "perpendiculaire"],
+    ["degres", "degr\u00e9s"],
+    ["carre", "carr\u00e9"],
+    ["carres", "carr\u00e9s"],
+    ["represente", "repr\u00e9sente"],
+    ["representees", "repr\u00e9sent\u00e9es"],
+    ["representee", "repr\u00e9sent\u00e9e"],
+    ["modele", "mod\u00e8le"],
+    ["modeles", "mod\u00e8les"],
+    ["periode", "p\u00e9riode"],
+    ["periurbanisation", "p\u00e9riurbanisation"],
+    ["regime", "r\u00e9gime"],
+    ["regimes", "r\u00e9gimes"],
+    ["Resistance", "R\u00e9sistance"],
+    ["resistance", "r\u00e9sistance"],
+    ["decolonisation", "d\u00e9colonisation"],
+    ["democratie", "d\u00e9mocratie"],
+    ["democratique", "d\u00e9mocratique"],
+    ["decision", "d\u00e9cision"],
+    ["decisions", "d\u00e9cisions"],
+    ["defense", "d\u00e9fense"],
+    ["Defense", "D\u00e9fense"],
+    ["securite", "s\u00e9curit\u00e9"],
+    ["interet", "int\u00e9r\u00eat"],
+    ["interets", "int\u00e9r\u00eats"],
+    ["electrique", "\u00e9lectrique"],
+    ["electriques", "\u00e9lectriques"],
+    ["Electricite", "\u00c9lectricit\u00e9"],
+    ["electricite", "\u00e9lectricit\u00e9"],
+    ["evolution", "\u00e9volution"],
+    ["evolutions", "\u00e9volutions"],
+    ["phenomene", "ph\u00e9nom\u00e8ne"],
+    ["phenomenes", "ph\u00e9nom\u00e8nes"],
+    ["experience", "exp\u00e9rience"],
+    ["experiences", "exp\u00e9riences"],
+    ["etudie", "\u00e9tudi\u00e9"],
+    ["etudiee", "\u00e9tudi\u00e9e"],
+    ["observee", "observ\u00e9e"],
+    ["mesuree", "mesur\u00e9e"],
+    ["energie", "\u00e9nergie"],
+    ["energetique", "\u00e9nerg\u00e9tique"],
+    ["mecanique", "m\u00e9canique"],
+    ["mecanismes", "m\u00e9canismes"],
+    ["genetique", "g\u00e9n\u00e9tique"],
+    ["hereditaire", "h\u00e9r\u00e9ditaire"],
+    ["organique", "organique"],
+    ["organes", "organes"],
+    ["systeme", "syst\u00e8me"],
+    ["Systeme", "Syst\u00e8me"],
+    ["algorithme", "algorithme"],
+    ["Algorithme", "Algorithme"],
+    ["repeter", "r\u00e9p\u00e9ter"],
+    ["repete", "r\u00e9p\u00e8te"],
+    ["selectionne", "s\u00e9lectionne"],
+    ["selectionner", "s\u00e9lectionner"],
+    ["ecran", "\u00e9cran"],
+    ["ecrans", "\u00e9crans"],
+    ["Equation", "\u00c9quation"],
+    ["Equations", "\u00c9quations"],
+    ["equation", "\u00e9quation"],
+    ["equations", "\u00e9quations"],
+    ["methode", "m\u00e9thode"],
+    ["Method", "M\u00e9thod"],
+    ["Methode", "M\u00e9thode"],
+    ["methodes", "m\u00e9thodes"],
+    ["resoudre", "r\u00e9soudre"],
+    ["Resoudre", "R\u00e9soudre"],
+    ["resous", "r\u00e9sous"],
+    ["resout", "r\u00e9sout"],
+    ["resolu", "r\u00e9solu"],
+    ["operation", "op\u00e9ration"],
+    ["operations", "op\u00e9rations"],
+    ["Operation", "Op\u00e9ration"],
+    ["cote", "c\u00f4t\u00e9"],
+    ["cotes", "c\u00f4t\u00e9s"],
+    ["Cote", "C\u00f4t\u00e9"],
+    ["ajoutee", "ajout\u00e9e"],
+    ["retiree", "retir\u00e9e"],
+    ["verifier", "v\u00e9rifier"],
+    ["Verifie", "V\u00e9rifie"],
+    ["verifie", "v\u00e9rifie"],
+    ["verifiee", "v\u00e9rifi\u00e9e"],
+    ["ecris", "\u00e9cris"],
+    ["Ecris", "\u00c9cris"],
+    ["Reperer", "Rep\u00e9rer"],
+    ["Repere", "Rep\u00e8re"],
+    ["repere", "rep\u00e8re"],
+    ["depart", "d\u00e9part"],
+    ["Depart", "D\u00e9part"],
+    ["idee", "id\u00e9e"],
+    ["Idee", "Id\u00e9e"],
+    ["premiere", "premi\u00e8re"],
+    ["Premiere", "Premi\u00e8re"],
+    ["serie", "s\u00e9rie"],
+    ["Serie", "S\u00e9rie"],
+    ["resultat", "r\u00e9sultat"],
+    ["Resultat", "R\u00e9sultat"],
+    ["valeur trouvee", "valeur trouv\u00e9e"]
   ];
 
   function loadProgress() {
@@ -1858,6 +2023,7 @@
 
   function renderQuestion(question, context) {
     if (question.type === "order") return renderOrderQuestion(question, context);
+    if (question.type === "short_answer") return renderShortAnswerQuestion(question, context);
     const choices = getShuffledChoices(question, context);
     return `
       <span class="tag">${subjectLabel(question.subject)} - ${question.chapter}</span>
@@ -1866,6 +2032,23 @@
       <h3 class="question-title">${question.question || question.prompt}</h3>
       <div class="choice-list">
         ${choices.map((choice) => `<button class="choice-button" data-answer-context="${context}" data-answer="${escapeHtml(choice)}" type="button">${escapeHtml(choice)}</button>`).join("")}
+      </div>
+      <div class="feedback" hidden></div>
+    `;
+  }
+
+  function renderShortAnswerQuestion(question, context) {
+    return `
+      <span class="tag">${subjectLabel(question.subject)} - ${question.chapter}</span>
+      <span class="tag">${stageLabel(question.stage)}</span>
+      <span class="tag">Reponse a ecrire</span>
+      <h3 class="question-title">${question.question || question.prompt}</h3>
+      <div class="short-answer-box">
+        <label>
+          Ta reponse
+          <input class="short-answer-input" data-short-answer-input="${context}" type="text" autocomplete="off" inputmode="decimal" placeholder="Ecris ta reponse">
+        </label>
+        <button class="primary-action" data-short-answer-submit data-answer-context="${context}" type="button">Valider</button>
       </div>
       <div class="feedback" hidden></div>
     `;
@@ -1915,17 +2098,38 @@
     }[char]));
   }
 
+  function normalizeStudentAnswer(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(",", ".")
+      .replace(/×/g, "x")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function isAnswerCorrect(question, selected) {
+    if (question.type !== "short_answer") return String(selected) === String(question.answer);
+    const accepted = [question.answer, ...(question.acceptedAnswers || [])].map(normalizeStudentAnswer);
+    return accepted.includes(normalizeStudentAnswer(selected));
+  }
+
   function answerQuestion(button) {
     const context = button.dataset.answerContext;
     const question = context === "session" ? currentSession.questions[currentSession.index] : currentPracticeQuestion;
     const selected = button.dataset.answer;
-    const correct = String(selected) === String(question.answer);
+    const correct = isAnswerCorrect(question, selected);
     const panel = button.closest(".question-panel, .session-stage");
 
-    panel.querySelectorAll(".choice-button, .order-submit").forEach((choiceButton) => {
+    panel.querySelectorAll(".choice-button, .order-submit, [data-short-answer-submit]").forEach((choiceButton) => {
       choiceButton.disabled = true;
-      if (String(choiceButton.dataset.answer) === String(question.answer)) choiceButton.classList.add("correct");
+      if (choiceButton.dataset.answer && isAnswerCorrect(question, choiceButton.dataset.answer)) choiceButton.classList.add("correct");
       if (choiceButton === button && !correct) choiceButton.classList.add("wrong");
+    });
+    panel.querySelectorAll(".short-answer-input").forEach((input) => {
+      input.disabled = true;
+      input.classList.add(correct ? "correct" : "wrong");
     });
     if (question.type === "order") {
       button.classList.add(correct ? "correct" : "wrong");
@@ -1933,7 +2137,7 @@
 
     const feedback = panel.querySelector(".feedback");
     feedback.hidden = false;
-    feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "Pas grave, on reprend ensemble."}</strong><br>${question.explanation}`;
+    feedback.innerHTML = `<strong>${correct ? "Bonne reponse." : "Pas grave, on reprend ensemble."}</strong><br>${!correct && question.type === "short_answer" ? `Reponse attendue : ${question.answer}.<br>` : ""}${question.explanation}`;
     let repairOutcome = null;
 
     progress.answers.push({
@@ -2811,6 +3015,9 @@
 
       const orderSubmit = event.target.closest("[data-order-submit]");
       if (orderSubmit && !orderSubmit.disabled) submitOrderAnswer(orderSubmit);
+
+      const shortAnswerSubmit = event.target.closest("[data-short-answer-submit]");
+      if (shortAnswerSubmit && !shortAnswerSubmit.disabled) submitShortAnswer(shortAnswerSubmit);
     });
 
     document.body.addEventListener("change", (event) => {
@@ -2902,6 +3109,13 @@
     const builder = button.closest(".order-builder");
     const selected = [...builder.querySelectorAll("[data-order-remove]")].map((item) => item.dataset.orderRemove);
     button.dataset.answer = selected.join("|||");
+    answerQuestion(button);
+  }
+
+  function submitShortAnswer(button) {
+    const panel = button.closest(".question-panel, .session-stage");
+    const input = panel.querySelector(".short-answer-input");
+    button.dataset.answer = input ? input.value : "";
     answerQuestion(button);
   }
 

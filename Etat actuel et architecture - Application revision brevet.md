@@ -26,8 +26,8 @@ Derniere validation :
 ```txt
 Matieres : 4
 Cours : 70
-Exercices statiques : 292
-QCM audites : 265
+Exercices statiques : 322
+QCM audites : 289
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -43,6 +43,7 @@ Ajouts recents :
 - badges d'annales pour la note, le volume d'examens refaits et les matieres couvertes ;
 - reprise d'erreurs renforcee : cours obligatoire puis 3 questions proches a reussir ;
 - nouvelle banque `data/extra-content-9.js` avec des exercices supplementaires dans les quatre matieres.
+- premiers exercices `short_answer` en mathematiques : l'eleve ecrit la reponse au lieu de choisir dans un QCM.
 
 Prochaine priorite demandee : differencier davantage les cours par niveau (`J'apprends`, `Je m'entraine`, `Comme au brevet`) et creer encore plus d'exercices, notamment a partir des annales ajoutees.
 
@@ -87,7 +88,7 @@ Validation actuelle :
 ```txt
 Matieres : 4
 Cours : 70
-Exercices statiques : 292
+Exercices statiques : 322
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -552,9 +553,9 @@ Le moteur d'exercices accepte maintenant trois formats :
 - `true_false` ;
 - `order`.
 
-La banque statique contient maintenant 250 exercices : 226 QCM, 12 vrai/faux et 12 remises en ordre. Les prochains lots devront continuer a augmenter ces nouveaux formats et ajouter ensuite association et reponse courte.
+La banque statique contient maintenant 322 exercices. Elle inclut des QCM, des vrai/faux, des remises en ordre et les premiers exercices de mathematiques avec reponse a ecrire.
 
-Un outil d'audit QCM existe maintenant dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 226 QCM audites, 0 alerte.
+Un outil d'audit QCM existe maintenant dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 289 QCM audites, 0 alerte.
 
 ## Mise a jour formats de session
 
@@ -643,10 +644,10 @@ Un nouvel audit existe : `app-brevet/tools/audit-course-coverage.js`.
 Il repere les notions qui manquent encore de volume. Etat actuel :
 
 - 70 cours ;
-- 292 exercices statiques ;
+- 322 exercices statiques ;
 - 12 sujets guides ;
 - 46 generateurs ;
-- 265 QCM audites sans alerte ;
+- 289 QCM audites sans alerte ;
 - 13 notions encore signalees comme trop courtes pour tenir confortablement une seance de 10 questions.
 
 Les prochaines densifications doivent cibler en priorite l'histoire-geo EMC : reperes, developpement construit, Seconde Guerre mondiale, guerre froide, construction europeenne, geographie, citoyennete, valeurs de la Republique, defense.

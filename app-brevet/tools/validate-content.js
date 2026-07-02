@@ -11,6 +11,7 @@ const files = [
   "data/extra-content-6.js",
   "data/extra-content-7.js",
   "data/extra-content-8.js",
+  "data/extra-content-9.js",
   "data/notions.js",
   "generators/registry.js",
   "generators/math-calcul.js",
@@ -41,10 +42,10 @@ function validateExercise(exercise, label = "exercise") {
   if (!subjectIds.has(exercise.subject)) errors.push(`${label} ${exercise.id} : matiere inconnue ${exercise.subject}`);
   if (!exercise.notionId) errors.push(`${label} ${exercise.id} : notionId manquant`);
   if (exercise.notionId && !notionIds.has(exercise.notionId)) errors.push(`${label} ${exercise.id} : notionId inconnu ${exercise.notionId}`);
-  if (!["qcm", "true_false", "order"].includes(exerciseType)) errors.push(`${label} ${exercise.id} : type inconnu ${exercise.type}`);
+  if (!["qcm", "true_false", "order", "short_answer"].includes(exerciseType)) errors.push(`${label} ${exercise.id} : type inconnu ${exercise.type}`);
   const minChoices = exerciseType === "true_false" ? 2 : 3;
-  if (!Array.isArray(exercise.choices) || exercise.choices.length < minChoices) errors.push(`${label} ${exercise.id} : choix insuffisants`);
-  if (exerciseType !== "order" && Array.isArray(exercise.choices) && !exercise.choices.includes(String(exercise.answer)) && !exercise.choices.includes(exercise.answer)) {
+  if (exerciseType !== "short_answer" && (!Array.isArray(exercise.choices) || exercise.choices.length < minChoices)) errors.push(`${label} ${exercise.id} : choix insuffisants`);
+  if (!["order", "short_answer"].includes(exerciseType) && Array.isArray(exercise.choices) && !exercise.choices.includes(String(exercise.answer)) && !exercise.choices.includes(exercise.answer)) {
     errors.push(`${label} ${exercise.id} : la bonne reponse est absente des choix`);
   }
   if (exerciseType === "true_false") {

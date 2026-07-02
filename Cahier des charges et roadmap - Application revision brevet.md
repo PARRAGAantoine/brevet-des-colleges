@@ -642,6 +642,7 @@ Prochaines etapes :
 
 - differencier les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
 - creer de nouveaux exercices a partir des annales ajoutees ;
+- developper les exercices de mathematiques avec reponse a ecrire, notamment a partir des premiers exercices d'annales ;
 - transformer certains exercices d'annales en parcours progressifs : cours, exercice simple, exercice type brevet ;
 - tester l'installation PWA sur Android et verifier que l'aide iPhone/iPad explique bien l'ajout a l'ecran d'accueil ;
 - construire plus tard le compte utilisateur / synchronisation, sans casser l'usage offline.

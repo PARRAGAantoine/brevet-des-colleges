@@ -83,8 +83,8 @@ Etat valide actuellement :
 ```txt
 Matieres : 4
 Cours : 70
-Exercices statiques : 292
-QCM audites : 265
+Exercices statiques : 322
+QCM audites : 289
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -117,6 +117,7 @@ Etat recent important :
 - les annales ont un catalogue dans `app-brevet/data/annales.js` ;
 - la reprise d'erreur impose maintenant une fiche de revision puis 3 questions proches reussies ;
 - `data/extra-content-9.js` ajoute des exercices supplementaires pour diversifier les sessions.
+- les premiers exercices `short_answer` en mathematiques demandent a l'eleve d'ecrire la reponse.
 
 Prochaine priorite :
 
@@ -359,7 +360,7 @@ Si GitHub n'est pas encore configure, l'assistant doit le dire clairement et pro
 
 Le registre de notions est passe a 33 notions, couvrant tous les chapitres actuellement presents dans les exercices.
 
-Les 66 cours, 250 exercices statiques et 12 sujets guides ont maintenant un `notionId` valide.
+Les 70 cours, 322 exercices statiques et 12 sujets guides ont maintenant un `notionId` valide.
 
 Il reste a proposer une strategie pour decouper les notions larges en sous-notions pedagogiques plus fines.
 
@@ -424,9 +425,9 @@ Le moteur d'exercices ne se limite plus au QCM. Deux nouveaux formats sont pris 
 
 Les lots successifs portent maintenant la banque statique a 250 exercices : 226 QCM, 12 vrai/faux et 12 remises en ordre.
 
-Un outil d'audit QCM existe dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 226 QCM audites, 0 alerte.
+Un outil d'audit QCM existe dans `app-brevet/tools/audit-qcm.js`. Dernier controle : 289 QCM audites, 0 alerte.
 
-Priorite suivante : produire davantage d'exercices dans ces nouveaux formats, puis ajouter association et reponse courte.
+Priorite suivante : produire davantage d'exercices dans ces nouveaux formats, notamment plus de reponses a ecrire inspirees des annales, puis ajouter association.
 
 ## Mise a jour pour l'IA externe : formats de session
 
@@ -542,7 +543,7 @@ Un audit de couverture existe :
 app-brevet/tools/audit-course-coverage.js
 ```
 
-Il indique les notions qui manquent encore de volume. Apres le lot `extra-content-8.js`, le projet contient 70 cours et 292 exercices statiques. L'audit signale encore 13 notions courtes, surtout en histoire-geo EMC.
+Il indique les notions qui manquent encore de volume. Apres le lot `extra-content-9.js`, le projet contient 70 cours et 322 exercices statiques. L'audit QCM ne signale plus d'alerte.
 
 Priorite pour une IA externe : proposer des lots d'exercices par notion, en visant au moins 10 questions automatiques par chapitre sans melanger les sujets.
 
