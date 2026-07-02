@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#14303d">
     <title>Brevet Sprint</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/icons/icon-192.png">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -380,6 +383,15 @@
                 <button class="secondary-action" id="checkUpdateButton" type="button">Verifier les mises a jour</button>
               </div>
               <p class="settings-status" id="updateStatus">Aucune verification lancee.</p>
+            </section>
+
+            <section class="panel settings-panel">
+              <div>
+                <p class="eyebrow">Hors ligne</p>
+                <h3 id="installHelpTitle">Installer l'application</h3>
+              </div>
+              <p class="muted" id="installHelpText">Ouvre cette page depuis le navigateur de l'appareil, puis utilise le bouton Installer quand il est disponible.</p>
+              <button class="primary-action" id="settingsInstallButton" type="button">Installer l'app</button>
             </section>
 
             <section class="panel settings-panel">

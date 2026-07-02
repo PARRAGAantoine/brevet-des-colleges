@@ -678,6 +678,24 @@ Les medailles ont ete regenerees par familles pour eviter les erreurs visuelles 
 
 La page Annales dispose aussi d'un catalogue integre : elle affiche les sujets et corriges connus pour l'annee et la matiere choisies, avec lien web quand il existe. Les PDF restent hors GitHub pour ne pas alourdir le depot.
 
+## Mise a jour PWA - installation hors ligne
+
+L'app dispose maintenant d'une premiere installation PWA :
+
+- manifest web ;
+- service worker ;
+- icones 192 et 512 ;
+- cache des fichiers essentiels ;
+- bouton Installer sur l'accueil et dans les Parametres.
+
+Important : la verification des mises a jour reste manuelle. L'app ne contacte pas GitHub automatiquement au demarrage.
+
+Comportement verifie par simulation navigateur :
+
+- Android/Chrome : texte d'installation Android affiche, service worker enregistre ;
+- iPhone/iPad : guide manuel affiche (`Partager` puis `Sur l'ecran d'accueil`) ;
+- ordinateur Chrome/Edge : guide d'installation bureau affiche.
+
 ## Mise a jour accueil et parametres
 
 L'accueil n'est plus centre directement sur une seance. Il sert maintenant de vraie porte d'entree :

@@ -898,3 +898,27 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : OK ;
 - controle navigateur local : page Annales chargee, documents affiches, liens presents, pas de mojibake.
+
+## Premiere PWA hors ligne - etape 37
+
+L'app dispose maintenant des fichiers de base pour une installation PWA :
+
+- `manifest.webmanifest` ;
+- `sw.js` ;
+- icones `assets/icons/icon-192.png` et `assets/icons/icon-512.png` ;
+- enregistrement du service worker quand l'app est servie en HTTP/HTTPS ;
+- bouton `Installer l'app` sur l'accueil et dans les Parametres.
+
+Regle conservee : aucune verification de mise a jour automatique au demarrage. La mise a jour reste volontaire depuis les Parametres.
+
+Installation mobile :
+
+- Android/Chrome : le bouton peut ouvrir la fenetre d'installation PWA quand le navigateur expose l'evenement `beforeinstallprompt` ;
+- iPhone/iPad : l'app affiche un mode d'emploi, car Safari impose souvent l'installation manuelle via `Partager` puis `Sur l'ecran d'accueil`.
+
+Controle a effectuer avant livraison :
+
+- verifier le manifest ;
+- verifier le service worker ;
+- simuler Android et iOS dans le navigateur ;
+- verifier GitHub Pages apres push sur `gh-pages`.

@@ -31,6 +31,7 @@
   let selectedCourseStage = "all";
   let selectedRoadmapSubject = "all";
   let selectedGuidedSubject = "all";
+  let deferredInstallPrompt = null;
   applyTheme(settings.theme);
 
   const annalYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
@@ -398,6 +399,66 @@
     saveProgress();
     showToast(score >= 4 ? "Sujet guide valide : solide." : score >= 3 ? "Sujet guide termine : correct." : "Sujet guide note pour retravail.");
     render();
+  }
+
+  function setupPwaInstall() {
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      const button = document.getElementById("installAppButton");
+      if (button) button.textContent = "Installer l'app";
+    });
+    window.addEventListener("appinstalled", () => {
+      deferredInstallPrompt = null;
+      showToast("Brevet Sprint est installe sur cet appareil.");
+    });
+  }
+
+  async function installApp() {
+    if (!deferredInstallPrompt) {
+      setView("settings");
+      renderInstallHelp();
+      showToast("Consulte le guide d'installation dans Parametres.");
+      return;
+    }
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice.catch(() => null);
+    deferredInstallPrompt = null;
+  }
+
+  function getInstallHelpText() {
+    const ua = navigator.userAgent || "";
+    const isAppleMobile = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/.test(ua);
+    if (isAppleMobile) {
+      return {
+        title: "Installer sur iPhone ou iPad",
+        text: "Dans Safari, touche le bouton Partager, puis choisis Sur l'ecran d'accueil. Apple ne permet pas toujours d'ouvrir la fenetre d'installation depuis un bouton dans la page."
+      };
+    }
+    if (isAndroid) {
+      return {
+        title: "Installer sur Android",
+        text: "Ouvre la page avec Chrome, puis utilise le bouton Installer l'app. Si rien ne s'affiche, ouvre le menu du navigateur et choisis Ajouter a l'ecran d'accueil."
+      };
+    }
+    return {
+      title: "Installer sur ordinateur",
+      text: "Avec Chrome ou Edge, utilise le bouton Installer l'app dans la barre d'adresse ou le bouton de l'accueil. L'app restera ensuite disponible hors ligne."
+    };
+  }
+
+  function renderInstallHelp() {
+    const title = document.getElementById("installHelpTitle");
+    const text = document.getElementById("installHelpText");
+    if (!title || !text) return;
+    const help = getInstallHelpText();
+    title.textContent = help.title;
+    text.textContent = help.text;
+    applyTextPolish(title.parentElement);
   }
 
   function registerAnnalScore() {
@@ -2554,6 +2615,7 @@
     const themeSelect = document.getElementById("themeSelect");
     if (version) version.textContent = appVersion;
     if (themeSelect && themeSelect.value !== settings.theme) themeSelect.value = settings.theme;
+    renderInstallHelp();
   }
 
   function compareVersions(a, b) {
@@ -2602,10 +2664,9 @@
         checkForUpdates();
       }
 
-      const installButton = event.target.closest("#installAppButton");
+      const installButton = event.target.closest("#installAppButton, #settingsInstallButton");
       if (installButton) {
-        setView("settings");
-        showToast("Installation bientot disponible. La prochaine etape est la PWA hors ligne.");
+        installApp();
       }
 
       const viewButton = event.target.closest("[data-view-target]");
@@ -2783,6 +2844,7 @@
   function initApp() {
     if (appInitialized) return;
     appInitialized = true;
+    setupPwaInstall();
     bindEvents();
     render();
   }
