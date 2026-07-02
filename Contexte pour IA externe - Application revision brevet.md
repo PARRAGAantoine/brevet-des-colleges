@@ -544,7 +544,7 @@ Cette contrainte doit guider les futurs generateurs : chaque generateur utile de
 
 ## Mise a jour pour l'IA externe : annales locales
 
-Un inventaire local a ete refait. Le dossier contient 172 PDF classes comme annales ou sujets/corriges. La couverture 2025 est complete sur les quatre matieres. Les annees 2017 a 2024 sont utiles, mais inegales : beaucoup de sujets, corriges surtout disponibles en mathematiques, et manques frequents en histoire-geo EMC, sciences et parfois francais. L'annee 2026 est partielle : sujets officiels et sujets zero de mathematiques, sans jeu complet toutes matieres avec corriges.
+Un inventaire local a ete refait apres telechargements complementaires. Le dossier contient maintenant 180 PDF classes comme annales ou sujets/corriges. Les sujets sont couverts pour chaque annee 2017-2026 et pour les quatre matieres de la serie generale France/metropole. La couverture 2025 est complete sur les quatre matieres. Les annees 2017 a 2024 restent inegales pour les corriges : ils sont surtout disponibles en mathematiques, avec des manques frequents en histoire-geo EMC, sciences et parfois francais. L'annee 2026 contient les sujets officiels metropole des quatre matieres, mais les corriges fiables restent surtout disponibles en mathematiques.
 
 Pour une IA externe, il ne faut donc pas supposer que toutes les annees disposent de toutes les corrections. Les annales servent surtout de source d'inspiration et de calibration du niveau brevet, pas de banque exhaustive parfaite.
 
@@ -560,3 +560,19 @@ Le projet doit rester offline par defaut. Une page Parametres existe pour regrou
 Point non negociable : l'app ne doit pas contacter GitHub automatiquement au demarrage. La verification de mise a jour se fait uniquement apres un clic utilisateur, car certains eleves n'ont pas une connexion permanente.
 
 La future PWA devra respecter cette logique : installer une fois, reviser sans Internet, verifier les mises a jour seulement quand l'utilisateur le decide.
+
+## Mise a jour pour l'IA externe : badges evolutifs
+
+La page Badges n'affiche plus les paliers bronze, argent et or comme trois cartes separees. Chaque famille de badge a une seule carte qui evolue : verrouillee au depart, puis bronze, argent et or selon le meilleur palier atteint.
+
+Le compteur garde le nombre total de paliers debloques, mais l'interface est plus lisible.
+
+Une famille `Annales` est preparee pour le futur mode examen complet :
+
+- bronze : au moins 10/20 sur une annale complete ;
+- argent : au moins 14/20 ;
+- or : au moins 17/20.
+
+Le stockage `progress.annalExamRuns` existe, mais le mode de passage d'une annale complete reste a construire.
+
+Les assets actuels sont des medailles WebP inspirees de la reference utilisateur. Pour obtenir un rendu encore plus premium et homogene, il faudra probablement generer les medailles famille par famille avec un generateur d'image plutot que decouper une planche existante.

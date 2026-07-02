@@ -737,3 +737,98 @@ Controle effectue :
 - `node --check app.js` : OK ;
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : OK.
+
+## Badges generes par image - etape 31
+
+Les badges `Erreurs` utilisent maintenant des medailles imagees, generees a partir du style valide par l'utilisateur, puis converties en WebP pour garder l'app legere.
+
+Fichiers ajoutes :
+
+- `assets/badges/badge-errors-locked.webp` ;
+- `assets/badges/badge-errors-bronze.webp` ;
+- `assets/badges/badge-errors-silver.webp` ;
+- `assets/badges/badge-errors-gold.webp`.
+
+Integration :
+
+- les badges de reprise d'erreur utilisent ces images selon le palier ;
+- l'etat verrouille utilise une medaille grisee ;
+- les autres badges gardent provisoirement le rendu CSS, en attendant une production complete de medailles imagees.
+
+Correction technique associee :
+
+- la page d'accueil ne cherche plus a brancher un bouton de recommandation absent ;
+- la correction automatique d'accents utilise une expression reguliere Unicode stable ;
+- les remplacements d'accents sont stockes en echappements Unicode pour eviter le mojibake.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK ;
+- controle navigateur local : images WebP chargees, pas de mojibake, aucune erreur console.
+
+## Annales completees - etape 32
+
+L'inventaire local des PDF a ete repris apres verification des manques par annee et par matiere.
+
+Ajouts principaux :
+
+- 2026 Metropole : sujet officiel de sciences ;
+- 2026 Metropole : sujet officiel de mathematiques, classe correctement malgre un lien ministeriel intitule `sciences` ;
+- 2026 Metropole : corrige detaille de mathematiques depuis `pi.ac3j.fr` ;
+- 2017 Metropole : sujet de francais ;
+- 2017 Metropole : sujets d'histoire-geographie EMC de juin et septembre ;
+- 2017 Metropole : sujets de sciences de juin et septembre.
+
+Etat apres ajout :
+
+- 180 PDF presents au total ;
+- aucun manque de sujet pour les annees 2017-2026 sur les quatre matieres de la serie generale France/metropole ;
+- les corriges restent incomplets, surtout en histoire-geographie EMC, sciences, et pour les sujets 2026 hors mathematiques.
+
+Important : les fichiers telecharges restent des sources de calibration et d'inspiration. Ils ne remplacent pas les cours progressifs et les exercices adaptes a un eleve qui prepare le brevet 2027.
+
+## Badges evolutifs et annales - etape 33
+
+La page Badges n'affiche plus separement les paliers verrouille, bronze, argent et or d'une meme famille.
+
+Nouvelle logique :
+
+- une seule carte par famille de badge ;
+- la carte demarre verrouillee ;
+- elle passe en bronze, puis argent, puis or quand les objectifs sont atteints ;
+- le compteur affiche les paliers debloques, mais l'interface reste lisible avec moins de cartes.
+
+Familles concernees :
+
+- matieres ;
+- chapitres ;
+- volume d'exercices ;
+- regularite ;
+- erreurs reparees ;
+- seances sans faute ;
+- niveaux Decouverte / Consolidation / Type brevet ;
+- sujets guides ;
+- annales/examen complet.
+
+Nouveaux badges annales :
+
+- bronze : refaire un examen complet d'annale avec au moins 10/20 ;
+- argent : au moins 14/20 ;
+- or : au moins 17/20.
+
+Note importante : le mode "examen complet d'annale" n'est pas encore implemente dans l'interface. Les badges et le stockage `progress.annalExamRuns` sont prets pour l'accueillir.
+
+Assets ajoutes :
+
+- medailles WebP generiques verrouille/bronze/argent/or/ultime ;
+- medailles WebP pour annales, sujets guides, volume et regularite ;
+- les badges erreurs conservent les medailles generees specifiquement.
+
+Controle effectue :
+
+- `node --check app.js` : OK ;
+- `node tools\validate-content.js` : OK ;
+- `node tools\audit-qcm.js` : OK ;
+- controle navigateur local : 31 cartes affichees, 92 paliers au compteur, pas de mojibake, aucune erreur console.

@@ -585,6 +585,23 @@ button:disabled {
   height: 190px;
 }
 
+.badge-medal-image {
+  width: 154px;
+  height: 154px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.42));
+}
+
+.badge-card.tier-ultimate .badge-medal-image {
+  width: 190px;
+  height: 190px;
+}
+
+.badge-card.locked .badge-medal-image {
+  opacity: 0.82;
+  filter: grayscale(0.2) drop-shadow(0 12px 14px rgba(0, 0, 0, 0.32));
+}
+
 .badge-halo {
   position: absolute;
   inset: 8px;

@@ -653,7 +653,7 @@ Corrections techniques liees :
 - la phrase inutile de la page Badges a ete retiree ;
 - une couche de correction d'accents est appliquee aux textes de l'interface.
 
-Inventaire local des annales : 172 PDF sont presents. La couverture 2025 est complete sur les quatre matieres avec sujets et corriges. Les annees anterieures restent inegales, surtout pour les corriges d'histoire-geo EMC, de sciences et de certaines epreuves de francais. L'annee 2026 contient surtout des sujets officiels et des sujets zero de mathematiques ; elle n'est pas encore complete toutes matieres avec corriges.
+Inventaire local des annales : 180 PDF sont presents. Les sujets sont maintenant couverts pour chaque annee 2017-2026 et pour les quatre matieres de la serie generale France/metropole. La couverture 2025 reste la plus complete avec sujets et corriges. Les annees anterieures restent inegales, surtout pour les corriges d'histoire-geo EMC, de sciences et de certaines epreuves de francais. L'annee 2026 contient les sujets officiels metropole des quatre matieres, mais les corriges fiables restent surtout disponibles en mathematiques.
 
 ## Mise a jour badges - style medaille et objectifs longs
 
@@ -669,6 +669,10 @@ Nouvelle structure :
 Le design utilise maintenant des cartes sombres et des medailles rondes en bronze, argent, or et ultime. Les badges verrouilles sont gris et moins lumineux.
 
 Le nombre total actuel est de 89 badges. Les derniers sont volontairement longs a obtenir : 1000 questions, 100 jours de suite, 75 erreurs reparees, 50 seances sans faute, 200 reussites type brevet et un badge ultime conditionne par l'or dans les quatre matieres.
+
+Les badges sont maintenant affiches comme des familles evolutives : une seule carte apparait, puis elle passe de verrouille a bronze, argent et or selon le meilleur palier atteint. Le compteur conserve le total des paliers. Des medailles WebP sont utilisees pour ameliorer le rendu graphique sans alourdir l'app.
+
+Une famille de badges `Annales` est preparee pour le futur mode examen complet : bronze a 10/20, argent a 14/20, or a 17/20. Le stockage `progress.annalExamRuns` est pret, mais l'interface de passage d'une annale complete reste a construire.
 
 ## Mise a jour accueil et parametres
 

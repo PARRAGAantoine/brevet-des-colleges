@@ -18,6 +18,7 @@
     repairs: [],
     chapterStatus: {},
     guidedTasks: [],
+    annalExamRuns: [],
     perfectRuns: 0
   };
 
@@ -33,110 +34,110 @@
   applyTheme(settings.theme);
 
   const textPolishRules = [
-    ["Seance", "SÃ©ance"],
-    ["seance", "sÃ©ance"],
-    ["guidee", "guidÃ©e"],
-    ["guide", "guidÃ©"],
-    ["Mathematiques", "MathÃ©matiques"],
-    ["Francais", "FranÃ§ais"],
-    ["Geographie", "GÃ©ographie"],
-    ["geographie", "gÃ©ographie"],
-    ["Histoire-Geo", "Histoire-GÃ©o"],
-    ["Reussite", "RÃ©ussite"],
-    ["Reussir", "RÃ©ussir"],
-    ["reussir", "rÃ©ussir"],
-    ["reussite", "rÃ©ussite"],
-    ["reponse", "rÃ©ponse"],
-    ["reponses", "rÃ©ponses"],
-    ["repondu", "rÃ©pondu"],
-    ["repondue", "rÃ©pondue"],
-    ["repondues", "rÃ©pondues"],
-    ["repondre", "rÃ©pondre"],
-    ["reviser", "rÃ©viser"],
-    ["Reviser", "RÃ©viser"],
-    ["revision", "rÃ©vision"],
-    ["Revision", "RÃ©vision"],
-    ["regulier", "rÃ©gulier"],
-    ["reguliere", "rÃ©guliÃ¨re"],
-    ["reparer", "rÃ©parer"],
-    ["reparee", "rÃ©parÃ©e"],
-    ["ratee", "ratÃ©e"],
-    ["ratees", "ratÃ©es"],
-    ["gagne", "gagnÃ©"],
-    ["gagnes", "gagnÃ©s"],
-    ["debloque", "dÃ©bloquÃ©"],
-    ["debloques", "dÃ©bloquÃ©s"],
-    ["a debloquer", "Ã  dÃ©bloquer"],
-    ["a gagner", "Ã  gagner"],
-    ["A gagner", "Ã€ gagner"],
-    ["a retravailler", "Ã  retravailler"],
-    ["A retravailler", "Ã€ retravailler"],
-    ["a voir", "Ã  voir"],
-    ["A voir", "Ã€ voir"],
-    ["a travailler", "Ã  travailler"],
-    ["A travailler", "Ã€ travailler"],
-    ["a reprendre", "Ã  reprendre"],
-    ["A reprendre", "Ã€ reprendre"],
-    ["a valider", "Ã  valider"],
-    ["A valider", "Ã€ valider"],
-    ["a essayer", "Ã  essayer"],
-    ["A essayer", "Ã€ essayer"],
-    ["ou tu en es", "oÃ¹ tu en es"],
-    ["Ou tu en es", "OÃ¹ tu en es"],
-    ["ete", "Ã©tÃ©"],
-    ["travaille", "travaillÃ©"],
-    ["journee", "journÃ©e"],
-    ["matiere", "matiÃ¨re"],
-    ["matieres", "matiÃ¨res"],
-    ["Matiere", "MatiÃ¨re"],
-    ["Matieres", "MatiÃ¨res"],
+    ["Seance", "S\u00e9ance"],
+    ["seance", "s\u00e9ance"],
+    ["guidee", "guid\u00e9e"],
+    ["guide", "guid\u00e9"],
+    ["Mathematiques", "Math\u00e9matiques"],
+    ["Francais", "Fran\u00e7ais"],
+    ["Geographie", "G\u00e9ographie"],
+    ["geographie", "g\u00e9ographie"],
+    ["Histoire-Geo", "Histoire-G\u00e9o"],
+    ["Reussite", "R\u00e9ussite"],
+    ["Reussir", "R\u00e9ussir"],
+    ["reussir", "r\u00e9ussir"],
+    ["reussite", "r\u00e9ussite"],
+    ["reponse", "r\u00e9ponse"],
+    ["reponses", "r\u00e9ponses"],
+    ["repondu", "r\u00e9pondu"],
+    ["repondue", "r\u00e9pondue"],
+    ["repondues", "r\u00e9pondues"],
+    ["repondre", "r\u00e9pondre"],
+    ["reviser", "r\u00e9viser"],
+    ["Reviser", "R\u00e9viser"],
+    ["revision", "r\u00e9vision"],
+    ["Revision", "R\u00e9vision"],
+    ["regulier", "r\u00e9gulier"],
+    ["reguliere", "r\u00e9guli\u00e8re"],
+    ["reparer", "r\u00e9parer"],
+    ["reparee", "r\u00e9par\u00e9e"],
+    ["ratee", "rat\u00e9e"],
+    ["ratees", "rat\u00e9es"],
+    ["gagne", "gagn\u00e9"],
+    ["gagnes", "gagn\u00e9s"],
+    ["debloque", "d\u00e9bloqu\u00e9"],
+    ["debloques", "d\u00e9bloqu\u00e9s"],
+    ["a debloquer", "\u00e0 d\u00e9bloquer"],
+    ["a gagner", "\u00e0 gagner"],
+    ["A gagner", "\u00c0 gagner"],
+    ["a retravailler", "\u00e0 retravailler"],
+    ["A retravailler", "\u00c0 retravailler"],
+    ["a voir", "\u00e0 voir"],
+    ["A voir", "\u00c0 voir"],
+    ["a travailler", "\u00e0 travailler"],
+    ["A travailler", "\u00c0 travailler"],
+    ["a reprendre", "\u00e0 reprendre"],
+    ["A reprendre", "\u00c0 reprendre"],
+    ["a valider", "\u00e0 valider"],
+    ["A valider", "\u00c0 valider"],
+    ["a essayer", "\u00e0 essayer"],
+    ["A essayer", "\u00c0 essayer"],
+    ["ou tu en es", "o\u00f9 tu en es"],
+    ["Ou tu en es", "O\u00f9 tu en es"],
+    ["ete", "\u00e9t\u00e9"],
+    ["travaille", "travaill\u00e9"],
+    ["journee", "journ\u00e9e"],
+    ["matiere", "mati\u00e8re"],
+    ["matieres", "mati\u00e8res"],
+    ["Matiere", "Mati\u00e8re"],
+    ["Matieres", "Mati\u00e8res"],
     ["Parametres", "Param\u00e8tres"],
     ["parametres", "param\u00e8tres"],
     ["installee", "install\u00e9e"],
     ["Installee", "Install\u00e9e"],
-    ["Melange", "MÃ©lange"],
-    ["melange", "mÃ©lange"],
-    ["decouvrir", "dÃ©couvrir"],
-    ["Decouvrir", "DÃ©couvrir"],
-    ["precise", "prÃ©cise"],
-    ["Precise", "PrÃ©cise"],
-    ["pedagogique", "pÃ©dagogique"],
-    ["Pedagogique", "PÃ©dagogique"],
-    ["commence", "commencÃ©"],
-    ["Commence", "CommencÃ©"],
-    ["Acces", "AccÃ¨s"],
-    ["acces", "accÃ¨s"],
-    ["eleve", "Ã©lÃ¨ve"],
-    ["ecole", "Ã©cole"],
-    ["egalite", "Ã©galitÃ©"],
-    ["liberte", "libertÃ©"],
-    ["laicite", "laÃ¯citÃ©"],
-    ["citoyennete", "citoyennetÃ©"],
-    ["Republique", "RÃ©publique"],
-    ["Europeenne", "EuropÃ©enne"],
-    ["donnees", "donnÃ©es"],
-    ["Developpement", "DÃ©veloppement"],
-    ["developpement", "dÃ©veloppement"],
-    ["Decouverte", "DÃ©couverte"],
-    ["decouverte", "dÃ©couverte"],
-    ["entrainement", "entraÃ®nement"],
-    ["entrainer", "entraÃ®ner"],
-    ["entraine", "entraÃ®ne"],
-    ["maitrise", "maÃ®trise"],
-    ["Maitrise", "MaÃ®trise"],
-    ["hypothenuse", "hypotÃ©nuse"],
-    ["hypotenuse", "hypotÃ©nuse"],
-    ["theoreme", "thÃ©orÃ¨me"],
-    ["Theoreme", "ThÃ©orÃ¨me"],
-    ["probleme", "problÃ¨me"],
-    ["echelle", "Ã©chelle"],
-    ["Echelle", "Ã‰chelle"],
-    ["energie", "Ã©nergie"],
-    ["eprouvette", "Ã©prouvette"],
-    ["ecriture", "Ã©criture"],
-    ["Ecriture", "Ã‰criture"],
-    ["etat", "Ã©tat"],
-    ["Etat", "Ã‰tat"]
+    ["Melange", "M\u00e9lange"],
+    ["melange", "m\u00e9lange"],
+    ["decouvrir", "d\u00e9couvrir"],
+    ["Decouvrir", "D\u00e9couvrir"],
+    ["precise", "pr\u00e9cise"],
+    ["Precise", "Pr\u00e9cise"],
+    ["pedagogique", "p\u00e9dagogique"],
+    ["Pedagogique", "P\u00e9dagogique"],
+    ["commence", "commenc\u00e9"],
+    ["Commence", "Commenc\u00e9"],
+    ["Acces", "Acc\u00e8s"],
+    ["acces", "acc\u00e8s"],
+    ["eleve", "\u00e9l\u00e8ve"],
+    ["ecole", "\u00e9cole"],
+    ["egalite", "\u00e9galit\u00e9"],
+    ["liberte", "libert\u00e9"],
+    ["laicite", "la\u00efcit\u00e9"],
+    ["citoyennete", "citoyennet\u00e9"],
+    ["Republique", "R\u00e9publique"],
+    ["Europeenne", "Europ\u00e9enne"],
+    ["donnees", "donn\u00e9es"],
+    ["Developpement", "D\u00e9veloppement"],
+    ["developpement", "d\u00e9veloppement"],
+    ["Decouverte", "D\u00e9couverte"],
+    ["decouverte", "d\u00e9couverte"],
+    ["entrainement", "entra\u00eenement"],
+    ["entrainer", "entra\u00eener"],
+    ["entraine", "entra\u00eene"],
+    ["maitrise", "ma\u00eetrise"],
+    ["Maitrise", "Ma\u00eetrise"],
+    ["hypothenuse", "hypot\u00e9nuse"],
+    ["hypotenuse", "hypot\u00e9nuse"],
+    ["theoreme", "th\u00e9or\u00e8me"],
+    ["Theoreme", "Th\u00e9or\u00e8me"],
+    ["probleme", "probl\u00e8me"],
+    ["echelle", "\u00e9chelle"],
+    ["Echelle", "\u00c9chelle"],
+    ["energie", "\u00e9nergie"],
+    ["eprouvette", "\u00e9prouvette"],
+    ["ecriture", "\u00e9criture"],
+    ["Ecriture", "\u00c9criture"],
+    ["etat", "\u00e9tat"],
+    ["Etat", "\u00c9tat"]
   ];
 
   function loadProgress() {
@@ -175,7 +176,7 @@
 
   function polishText(value) {
     return textPolishRules.reduce((text, [from, to]) => {
-      const pattern = new RegExp(`(^|[^A-Za-zÃ€-Ã–Ã˜-Ã¶Ã¸-Ã¿0-9])${escapeRegExp(from)}(?=$|[^A-Za-zÃ€-Ã–Ã˜-Ã¶Ã¸-Ã¿0-9])`, "g");
+      const pattern = new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRegExp(from)}(?=$|[^\\p{L}\\p{N}])`, "gu");
       return text.replace(pattern, `$1${to}`);
     }, String(value || ""));
   }
@@ -2053,17 +2054,18 @@
   }
 
   function renderBadges() {
-    const badges = getAllBadges();
-    const unlockedCount = badges.filter((badge) => progress.badges.includes(badge.id) || isBadgeUnlocked(badge)).length;
+    const allBadges = getAllBadges();
+    const badges = getDisplayBadges(allBadges);
+    const unlockedCount = allBadges.filter((badge) => progress.badges.includes(badge.id) || isBadgeUnlocked(badge)).length;
     const groups = [
       { id: "ultimate", title: "Badge ultime", description: "Le grand objectif de fin de pr\u00e9paration.", badges: badges.filter((badge) => badge.tier === "ultimate") },
-      { id: "subjects", title: "Mati\u00e8res", description: "Bronze, argent et or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
-      { id: "challenges", title: "D\u00e9fis", description: "R\u00e9gularit\u00e9, pr\u00e9cision, erreurs r\u00e9par\u00e9es et sujets longs.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate") },
+      { id: "subjects", title: "Mati\u00e8res", description: "Un badge qui monte de bronze \u00e0 or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
+      { id: "challenges", title: "D\u00e9fis", description: "R\u00e9gularit\u00e9, pr\u00e9cision, erreurs r\u00e9par\u00e9es, annales et sujets longs.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate") },
       { id: "chapters", title: "Chapitres", description: "La progression d\u00e9taill\u00e9e du programme.", badges: badges.filter((badge) => badge.category === "Chapitre") }
     ].filter((group) => group.badges.length);
     document.getElementById("badgeList").innerHTML = `
       <article class="badge-summary panel">
-        <strong>${unlockedCount} / ${badges.length} badges d\u00e9bloqu\u00e9s</strong>
+        <strong>${unlockedCount} / ${allBadges.length} paliers d\u00e9bloqu\u00e9s</strong>
         <span>${content.subjects.filter((subject) => isSubjectTierUnlocked(subject.id, "gold")).length} / ${content.subjects.length} mati\u00e8res au niveau or</span>
       </article>
       ${groups.map((group) => `
@@ -2080,27 +2082,63 @@
     `;
   }
 
+  function getDisplayBadges(badges) {
+    const tierRank = { locked: 0, bronze: 1, silver: 2, gold: 3, ultimate: 4 };
+    const grouped = badges.reduce((map, badge) => {
+      const key = badge.family || badge.id;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(badge);
+      return map;
+    }, new Map());
+    return [...grouped.values()].map((familyBadges) => {
+      const sorted = familyBadges.slice().sort((left, right) => (tierRank[left.tier] || 0) - (tierRank[right.tier] || 0));
+      const unlocked = sorted.filter(isBadgeUnlocked).sort((left, right) => (tierRank[right.tier] || 0) - (tierRank[left.tier] || 0));
+      const current = unlocked[0] || sorted[0];
+      const next = sorted.find((badge) => !isBadgeUnlocked(badge));
+      return {
+        ...current,
+        displayTier: current.tier,
+        nextRequirement: next && next.id !== current.id ? next.requirement : null,
+        lockedTitle: sorted[0].lockedTitle || getLockedBadgeTitle(sorted[0]),
+        lockedDescription: sorted[0].lockedDescription || sorted[0].description
+      };
+    }).sort((left, right) => {
+      const order = { ultimate: 0, Matiere: 1, Defi: 2, Chapitre: 3 };
+      return (order[left.tier] ?? order[left.category] ?? 9) - (order[right.tier] ?? order[right.category] ?? 9);
+    });
+  }
+
+  function getLockedBadgeTitle(badge) {
+    if (badge.category === "Matiere") return badgeSubjectLabel(badge.subject);
+    if (badge.category === "Chapitre") return badge.title.replace(/\s+-\s+J'apprends$/, "");
+    if (badge.id?.includes("annales-exam")) return "Annales";
+    return badge.title.replace(/\s+bronze$/i, "");
+  }
+
   function renderBadgeCard(badge) {
     const unlocked = isBadgeUnlocked(badge);
     const tier = badge.tier || "bronze";
     const tierMeta = getBadgeTierMeta(tier);
     const requirement = badge.requirement || "Objectif";
     const icon = badge.icon || getBadgeIcon(badge);
+    const image = unlocked ? (badge.image || getDefaultBadgeImage(badge)) : (badge.lockedImage || getDefaultBadgeImage({ ...badge, tier: "locked" }));
     return `
       <article class="badge-card ${unlocked ? `unlocked tier-${tier}` : `locked tier-${tier}`} ${tier === "ultimate" ? "badge-ultimate" : ""}">
         <div class="badge-award" aria-hidden="true">
-          <div class="badge-halo"></div>
-          <div class="badge-medal">
-            <div class="badge-inner-ring"></div>
-            <div class="badge-mark">${unlocked ? icon : "?"}</div>
-          </div>
+          ${image ? `<img class="badge-medal-image" src="${image}" alt="">` : `
+            <div class="badge-halo"></div>
+            <div class="badge-medal">
+              <div class="badge-inner-ring"></div>
+              <div class="badge-mark">${unlocked ? icon : "?"}</div>
+            </div>
+          `}
           <div class="badge-ribbon">${requirement}</div>
         </div>
         <div class="badge-content">
           <span class="badge-state">${unlocked ? tierMeta.label : "Verrouill\u00e9"}</span>
-          <h3>${badge.title}</h3>
-          <p>${badge.description}</p>
-          <small>${unlocked ? `${tierMeta.level} - ${badge.category}` : `${tierMeta.label} \u00e0 d\u00e9bloquer`}</small>
+          <h3>${unlocked ? badge.title : (badge.lockedTitle || badge.title)}</h3>
+          <p>${unlocked ? badge.description : (badge.lockedDescription || badge.description)}</p>
+          <small>${unlocked ? `${tierMeta.level} - ${badge.category}` : `${tierMeta.label} \u00e0 d\u00e9bloquer`}${badge.nextRequirement ? ` - prochain palier : ${badge.nextRequirement}` : ""}</small>
         </div>
       </article>
     `;
@@ -2114,6 +2152,17 @@
       ultimate: { label: "Ultime", level: "Complet", number: "\u2605" }
     };
     return meta[tier] || meta.bronze;
+  }
+
+  function getDefaultBadgeImage(badge) {
+    const tier = badge.tier || "bronze";
+    if (tier === "locked") return "assets/badges/badge-generic-locked.webp";
+    if (badge.id?.includes("annales-exam")) return `assets/badges/badge-annales-${tier === "locked" ? "bronze" : tier}.webp`;
+    if (badge.id?.includes("guided")) return `assets/badges/badge-guided-${tier === "gold" ? "gold" : "bronze"}.webp`;
+    if (badge.id?.includes("questions") && tier === "gold") return "assets/badges/badge-volume-gold.webp";
+    if (badge.id?.includes("streak") && tier === "gold") return "assets/badges/badge-streak-gold.webp";
+    if (tier === "ultimate") return "assets/badges/badge-generic-ultimate.webp";
+    return `assets/badges/badge-generic-${tier}.webp`;
   }
 
   function getSubjectBadgeIcon(subjectId) {
@@ -2166,6 +2215,7 @@
       return [
         {
           id: `chapter:${item.id}:bronze`,
+          family: `chapter:${item.id}`,
           category: "Chapitre",
           subject: item.subject,
           tier: "bronze",
@@ -2179,6 +2229,7 @@
         },
         {
           id: `chapter:${item.id}:silver`,
+          family: `chapter:${item.id}`,
           category: "Chapitre",
           subject: item.subject,
           tier: "silver",
@@ -2192,6 +2243,7 @@
         },
         {
           id: `chapter:${item.id}:gold`,
+          family: `chapter:${item.id}`,
           category: "Chapitre",
           subject: item.subject,
           tier: "gold",
@@ -2213,6 +2265,7 @@
       return [
         {
           id: `subject:${subject.id}:bronze`,
+          family: `subject:${subject.id}`,
           category: "Matiere",
           subject: subject.id,
           icon: getSubjectBadgeIcon(subject.id),
@@ -2227,6 +2280,7 @@
         },
         {
           id: `subject:${subject.id}:silver`,
+          family: `subject:${subject.id}`,
           category: "Matiere",
           subject: subject.id,
           icon: getSubjectBadgeIcon(subject.id),
@@ -2241,6 +2295,7 @@
         },
         {
           id: `subject:${subject.id}:gold`,
+          family: `subject:${subject.id}`,
           category: "Matiere",
           subject: subject.id,
           icon: getSubjectBadgeIcon(subject.id),
@@ -2262,6 +2317,9 @@
     const stageCorrect = (stage) => progress.answers.filter((answer) => answer.correct && answer.stage === stage).length;
     const guidedDone = () => (progress.guidedTasks || []).length;
     const guidedSolid = () => (progress.guidedTasks || []).filter((task) => task.score >= 4).length;
+    const bestAnnalExamScore = () => Math.max(0, ...(progress.annalExamRuns || []).map((run) => Number(run.score) || 0));
+    const annalExamCount = () => (progress.annalExamRuns || []).length;
+    const errorBadgeImage = (tier) => `assets/badges/badge-errors-${tier}.webp`;
     const specials = [
       ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", "◆", () => progress.sessions.length >= 1],
       ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", "◆", () => progress.sessions.length >= 10],
@@ -2275,10 +2333,10 @@
       ["streak:7", "silver", "Semaine solide", "Travailler 7 jours de suite.", "7 jours", "◷", () => progress.currentStreak >= 7],
       ["streak:30", "gold", "Mois complet", "Travailler 30 jours de suite.", "30 jours", "◷", () => progress.currentStreak >= 30],
       ["streak:100", "gold", "Cent jours", "Travailler 100 jours de suite.", "100 jours", "◷", () => progress.currentStreak >= 100],
-      ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", () => progress.repairs.length >= 1],
-      ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", () => progress.repairs.length >= 10],
-      ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", "!", () => progress.repairs.length >= 30],
-      ["repairs:75", "gold", "Expert des reprises", "Reparer 75 erreurs avec methode.", "75 erreurs", "!", () => progress.repairs.length >= 75],
+      ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", errorBadgeImage("bronze"), () => progress.repairs.length >= 1],
+      ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", errorBadgeImage("silver"), () => progress.repairs.length >= 10],
+      ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", "!", errorBadgeImage("gold"), () => progress.repairs.length >= 30],
+      ["repairs:75", "gold", "Expert des reprises", "Reparer 75 erreurs avec methode.", "75 erreurs", "!", errorBadgeImage("gold"), () => progress.repairs.length >= 75],
       ["perfect:1", "bronze", "Precision", "Reussir une seance sans erreur.", "1 sans faute", "✓", () => progress.perfectRuns >= 1],
       ["perfect:5", "silver", "Precision argent", "Reussir 5 seances sans erreur.", "5 sans faute", "✓", () => progress.perfectRuns >= 5],
       ["perfect:20", "gold", "Precision or", "Reussir 20 seances sans erreur.", "20 sans faute", "✓", () => progress.perfectRuns >= 20],
@@ -2291,17 +2349,23 @@
       ["guided:5", "silver", "Sujets longs", "Terminer 5 sujets guides.", "5 sujets", "▣", () => guidedDone() >= 5],
       ["guided:15", "gold", "Pret pour les sujets longs", "Terminer 15 sujets guides.", "15 sujets", "▣", () => guidedDone() >= 15],
       ["guided-solid:8", "gold", "Copies solides", "Obtenir 8 sujets guides solides.", "8 solides", "▣", () => guidedSolid() >= 8],
+      ["annales-exam:bronze", "bronze", "Annales bronze", "Refaire un examen complet d'annale avec une note correcte.", "1 examen, 10/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 10],
+      ["annales-exam:silver", "silver", "Annales argent", "Refaire un examen complet d'annale avec une bonne note.", "1 examen, 14/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 14],
+      ["annales-exam:gold", "gold", "Annales or", "Refaire un examen complet d'annale avec un niveau tres solide.", "1 examen, 17/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 17],
       ["all-subject-gold", "ultimate", "Badge ultime", "Obtenir l'or dans les quatre matieres et garder un vrai rythme.", "Complet", "★", () => content.subjects.every((subject) => isSubjectTierUnlocked(subject.id, "gold")) && progress.perfectRuns >= 20 && progress.repairs.length >= 30]
     ];
-    return specials.map(([id, tier, title, description, requirement, icon, evaluate]) => ({
+    return specials.map(([id, tier, title, description, requirement, icon, imageOrEvaluate, maybeEvaluate]) => ({
       id: `special:${id}`,
+      family: `special:${id.split(":")[0]}`,
       category: "Defi",
       tier,
       title,
       description,
       requirement,
       icon,
-      evaluate
+      image: typeof imageOrEvaluate === "string" ? imageOrEvaluate : null,
+      lockedImage: id.startsWith("repairs:") ? errorBadgeImage("locked") : null,
+      evaluate: typeof imageOrEvaluate === "function" ? imageOrEvaluate : maybeEvaluate
     }));
   }
 
@@ -2490,13 +2554,16 @@
       }
     });
 
-    document.querySelector("[data-start-recommended]").addEventListener("click", () => {
-      document.getElementById("sessionSubject").value = activeSubject;
-      renderSessionNotions();
-      document.getElementById("sessionNotion").value = "auto";
-      clearSessionStage();
-      setView("session");
-    });
+    const recommendedButton = document.querySelector("[data-start-recommended]");
+    if (recommendedButton) {
+      recommendedButton.addEventListener("click", () => {
+        document.getElementById("sessionSubject").value = activeSubject;
+        renderSessionNotions();
+        document.getElementById("sessionNotion").value = "auto";
+        clearSessionStage();
+        setView("session");
+      });
+    }
 
     document.getElementById("startSessionButton").addEventListener("click", startSession);
     document.getElementById("sessionSubject").addEventListener("change", () => {

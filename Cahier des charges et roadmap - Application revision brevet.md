@@ -613,3 +613,26 @@ Regle obligatoire : l'application ne doit pas verifier les mises a jour automati
 Logique visee :
 
 `Installer une fois -> reviser sans Internet -> verifier les mises a jour seulement quand on le decide.`
+
+## Etat annales - juillet 2026
+
+Les annales locales ont ete completees pour la serie generale France/metropole.
+
+Etat actuel :
+
+- 180 PDF dans le corpus local ;
+- sujets couverts pour chaque annee 2017-2026 et pour les quatre matieres ;
+- corriges encore incomplets, surtout en histoire-geo EMC, sciences et pour 2026 hors mathematiques.
+
+Priorite pedagogique : les annales servent a calibrer le niveau brevet et inspirer les exercices, mais l'app doit continuer a produire des cours clairs et des exercices progressifs adaptes a un eleve qui passera le brevet en juin 2027.
+
+## Roadmap badges et annales
+
+La page Badges utilise maintenant des familles evolutives : une seule carte par objectif, qui passe de verrouillee a bronze, argent puis or.
+
+Prochaines etapes :
+
+- construire le mode `Examen complet d'annale` ;
+- enregistrer les notes dans `progress.annalExamRuns` ;
+- debloquer les badges Annales bronze/argent/or selon la note obtenue ;
+- remplacer progressivement les medailles decoupees par des images generees proprement famille par famille si le rendu doit devenir plus premium.
