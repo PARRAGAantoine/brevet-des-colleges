@@ -82,8 +82,9 @@ Etat valide actuellement :
 
 ```txt
 Matieres : 4
-Cours : 66
-Exercices statiques : 250
+Cours : 70
+Exercices statiques : 292
+QCM audites : 265
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46
@@ -103,9 +104,25 @@ Fonctionnalites existantes :
 - coherence cours -> exercices ;
 - revision des erreurs ;
 - badges ;
+- annales visibles dans l'application ;
+- installation PWA hors ligne ;
 - sujets guides longs ;
 - auto-evaluation ;
 - generateurs JS offline pour certaines notions calculatoires.
+
+Etat recent important :
+
+- les badges sont affiches par famille : verrouille, puis bronze, argent ou or selon la progression ;
+- les badges ont des medailles WebP locales dans `app-brevet/assets/badges/` ;
+- les annales ont un catalogue dans `app-brevet/data/annales.js` ;
+- la reprise d'erreur impose maintenant une fiche de revision puis 3 questions proches reussies ;
+- `data/extra-content-9.js` ajoute des exercices supplementaires pour diversifier les sessions.
+
+Prochaine priorite :
+
+- differencier les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
+- exploiter davantage les annales pour creer de nouveaux exercices progressifs ;
+- garder l'application en version 1.x tant que tout n'est pas stabilise.
 
 ## 6. Architecture actuelle
 

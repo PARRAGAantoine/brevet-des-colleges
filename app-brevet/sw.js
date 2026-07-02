@@ -1,4 +1,4 @@
-const CACHE_NAME = "brevet-sprint-v1.1.0";
+const CACHE_NAME = "brevet-sprint-v1.1.1";
 const CORE_ASSETS = [
   ".",
   "index.html",
@@ -15,6 +15,7 @@ const CORE_ASSETS = [
   "data/extra-content-6.js",
   "data/extra-content-7.js",
   "data/extra-content-8.js",
+  "data/extra-content-9.js",
   "data/extra-content.js",
   "data/notions.js",
   "generators/french-language.js",

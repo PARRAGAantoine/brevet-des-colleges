@@ -9,12 +9,12 @@ Objectif : aider un eleve qui passera le brevet en juin 2027 a apprendre progres
 Version en ligne :
 
 ```txt
-https://parragaantoine.github.io/brevet-des-colleges/
+https://parragaantoine.github.io/brevet-des-colleges/app-brevet/
 ```
 
 Version locale :
 
-Ouvrir `index.html` a la racine du projet, ou directement :
+Ouvrir directement :
 
 ```txt
 app-brevet/index.html
@@ -36,12 +36,15 @@ http://127.0.0.1:4174/
 ## Contenu actuel
 
 - 4 matieres : mathematiques, francais, histoire-geographie-EMC, sciences.
-- 66 cours.
-- 210 exercices statiques.
+- 70 cours.
+- 292 exercices statiques.
 - 12 sujets guides longs.
 - 33 notions referencees.
 - 46 generateurs offline.
-- Badges avec paliers visuels : a gagner, bronze, argent, or.
+- Catalogue d'annales integre dans l'app.
+- Installation PWA hors ligne depuis la page Parametres.
+- Badges avec medailles par famille, paliers verrouille, bronze, argent, or.
+- Reprise d'erreurs avec cours puis 3 questions proches a reussir.
 
 ## Validation
 

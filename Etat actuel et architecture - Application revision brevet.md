@@ -19,6 +19,33 @@ L'application doit aider un eleve qui n'a pas encore vu tout le programme. Elle 
 
 L'epreuve orale est prevue tout a la fin, apres consolidation des epreuves ecrites.
 
+## Mise a jour du 2026-07-02
+
+Derniere validation :
+
+```txt
+Matieres : 4
+Cours : 70
+Exercices statiques : 292
+QCM audites : 265
+Sujets guides longs : 12
+Notions referencees : 33
+Generateurs offline : 46
+Erreurs de validation : 0
+```
+
+Ajouts recents :
+
+- catalogue d'annales visible dans l'application ;
+- aide par matiere pour refaire une annale dans de bonnes conditions ;
+- installation PWA hors ligne avec cache des contenus ;
+- badges graphiques par famille, avec affichage verrouille puis bronze/argent/or ;
+- badges d'annales pour la note, le volume d'examens refaits et les matieres couvertes ;
+- reprise d'erreurs renforcee : cours obligatoire puis 3 questions proches a reussir ;
+- nouvelle banque `data/extra-content-9.js` avec des exercices supplementaires dans les quatre matieres.
+
+Prochaine priorite demandee : differencier davantage les cours par niveau (`J'apprends`, `Je m'entraine`, `Comme au brevet`) et creer encore plus d'exercices, notamment a partir des annales ajoutees.
+
 ## 2. Etat fonctionnel
 
 L'application existe dans le dossier `app-brevet/`.
@@ -28,13 +55,12 @@ Elle fonctionne localement avec HTML, CSS et JavaScript.
 Vues principales :
 
 - Accueil ;
-- Parcours ;
-- Session guidee ;
-- Cours ;
+- Seance ;
 - Exercices ;
-- Sujets guides ;
+- Annales ;
 - Progression ;
 - Badges.
+- Parametres.
 
 Fonctionnalites deja presentes :
 
@@ -47,11 +73,12 @@ Fonctionnalites deja presentes :
 - mode serie mixte type brevet ;
 - suivi des reponses ;
 - suivi des erreurs ;
-- revision avant de refaire une question ratee ;
+- revision avant de refaire une question ratee, puis 3 questions proches a reussir ;
 - badges ;
 - auto-evaluation des sujets guides ;
 - statut "pas encore vu" par chapitre ;
-- generateurs offline pour certaines notions calculatoires.
+- generateurs offline pour certaines notions calculatoires ;
+- installation PWA hors ligne.
 
 ## 3. Etat des contenus
 
@@ -59,8 +86,8 @@ Validation actuelle :
 
 ```txt
 Matieres : 4
-Cours : 66
-Exercices statiques : 250
+Cours : 70
+Exercices statiques : 292
 Sujets guides longs : 12
 Notions referencees : 33
 Generateurs offline : 46

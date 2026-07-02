@@ -35,6 +35,32 @@
   applyTheme(settings.theme);
 
   const annalYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
+  const annalSubjectGuides = {
+    mathematiques: {
+      duration: "Repere : environ 2 h.",
+      before: "Prepare une feuille de brouillon, ta calculatrice et ton materiel de geometrie.",
+      correction: "Corrige en regardant surtout la methode : calcul pose, unite, phrase reponse et justification.",
+      target: "Bronze a 10/20, argent a 14/20, or a 17/20."
+    },
+    francais: {
+      duration: "Repere : l'epreuve de francais est longue et se fait en plusieurs parties.",
+      before: "Lis le texte une premiere fois sans repondre, puis relis chaque passage cite par les questions.",
+      correction: "Verifie les citations, la grammaire, l'orthographe et la clarte des phrases.",
+      target: "Note ton resultat sur 20 apres correction pour suivre tes progres."
+    },
+    histoire: {
+      duration: "Repere : environ 2 h pour histoire-geo EMC.",
+      before: "Garde une feuille pour le brouillon et commence par reperer le chapitre de chaque document.",
+      correction: "Une bonne copie explique avec des mots precis : dates, lieux, acteurs, document et justification.",
+      target: "Bronze a 10/20, argent a 14/20, or a 17/20."
+    },
+    sciences: {
+      duration: "Repere : environ 1 h pour l'epreuve de sciences.",
+      before: "Lis les documents avant les questions et entoure les donnees utiles.",
+      correction: "Verifie les unites, les calculs, les mots scientifiques et les phrases de conclusion.",
+      target: "Bronze a 10/20, argent a 14/20, or a 17/20."
+    }
+  };
 
   const textPolishRules = [
     ["Seance", "S\u00e9ance"],
@@ -1728,6 +1754,7 @@
     yearSelect.value = annalYears.map(String).includes(previousYear) ? previousYear : String(annalYears[0]);
     subjectSelect.value = content.subjects.some((subject) => subject.id === previousSubject) ? previousSubject : defaultSubject;
     renderAnnalDocuments(Number(yearSelect.value), subjectSelect.value);
+    renderAnnalGuide(subjectSelect.value);
 
     const runs = (progress.annalExamRuns || []).slice().sort((left, right) => `${right.date}${right.id}`.localeCompare(`${left.date}${left.id}`));
     const best = runs.length ? Math.max(...runs.map((run) => Number(run.score) || 0)) : 0;
@@ -1765,6 +1792,26 @@
           `).join("")}</div>`
         : `<p class="muted">Aucune annale complete enregistree pour le moment.</p>`;
     }
+  }
+
+  function renderAnnalGuide(subject) {
+    const container = document.getElementById("annalGuide");
+    if (!container) return;
+    const guide = annalSubjectGuides[subject] || annalSubjectGuides.mathematiques;
+    container.innerHTML = `
+      <div class="annal-guide">
+        <div>
+          <strong>Duree et materiel</strong>
+          <p>${guide.duration}</p>
+          <p>${guide.before}</p>
+        </div>
+        <div>
+          <strong>Apres correction</strong>
+          <p>${guide.correction}</p>
+          <p>${guide.target}</p>
+        </div>
+      </div>
+    `;
   }
 
   function renderAnnalDocuments(year, subject) {
@@ -1905,6 +1952,7 @@
 
     if (!correct) {
       registerMistake(question);
+      if (question.retryOf) resetRepairProgress(question.retryOf);
     }
 
     if (correct) {
@@ -2005,7 +2053,7 @@
       reviewed: false,
       repaired: false,
       repairProgress: 0,
-      repairTarget: 2,
+      repairTarget: 3,
       repairQuestionIds: [],
       sessionHadError: Boolean(currentSession)
     });
@@ -2014,7 +2062,7 @@
   function registerRepair(question) {
     const mistake = progress.mistakes.find((item) => item.id === question.retryOf);
     if (!mistake || mistake.repaired) return { repaired: false, remaining: 0 };
-    mistake.repairTarget = mistake.repairTarget || 2;
+    mistake.repairTarget = Math.max(mistake.repairTarget || 0, 3);
     mistake.repairProgress = (mistake.repairProgress || 0) + 1;
     mistake.repairQuestionIds = [...new Set([...(mistake.repairQuestionIds || []), question.id])];
     if (mistake.repairProgress < mistake.repairTarget) {
@@ -2038,6 +2086,15 @@
     showToast("Erreur reparee apres plusieurs questions : +10 points.");
     awardBadges();
     return { repaired: true, remaining: 0 };
+  }
+
+  function resetRepairProgress(mistakeId) {
+    const mistake = progress.mistakes.find((item) => item.id === mistakeId);
+    if (!mistake || mistake.repaired) return;
+    mistake.repairTarget = Math.max(mistake.repairTarget || 0, 3);
+    mistake.repairProgress = 0;
+    mistake.repairQuestionIds = [];
+    showToast("On reprend calmement : il faudra reussir 3 questions proches.");
   }
 
   function getRetryQuestionForMistake(mistake) {
@@ -2089,7 +2146,7 @@
         takeaway: "Une erreur est reparee quand tu sais reussir une question proche, pas seulement la meme question."
       };
     mistake.reviewed = true;
-    mistake.repairTarget = mistake.repairTarget || 2;
+    mistake.repairTarget = Math.max(mistake.repairTarget || 0, 3);
     mistake.repairProgress = mistake.repairProgress || 0;
     saveProgress();
     setView("practice");
@@ -2100,7 +2157,8 @@
       ${renderLessonBody(lesson)}
       <div class="course-note">
         <strong>Objectif de reprise</strong>
-        <p>Reussis ${mistake.repairTarget} questions proches pour montrer que la methode est comprise.</p>
+        <p>Reussis ${mistake.repairTarget} questions proches, pas exactement la meme question, pour montrer que la methode est comprise.</p>
+        <p class="muted">Progression actuelle : ${mistake.repairProgress || 0} / ${mistake.repairTarget}.</p>
       </div>
       <button class="primary-action" id="retryMistakeNow" type="button">S'entrainer sur une question proche</button>
     `;
@@ -2518,6 +2576,7 @@
     const guidedSolid = () => (progress.guidedTasks || []).filter((task) => task.score >= 4).length;
     const bestAnnalExamScore = () => Math.max(0, ...(progress.annalExamRuns || []).map((run) => Number(run.score) || 0));
     const annalExamCount = () => (progress.annalExamRuns || []).length;
+    const annalSubjectCount = () => new Set((progress.annalExamRuns || []).map((run) => run.subject)).size;
     const specials = [
       ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", "◆", () => progress.sessions.length >= 1],
       ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", "◆", () => progress.sessions.length >= 10],
@@ -2550,6 +2609,12 @@
       ["annales-exam:bronze", "bronze", "Annales bronze", "Refaire un examen complet d'annale avec une note correcte.", "1 examen, 10/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 10],
       ["annales-exam:silver", "silver", "Annales argent", "Refaire un examen complet d'annale avec une bonne note.", "1 examen, 14/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 14],
       ["annales-exam:gold", "gold", "Annales or", "Refaire un examen complet d'annale avec un niveau tres solide.", "1 examen, 17/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 17],
+      ["annales-exam-count:3", "bronze", "Copies d'annales", "Enregistrer 3 annales completes.", "3 examens", "▤", () => annalExamCount() >= 3],
+      ["annales-exam-count:8", "silver", "Rythme annales", "Enregistrer 8 annales completes.", "8 examens", "▤", () => annalExamCount() >= 8],
+      ["annales-exam-count:15", "gold", "Grand entrainement", "Enregistrer 15 annales completes.", "15 examens", "▤", () => annalExamCount() >= 15],
+      ["annales-exam-subjects:2", "bronze", "Annales variees", "Faire des annales dans 2 matieres.", "2 matieres", "▤", () => annalSubjectCount() >= 2],
+      ["annales-exam-subjects:3", "silver", "Tour des epreuves", "Faire des annales dans 3 matieres.", "3 matieres", "▤", () => annalSubjectCount() >= 3],
+      ["annales-exam-subjects:4", "gold", "Pret pour l'examen", "Faire des annales dans les 4 matieres.", "4 matieres", "▤", () => annalSubjectCount() >= 4],
       ["all-subject-gold", "ultimate", "Badge ultime", "Obtenir l'or dans les quatre matieres et garder un vrai rythme.", "Complet", "★", () => content.subjects.every((subject) => isSubjectTierUnlocked(subject.id, "gold")) && progress.perfectRuns >= 20 && progress.repairs.length >= 30]
     ];
     return specials.map(([id, tier, title, description, requirement, icon, imageOrEvaluate, maybeEvaluate]) => ({
@@ -2756,6 +2821,7 @@
       }
       if (event.target.id === "annalYear" || event.target.id === "annalSubject") {
         renderAnnalDocuments(Number(document.getElementById("annalYear").value), document.getElementById("annalSubject").value);
+        renderAnnalGuide(document.getElementById("annalSubject").value);
       }
     });
 

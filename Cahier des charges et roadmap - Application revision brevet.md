@@ -79,7 +79,7 @@ L'application doit utiliser les documents déjà présents dans le dossier :
 
 Les PDF servent surtout de base documentaire pour créer les cours, exercices, corrections expliquées et entraînements type brevet. Ils ne sont pas destinés à être lus directement par l'élève dans la V1.
 
-Le catalogue visible des annales est repoussé en V2, comme outil avancé ou mode "voir le sujet original".
+Le catalogue visible des annales est maintenant integre a la V1 comme mode d'entrainement complet. Les PDF restent des sources documentaires locales, mais l'application propose une entree "Annales" pour refaire une epreuve, enregistrer une note sur 20 et debloquer des badges lies aux annales.
 
 ## 6. Écrans principaux
 
@@ -630,9 +630,18 @@ Priorite pedagogique : les annales servent a calibrer le niveau brevet et inspir
 
 La page Badges utilise maintenant des familles evolutives : une seule carte par objectif, qui passe de verrouillee a bronze, argent puis or.
 
+Etat applique :
+
+- mode `Annales` disponible dans l'application ;
+- enregistrement des notes dans `progress.annalExamRuns` ;
+- badges Annales bronze/argent/or selon la meilleure note ;
+- badges supplementaires pour le volume d'annales et les matieres couvertes ;
+- medailles WebP locales par famille de badge.
+
 Prochaines etapes :
 
-- construire le mode `Examen complet d'annale` ;
-- enregistrer les notes dans `progress.annalExamRuns` ;
-- debloquer les badges Annales bronze/argent/or selon la note obtenue ;
-- remplacer progressivement les medailles decoupees par des images generees proprement famille par famille si le rendu doit devenir plus premium.
+- differencier les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
+- creer de nouveaux exercices a partir des annales ajoutees ;
+- transformer certains exercices d'annales en parcours progressifs : cours, exercice simple, exercice type brevet ;
+- tester l'installation PWA sur Android et verifier que l'aide iPhone/iPad explique bien l'ajout a l'ecran d'accueil ;
+- construire plus tard le compte utilisateur / synchronisation, sans casser l'usage offline.

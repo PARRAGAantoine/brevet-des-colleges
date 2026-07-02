@@ -219,6 +219,32 @@ Generateurs ajoutes :
 
 Le nombre total de generateurs offline passe de 20 a 26.
 
+## Annales, badges et diversification - juillet 2026
+
+Ajouts recents :
+
+- `data/annales.js` : catalogue exploitable par l'application a partir du corpus local d'annales serie generale France/metropole ;
+- `data/extra-content-9.js` : nouveau lot d'exercices courts dans les quatre matieres ;
+- `assets/badges/` : medailles WebP locales par famille de badge ;
+- `manifest.webmanifest` et `sw.js` : installation PWA et cache hors ligne.
+
+Exercices ajoutes dans `extra-content-9.js` :
+
+- mathematiques : probabilites, statistiques, geometrie, fonctions, equations ;
+- francais : grammaire, orthographe, conjugaison, lecture, reecriture ;
+- histoire-geographie-EMC : Seconde Guerre mondiale, guerre froide, EMC, geographie de la France, mondialisation ;
+- sciences : physique-chimie, SVT, technologie, lecture de donnees.
+
+Regle pedagogique ajoutee :
+
+Une erreur n'est plus consideree comme reparee apres une seule bonne reponse. L'eleve doit relire le cours lie a l'erreur, puis reussir 3 questions proches.
+
+Prochain travail contenu :
+
+- differencier les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` ;
+- transformer davantage les annales en exercices progressifs, sans recopier les sujets ;
+- continuer a augmenter la diversite des questions pour eviter la repetition.
+
 Validation effectuee :
 
 - `node tools\validate-content.js` : OK ;
