@@ -20,6 +20,7 @@
           <button class="nav-item active" data-view="dashboard" type="button">Accueil</button>
           <button class="nav-item" data-view="session" type="button">Séance</button>
           <button class="nav-item" data-view="practice" type="button">Exercices</button>
+          <button class="nav-item" data-view="annales" type="button">Annales</button>
           <button class="nav-item" data-view="progress" type="button">Progression</button>
           <button class="nav-item" data-view="badges" type="button">Badges</button>
           <button class="nav-item" data-view="settings" type="button">Parametres</button>
@@ -84,6 +85,10 @@
                 <strong>Voir ma progression</strong>
                 <span>Points forts, erreurs et historique.</span>
               </button>
+              <button class="home-action" data-view-target="annales" type="button">
+                <strong>Annales</strong>
+                <span>Refaire une vraie epreuve et noter le resultat.</span>
+              </button>
               <button class="home-action" data-view-target="badges" type="button">
                 <strong>Badges</strong>
                 <span>Les medailles a gagner sur la duree.</span>
@@ -137,6 +142,7 @@
               <button class="ghost-action" data-view-target="roadmap" type="button">Voir le parcours</button>
               <button class="ghost-action" data-view-target="courses" type="button">Lire un cours</button>
               <button class="ghost-action" data-view-target="guided" type="button">Sujets longs</button>
+              <button class="ghost-action" data-view-target="annales" type="button">Annales</button>
             </div>
           </section>
 
@@ -283,6 +289,55 @@
               <button class="secondary-action" id="progressReviewMistakeButton" type="button">Revoir une erreur</button>
             </div>
             <div id="mistakeList"></div>
+          </section>
+        </section>
+
+        <section class="view" id="annalesView">
+          <div class="page-heading">
+            <p class="eyebrow">Examen complet</p>
+            <h2>Refaire une annale</h2>
+            <p>Choisis une annee et une matiere, fais l'epreuve dans les conditions du brevet, puis enregistre ta note.</p>
+          </div>
+          <div class="annales-layout">
+            <section class="panel settings-panel">
+              <div>
+                <p class="eyebrow">Choix</p>
+                <h3>Annale a refaire</h3>
+              </div>
+              <label>
+                Annee
+                <select id="annalYear"></select>
+              </label>
+              <label>
+                Matiere
+                <select id="annalSubject"></select>
+              </label>
+              <label>
+                Note sur 20
+                <input id="annalScore" type="number" min="0" max="20" step="0.5" placeholder="Exemple : 14">
+              </label>
+              <button class="primary-action" id="saveAnnalScoreButton" type="button">Enregistrer la note</button>
+              <p class="settings-status" id="annalStatus">Aucune note enregistree pour le moment.</p>
+            </section>
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Methode</p>
+                  <h3>Conditions brevet</h3>
+                </div>
+              </div>
+              <div class="course-note">
+                <p><strong>1.</strong> Prends le sujet correspondant dans le dossier d'annales.</p>
+                <p><strong>2.</strong> Coupe les aides : pas de cours, pas de correction, pas de recherche.</p>
+                <p><strong>3.</strong> Chronometre-toi avec la duree normale de l'epreuve.</p>
+                <p><strong>4.</strong> Corrige ensuite, puis note le resultat sur 20.</p>
+              </div>
+              <div id="annalBestScore"></div>
+            </section>
+          </div>
+          <section class="panel">
+            <h3>Historique des annales</h3>
+            <div id="annalHistory"></div>
           </section>
         </section>
 

@@ -573,6 +573,6 @@ Une famille `Annales` est preparee pour le futur mode examen complet :
 - argent : au moins 14/20 ;
 - or : au moins 17/20.
 
-Le stockage `progress.annalExamRuns` existe, mais le mode de passage d'une annale complete reste a construire.
+Le mode Annales existe dans une premiere version : l'eleve choisit une annee et une matiere, fait le PDF d'annale a part, puis enregistre sa note sur 20 dans l'app. Le stockage se fait dans `progress.annalExamRuns`.
 
 Les assets actuels sont des medailles WebP inspirees de la reference utilisateur. Pour obtenir un rendu encore plus premium et homogene, il faudra probablement generer les medailles famille par famille avec un generateur d'image plutot que decouper une planche existante.

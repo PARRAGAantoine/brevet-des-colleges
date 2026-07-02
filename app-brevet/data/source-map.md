@@ -818,7 +818,7 @@ Nouveaux badges annales :
 - argent : au moins 14/20 ;
 - or : au moins 17/20.
 
-Note importante : le mode "examen complet d'annale" n'est pas encore implemente dans l'interface. Les badges et le stockage `progress.annalExamRuns` sont prets pour l'accueillir.
+Le mode "examen complet d'annale" est maintenant disponible dans une premiere version. L'eleve choisit l'annee, la matiere, fait l'epreuve avec le PDF du dossier d'annales, puis saisit sa note sur 20 dans l'app.
 
 Assets ajoutes :
 
@@ -832,3 +832,25 @@ Controle effectue :
 - `node tools\validate-content.js` : OK ;
 - `node tools\audit-qcm.js` : OK ;
 - controle navigateur local : 31 cartes affichees, 92 paliers au compteur, pas de mojibake, aucune erreur console.
+
+## Mode Annales - etape 34
+
+Nouvelle page `Annales` dans le menu principal.
+
+Fonctionnement :
+
+- choix d'une annee de 2017 a 2026 ;
+- choix d'une matiere ;
+- saisie d'une note sur 20 apres avoir fait l'epreuve dans les conditions du brevet ;
+- enregistrement dans `progress.annalExamRuns` ;
+- affichage de la meilleure note et de l'historique ;
+- attribution de points ;
+- deblocage des paliers Annales bronze, argent et or selon la note.
+
+Controle effectue :
+
+- profil vide ;
+- saisie d'une note de 15/20 ;
+- stockage local OK ;
+- badge Annales argent affiche avec prochain palier 17/20 ;
+- aucune erreur console.

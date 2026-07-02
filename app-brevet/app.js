@@ -33,6 +33,8 @@
   let selectedGuidedSubject = "all";
   applyTheme(settings.theme);
 
+  const annalYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
+
   const textPolishRules = [
     ["Seance", "S\u00e9ance"],
     ["seance", "s\u00e9ance"],
@@ -398,6 +400,32 @@
     render();
   }
 
+  function registerAnnalScore() {
+    const year = Number(document.getElementById("annalYear")?.value);
+    const subject = document.getElementById("annalSubject")?.value;
+    const score = Number(document.getElementById("annalScore")?.value);
+    const status = document.getElementById("annalStatus");
+    if (!year || !subject || Number.isNaN(score) || score < 0 || score > 20) {
+      if (status) status.textContent = "Entre une note valide entre 0 et 20.";
+      return;
+    }
+    progress.annalExamRuns = progress.annalExamRuns || [];
+    progress.annalExamRuns.push({
+      id: `annale_${Date.now()}`,
+      date: today(),
+      year,
+      subject,
+      score
+    });
+    addPoints(Math.max(5, Math.round(score * 2)));
+    updateStreakIfValid();
+    awardBadges();
+    saveProgress();
+    showToast(`Annale enregistree : ${score}/20.`);
+    document.getElementById("annalScore").value = "";
+    render();
+  }
+
   function showToast(message) {
     const toast = document.getElementById("toast");
     toast.classList.remove("badge-unlock-toast");
@@ -443,6 +471,7 @@
     renderCourses();
     renderPracticeQuestion();
     renderGuidedTasks();
+    renderAnnales();
     renderProgress();
     renderBadges();
     renderSettings();
@@ -1625,6 +1654,57 @@
       : `<p class="muted">Aucun sujet guide pour ce filtre.</p>`;
   }
 
+  function renderAnnales() {
+    const yearSelect = document.getElementById("annalYear");
+    const subjectSelect = document.getElementById("annalSubject");
+    if (!yearSelect || !subjectSelect) return;
+
+    const previousYear = yearSelect.value || String(annalYears[0]);
+    const defaultSubject = content.subjects.some((subject) => subject.id === activeSubject) ? activeSubject : content.subjects[0]?.id;
+    const previousSubject = subjectSelect.value || defaultSubject;
+    yearSelect.innerHTML = annalYears.map((year) => `<option value="${year}">${year}</option>`).join("");
+    subjectSelect.innerHTML = content.subjects.map((subject) => `<option value="${subject.id}">${subject.label}</option>`).join("");
+    yearSelect.value = annalYears.map(String).includes(previousYear) ? previousYear : String(annalYears[0]);
+    subjectSelect.value = content.subjects.some((subject) => subject.id === previousSubject) ? previousSubject : defaultSubject;
+
+    const runs = (progress.annalExamRuns || []).slice().sort((left, right) => `${right.date}${right.id}`.localeCompare(`${left.date}${left.id}`));
+    const best = runs.length ? Math.max(...runs.map((run) => Number(run.score) || 0)) : 0;
+    const status = document.getElementById("annalStatus");
+    if (status) {
+      status.textContent = runs.length
+        ? `Derniere note : ${runs[0].score}/20 en ${runs[0].year} - ${subjectLabel(runs[0].subject)}.`
+        : "Aucune note enregistree pour le moment.";
+    }
+    const bestContainer = document.getElementById("annalBestScore");
+    if (bestContainer) {
+      const nextTarget = best >= 17
+        ? "Badge Annales or atteint."
+        : best >= 14
+          ? "Prochain palier : 17/20 pour l'or."
+          : best >= 10
+            ? "Prochain palier : 14/20 pour l'argent."
+            : "Premier palier : 10/20 pour le bronze.";
+      bestContainer.innerHTML = `
+        <div class="lesson-callout soft">
+          <strong>Meilleure note : ${best ? `${best}/20` : "aucune"}</strong>
+          <p>${nextTarget}</p>
+        </div>
+      `;
+    }
+
+    const history = document.getElementById("annalHistory");
+    if (history) {
+      history.innerHTML = runs.length
+        ? `<div class="history-list">${runs.slice(0, 10).map((run) => `
+            <div class="history-item">
+              <span>${run.date} - ${run.year} - ${subjectLabel(run.subject)}</span>
+              <strong>${run.score}/20</strong>
+            </div>
+          `).join("")}</div>`
+        : `<p class="muted">Aucune annale complete enregistree pour le moment.</p>`;
+    }
+  }
+
   function renderQuestion(question, context) {
     if (question.type === "order") return renderOrderQuestion(question, context);
     const choices = getShuffledChoices(question, context);
@@ -2531,6 +2611,10 @@
       const guidedScore = event.target.closest("[data-guided-score]");
       if (guidedScore) {
         registerGuidedScore(guidedScore.dataset.guidedScore, Number(guidedScore.dataset.score));
+      }
+
+      if (event.target.closest("#saveAnnalScoreButton")) {
+        registerAnnalScore();
       }
 
       const answer = event.target.closest("[data-answer]");

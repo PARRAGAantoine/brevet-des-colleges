@@ -672,7 +672,7 @@ Le nombre total actuel est de 89 badges. Les derniers sont volontairement longs 
 
 Les badges sont maintenant affiches comme des familles evolutives : une seule carte apparait, puis elle passe de verrouille a bronze, argent et or selon le meilleur palier atteint. Le compteur conserve le total des paliers. Des medailles WebP sont utilisees pour ameliorer le rendu graphique sans alourdir l'app.
 
-Une famille de badges `Annales` est preparee pour le futur mode examen complet : bronze a 10/20, argent a 14/20, or a 17/20. Le stockage `progress.annalExamRuns` est pret, mais l'interface de passage d'une annale complete reste a construire.
+Une famille de badges `Annales` est disponible : bronze a 10/20, argent a 14/20, or a 17/20. La page Annales permet de choisir une annee et une matiere, puis d'enregistrer la note obtenue apres avoir fait le PDF dans les conditions du brevet.
 
 ## Mise a jour accueil et parametres
 
