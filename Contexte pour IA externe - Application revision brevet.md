@@ -53,7 +53,7 @@ Matieres :
 - Reponses QCM melangees.
 - Correction immediate.
 - Reprise d'erreurs avec cours puis 3 questions proches a reussir.
-- Annales : choix annee/matiere, documents references, saisie note sur 20.
+- Annales : choix annee/matiere, documents references, saisie note sur 20. Les PDF officiels sont des liens distants : leur ouverture demande Internet. Le reste de l'app et les notes deja enregistrees restent utilisables hors ligne.
 - Badges evolutifs : une carte par famille, verrouille puis bronze/argent/or.
 - Parametres : PWA, mode clair/sombre, mise a jour volontaire, login futur.
 
@@ -123,6 +123,8 @@ Le corpus local contient environ 180 PDF d'annales serie generale France/metropo
 Les sujets sont couverts pour 2017-2026 et les quatre matieres, mais les corriges restent incomplets selon les annees, surtout hors mathematiques.
 
 Les annales servent surtout a calibrer le niveau et inspirer des exercices progressifs. Il ne faut pas recopier massivement les sujets.
+
+Les seances sont plafonnees selon les questions disponibles quand un chapitre n'a pas encore assez de contenu ou de generateur.
 
 ## Commandes de validation
 

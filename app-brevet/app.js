@@ -798,6 +798,7 @@
     if (subject === "mixed") {
       select.innerHTML = `<option value="auto">L'application choisit le melange</option>`;
       select.disabled = true;
+      renderSessionDurations();
       return;
     }
     const notions = (content.notions || [])
@@ -807,6 +808,44 @@
     select.disabled = false;
     select.innerHTML = `<option value="auto">Laisser l'application choisir</option>${notions.map((notion) => `<option value="${notion.id}">${notion.title}</option>`).join("")}`;
     select.value = notions.some((notion) => notion.id === current) ? current : "auto";
+    renderSessionDurations();
+  }
+
+  function renderSessionDurations() {
+    const select = document.getElementById("sessionDuration");
+    if (!select) return;
+    const current = Number(select.value) || 10;
+    const capacity = getSessionCapacity();
+    const baseOptions = [10, 20, 30];
+    const options = capacity < 10 ? [capacity, ...baseOptions] : baseOptions;
+    const uniqueOptions = [...new Set(options.filter((value) => value > 0))];
+    select.innerHTML = uniqueOptions.map((value) => {
+      const disabled = value > capacity;
+      const label = value === capacity && capacity < 10
+        ? `Disponible - ${value} exercices`
+        : value === 10
+          ? "Courte - 10 exercices"
+          : value === 20
+            ? "Standard - 20 exercices"
+            : "Longue - 30 exercices";
+      return `<option value="${value}" ${disabled ? "disabled" : ""}>${label}${disabled ? " (pas assez de questions)" : ""}</option>`;
+    }).join("");
+    const allowed = uniqueOptions.filter((value) => value <= capacity);
+    select.value = allowed.includes(current) ? String(current) : String(allowed[0] || 10);
+  }
+
+  function getSessionCapacity() {
+    const subject = document.getElementById("sessionSubject")?.value || activeSubject;
+    const notionId = document.getElementById("sessionNotion")?.value || "auto";
+    if (subject === "mixed" || notionId === "auto") return 30;
+    const notion = (content.notions || []).find((item) => item.id === notionId && item.subject === subject);
+    if (!notion) return 10;
+    if ((notion.generators || []).length) return 30;
+    const pool = content.exercises
+      .filter((exercise) => exercise.subject === subject)
+      .filter((exercise) => exercise.notionId === notion.id || chapterMatches(notion.chapter, exercise.chapter));
+    const uniqueQuestions = new Set(pool.map((exercise) => normalizeText(exercise.question || exercise.prompt || exercise.id)));
+    return Math.max(1, uniqueQuestions.size);
   }
 
   function renderPracticeChapters() {
@@ -2041,8 +2080,8 @@
               <p class="muted">${doc.kind === "corrige" ? "Corrige / bareme" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
             </div>
             ${doc.url
-              ? `<a class="ghost-action" href="${doc.url}" target="_blank" rel="noopener">Ouvrir</a>`
-              : `<span class="status-pill">Dossier local</span>`}
+              ? `<a class="ghost-action" href="${doc.url}" target="_blank" rel="noopener">Ouvrir en ligne</a>`
+              : `<span class="status-pill">PDF non integre</span>`}
           </article>
         `).join("")}
       </div>
@@ -2278,11 +2317,14 @@
       example: "En maths on pose le calcul ; en francais on cite le texte ; en histoire-geo on utilise document + connaissance ; en sciences on relie donnees et conclusion."
     } : selectedNotion ? pickSessionLessonForNotion(selectedNotion, targetStage) : pickSessionLesson(subject, targetStage);
     const questions = isMixed ? pickMixedSessionQuestions(questionTarget) : pickSessionQuestions(subject, questionTarget, selectedNotion?.chapter || lesson.chapter, lesson, selectedNotion);
+    if (questions.length < questionTarget) {
+      showToast(`Cette seance contient ${questions.length} exercice${questions.length > 1 ? "s" : ""} disponible${questions.length > 1 ? "s" : ""} pour ce chapitre.`);
+    }
     currentSession = {
       subject,
       notionId: selectedNotion?.id || null,
       targetStage,
-      questionTarget,
+      questionTarget: questions.length,
       lesson,
       focusChapter: selectedNotion?.chapter || lesson.chapter,
       questions,
@@ -3121,7 +3163,10 @@
       clearSessionStage();
       renderSessionNotions();
     });
-    document.getElementById("sessionNotion").addEventListener("change", clearSessionStage);
+    document.getElementById("sessionNotion").addEventListener("change", () => {
+      clearSessionStage();
+      renderSessionDurations();
+    });
     document.getElementById("sessionDuration").addEventListener("change", clearSessionStage);
     document.getElementById("newQuestionButton").addEventListener("click", () => {
       currentPracticeQuestion = pickQuestion(document.getElementById("practiceSubject").value);
