@@ -65,15 +65,15 @@ button:disabled {
   min-height: 100vh;
 }
 
-body[data-current-view="dashboard"] .app-shell {
+body[data-current-view="landing"] .app-shell {
   grid-template-columns: 1fr;
 }
 
-body[data-current-view="dashboard"] .sidebar {
+body[data-current-view="landing"] .sidebar {
   display: none;
 }
 
-body[data-current-view="dashboard"] .main-content {
+body[data-current-view="landing"] .main-content {
   padding: 32px;
 }
 
@@ -1327,7 +1327,6 @@ input[type="text"] {
 }
 
 :root[data-theme="dark"] .lesson-callout.soft,
-:root[data-theme="dark"] .course-note,
 :root[data-theme="dark"] .annal-guide > div,
 :root[data-theme="dark"] .annal-document-item,
 :root[data-theme="dark"] .question-help-content,
@@ -1336,7 +1335,6 @@ input[type="text"] {
 }
 
 :root[data-theme="dark"] .lesson-callout.soft .muted,
-:root[data-theme="dark"] .course-note .muted,
 :root[data-theme="dark"] .annal-guide > div .muted,
 :root[data-theme="dark"] .annal-document-item .muted,
 :root[data-theme="dark"] .question-help-content .muted,

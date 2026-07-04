@@ -36,7 +36,7 @@
       </aside>
 
       <main class="main-content">
-        <section class="view active" id="dashboardView">
+        <section class="view active" id="landingView">
           <div class="hero-band home-landing home-minimal">
             <div>
               <h2>Brevet Sprint</h2>
@@ -49,7 +49,7 @@
                 <p>Installe l'application pour t'entraîner sans Internet, avec les cours, exercices et anciens sujets disponibles hors ligne.</p>
               </div>
               <div class="home-minimal-action">
-                <button class="secondary-action" id="continueOnlineButton" data-view-target="session" type="button">Continuer en ligne</button>
+                <button class="secondary-action" id="continueOnlineButton" data-view-target="dashboard" type="button">Continuer en ligne</button>
                 <p>Utilise l'application directement dans le navigateur, sans l'installer.</p>
               </div>
               <div class="home-minimal-action">
@@ -66,6 +66,85 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <section class="view" id="dashboardView">
+          <div class="hero-band">
+            <div>
+              <p class="eyebrow">Révision brevet</p>
+              <h2 id="recommendationTitle">Choisis une matière pour commencer</h2>
+              <p id="recommendationText">Commence par une séance guidée ou choisis un entraînement libre.</p>
+            </div>
+            <button class="primary-action" data-view-target="session" type="button">Commencer</button>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric">
+              <span>Points</span>
+              <strong id="pointsValue">0</strong>
+            </article>
+            <article class="metric">
+              <span>Jours de suite</span>
+              <strong id="streakValue">0 j</strong>
+            </article>
+            <article class="metric">
+              <span>Record</span>
+              <strong id="bestStreakValue">0 j</strong>
+            </article>
+            <article class="metric">
+              <span>Réussite</span>
+              <strong id="successValue">0 %</strong>
+            </article>
+          </div>
+
+          <section class="home-actions panel">
+            <p class="eyebrow">Que veux-tu faire ?</p>
+            <h3>Choisis ton entrée</h3>
+            <div class="home-action-grid">
+              <button class="home-action" data-view-target="session" type="button">
+                <strong>Séance guidée</strong>
+                <span>Un cours, puis une série d'exercices corrigés.</span>
+              </button>
+              <button class="home-action" data-view-target="practice" type="button">
+                <strong>Exercices libres</strong>
+                <span>Une question rapide ou une erreur à reprendre.</span>
+              </button>
+              <button class="home-action" data-view-target="progress" type="button">
+                <strong>Voir ma progression</strong>
+                <span>Points forts, erreurs et historique.</span>
+              </button>
+              <button class="home-action" data-view-target="annales" type="button">
+                <strong>Anciens sujets</strong>
+                <span>Refaire une épreuve complète et noter le résultat.</span>
+              </button>
+              <button class="home-action" data-view-target="badges" type="button">
+                <strong>Badges</strong>
+                <span>Les médailles à gagner sur la durée.</span>
+              </button>
+            </div>
+          </section>
+
+          <div class="dashboard-layout">
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Conseil du jour</p>
+                  <h3 id="recommendationStatus">À essayer</h3>
+                </div>
+                <button class="secondary-action" data-view-target="session" type="button">Séance guidée</button>
+              </div>
+              <p id="homeSecondaryHint">Commence par une séance guidée ou choisis une matière.</p>
+            </section>
+            <section class="panel">
+              <p class="eyebrow">Objectif</p>
+              <h3>Séance sans faute aujourd'hui</h3>
+              <div class="progress-track">
+                <span id="dailyProgressBar"></span>
+              </div>
+              <p id="dailyProgressText">À valider</p>
+            </section>
+          </div>
+          <div id="subjectOverview" class="subject-grid"></div>
         </section>
 
         <section class="view" id="roadmapView">

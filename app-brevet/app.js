@@ -33,7 +33,7 @@
   let selectedGuidedSubject = "all";
   let deferredInstallPrompt = null;
   applyTheme(settings.theme);
-  document.body.dataset.currentView = "dashboard";
+  document.body.dataset.currentView = "landing";
 
   const annalYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
   const annalSubjectGuides = {
@@ -709,6 +709,13 @@
     deferredInstallPrompt.prompt();
     await deferredInstallPrompt.userChoice.catch(() => null);
     deferredInstallPrompt = null;
+  }
+
+  function getInitialViewFromUrl() {
+    const allowedViews = new Set(["landing", "dashboard", "session", "practice", "annales", "progress", "badges", "settings"]);
+    const params = new URLSearchParams(window.location.search);
+    const requestedView = params.get("view") || params.get("start") || window.location.hash.replace("#", "");
+    return allowedViews.has(requestedView) ? requestedView : "landing";
   }
 
   function getInstallHelpText() {
@@ -3520,6 +3527,7 @@
     setupPwaInstall();
     bindEvents();
     render();
+    setView(getInitialViewFromUrl());
   }
 
   if (document.readyState === "loading") {
