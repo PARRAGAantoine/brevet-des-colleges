@@ -1,4 +1,4 @@
-const CACHE_NAME = "brevet-sprint-v1.1.11";
+const CACHE_NAME = "brevet-sprint-v1.1.13";
 const CORE_ASSETS = [
   ".",
   "index.html",

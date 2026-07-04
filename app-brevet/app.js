@@ -33,6 +33,7 @@
   let selectedGuidedSubject = "all";
   let deferredInstallPrompt = null;
   applyTheme(settings.theme);
+  document.body.dataset.currentView = "dashboard";
 
   const annalYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
   const annalSubjectGuides = {
@@ -171,9 +172,7 @@
     ["evenements", "\u00e9v\u00e9nements"],
     ["corrigee", "corrig\u00e9e"],
     ["corrigees", "corrig\u00e9es"],
-    ["corrige", "corrig\u00e9"],
     ["corriges", "corrig\u00e9s"],
-    ["Corrige", "Corrig\u00e9"],
     ["Corriges", "Corrig\u00e9s"],
     ["annee", "ann\u00e9e"],
     ["annees", "ann\u00e9es"],
@@ -415,6 +414,14 @@
     ["progres", "progr\u00e8s"],
     ["Progres", "Progr\u00e8s"],
     ["premieres", "premi\u00e8res"],
+    ["precedentes", "pr\u00e9c\u00e9dentes"],
+    ["gardes", "gard\u00e9s"],
+    ["Prepare", "Pr\u00e9pare"],
+    ["prepare", "pr\u00e9pare"],
+    ["calcul pose", "calcul pos\u00e9"],
+    ["Bronze a", "Bronze \u00e0"],
+    ["argent a", "argent \u00e0"],
+    ["or a", "or \u00e0"],
     ["valeur trouvee", "valeur trouv\u00e9e"]
   ];
 
@@ -711,18 +718,18 @@
     if (isAppleMobile) {
       return {
         title: "Installer sur iPhone ou iPad",
-        text: "Dans Safari, touche le bouton Partager, puis choisis Sur l'ecran d'accueil. Ouvre ensuite l'app une premiere fois avec Internet pour garder aussi les annales hors ligne."
+        text: "Dans Safari, touche le bouton Partager, puis choisis Sur l'ecran d'accueil. Ouvre ensuite l'app une premiere fois avec Internet pour garder aussi les anciens sujets hors ligne."
       };
     }
     if (isAndroid) {
       return {
         title: "Installer sur Android",
-        text: "Ouvre la page avec Chrome, puis utilise le bouton Installer l'app. L'installation garde aussi les annales hors ligne ; fais-la avec une connexion correcte."
+        text: "Ouvre la page avec Chrome, puis utilise le bouton Installer l'app. L'installation garde aussi les anciens sujets hors ligne ; fais-la avec une connexion correcte."
       };
     }
     return {
       title: "Installer sur ordinateur",
-      text: "Avec Chrome ou Edge, utilise le bouton Installer l'app dans la barre d'adresse ou le bouton de l'accueil. L'app et les annales resteront ensuite disponibles hors ligne."
+      text: "Avec Chrome ou Edge, utilise le bouton Installer l'app dans la barre d'adresse ou le bouton de l'accueil. L'app et les anciens sujets resteront ensuite disponibles hors ligne."
     };
   }
 
@@ -757,7 +764,7 @@
     updateStreakIfValid();
     awardBadges();
     saveProgress();
-    showToast(`Annale enregistree : ${score}/20.`);
+    showToast(`Ancien sujet enregistre : ${score}/20.`);
     document.getElementById("annalScore").value = "";
     render();
   }
@@ -793,6 +800,7 @@
 
   function setView(viewName) {
     if (viewName === "session" && !currentSession) clearSessionStage();
+    document.body.dataset.currentView = viewName;
     document.querySelectorAll(".view").forEach((view) => view.classList.remove("active"));
     document.getElementById(`${viewName}View`).classList.add("active");
     document.querySelectorAll(".nav-item").forEach((item) => {
@@ -848,7 +856,7 @@
       ? "Objectif valide"
       : `${pendingMistakes} erreur${pendingMistakes > 1 ? "s" : ""} a reprendre`;
     const dailyHint = document.getElementById("dailyHint");
-    if (dailyHint) dailyHint.textContent = "Réviser le brevet petit à petit, avec des cours courts, des exercices et des annales.";
+    if (dailyHint) dailyHint.textContent = "Réviser le brevet petit à petit, avec des cours courts, des exercices et d'anciens sujets.";
     const homeSecondaryHint = document.getElementById("homeSecondaryHint");
     if (homeSecondaryHint) {
       homeSecondaryHint.textContent = pendingMistakes
@@ -2112,7 +2120,7 @@
     const bestContainer = document.getElementById("annalBestScore");
     if (bestContainer) {
       const nextTarget = best >= 17
-        ? "Badge Annales or atteint."
+        ? "Badge Anciens sujets or atteint."
         : best >= 14
           ? "Prochain palier : 17/20 pour l'or."
           : best >= 10
@@ -2135,7 +2143,7 @@
               <strong>${run.score}/20</strong>
             </div>
           `).join("")}</div>`
-        : `<p class="muted">Aucune annale complete enregistree pour le moment.</p>`;
+        : `<p class="muted">Aucun ancien sujet complet enregistre pour le moment.</p>`;
     }
   }
 
@@ -2172,10 +2180,10 @@
     container.innerHTML = `
       <div class="annal-document-summary">
         <span class="status-pill">${subjects.length} sujet${subjects.length > 1 ? "s" : ""}</span>
-        <span class="status-pill">${corrections.length} corrige${corrections.length > 1 ? "s" : ""}</span>
+        <span class="status-pill">${corrections.length} corrigé${corrections.length > 1 ? "s" : ""}</span>
       </div>
-      ${renderAnnalDocumentGroup("Sujets a faire", subjects, "Commence ici. Ouvre d'abord le sujet, sans regarder la correction.")}
-      ${renderAnnalDocumentGroup("Corriges", corrections, "A ouvrir seulement apres avoir termine le sujet.")}
+      ${renderAnnalDocumentGroup("Sujets à faire", subjects, "Commence ici. Ouvre d'abord le sujet, sans regarder la correction.")}
+      ${renderAnnalDocumentGroup("Corrigés", corrections, "À ouvrir seulement après avoir terminé le sujet.")}
     `;
   }
 
@@ -2192,11 +2200,11 @@
             <article class="annal-document-item">
               <div>
                 <strong>${doc.title}</strong>
-                <p class="muted">${doc.kind === "corrige" ? "Corrige / bareme" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
+                <p class="muted">${doc.kind === "corrige" ? "Corrigé / barème" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
               </div>
               ${doc.localUrl || doc.url
                 ? `<a class="ghost-action" href="${doc.localUrl || doc.url}" target="_blank" rel="noopener">${doc.localUrl ? "Ouvrir le PDF" : "Ouvrir en ligne"}</a>`
-                : `<span class="status-pill">PDF non integre</span>`}
+                : `<span class="status-pill">PDF non intégré</span>`}
             </article>
           `).join("")}
         </div>
@@ -2845,7 +2853,7 @@
     const groups = [
       { id: "ultimate", title: "Badge ultime", description: "Le grand objectif de fin de pr\u00e9paration.", badges: badges.filter((badge) => badge.tier === "ultimate") },
       { id: "subjects", title: "Mati\u00e8res", description: "Un badge qui monte de bronze \u00e0 or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
-      { id: "challenges", title: "D\u00e9fis", description: "R\u00e9gularit\u00e9, pr\u00e9cision, erreurs r\u00e9par\u00e9es, annales et sujets longs.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate") },
+      { id: "challenges", title: "D\u00e9fis", description: "R\u00e9gularit\u00e9, pr\u00e9cision, erreurs r\u00e9par\u00e9es, anciens sujets et sujets longs.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate") },
       { id: "chapters", title: "Chapitres", description: "La progression d\u00e9taill\u00e9e du programme.", badges: badges.filter((badge) => badge.category === "Chapitre") }
     ].filter((group) => group.badges.length);
     document.getElementById("badgeList").innerHTML = `
@@ -2907,7 +2915,7 @@
   function getLockedBadgeTitle(badge) {
     if (badge.category === "Matiere") return badgeSubjectLabel(badge.subject);
     if (badge.category === "Chapitre") return badge.title.replace(/\s+-\s+J'apprends$/, "");
-    if (badge.id?.includes("annales-exam")) return "Annales";
+    if (badge.id?.includes("annales-exam")) return "Anciens sujets";
     return badge.title.replace(/\s+bronze$/i, "");
   }
 
@@ -3160,15 +3168,15 @@
       ["guided:5", "silver", "Sujets longs", "Terminer 5 sujets guides.", "5 sujets", "▣", () => guidedDone() >= 5],
       ["guided:15", "gold", "Pret pour les sujets longs", "Terminer 15 sujets guides.", "15 sujets", "▣", () => guidedDone() >= 15],
       ["guided-solid:8", "gold", "Copies solides", "Obtenir 8 sujets guides solides.", "8 solides", "▣", () => guidedSolid() >= 8],
-      ["annales-exam:bronze", "bronze", "Annales bronze", "Refaire un examen complet d'annale avec une note correcte.", "1 examen, 10/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 10],
-      ["annales-exam:silver", "silver", "Annales argent", "Refaire un examen complet d'annale avec une bonne note.", "1 examen, 14/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 14],
-      ["annales-exam:gold", "gold", "Annales or", "Refaire un examen complet d'annale avec un niveau tres solide.", "1 examen, 17/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 17],
-      ["annales-exam-count:3", "bronze", "Copies d'annales", "Enregistrer 3 annales completes.", "3 examens", "▤", () => annalExamCount() >= 3],
-      ["annales-exam-count:8", "silver", "Rythme annales", "Enregistrer 8 annales completes.", "8 examens", "▤", () => annalExamCount() >= 8],
-      ["annales-exam-count:15", "gold", "Grand entrainement", "Enregistrer 15 annales completes.", "15 examens", "▤", () => annalExamCount() >= 15],
-      ["annales-exam-subjects:2", "bronze", "Annales variees", "Faire des annales dans 2 matieres.", "2 matieres", "▤", () => annalSubjectCount() >= 2],
-      ["annales-exam-subjects:3", "silver", "Tour des epreuves", "Faire des annales dans 3 matieres.", "3 matieres", "▤", () => annalSubjectCount() >= 3],
-      ["annales-exam-subjects:4", "gold", "Pret pour l'examen", "Faire des annales dans les 4 matieres.", "4 matieres", "▤", () => annalSubjectCount() >= 4],
+      ["annales-exam:bronze", "bronze", "Ancien sujet bronze", "Refaire un ancien sujet complet avec une note correcte.", "1 examen, 10/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 10],
+      ["annales-exam:silver", "silver", "Ancien sujet argent", "Refaire un ancien sujet complet avec une bonne note.", "1 examen, 14/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 14],
+      ["annales-exam:gold", "gold", "Ancien sujet or", "Refaire un ancien sujet complet avec un niveau tres solide.", "1 examen, 17/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 17],
+      ["annales-exam-count:3", "bronze", "Copies d'anciens sujets", "Enregistrer 3 anciens sujets complets.", "3 examens", "▤", () => annalExamCount() >= 3],
+      ["annales-exam-count:8", "silver", "Rythme anciens sujets", "Enregistrer 8 anciens sujets complets.", "8 examens", "▤", () => annalExamCount() >= 8],
+      ["annales-exam-count:15", "gold", "Grand entrainement", "Enregistrer 15 anciens sujets complets.", "15 examens", "▤", () => annalExamCount() >= 15],
+      ["annales-exam-subjects:2", "bronze", "Sujets varies", "Faire des anciens sujets dans 2 matieres.", "2 matieres", "▤", () => annalSubjectCount() >= 2],
+      ["annales-exam-subjects:3", "silver", "Tour des epreuves", "Faire des anciens sujets dans 3 matieres.", "3 matieres", "▤", () => annalSubjectCount() >= 3],
+      ["annales-exam-subjects:4", "gold", "Pret pour l'examen", "Faire des anciens sujets dans les 4 matieres.", "4 matieres", "▤", () => annalSubjectCount() >= 4],
       ["all-subject-gold", "ultimate", "Badge ultime", "Obtenir l'or dans les quatre matieres et garder un vrai rythme.", "Complet", "★", () => content.subjects.every((subject) => isSubjectTierUnlocked(subject.id, "gold")) && progress.perfectRuns >= 20 && progress.repairs.length >= 30]
     ];
     return specials.map(([id, tier, title, description, requirement, icon, imageOrEvaluate, maybeEvaluate]) => ({
@@ -3260,7 +3268,7 @@
       const remote = await response.json();
       const remoteVersion = remote.version || "0.0.0";
       if (compareVersions(remoteVersion, appVersion) > 0) {
-        status.textContent = `Mise a jour disponible : version ${remoteVersion}. Le telechargement de l'app et des annales sera active avec l'installation PWA.`;
+        status.textContent = `Mise a jour disponible : version ${remoteVersion}. Le telechargement de l'app et des anciens sujets sera active avec l'installation PWA.`;
       } else {
         status.textContent = `Tu as deja la derniere version disponible (${appVersion}).`;
       }

@@ -23,7 +23,7 @@
           <button class="nav-item active" data-view="dashboard" type="button">Accueil</button>
           <button class="nav-item" data-view="session" type="button">Séance</button>
           <button class="nav-item" data-view="practice" type="button">Exercices</button>
-          <button class="nav-item" data-view="annales" type="button">Annales</button>
+          <button class="nav-item" data-view="annales" type="button">Anciens sujets</button>
           <button class="nav-item" data-view="progress" type="button">Progression</button>
           <button class="nav-item" data-view="badges" type="button">Badges</button>
           <button class="nav-item" data-view="settings" type="button">Paramètres</button>
@@ -40,12 +40,13 @@
           <div class="hero-band home-landing home-minimal">
             <div>
               <h2>Brevet Sprint</h2>
-              <p id="dailyHint">Réviser le brevet petit à petit, avec des cours courts, des exercices et des annales.</p>
+              <p id="dailyHint">Réviser le brevet petit à petit, avec des cours courts, des exercices et d'anciens sujets.</p>
+              <p class="home-privacy">Tes résultats, badges et erreurs restent sur ton appareil : toi seul peux les voir.</p>
             </div>
             <div class="home-minimal-actions">
               <div class="home-minimal-action">
                 <button class="primary-action" id="installAppButton" type="button">Installer l'app</button>
-                <p>Installe l'application pour t'entraîner sans Internet, avec les cours, exercices et annales disponibles hors ligne.</p>
+                <p>Installe l'application pour t'entraîner sans Internet, avec les cours, exercices et anciens sujets disponibles hors ligne.</p>
               </div>
               <div class="home-minimal-action">
                 <a class="secondary-link" href="https://parragaantoine.github.io/brevet-des-colleges/app-brevet/" target="_blank" rel="noopener">Continuer en ligne</a>
@@ -85,7 +86,7 @@
           </div>
           <div class="session-builder panel">
             <label>
-              Matiere
+              Matière
               <select id="sessionSubject"></select>
             </label>
             <label>
@@ -100,7 +101,7 @@
                 <option value="30">Longue - 30 exercices</option>
               </select>
             </label>
-            <button class="primary-action" id="startSessionButton" type="button">Lancer la seance</button>
+            <button class="primary-action" id="startSessionButton" type="button">Lancer la séance</button>
           </div>
           <div class="session-stage" id="sessionStage"></div>
         </section>
@@ -135,7 +136,7 @@
           <div class="practice-layout">
             <aside class="panel compact-panel">
               <label>
-                Matiere
+                Matière
                 <select id="practiceSubject"></select>
               </label>
               <label>
@@ -174,7 +175,7 @@
           <div class="page-heading">
             <p class="eyebrow">Progression</p>
             <h2>Points forts et points faibles</h2>
-            <p>La recommandation se base sur ces resultats.</p>
+            <p>La recommandation se base sur ces résultats.</p>
           </div>
           <div class="progress-layout">
             <section class="panel">
@@ -205,21 +206,21 @@
         <section class="view" id="annalesView">
           <div class="page-heading">
             <p class="eyebrow">Examen complet</p>
-            <h2>Refaire une annale</h2>
-            <p>Choisis une annee et une matiere, ouvre le PDF, puis enregistre ta note dans l'app.</p>
+            <h2>Refaire un ancien sujet</h2>
+            <p>Un ancien sujet de brevet est une épreuve déjà donnée les années précédentes. Choisis une année et une matière, ouvre le PDF, puis enregistre ta note dans l'app.</p>
           </div>
           <div class="annales-layout">
             <section class="panel settings-panel">
               <div>
                 <p class="eyebrow">Choix</p>
-                <h3>Annale a refaire</h3>
+                <h3>Ancien sujet à refaire</h3>
               </div>
               <label>
-                Annee
+                Année
                 <select id="annalYear"></select>
               </label>
               <label>
-                Matiere
+                Matière
                 <select id="annalSubject"></select>
               </label>
               <label>
@@ -227,7 +228,7 @@
                 <input id="annalScore" type="number" min="0" max="20" step="0.5" placeholder="Exemple : 14">
               </label>
               <button class="primary-action" id="saveAnnalScoreButton" type="button">Enregistrer la note</button>
-              <p class="settings-status" id="annalStatus">Aucune note enregistree pour le moment.</p>
+              <p class="settings-status" id="annalStatus">Aucune note enregistrée pour le moment.</p>
             </section>
             <section class="panel">
               <div class="panel-header">
@@ -237,10 +238,10 @@
                 </div>
               </div>
               <div class="course-note">
-                <p><strong>1.</strong> Ouvre un sujet dans la liste de documents ci-dessous. Une fois l'app installee, les annales sont aussi gardees hors ligne.</p>
+                <p><strong>1.</strong> Ouvre un sujet dans la liste de documents ci-dessous. Une fois l'app installée, les anciens sujets sont aussi gardés hors ligne.</p>
                 <p><strong>2.</strong> Coupe les aides : pas de cours, pas de correction, pas de recherche.</p>
-                <p><strong>3.</strong> Chronometre-toi avec la duree normale de l'epreuve.</p>
-                <p><strong>4.</strong> Corrige ensuite, puis note le resultat sur 20.</p>
+                <p><strong>3.</strong> Chronomètre-toi avec la durée normale de l'épreuve.</p>
+                <p><strong>4.</strong> Corrige ensuite, puis note le résultat sur 20. Si tu veux une aide pour corriger, tu peux prendre en photo ou en capture d'écran ta copie, l'envoyer avec le sujet à une IA gratuite comme Gemini, Grok, DeepSeek ou ChatGPT, puis lui demander une note sur 20 et des conseils pour progresser.</p>
               </div>
               <div id="annalGuide"></div>
               <div id="annalBestScore"></div>
@@ -256,7 +257,7 @@
             <div id="annalDocuments"></div>
           </section>
           <section class="panel">
-            <h3>Historique des annales</h3>
+            <h3>Historique des anciens sujets</h3>
             <div id="annalHistory"></div>
           </section>
         </section>
@@ -283,7 +284,7 @@
                 <h3>Installation et mises a jour</h3>
               </div>
               <div class="settings-row">
-                <span>Version installee</span>
+                <span>Version installée</span>
                 <strong id="settingsVersion">-</strong>
               </div>
               <p class="muted">Les revisions, cours, exercices, generateurs et badges fonctionnent sans connexion.</p>
@@ -298,7 +299,7 @@
                 <p class="eyebrow">Hors ligne</p>
                 <h3 id="installHelpTitle">Installer l'application</h3>
               </div>
-              <p class="muted" id="installHelpText">Ouvre cette page depuis le navigateur de l'appareil, puis utilise le bouton Installer quand il est disponible. L'installation garde aussi les annales hors ligne.</p>
+              <p class="muted" id="installHelpText">Ouvre cette page depuis le navigateur de l'appareil, puis utilise le bouton Installer quand il est disponible. L'installation garde aussi les anciens sujets hors ligne.</p>
               <button class="primary-action" id="settingsInstallButton" type="button">Installer l'app</button>
             </section>
 

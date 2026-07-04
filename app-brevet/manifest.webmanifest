@@ -1,7 +1,7 @@
 {
   "name": "Brevet Sprint",
   "short_name": "Brevet Sprint",
-  "description": "Cours, exercices, annales et badges pour reviser le brevet hors ligne.",
+  "description": "Cours, exercices, anciens sujets et badges pour reviser le brevet hors ligne.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
