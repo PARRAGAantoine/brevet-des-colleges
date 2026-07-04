@@ -2286,9 +2286,39 @@
 
   function getLessonForQuestion(question) {
     if (!question) return null;
-    return content.lessons.find((lesson) => lesson.notionId && lesson.notionId === question.notionId)
+    const keywordLesson = getKeywordLessonForQuestion(question);
+    const exactNotionLesson = content.lessons.find((lesson) => lesson.notionId && lesson.notionId === question.notionId);
+    const isBroadGeometry = question.notionId === "math.geometrie";
+    return (isBroadGeometry ? keywordLesson : exactNotionLesson)
+      || exactNotionLesson
+      || keywordLesson
       || content.lessons.find((lesson) => lesson.subject === question.subject && chapterMatches(lesson.chapter, question.chapter))
       || content.lessons.find((lesson) => lesson.subject === question.subject);
+  }
+
+  function getKeywordLessonForQuestion(question) {
+    const text = normalizeText([
+      question.id,
+      question.generatorId,
+      question.notionId,
+      question.chapter,
+      question.title,
+      question.question,
+      question.prompt,
+      question.explanation
+    ].filter(Boolean).join(" "));
+    const lessonMatches = [
+      { keywords: ["thales"], lesson: ["thales"] },
+      { keywords: ["pythagore", "hypotenuse"], lesson: ["pythagore"] },
+      { keywords: ["trigonometrie", "cosinus", "sinus", "tangente"], lesson: ["trigonometrie"] },
+      { keywords: ["volume", "pave", "cube", "cylindre"], lesson: ["volume"] }
+    ];
+    const match = lessonMatches.find((item) => item.keywords.some((keyword) => text.includes(keyword)));
+    if (!match) return null;
+    return content.lessons.find((lesson) => {
+      const lessonText = normalizeText(`${lesson.id || ""} ${lesson.title || ""} ${lesson.summary || ""}`);
+      return lesson.subject === question.subject && match.lesson.some((keyword) => lessonText.includes(keyword));
+    }) || null;
   }
 
   function showQuestionHelp(button) {

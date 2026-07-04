@@ -52,10 +52,10 @@
       chapter: "Geometrie",
       title: "Reconnaitre une situation de Thales",
       stage: "Type brevet",
-      summary: "Le theoreme de Thales s'utilise avec deux droites secantes et deux droites paralleles.",
+      summary: "Le theoreme de Thales s'utilise quand deux droites secantes sont coupees par deux droites paralleles. Il permet d'ecrire des rapports egaux pour calculer une longueur.",
       prerequisite: "Savoir identifier des triangles emboites ou en papillon.",
       example: "Si (DE) est parallele a (BC), alors AD/AB = AE/AC = DE/BC.",
-      mistake: "Appliquer Thales sans avoir justifie le parallelisme."
+      mistake: "Appliquer Thales sans avoir justifie le parallelisme, ou utiliser Pythagore alors qu'il n'y a pas de triangle rectangle."
     },
     {
       id: "math-tableur-decouverte",

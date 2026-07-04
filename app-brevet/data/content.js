@@ -139,10 +139,10 @@ window.BREVET_CONTENT = {
       stage: "Type brevet",
       prerequisite: "Savoir reconnaitre des droites paralleles et des points alignes.",
       title: "Utiliser une configuration de Thales",
-      summary: "Quand deux triangles sont formes par des droites secantes et des paralleles, certaines longueurs sont proportionnelles.",
-      example: "Si les triangles ABC et ADE sont en configuration de Thales, on peut ecrire AB / AE = AC / AD.",
-      mistake: "Melanger les longueurs qui ne se correspondent pas.",
-      takeaway: "Repere d'abord les deux triangles, puis associe les cotes qui ont la meme position."
+      summary: "Le theoreme de Thales sert a calculer une longueur quand deux droites secantes sont coupees par deux droites paralleles. Les triangles obtenus ont alors des longueurs proportionnelles.",
+      example: "Si A, D, B sont alignes, A, E, C sont alignes et (DE) est parallele a (BC), alors AD / AB = AE / AC = DE / BC.",
+      mistake: "Appliquer Thales sans avoir verifie les droites paralleles, ou melanger des longueurs qui ne se correspondent pas.",
+      takeaway: "Thales = droites paralleles et rapports de longueurs. Pythagore = triangle rectangle."
     },
     {
       id: "fr_citation",
