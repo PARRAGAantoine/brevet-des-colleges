@@ -621,6 +621,8 @@ Les annales locales ont ete completees pour la serie generale France/metropole.
 Etat actuel :
 
 - 180 PDF dans le corpus local ;
+- 180 PDF publies dans `app-brevet/annales/` pour etre accessibles depuis GitHub Pages ;
+- installation PWA configuree pour mettre aussi les annales en cache hors ligne ;
 - sujets couverts pour chaque annee 2017-2026 et pour les quatre matieres ;
 - corriges encore incomplets, surtout en histoire-geo EMC, sciences et pour 2026 hors mathematiques.
 
@@ -643,6 +645,9 @@ Etat applique :
 
 Prochaines etapes :
 
+- rester en V1 tant que le changement de version majeure n'est pas demande explicitement ;
+- revoir l'ecran d'accueil pour obtenir une entree plus epuree : installer, continuer en ligne, parametres, connexion future, puis choix de travail ;
+- ajouter pendant un exercice un bouton d'aide pour revoir le cours ou signaler que l'exercice n'est pas compris ;
 - approfondir les cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet` avec des exemples vraiment differents ;
 - creer de nouveaux exercices a partir des annales ajoutees ;
 - developper encore les exercices de mathematiques avec reponse a ecrire, notamment a partir des premiers exercices d'annales ;

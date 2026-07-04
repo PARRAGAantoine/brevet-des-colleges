@@ -41,7 +41,7 @@ http://127.0.0.1:4174/
 - 12 sujets guides longs.
 - 33 notions referencees.
 - 46 generateurs offline.
-- Catalogue d'annales integre dans l'app.
+- Catalogue d'annales integre dans l'app, avec 180 PDF publies sur GitHub Pages.
 - Installation PWA hors ligne depuis la page Parametres.
 - Badges avec medailles par famille, paliers verrouille, bronze, argent, or.
 - Reprise d'erreurs avec cours puis 3 questions proches a reussir.
@@ -55,4 +55,4 @@ node tools\validate-content.js
 
 ## Notes
 
-Les annales PDF et documents sources telecharges ne sont pas versionnes dans ce depot. Ils servent de base documentaire locale pour construire les cours, exercices et corrections, mais l'application publiee reste legere et offline.
+Les documents sources telecharges restent ignores hors de `app-brevet/annales/`. Les 180 PDF publies dans `app-brevet/annales/` sont versionnes pour etre accessibles depuis GitHub Pages et mis en cache lors de l'installation PWA.

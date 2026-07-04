@@ -53,7 +53,7 @@ Matieres :
 - Reponses QCM melangees.
 - Correction immediate.
 - Reprise d'erreurs avec cours puis 3 questions proches a reussir.
-- Annales : choix annee/matiere, documents references, saisie note sur 20. Les PDF officiels sont des liens distants : leur ouverture demande Internet. Le reste de l'app et les notes deja enregistrees restent utilisables hors ligne.
+- Annales : choix annee/matiere, documents references, saisie note sur 20. Les 180 PDF sont publies dans `app-brevet/annales/`, accessibles depuis GitHub Pages et mis en cache lors de l'installation PWA.
 - Badges evolutifs : une carte par famille, verrouille puis bronze/argent/or.
 - Parametres : PWA, mode clair/sombre, mise a jour volontaire, login futur.
 
@@ -122,6 +122,8 @@ Le corpus local contient environ 180 PDF d'annales serie generale France/metropo
 
 Les sujets sont couverts pour 2017-2026 et les quatre matieres, mais les corriges restent incomplets selon les annees, surtout hors mathematiques.
 
+Les PDF publies dans `app-brevet/annales/` sont versionnes. Les documents sources hors app restent ignores pour eviter les doublons.
+
 Les annales servent surtout a calibrer le niveau et inspirer des exercices progressifs. Il ne faut pas recopier massivement les sujets.
 
 Les seances sont plafonnees selon les questions disponibles quand un chapitre n'a pas encore assez de contenu ou de generateur.
@@ -145,10 +147,12 @@ Le test attendu aujourd'hui :
 ## Priorites prochaines
 
 1. Tester l'app avec un eleve et noter les blocages reels.
-2. Approfondir les cours par niveau avec de vrais contenus differents, pas seulement un encadre.
-3. Ajouter plus d'exercices issus des annales, surtout en maths et sciences.
-4. Etendre prudemment les reponses a ecrire hors maths : sciences calculables, francais tres cadre, dates/reperes.
-5. Nettoyer les fichiers `.md` historiques et creer une nouvelle roadmap courte pour la prochaine phase.
+2. Revoir l'accueil pour le rendre plus epure : installer, continuer en ligne, parametres, connexion future, puis choix de travail.
+3. Ajouter pendant les exercices un bouton d'aide pour revoir le cours ou signaler que l'exercice n'est pas compris.
+4. Approfondir les cours par niveau avec de vrais contenus differents, pas seulement un encadre.
+5. Ajouter plus d'exercices issus des annales, surtout en maths et sciences.
+6. Etendre prudemment les reponses a ecrire hors maths : sciences calculables, francais tres cadre, dates/reperes.
+7. Nettoyer les fichiers `.md` historiques et creer une nouvelle roadmap courte pour la prochaine phase.
 
 ## Point d'attention
 

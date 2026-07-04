@@ -627,18 +627,18 @@
     if (isAppleMobile) {
       return {
         title: "Installer sur iPhone ou iPad",
-        text: "Dans Safari, touche le bouton Partager, puis choisis Sur l'ecran d'accueil. Apple ne permet pas toujours d'ouvrir la fenetre d'installation depuis un bouton dans la page."
+        text: "Dans Safari, touche le bouton Partager, puis choisis Sur l'ecran d'accueil. Ouvre ensuite l'app une premiere fois avec Internet pour garder aussi les annales hors ligne."
       };
     }
     if (isAndroid) {
       return {
         title: "Installer sur Android",
-        text: "Ouvre la page avec Chrome, puis utilise le bouton Installer l'app. Si rien ne s'affiche, ouvre le menu du navigateur et choisis Ajouter a l'ecran d'accueil."
+        text: "Ouvre la page avec Chrome, puis utilise le bouton Installer l'app. L'installation garde aussi les annales hors ligne ; fais-la avec une connexion correcte."
       };
     }
     return {
       title: "Installer sur ordinateur",
-      text: "Avec Chrome ou Edge, utilise le bouton Installer l'app dans la barre d'adresse ou le bouton de l'accueil. L'app restera ensuite disponible hors ligne."
+      text: "Avec Chrome ou Edge, utilise le bouton Installer l'app dans la barre d'adresse ou le bouton de l'accueil. L'app et les annales resteront ensuite disponibles hors ligne."
     };
   }
 
@@ -2079,8 +2079,8 @@
               <strong>${doc.title}</strong>
               <p class="muted">${doc.kind === "corrige" ? "Corrige / bareme" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
             </div>
-            ${doc.url
-              ? `<a class="ghost-action" href="${doc.url}" target="_blank" rel="noopener">Ouvrir en ligne</a>`
+            ${doc.localUrl || doc.url
+              ? `<a class="ghost-action" href="${doc.localUrl || doc.url}" target="_blank" rel="noopener">${doc.localUrl ? "Ouvrir le PDF" : "Ouvrir en ligne"}</a>`
               : `<span class="status-pill">PDF non integre</span>`}
           </article>
         `).join("")}
@@ -3013,7 +3013,7 @@
       const remote = await response.json();
       const remoteVersion = remote.version || "0.0.0";
       if (compareVersions(remoteVersion, appVersion) > 0) {
-        status.textContent = `Mise a jour disponible : version ${remoteVersion}. Le telechargement sera active avec l'installation PWA.`;
+        status.textContent = `Mise a jour disponible : version ${remoteVersion}. Le telechargement de l'app et des annales sera active avec l'installation PWA.`;
       } else {
         status.textContent = `Tu as deja la derniere version disponible (${appVersion}).`;
       }

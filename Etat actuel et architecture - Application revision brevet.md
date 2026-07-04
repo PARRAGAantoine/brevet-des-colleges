@@ -707,7 +707,7 @@ Une famille de badges `Annales` est disponible : bronze a 10/20, argent a 14/20,
 
 Les medailles ont ete regenerees par familles pour eviter les erreurs visuelles : les badges de defi n'utilisent plus de badge mathematiques decoupe par erreur. Chaque famille dispose maintenant de variantes verrouille, bronze, argent et or.
 
-La page Annales dispose aussi d'un catalogue integre : elle affiche les sujets et corriges connus pour l'annee et la matiere choisies, avec lien web quand il existe. Les PDF restent hors GitHub pour ne pas alourdir le depot.
+La page Annales dispose aussi d'un catalogue integre : elle affiche les sujets et corriges connus pour l'annee et la matiere choisies. Les 180 PDF publies sont maintenant dans `app-brevet/annales/`, accessibles depuis GitHub Pages et inclus dans le cache PWA lors de l'installation.
 
 ## Mise a jour PWA - installation hors ligne
 
@@ -717,6 +717,7 @@ L'app dispose maintenant d'une premiere installation PWA :
 - service worker ;
 - icones 192 et 512 ;
 - cache des fichiers essentiels ;
+- cache des 180 PDF d'annales lors de l'installation ;
 - bouton Installer sur l'accueil et dans les Parametres.
 
 Important : la verification des mises a jour reste manuelle. L'app ne contacte pas GitHub automatiquement au demarrage.
@@ -740,7 +741,7 @@ Une page Parametres existe maintenant dans le menu principal.
 
 Elle contient :
 
-- la version installee, actuellement `1.0.0` ;
+- la version installee, lue depuis `version.json` ;
 - un bouton manuel de verification des mises a jour ;
 - une zone Compte / Se connecter marquee comme future ;
 - un choix de theme clair ou sombre.

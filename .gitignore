@@ -1,5 +1,7 @@
 # Local source documents and downloaded exam papers
 *.pdf
+!app-brevet/annales/
+!app-brevet/annales/*.pdf
 Documents supplementaires - Brevet general France/
 Sauvegardes/
 
@@ -8,6 +10,7 @@ Sauvegardes/
 Thumbs.db
 desktop.ini
 .vscode/
+-- Token github.txt
 
 # Dependencies/build artifacts if added later
 node_modules/

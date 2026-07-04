@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.1.7",
-  "publishedAt": "2026-07-03",
-  "notes": "Plafonnement des seances selon les questions disponibles et clarification des annales en ligne."
+  "version": "1.1.8",
+  "publishedAt": "2026-07-04",
+  "notes": "Annales PDF publiees sur GitHub Pages et mises en cache lors de l'installation."
 }
