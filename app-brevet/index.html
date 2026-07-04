@@ -26,7 +26,7 @@
           <button class="nav-item" data-view="annales" type="button">Annales</button>
           <button class="nav-item" data-view="progress" type="button">Progression</button>
           <button class="nav-item" data-view="badges" type="button">Badges</button>
-          <button class="nav-item" data-view="settings" type="button">Parametres</button>
+          <button class="nav-item" data-view="settings" type="button">Paramètres</button>
         </nav>
         <div class="sidebar-card">
           <p class="muted">Objectif</p>
@@ -37,55 +37,39 @@
 
       <main class="main-content">
         <section class="view active" id="dashboardView">
-          <div class="hero-band home-landing">
+          <div class="hero-band home-landing home-minimal">
             <div>
-              <p class="eyebrow">Objectif brevet - juin 2027</p>
               <h2>Brevet Sprint</h2>
-              <p id="dailyHint">Revise le brevet petit a petit, meme sans connexion.</p>
+              <p id="dailyHint">Réviser le brevet petit à petit, avec des cours courts, des exercices et des annales.</p>
             </div>
-            <div class="hero-actions">
-              <button class="primary-action" id="installAppButton" type="button">Installer l'app</button>
-              <a class="secondary-link" href="https://parragaantoine.github.io/brevet-des-colleges/app-brevet/" target="_blank" rel="noopener">Continuer en ligne</a>
-            </div>
-          </div>
-
-          <section class="home-actions panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Que veux-tu faire ?</p>
-                <h3>Choisis une entree</h3>
+            <div class="home-minimal-actions">
+              <div class="home-minimal-action">
+                <button class="primary-action" id="installAppButton" type="button">Installer l'app</button>
+                <p>Installe l'application pour t'entraîner sans Internet, avec les cours, exercices et annales disponibles hors ligne.</p>
+              </div>
+              <div class="home-minimal-action">
+                <a class="secondary-link" href="https://parragaantoine.github.io/brevet-des-colleges/app-brevet/" target="_blank" rel="noopener">Continuer en ligne</a>
+                <p>Ouvre la version GitHub Pages si tu veux utiliser l'application directement dans le navigateur.</p>
+              </div>
+              <div class="home-minimal-action">
+                <button class="secondary-action" data-view-target="settings" type="button">Paramètres</button>
+                <p>Installation, mode sombre, mises à jour et future connexion.</p>
+              </div>
+              <div class="home-minimal-action">
+                <button class="secondary-action" data-view-target="settings" type="button">Se connecter</button>
+                <p>Prévu plus tard pour retrouver sa progression sur plusieurs appareils.</p>
+              </div>
+              <div class="home-minimal-action">
+                <a class="ghost-action" href="mailto:parraga.antoine@gmail.com?subject=Brevet%20Sprint%20-%20avis%20ou%20bug">Me contacter</a>
+                <p>Envoie un mail pour signaler un bug ou donner ton avis sur l'application.</p>
               </div>
             </div>
-            <div class="home-action-grid">
-              <button class="home-action" data-view-target="session" type="button">
-                <strong>Commencer une seance</strong>
-                <span>Un cours, puis une serie d'exercices corriges.</span>
-              </button>
-              <button class="home-action" data-view-target="practice" type="button">
-                <strong>Choisir une matiere</strong>
-                <span>Questions rapides par matiere et par chapitre.</span>
-              </button>
-              <button class="home-action" id="homeReviewMistakeButton" type="button">
-                <strong>Revoir mes erreurs</strong>
-                <span>Reprendre avec un cours puis des questions proches.</span>
-              </button>
-              <button class="home-action" data-view-target="annales" type="button">
-                <strong>Faire une annale</strong>
-                <span>Refaire une vraie epreuve et noter le resultat.</span>
-              </button>
-            </div>
-          </section>
-
-          <section class="home-today panel">
-            <p class="eyebrow">Aujourd'hui</p>
-            <p id="dailyProgressText">Objectif : reussir une seance sans faute.</p>
-            <p class="muted" id="homeSecondaryHint">Les points, les badges et le detail sont dans Progression.</p>
-          </section>
+          </div>
         </section>
 
         <section class="view" id="roadmapView">
           <div class="page-heading">
-            <p class="eyebrow">Objectif juin 2027</p>
+            <p class="eyebrow">Objectif brevet</p>
             <h2>Parcours du programme</h2>
             <p>Choisis un chapitre a travailler ou indique ceux que tu n'as pas encore vus en classe.</p>
           </div>
@@ -289,7 +273,7 @@
         <section class="view" id="settingsView">
           <div class="page-heading">
             <p class="eyebrow">Application</p>
-            <h2>Parametres</h2>
+            <h2>Paramètres</h2>
             <p>L'app reste utilisable hors ligne. Internet sert seulement aux actions que tu demandes.</p>
           </div>
           <div class="settings-grid">
@@ -324,7 +308,7 @@
                 <h3>Se connecter</h3>
               </div>
               <p class="muted">Plus tard, cette zone servira a retrouver la progression sur telephone, tablette et ordinateur.</p>
-              <button class="ghost-action" type="button" disabled>Se connecter - bientot</button>
+              <button class="ghost-action" type="button" disabled>Se connecter - bientôt</button>
             </section>
 
             <section class="panel settings-panel">

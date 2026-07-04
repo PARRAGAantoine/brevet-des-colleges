@@ -838,13 +838,17 @@
     });
     const dailyProgressBar = document.getElementById("dailyProgressBar");
     if (dailyProgressBar) dailyProgressBar.style.width = `${dailyPercent}%`;
-    document.getElementById("dailyProgressText").textContent = perfectToday && pendingMistakes === 0
-      ? "Objectif valide : seance sans faute."
-      : `${todayAnswers.length} questions faites. Objectif : reussir une seance sans faute.`;
+    const dailyProgressText = document.getElementById("dailyProgressText");
+    if (dailyProgressText) {
+      dailyProgressText.textContent = perfectToday && pendingMistakes === 0
+        ? "Objectif valide : seance sans faute."
+        : `${todayAnswers.length} questions faites. Objectif : reussir une seance sans faute.`;
+    }
     document.getElementById("sidebarGoal").textContent = perfectToday && pendingMistakes === 0
       ? "Objectif valide"
       : `${pendingMistakes} erreur${pendingMistakes > 1 ? "s" : ""} a reprendre`;
-    document.getElementById("dailyHint").textContent = "Revise le brevet petit a petit, meme sans connexion.";
+    const dailyHint = document.getElementById("dailyHint");
+    if (dailyHint) dailyHint.textContent = "Réviser le brevet petit à petit, avec des cours courts, des exercices et des annales.";
     const homeSecondaryHint = document.getElementById("homeSecondaryHint");
     if (homeSecondaryHint) {
       homeSecondaryHint.textContent = pendingMistakes
