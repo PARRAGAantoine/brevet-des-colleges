@@ -122,6 +122,8 @@
     ["a voix haute", "\u00e0 voix haute"],
     ["a valider", "\u00e0 valider"],
     ["A valider", "\u00c0 valider"],
+    ["a retrouver", "\u00e0 retrouver"],
+    ["A retrouver", "\u00c0 retrouver"],
     ["a essayer", "\u00e0 essayer"],
     ["A essayer", "\u00c0 essayer"],
     ["ou tu en es", "o\u00f9 tu en es"],
@@ -371,6 +373,48 @@
     ["Serie", "S\u00e9rie"],
     ["resultat", "r\u00e9sultat"],
     ["Resultat", "R\u00e9sultat"],
+    ["resultats", "r\u00e9sultats"],
+    ["Resultats", "R\u00e9sultats"],
+    ["Entrainement", "Entra\u00eenement"],
+    ["Reecriture", "R\u00e9\u00e9criture"],
+    ["Redaction", "R\u00e9daction"],
+    ["Reperes", "Rep\u00e8res"],
+    ["reperes", "rep\u00e8res"],
+    ["Donnees", "Donn\u00e9es"],
+    ["francais", "fran\u00e7ais"],
+    ["histoire-geo", "histoire-g\u00e9o"],
+    ["elan", "\u00e9lan"],
+    ["Elan", "\u00c9lan"],
+    ["mises a jour", "mises \u00e0 jour"],
+    ["mise a jour", "mise \u00e0 jour"],
+    ["Mise a jour", "Mise \u00e0 jour"],
+    ["Verifier", "V\u00e9rifier"],
+    ["verification", "v\u00e9rification"],
+    ["Verification", "V\u00e9rification"],
+    ["revisions", "r\u00e9visions"],
+    ["Revisions", "R\u00e9visions"],
+    ["generateurs", "g\u00e9n\u00e9rateurs"],
+    ["generateur", "g\u00e9n\u00e9rateur"],
+    ["telephone", "t\u00e9l\u00e9phone"],
+    ["Telephone", "T\u00e9l\u00e9phone"],
+    ["bientot", "bient\u00f4t"],
+    ["Bientot", "Bient\u00f4t"],
+    ["Theme", "Th\u00e8me"],
+    ["theme", "th\u00e8me"],
+    ["gardee", "gard\u00e9e"],
+    ["gardees", "gard\u00e9es"],
+    ["garde", "gard\u00e9"],
+    ["lancee", "lanc\u00e9e"],
+    ["lancees", "lanc\u00e9es"],
+    ["lance", "lanc\u00e9"],
+    ["lances", "lanc\u00e9s"],
+    ["materiel", "mat\u00e9riel"],
+    ["Materiel", "Mat\u00e9riel"],
+    ["duree", "dur\u00e9e"],
+    ["Duree", "Dur\u00e9e"],
+    ["progres", "progr\u00e8s"],
+    ["Progres", "Progr\u00e8s"],
+    ["premieres", "premi\u00e8res"],
     ["valeur trouvee", "valeur trouv\u00e9e"]
   ];
 
@@ -2637,6 +2681,7 @@
       </section>
     `;
     document.getElementById("startSessionQuestions").addEventListener("click", nextSessionStep);
+    applyTextPolish(stage);
   }
 
   function nextSessionStep() {
@@ -2654,6 +2699,7 @@
         ${renderQuestion(question, "session")}
       </section>
     `;
+    applyTextPolish(document.getElementById("sessionStage"));
   }
 
   function finishSession() {
