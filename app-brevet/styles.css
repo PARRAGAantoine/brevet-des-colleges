@@ -1327,19 +1327,23 @@ input[type="text"] {
 }
 
 :root[data-theme="dark"] .lesson-callout.soft,
+:root[data-theme="dark"] .home-action,
 :root[data-theme="dark"] .annal-guide > div,
 :root[data-theme="dark"] .annal-document-item,
-:root[data-theme="dark"] .question-help-content,
-:root[data-theme="dark"] .home-action {
-  color: #172033;
+:root[data-theme="dark"] .question-help-content {
+  color: var(--text);
 }
 
 :root[data-theme="dark"] .lesson-callout.soft .muted,
+:root[data-theme="dark"] .home-action span,
 :root[data-theme="dark"] .annal-guide > div .muted,
 :root[data-theme="dark"] .annal-document-item .muted,
-:root[data-theme="dark"] .question-help-content .muted,
-:root[data-theme="dark"] .home-action span {
-  color: #42576a;
+:root[data-theme="dark"] .question-help-content .muted {
+  color: #c4d2d9;
+}
+
+:root[data-theme="dark"] .home-action strong {
+  color: #f5fbff;
 }
 
 .progress-row {
