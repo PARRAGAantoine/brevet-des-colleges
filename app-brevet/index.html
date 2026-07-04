@@ -37,11 +37,11 @@
 
       <main class="main-content">
         <section class="view active" id="dashboardView">
-          <div class="hero-band">
+          <div class="hero-band home-landing">
             <div>
               <p class="eyebrow">Objectif brevet - juin 2027</p>
-              <h2>Bienvenue dans Brevet Sprint</h2>
-              <p id="dailyHint">Cours, exercices, erreurs a reprendre et badges : tout est pret pour reviser sans connexion.</p>
+              <h2>Brevet Sprint</h2>
+              <p id="dailyHint">Revise le brevet petit a petit, meme sans connexion.</p>
             </div>
             <div class="hero-actions">
               <button class="primary-action" id="installAppButton" type="button">Installer l'app</button>
@@ -49,114 +49,37 @@
             </div>
           </div>
 
-          <div class="metrics-grid">
-            <article class="metric">
-              <span>Points</span>
-              <strong id="pointsValue">0</strong>
-            </article>
-            <article class="metric">
-              <span>Jours de suite</span>
-              <strong id="streakValue">0 j</strong>
-            </article>
-            <article class="metric">
-              <span>Record</span>
-              <strong id="bestStreakValue">0 j</strong>
-            </article>
-            <article class="metric">
-              <span>Reussite</span>
-              <strong id="successValue">0 %</strong>
-            </article>
-          </div>
-
           <section class="home-actions panel">
             <div class="panel-header">
               <div>
                 <p class="eyebrow">Que veux-tu faire ?</p>
-                <h3>Choisis ton entree</h3>
+                <h3>Choisis une entree</h3>
               </div>
             </div>
             <div class="home-action-grid">
               <button class="home-action" data-view-target="session" type="button">
-                <strong>Seance guidee</strong>
+                <strong>Commencer une seance</strong>
                 <span>Un cours, puis une serie d'exercices corriges.</span>
               </button>
               <button class="home-action" data-view-target="practice" type="button">
-                <strong>Exercices libres</strong>
-                <span>Une question rapide ou une erreur a reprendre.</span>
+                <strong>Choisir une matiere</strong>
+                <span>Questions rapides par matiere et par chapitre.</span>
               </button>
-              <button class="home-action" data-view-target="progress" type="button">
-                <strong>Voir ma progression</strong>
-                <span>Points forts, erreurs et historique.</span>
+              <button class="home-action" id="homeReviewMistakeButton" type="button">
+                <strong>Revoir mes erreurs</strong>
+                <span>Reprendre avec un cours puis des questions proches.</span>
               </button>
               <button class="home-action" data-view-target="annales" type="button">
-                <strong>Annales</strong>
+                <strong>Faire une annale</strong>
                 <span>Refaire une vraie epreuve et noter le resultat.</span>
               </button>
-              <button class="home-action" data-view-target="badges" type="button">
-                <strong>Badges</strong>
-                <span>Les medailles a gagner sur la duree.</span>
-              </button>
             </div>
           </section>
 
-          <div class="dashboard-layout">
-            <section class="panel">
-              <div class="panel-header">
-                <div>
-                  <p class="eyebrow">Conseil du jour</p>
-                  <h3 id="recommendationTitle">Mathematiques</h3>
-                </div>
-                <span class="status-pill" id="recommendationStatus">A travailler</span>
-              </div>
-              <p id="recommendationText">Commence par quelques questions pour voir ou tu en es.</p>
-              <div class="actions-row">
-                <button class="secondary-action" data-view-target="session" type="button">Seance guidee</button>
-                <button class="ghost-action" data-view-target="practice" type="button">Exercices libres</button>
-              </div>
-            </section>
-
-            <section class="panel">
-              <div class="panel-header">
-                <div>
-                  <p class="eyebrow">Parcours</p>
-                  <h3>Ton parcours</h3>
-                </div>
-              </div>
-              <div class="learning-steps" aria-label="Progression pedagogique">
-                <span class="step active">1. J'apprends</span>
-                <span class="step">2. Je m'entraine</span>
-                <span class="step">3. Comme au brevet</span>
-              </div>
-              <div class="progress-track" aria-label="Progression du jour">
-                <div id="dailyProgressBar"></div>
-              </div>
-              <p class="muted" id="dailyProgressText">0 / 10 questions pour valider la journee.</p>
-            </section>
-          </div>
-
-          <section class="panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Acces rapide</p>
-                <h3>Aller plus loin</h3>
-              </div>
-            </div>
-            <div class="actions-row">
-              <button class="ghost-action" data-view-target="roadmap" type="button">Voir le parcours</button>
-              <button class="ghost-action" data-view-target="courses" type="button">Lire un cours</button>
-              <button class="ghost-action" data-view-target="guided" type="button">Sujets longs</button>
-              <button class="ghost-action" data-view-target="annales" type="button">Annales</button>
-            </div>
-          </section>
-
-          <section class="panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Matieres</p>
-                <h3>Ou tu en es</h3>
-              </div>
-            </div>
-            <div class="subject-grid" id="subjectOverview"></div>
+          <section class="home-today panel">
+            <p class="eyebrow">Aujourd'hui</p>
+            <p id="dailyProgressText">Objectif : reussir une seance sans faute.</p>
+            <p class="muted" id="homeSecondaryHint">Les points, les badges et le detail sont dans Progression.</p>
           </section>
         </section>
 
@@ -436,6 +359,9 @@
     <script src="data/extra-content-8.js"></script>
     <script src="data/extra-content-9.js"></script>
     <script src="data/extra-content-10.js"></script>
+    <script src="data/extra-content-11.js"></script>
+    <script src="data/extra-content-12.js"></script>
+    <script src="data/extra-content-13.js"></script>
     <script src="data/annales.js"></script>
     <script src="data/notions.js"></script>
     <script src="generators/registry.js"></script>

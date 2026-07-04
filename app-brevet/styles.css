@@ -313,6 +313,10 @@ button:disabled {
   gap: 16px;
 }
 
+.home-action-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .home-action {
   min-height: 118px;
   display: grid;
@@ -338,6 +342,42 @@ button:disabled {
 .home-action span,
 .settings-status {
   color: var(--muted);
+}
+
+.home-today {
+  display: grid;
+  gap: 6px;
+}
+
+.home-today p {
+  margin: 0;
+}
+
+.question-help {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.help-reward-note {
+  flex-basis: 100%;
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.question-help-content {
+  flex-basis: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--mint);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.question-help-content p {
+  margin: 8px 0 0;
 }
 
 .panel {
@@ -1150,6 +1190,24 @@ input[type="text"] {
   color: #42576a;
 }
 
+:root[data-theme="dark"] .lesson-callout.soft,
+:root[data-theme="dark"] .course-note,
+:root[data-theme="dark"] .annal-guide > div,
+:root[data-theme="dark"] .annal-document-item,
+:root[data-theme="dark"] .question-help-content,
+:root[data-theme="dark"] .home-action {
+  color: #172033;
+}
+
+:root[data-theme="dark"] .lesson-callout.soft .muted,
+:root[data-theme="dark"] .course-note .muted,
+:root[data-theme="dark"] .annal-guide > div .muted,
+:root[data-theme="dark"] .annal-document-item .muted,
+:root[data-theme="dark"] .question-help-content .muted,
+:root[data-theme="dark"] .home-action span {
+  color: #42576a;
+}
+
 .progress-row {
   display: grid;
   grid-template-columns: minmax(130px, 180px) 1fr 60px;
@@ -1259,6 +1317,21 @@ input[type="text"] {
 .annal-document-list {
   display: grid;
   gap: 10px;
+}
+
+.annal-document-group {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.annal-document-group-heading h4,
+.annal-document-group-heading p {
+  margin: 0;
+}
+
+.annal-document-group-heading p {
+  margin-top: 4px;
 }
 
 .annal-document-item {
@@ -1423,6 +1496,28 @@ input[type="text"] {
     padding: 18px;
   }
 
+  .sidebar {
+    gap: 14px;
+  }
+
+  .brand {
+    margin-bottom: 4px;
+  }
+
+  .sidebar-card {
+    display: none;
+  }
+
+  .nav-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .nav-item {
+    min-height: 42px;
+    padding: 10px 12px;
+  }
+
   .hero-band {
     flex-direction: column;
     align-items: flex-start;
@@ -1434,11 +1529,10 @@ input[type="text"] {
   .home-action-grid,
   .settings-grid,
   .cards-grid,
-  .badge-grid,
-  .dashboard-layout,
-  .progress-layout,
-  .practice-layout,
-  .nav-list {
+    .badge-grid,
+    .dashboard-layout,
+    .progress-layout,
+    .practice-layout {
     grid-template-columns: 1fr;
   }
 

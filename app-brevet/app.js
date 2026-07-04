@@ -84,6 +84,8 @@
     ["repondre", "r\u00e9pondre"],
     ["reviser", "r\u00e9viser"],
     ["Reviser", "R\u00e9viser"],
+    ["Revise", "R\u00e9vise"],
+    ["revise", "r\u00e9vise"],
     ["revision", "r\u00e9vision"],
     ["Revision", "R\u00e9vision"],
     ["regulier", "r\u00e9gulier"],
@@ -99,6 +101,9 @@
     ["a debloquer", "\u00e0 d\u00e9bloquer"],
     ["a gagner", "\u00e0 gagner"],
     ["A gagner", "\u00c0 gagner"],
+    ["a faire", "\u00e0 faire"],
+    ["A faire", "\u00c0 faire"],
+    ["A ouvrir", "\u00c0 ouvrir"],
     ["a retravailler", "\u00e0 retravailler"],
     ["A retravailler", "\u00c0 retravailler"],
     ["a voir", "\u00e0 voir"],
@@ -140,8 +145,10 @@
     ["Precise", "Pr\u00e9cise"],
     ["pedagogique", "p\u00e9dagogique"],
     ["Pedagogique", "P\u00e9dagogique"],
-    ["commence", "commenc\u00e9"],
-    ["Commence", "Commenc\u00e9"],
+    ["commencee", "commenc\u00e9e"],
+    ["commencees", "commenc\u00e9es"],
+    ["commence par", "commence par"],
+    ["Commence par", "Commence par"],
     ["Acces", "Acc\u00e8s"],
     ["acces", "acc\u00e8s"],
     ["eleve", "\u00e9l\u00e8ve"],
@@ -155,11 +162,44 @@
     ["Europeenne", "Europ\u00e9enne"],
     ["donnees", "donn\u00e9es"],
     ["donnee", "donn\u00e9e"],
+    ["probabilite", "probabilit\u00e9"],
+    ["probabilites", "probabilit\u00e9s"],
+    ["Probabilites", "Probabilit\u00e9s"],
+    ["evenement", "\u00e9v\u00e9nement"],
+    ["evenements", "\u00e9v\u00e9nements"],
+    ["corrigee", "corrig\u00e9e"],
+    ["corrigees", "corrig\u00e9es"],
+    ["corrige", "corrig\u00e9"],
+    ["corriges", "corrig\u00e9s"],
+    ["Corrige", "Corrig\u00e9"],
+    ["Corriges", "Corrig\u00e9s"],
+    ["annee", "ann\u00e9e"],
+    ["annees", "ann\u00e9es"],
+    ["Annee", "Ann\u00e9e"],
+    ["epreuve", "\u00e9preuve"],
+    ["epreuves", "\u00e9preuves"],
+    ["Epreuve", "\u00c9preuve"],
+    ["bareme", "bar\u00e8me"],
+    ["integre", "int\u00e9gr\u00e9"],
+    ["reference", "r\u00e9f\u00e9renc\u00e9"],
+    ["enregistree", "enregistr\u00e9e"],
+    ["enregistrees", "enregistr\u00e9es"],
+    ["terminee", "termin\u00e9e"],
+    ["terminees", "termin\u00e9es"],
+    ["termine", "termin\u00e9"],
+    ["termines", "termin\u00e9s"],
+    ["general", "g\u00e9n\u00e9ral"],
+    ["Generale", "G\u00e9n\u00e9rale"],
+    ["detaille", "d\u00e9taill\u00e9"],
+    ["detaillee", "d\u00e9taill\u00e9e"],
+    ["Metropole", "M\u00e9tropole"],
     ["Developpement", "D\u00e9veloppement"],
     ["developpement", "d\u00e9veloppement"],
     ["Decouverte", "D\u00e9couverte"],
     ["decouverte", "d\u00e9couverte"],
     ["entrainement", "entra\u00eenement"],
+    ["entree", "entr\u00e9e"],
+    ["Entree", "Entr\u00e9e"],
     ["entrainer", "entra\u00eener"],
     ["entraine", "entra\u00eene"],
     ["t'entrainer", "t'entra\u00eener"],
@@ -735,29 +775,43 @@
     const recommendation = getRecommendation();
     activeSubject = recommendation.subject;
     const todayAnswers = getTodayAnswers();
-    const perfectToday = progress.sessions.some((session) => session.date === today() && session.correctAnswers === session.questionsAnswered && session.questionsAnswered > 0);
+    const perfectToday = progress.sessions.some((session) => session.date === today() && session.correctAnswers === session.questionsAnswered && session.questionsAnswered > 0 && !session.usedHelp);
     const pendingMistakes = progress.mistakes.filter((mistake) => !mistake.repaired).length;
     const dailyPercent = perfectToday && pendingMistakes === 0 ? 100 : Math.min(90, Math.round((todayAnswers.length / 20) * 100));
 
-    document.getElementById("pointsValue").textContent = progress.points;
-    document.getElementById("streakValue").textContent = `${progress.currentStreak} j`;
-    document.getElementById("bestStreakValue").textContent = `${progress.bestStreak} j`;
-    document.getElementById("successValue").textContent = `${getOverallSuccess()} %`;
-    document.getElementById("recommendationTitle").textContent = recommendation.title;
-    document.getElementById("recommendationStatus").textContent = recommendation.status;
-    document.getElementById("recommendationText").textContent = recommendation.text;
-    document.getElementById("dailyProgressBar").style.width = `${dailyPercent}%`;
+    const legacyFields = {
+      pointsValue: progress.points,
+      streakValue: `${progress.currentStreak} j`,
+      bestStreakValue: `${progress.bestStreak} j`,
+      successValue: `${getOverallSuccess()} %`,
+      recommendationTitle: recommendation.title,
+      recommendationStatus: recommendation.status,
+      recommendationText: recommendation.text
+    };
+    Object.entries(legacyFields).forEach(([id, value]) => {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    });
+    const dailyProgressBar = document.getElementById("dailyProgressBar");
+    if (dailyProgressBar) dailyProgressBar.style.width = `${dailyPercent}%`;
     document.getElementById("dailyProgressText").textContent = perfectToday && pendingMistakes === 0
       ? "Objectif valide : seance sans faute."
       : `${todayAnswers.length} questions faites. Objectif : reussir une seance sans faute.`;
     document.getElementById("sidebarGoal").textContent = perfectToday && pendingMistakes === 0
       ? "Objectif valide"
       : `${pendingMistakes} erreur${pendingMistakes > 1 ? "s" : ""} a reprendre`;
-    document.getElementById("dailyHint").textContent = recommendation.mode === "first-run"
-      ? "Choisis une matiere, fais une seance guidee ou lance un melange decouverte."
-      : `${recommendation.text} Tu peux commencer par le conseil du jour ou choisir une autre entree.`;
+    document.getElementById("dailyHint").textContent = "Revise le brevet petit a petit, meme sans connexion.";
+    const homeSecondaryHint = document.getElementById("homeSecondaryHint");
+    if (homeSecondaryHint) {
+      homeSecondaryHint.textContent = pendingMistakes
+        ? `${pendingMistakes} erreur${pendingMistakes > 1 ? "s" : ""} a reprendre.`
+        : recommendation.mode === "first-run"
+          ? "Commence par une seance guidee ou choisis une matiere."
+          : `Conseil : ${recommendation.title}.`;
+    }
 
     const overview = document.getElementById("subjectOverview");
+    if (!overview) return;
     overview.innerHTML = content.subjects.map((subject) => {
       const stats = getSubjectStats(subject.id);
       const level = stats.total === 0 ? "Pas encore commence" : stats.rate >= 80 ? "Solide" : stats.rate >= 50 ? "En progres" : "A reprendre";
@@ -2072,20 +2126,34 @@
         <span class="status-pill">${subjects.length} sujet${subjects.length > 1 ? "s" : ""}</span>
         <span class="status-pill">${corrections.length} corrige${corrections.length > 1 ? "s" : ""}</span>
       </div>
-      <div class="annal-document-list">
-        ${docs.slice(0, 8).map((doc) => `
-          <article class="annal-document-item">
-            <div>
-              <strong>${doc.title}</strong>
-              <p class="muted">${doc.kind === "corrige" ? "Corrige / bareme" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
-            </div>
-            ${doc.localUrl || doc.url
-              ? `<a class="ghost-action" href="${doc.localUrl || doc.url}" target="_blank" rel="noopener">${doc.localUrl ? "Ouvrir le PDF" : "Ouvrir en ligne"}</a>`
-              : `<span class="status-pill">PDF non integre</span>`}
-          </article>
-        `).join("")}
+      ${renderAnnalDocumentGroup("Sujets a faire", subjects, "Commence ici. Ouvre d'abord le sujet, sans regarder la correction.")}
+      ${renderAnnalDocumentGroup("Corriges", corrections, "A ouvrir seulement apres avoir termine le sujet.")}
+    `;
+  }
+
+  function renderAnnalDocumentGroup(title, docs, hint) {
+    if (!docs.length) return "";
+    return `
+      <div class="annal-document-group">
+        <div class="annal-document-group-heading">
+          <h4>${title}</h4>
+          <p class="muted">${hint}</p>
+        </div>
+        <div class="annal-document-list">
+          ${docs.slice(0, 6).map((doc) => `
+            <article class="annal-document-item">
+              <div>
+                <strong>${doc.title}</strong>
+                <p class="muted">${doc.kind === "corrige" ? "Corrige / bareme" : "Sujet"}${doc.source ? ` - ${doc.source}` : ""}</p>
+              </div>
+              ${doc.localUrl || doc.url
+                ? `<a class="ghost-action" href="${doc.localUrl || doc.url}" target="_blank" rel="noopener">${doc.localUrl ? "Ouvrir le PDF" : "Ouvrir en ligne"}</a>`
+                : `<span class="status-pill">PDF non integre</span>`}
+            </article>
+          `).join("")}
+        </div>
+        ${docs.length > 6 ? `<p class="muted">${docs.length - 6} autre${docs.length - 6 > 1 ? "s" : ""} document${docs.length - 6 > 1 ? "s" : ""} dans ce groupe.</p>` : ""}
       </div>
-      ${docs.length > 8 ? `<p class="muted">${docs.length - 8} autre${docs.length - 8 > 1 ? "s" : ""} document${docs.length - 8 > 1 ? "s" : ""} dans le corpus local.</p>` : ""}
     `;
   }
 
@@ -2111,6 +2179,7 @@
       <div class="choice-list">
         ${choices.map((choice) => `<button class="choice-button" data-answer-context="${context}" data-answer="${escapeHtml(choice)}" type="button">${escapeHtml(choice)}</button>`).join("")}
       </div>
+      ${renderQuestionHelp(question, context)}
       <div class="feedback" hidden></div>
     `;
   }
@@ -2128,6 +2197,7 @@
         </label>
         <button class="primary-action" data-short-answer-submit data-answer-context="${context}" type="button">Valider</button>
       </div>
+      ${renderQuestionHelp(question, context)}
       <div class="feedback" hidden></div>
     `;
   }
@@ -2148,8 +2218,78 @@
         </div>
         <button class="primary-action order-submit" data-order-submit data-answer-context="${context}" type="button" disabled>Valider l'ordre</button>
       </div>
+      ${renderQuestionHelp(question, context)}
       <div class="feedback" hidden></div>
     `;
+  }
+
+  function renderQuestionHelp(question, context) {
+    return `
+      <div class="question-help">
+        <button class="ghost-action" data-show-question-help data-answer-context="${context}" type="button">Voir le cours</button>
+        <button class="ghost-action" data-report-confusion data-answer-context="${context}" type="button">Je ne comprends pas</button>
+        <p class="help-reward-note">Tu peux demander de l'aide. La question ne comptera simplement pas pour une recompense sans aide.</p>
+        <div class="question-help-content" hidden></div>
+      </div>
+    `;
+  }
+
+  function getQuestionFromContext(context) {
+    return context === "session" && currentSession
+      ? currentSession.questions[currentSession.index]
+      : currentPracticeQuestion;
+  }
+
+  function getLessonForQuestion(question) {
+    if (!question) return null;
+    return content.lessons.find((lesson) => lesson.notionId && lesson.notionId === question.notionId)
+      || content.lessons.find((lesson) => lesson.subject === question.subject && chapterMatches(lesson.chapter, question.chapter))
+      || content.lessons.find((lesson) => lesson.subject === question.subject);
+  }
+
+  function showQuestionHelp(button) {
+    const panel = button.closest(".question-panel, .session-stage");
+    const context = button.dataset.answerContext;
+    const question = getQuestionFromContext(context);
+    const lesson = getLessonForQuestion(question);
+    const help = panel.querySelector(".question-help-content");
+    if (!help) return;
+    help.hidden = !help.hidden && help.dataset.open === "true";
+    if (help.hidden) {
+      help.dataset.open = "false";
+      return;
+    }
+    help.dataset.open = "true";
+    markQuestionHelpUsed(question, context);
+    help.innerHTML = lesson ? `
+      <strong>${lesson.title}</strong>
+      <p>${lesson.summary || lesson.takeaway || "Relis la consigne et cherche ce que la question demande exactement."}</p>
+      ${lesson.example ? `<p><strong>Exemple :</strong> ${lesson.example}</p>` : ""}
+      ${lesson.takeaway ? `<p><strong>A retenir :</strong> ${lesson.takeaway}</p>` : ""}
+    ` : `
+      <strong>Methode</strong>
+      <p>Relis la consigne, repere les mots importants, puis elimine les reponses impossibles.</p>
+    `;
+    applyTextPolish(help);
+  }
+
+  function reportQuestionConfusion(button) {
+    const context = button.dataset.answerContext;
+    const question = getQuestionFromContext(context);
+    if (!question) return;
+    markQuestionHelpUsed(question, context);
+    showQuestionHelp(button);
+    showToast("Aide ouverte : cette question ne comptera pas pour une recompense sans aide.");
+    renderDashboard();
+  }
+
+  function markQuestionHelpUsed(question, context) {
+    question.helpUsed = true;
+    if (context === "session" && currentSession) {
+      currentSession.usedHelp = true;
+      if (!Array.isArray(currentSession.helpedQuestionIds)) currentSession.helpedQuestionIds = [];
+      if (!currentSession.helpedQuestionIds.includes(question.id)) currentSession.helpedQuestionIds.push(question.id);
+    }
   }
 
   function seededHash(value) {
@@ -2248,6 +2388,7 @@
       chapter: question.chapter,
       stage: question.stage || "Decouverte",
       correct,
+      helpUsed: Boolean(question.helpUsed),
       date: today(),
       retryOf: question.retryOf || null,
       reviewedBeforeRetry: Boolean(question.reviewedBeforeRetry)
@@ -2331,6 +2472,8 @@
       index: -1,
       correct: 0,
       answered: 0,
+      usedHelp: false,
+      helpedQuestionIds: [],
       startedAt: Date.now()
     };
     saveProgress();
@@ -2516,9 +2659,12 @@
   function finishSession() {
     const elapsedMinutes = Math.max(1, Math.round((Date.now() - currentSession.startedAt) / 60000));
     const allCorrect = currentSession.correct === currentSession.questions.length;
+    const rewardPerfect = allCorrect && !currentSession.usedHelp;
     let points = currentSession.correct * 5;
-    if (allCorrect) {
+    if (rewardPerfect) {
       points += 10;
+    }
+    if (rewardPerfect) {
       progress.perfectRuns += 1;
     }
     addPoints(points);
@@ -2531,7 +2677,8 @@
       subject: currentSession.subject,
       questionsAnswered: currentSession.answered,
       correctAnswers: currentSession.correct,
-      pointsEarned: points
+      pointsEarned: points,
+      usedHelp: currentSession.usedHelp
     });
     awardBadges();
     saveProgress();
@@ -2539,7 +2686,7 @@
       <section class="panel">
         <p class="eyebrow">Bilan</p>
         <h3>${currentSession.correct} / ${currentSession.questions.length} bonnes reponses</h3>
-        <p>${allCorrect ? "Seance sans erreur. Tres solide." : "Bon travail. Les questions ratees sont gardees pour les retravailler."}</p>
+        <p>${allCorrect ? (currentSession.usedHelp ? "Seance juste, avec aide. Tres bon entrainement : recommence sans aide pour valider la recompense." : "Seance sans erreur et sans aide. Tres solide.") : "Bon travail. Les questions ratees sont gardees pour les retravailler."}</p>
         <p><strong>Temps reel :</strong> ${elapsedMinutes} min</p>
         <p><strong>Points gagnes :</strong> ${points}</p>
         <button class="secondary-action" data-view-target="progress" type="button">Voir la progression</button>
@@ -2552,7 +2699,7 @@
   function renderProgress() {
     document.getElementById("progressBySubject").innerHTML = content.subjects.map((subject) => {
       const stats = getSubjectStats(subject.id);
-      const label = stats.total === 0 ? "A commencer" : stats.rate >= 80 ? "Solide" : stats.rate >= 50 ? "En progres" : "A reprendre";
+      const label = getProgressLabel(stats);
       return `
         <div class="progress-row">
           <strong>${subject.label}</strong>
@@ -2602,10 +2749,19 @@
     }
   }
 
+  function getProgressLabel(stats) {
+    if (stats.total === 0) return "A commencer";
+    if (stats.total < 8) return "Pas assez de reponses";
+    if (stats.rate >= 80) return "Solide";
+    if (stats.rate >= 50) return "En progres";
+    return "A reprendre";
+  }
+
   function renderBadges() {
     const allBadges = getAllBadges();
     const badges = getDisplayBadges(allBadges);
     const unlockedCount = allBadges.filter((badge) => progress.badges.includes(badge.id) || isBadgeUnlocked(badge)).length;
+    const nextBadges = badges.filter((badge) => !isBadgeUnlocked(badge) && badge.tier !== "ultimate").slice(0, 4);
     const groups = [
       { id: "ultimate", title: "Badge ultime", description: "Le grand objectif de fin de pr\u00e9paration.", badges: badges.filter((badge) => badge.tier === "ultimate") },
       { id: "subjects", title: "Mati\u00e8res", description: "Un badge qui monte de bronze \u00e0 or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
@@ -2617,6 +2773,17 @@
         <strong>${unlockedCount} / ${allBadges.length} paliers d\u00e9bloqu\u00e9s</strong>
         <span>${content.subjects.filter((subject) => isSubjectTierUnlocked(subject.id, "gold")).length} / ${content.subjects.length} mati\u00e8res au niveau or</span>
       </article>
+      ${nextBadges.length ? `
+        <section class="badge-section badge-section-next">
+          <div class="badge-section-heading">
+            <h3>Prochains badges</h3>
+            <p>Les objectifs les plus proches pour garder le cap.</p>
+          </div>
+          <div class="badge-grid badge-grid-next">
+            ${nextBadges.map(renderBadgeCard).join("")}
+          </div>
+        </section>
+      ` : ""}
       ${groups.map((group) => `
         <section class="badge-section badge-section-${group.id}">
           <div class="badge-section-heading">
@@ -3041,6 +3208,10 @@
         installApp();
       }
 
+      if (event.target.closest("#homeReviewMistakeButton")) {
+        startMistakeReview();
+      }
+
       const viewButton = event.target.closest("[data-view-target]");
       if (viewButton) setView(viewButton.dataset.viewTarget);
 
@@ -3121,6 +3292,12 @@
 
       const shortAnswerSubmit = event.target.closest("[data-short-answer-submit]");
       if (shortAnswerSubmit && !shortAnswerSubmit.disabled) submitShortAnswer(shortAnswerSubmit);
+
+      const questionHelp = event.target.closest("[data-show-question-help]");
+      if (questionHelp) showQuestionHelp(questionHelp);
+
+      const reportConfusion = event.target.closest("[data-report-confusion]");
+      if (reportConfusion) reportQuestionConfusion(reportConfusion);
     });
 
     document.body.addEventListener("change", (event) => {
