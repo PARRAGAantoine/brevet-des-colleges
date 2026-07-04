@@ -3296,12 +3296,17 @@
         installApp();
       }
 
+      const viewButton = event.target.closest("[data-view-target]");
+      if (viewButton) {
+        event.preventDefault();
+        event.stopPropagation();
+        setView(viewButton.dataset.viewTarget);
+        return;
+      }
+
       if (event.target.closest("#homeReviewMistakeButton")) {
         startMistakeReview();
       }
-
-      const viewButton = event.target.closest("[data-view-target]");
-      if (viewButton) setView(viewButton.dataset.viewTarget);
 
       const courseFilter = event.target.closest("[data-course-filter]");
       if (courseFilter) {
