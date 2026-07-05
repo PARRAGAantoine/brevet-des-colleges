@@ -2372,6 +2372,7 @@
       return;
     }
     help.dataset.open = "true";
+    if (question) question.courseViewed = true;
     markQuestionHelpUsed(question, context);
     help.innerHTML = lesson ? `
       <strong>${lesson.title}</strong>
@@ -2502,6 +2503,7 @@
       answerType: question.type || "qcm",
       correct,
       helpUsed: Boolean(question.helpUsed),
+      courseViewed: Boolean(question.courseViewed),
       date: today(),
       retryOf: question.retryOf || null,
       reviewedBeforeRetry: Boolean(question.reviewedBeforeRetry)
@@ -2882,7 +2884,11 @@
     const groups = [
       { id: "ultimate", title: "Badge ultime", description: "Le grand objectif de fin de pr\u00e9paration.", badges: badges.filter((badge) => badge.tier === "ultimate") },
       { id: "subjects", title: "Mati\u00e8res", description: "Un badge qui monte de bronze \u00e0 or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
-      { id: "challenges", title: "D\u00e9fis", description: "R\u00e9gularit\u00e9, pr\u00e9cision, erreurs r\u00e9par\u00e9es, anciens sujets et sujets longs.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate") },
+      { id: "rhythm", title: "Rythme", description: "S\u00e9ances, r\u00e9gularit\u00e9 et habitudes de travail.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate" && badge.badgeGroup === "Rythme") },
+      { id: "precision", title: "Pr\u00e9cision", description: "Sans faute, sans aide, cours consult\u00e9 et r\u00e9ponses pr\u00e9cises.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Precision") },
+      { id: "errors", title: "Erreurs", description: "Transformer les erreurs en progr\u00e8s visibles.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Erreurs") },
+      { id: "training", title: "Entra\u00eenement", description: "Volume, r\u00e9ponses \u00e9crites, calcul, lecture et \u00e9quilibre entre mati\u00e8res.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Entrainement") },
+      { id: "exam", title: "Anciens sujets", description: "Sujets guid\u00e9s, anciens sujets et derni\u00e8re ligne droite.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Anciens sujets") },
       { id: "chapters", title: "Chapitres", description: "La progression d\u00e9taill\u00e9e du programme.", badges: badges.filter((badge) => badge.category === "Chapitre") }
     ].filter((group) => group.badges.length);
     document.getElementById("badgeList").innerHTML = `
@@ -2986,6 +2992,14 @@
     if (badge.id.includes("repairs")) return "Revoir mes erreurs";
     if (badge.id.includes("written")) return "Faire une reponse ecrite";
     if (badge.id.includes("no-help") || badge.id.includes("perfect")) return "Lancer une seance";
+    if (badge.id.includes("careful")) return "Voir le cours";
+    if (badge.id.includes("mental")) return "Faire du calcul";
+    if (badge.id.includes("reader")) return "Lire et analyser";
+    if (badge.id.includes("science-precision")) return "Travailler les unites";
+    if (badge.id.includes("comeback")) return "Reprendre une faiblesse";
+    if (badge.id.includes("final-stretch")) return "Ouvrir les anciens sujets";
+    if (badge.id.includes("clean-slate")) return "Vider les erreurs";
+    if (badge.id.includes("polyvalent")) return "Completer un programme";
     if (badge.id.includes("balanced")) return "Equilibrer les matieres";
     if (badge.id.includes("questions")) return "Faire des exercices";
     if (badge.id.includes("sessions")) return "Lancer une seance";
@@ -3036,6 +3050,11 @@
       showToast("Choisis un ancien sujet, fais-le, puis enregistre ta note.");
       return;
     }
+    if (badge.id.includes("final-stretch")) {
+      setView("annales");
+      showToast("Objectif badge : obtenir au moins 14/20 sur plusieurs anciens sujets.");
+      return;
+    }
     if (badge.id.includes("streak")) {
       setView("dashboard");
       showToast("Ce badge se gagne en revenant travailler plusieurs jours de suite.");
@@ -3057,6 +3076,48 @@
         .sort((a, b) => a.correct - b.correct)[0];
       preparePracticeTarget(weakest?.id || activeSubject, "auto", "all");
       showToast("Objectif badge : avancer dans la matiere la moins travaillee.");
+      return;
+    }
+    if (badge.id.includes("comeback")) {
+      const weakest = content.subjects
+        .map((subject) => ({ ...subject, stats: getSubjectStats(subject.id) }))
+        .sort((a, b) => a.stats.rate - b.stats.rate || a.stats.total - b.stats.total)[0];
+      preparePracticeTarget(weakest?.id || activeSubject, "auto", "all");
+      showToast("Objectif badge : transformer une faiblesse en point fort.");
+      return;
+    }
+    if (badge.id.includes("mental")) {
+      preparePracticeTarget("mathematiques", "auto", "Nombres et calculs");
+      showToast("Objectif badge : calculer sans aide.");
+      return;
+    }
+    if (badge.id.includes("reader")) {
+      preparePracticeTarget("francais", "auto", "Lecture");
+      showToast("Objectif badge : lire attentivement et justifier.");
+      return;
+    }
+    if (badge.id.includes("science-precision")) {
+      preparePracticeTarget("sciences", "auto", "Physique-chimie");
+      showToast("Objectif badge : donner des reponses precises avec unite.");
+      return;
+    }
+    if (badge.id.includes("careful")) {
+      setView("session");
+      showToast("Objectif badge : lis le cours avant de repondre.");
+      return;
+    }
+    if (badge.id.includes("clean-slate")) {
+      const pending = progress.mistakes.find((mistake) => !mistake.repaired);
+      if (pending) startMistakeReview(pending.id);
+      else setView("progress");
+      showToast("Objectif badge : revenir a 0 erreur en attente.");
+      return;
+    }
+    if (badge.id.includes("polyvalent")) {
+      const subject = content.subjects.find((item) => countUnlockedChapterBadges(item.id, "bronze") < content.curriculum.filter((chapter) => chapter.subject === item.id).length)
+        || content.subjects[0];
+      preparePracticeTarget(subject.id, "Decouverte", "all");
+      showToast("Objectif badge : valider tous les chapitres d'une matiere.");
       return;
     }
     if (badge.id.includes("written")) {
@@ -3132,6 +3193,14 @@
     if (badge.id?.includes("written")) return "questions";
     if (badge.id?.includes("balanced")) return "questions";
     if (badge.id?.includes("no-help")) return "perfect";
+    if (badge.id?.includes("comeback")) return "repairs";
+    if (badge.id?.includes("careful")) return "perfect";
+    if (badge.id?.includes("mental")) return "questions";
+    if (badge.id?.includes("reader")) return "guided";
+    if (badge.id?.includes("science-precision")) return "subject-science";
+    if (badge.id?.includes("final-stretch")) return "annales";
+    if (badge.id?.includes("clean-slate")) return "repairs";
+    if (badge.id?.includes("polyvalent")) return "ultimate";
     if (badge.id?.includes("streak")) return "streak";
     if (badge.id?.includes("repairs")) return "repairs";
     if (badge.id?.includes("perfect")) return "perfect";
@@ -3290,6 +3359,50 @@
     });
   }
 
+  function getAnswerNotionKey(answer) {
+    if (answer.notionId) return answer.notionId;
+    const notion = getNotionForChapter(answer.subject, answer.chapter);
+    return notion?.id || `${answer.subject}:${normalizeText(answer.chapter)}`;
+  }
+
+  function countWinningComebacks() {
+    const byNotion = new Map();
+    progress.answers.forEach((answer) => {
+      const key = getAnswerNotionKey(answer);
+      if (!byNotion.has(key)) byNotion.set(key, []);
+      byNotion.get(key).push(answer);
+    });
+    let count = 0;
+    byNotion.forEach((answers) => {
+      let total = 0;
+      let correct = 0;
+      let wasWeak = false;
+      let cameBack = false;
+      answers.forEach((answer) => {
+        total += 1;
+        if (answer.correct) correct += 1;
+        const rate = Math.round((correct / total) * 100);
+        if (total >= 3 && rate < 50) wasWeak = true;
+        if (wasWeak && total >= 6 && rate >= 70) cameBack = true;
+      });
+      if (cameBack) count += 1;
+    });
+    return count;
+  }
+
+  function isUnitAnswer(answer) {
+    if (!answer.correct || !["mathematiques", "sciences"].includes(answer.subject)) return false;
+    const exercise = findExerciseByReference(answer);
+    const expected = [
+      exercise?.answer,
+      ...(exercise?.acceptedAnswers || []),
+      exercise?.explanation,
+      exercise?.question,
+      exercise?.prompt
+    ].filter(Boolean).join(" ").toLowerCase();
+    return /\b(cm|mm|m|km|m2|cm2|m3|cm3|l|ml|kg|g|s|min|h|km\/h|m\/s|v|a|ohm|%|degres?|°)\b/.test(expected);
+  }
+
   function getSpecialBadges() {
     const subjectsDone = () => new Set(progress.answers.map((answer) => answer.subject)).size;
     const stageCorrect = (stage) => progress.answers.filter((answer) => answer.correct && answer.stage === stage).length;
@@ -3297,10 +3410,26 @@
     const guidedSolid = () => (progress.guidedTasks || []).filter((task) => task.score >= 4).length;
     const bestAnnalExamScore = () => Math.max(0, ...(progress.annalExamRuns || []).map((run) => Number(run.score) || 0));
     const annalExamCount = () => (progress.annalExamRuns || []).length;
+    const annalExamAtLeast = (score) => (progress.annalExamRuns || []).filter((run) => Number(run.score) >= score).length;
     const annalSubjectCount = () => new Set((progress.annalExamRuns || []).map((run) => run.subject)).size;
     const noHelpPerfectSessions = () => progress.sessions.filter((session) => session.correctAnswers === session.questionsAnswered && session.questionsAnswered > 0 && !session.usedHelp).length;
+    const perfectSubjectCount = () => new Set(progress.sessions.filter((session) => session.correctAnswers === session.questionsAnswered && session.questionsAnswered > 0 && !session.usedHelp && session.subject !== "mixed").map((session) => session.subject)).size;
     const writtenCorrect = () => progress.answers.filter((answer) => answer.correct && answer.answerType === "short_answer").length;
     const balancedSubjectMinimum = () => Math.min(...content.subjects.map((subject) => progress.answers.filter((answer) => answer.subject === subject.id && answer.correct).length));
+    const carefulCorrect = () => progress.answers.filter((answer) => answer.correct && answer.courseViewed).length;
+    const mentalCorrect = () => progress.answers.filter((answer) => answer.correct && !answer.helpUsed && answer.subject === "mathematiques" && chapterMatches("Nombres et calculs", answer.chapter)).length;
+    const attentiveReaderCorrect = () => progress.answers.filter((answer) =>
+      answer.correct
+      && ["francais", "histoire"].includes(answer.subject)
+      && ["Lecture", "Interpretation", "Analyse de document", "Reperes", "Developpement construit"].some((chapter) => chapterMatches(chapter, answer.chapter))
+    ).length;
+    const scientificPrecisionCorrect = () => progress.answers.filter((answer) => answer.correct && isUnitAnswer(answer)).length;
+    const cleanSlateReached = () => progress.repairs.length > 0 && !progress.mistakes.some((mistake) => !mistake.repaired);
+    const comebackCount = () => countWinningComebacks();
+    const polyvalentSubjectCount = () => content.subjects.filter((subject) => {
+      const chapters = content.curriculum.filter((item) => item.subject === subject.id);
+      return chapters.length > 0 && chapters.every((item) => isBadgeUnlocked({ id: `chapter:${item.id}:bronze`, evaluate: () => getCurriculumBadgeStats(item).total >= 5 && getCurriculumBadgeStats(item).correct >= 4 && getCurriculumBadgeStats(item).rate >= 60 }));
+    }).length;
     const specials = [
       ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", "◆", () => progress.sessions.length >= 1],
       ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", "◆", () => progress.sessions.length >= 10],
@@ -3322,6 +3451,7 @@
       ["perfect:5", "silver", "Precision argent", "Reussir 5 seances sans erreur.", "5 sans faute", "✓", () => progress.perfectRuns >= 5],
       ["perfect:20", "gold", "Precision or", "Reussir 20 seances sans erreur.", "20 sans faute", "✓", () => progress.perfectRuns >= 20],
       ["perfect:50", "gold", "Maitrise complete", "Reussir 50 seances sans erreur.", "50 sans faute", "✓", () => progress.perfectRuns >= 50],
+      ["perfect-subjects:3", "silver", "Serie parfaite", "Reussir une seance sans faute dans 3 matieres differentes.", "3 matieres", "✓", () => perfectSubjectCount() >= 3],
       ["no-help:3", "bronze", "Sans aide", "Reussir 3 seances sans erreur et sans utiliser l'aide.", "3 sans aide", "✓", () => noHelpPerfectSessions() >= 3],
       ["no-help:15", "silver", "Autonomie", "Reussir 15 seances sans erreur et sans aide.", "15 sans aide", "✓", () => noHelpPerfectSessions() >= 15],
       ["no-help:40", "gold", "Confiance solide", "Reussir 40 seances sans erreur et sans aide.", "40 sans aide", "✓", () => noHelpPerfectSessions() >= 40],
@@ -3332,6 +3462,21 @@
       ["written:10", "bronze", "Reponses ecrites", "Reussir 10 exercices sans QCM.", "10 reponses", "✎", () => writtenCorrect() >= 10],
       ["written:30", "silver", "Je sais rediger", "Reussir 30 exercices sans QCM.", "30 reponses", "✎", () => writtenCorrect() >= 30],
       ["written:100", "gold", "Redaction solide", "Reussir 100 exercices sans QCM.", "100 reponses", "✎", () => writtenCorrect() >= 100],
+      ["careful:10", "bronze", "Sans precipitation", "Consulter le cours puis reussir 10 questions.", "10 avec cours", "⌕", () => carefulCorrect() >= 10],
+      ["careful:30", "silver", "Methode posee", "Consulter le cours puis reussir 30 questions.", "30 avec cours", "⌕", () => carefulCorrect() >= 30],
+      ["careful:80", "gold", "Calme et efficace", "Consulter le cours puis reussir 80 questions.", "80 avec cours", "⌕", () => carefulCorrect() >= 80],
+      ["mental:20", "bronze", "Calcul mental", "Reussir 20 questions de calcul sans aide.", "20 calculs", "×", () => mentalCorrect() >= 20],
+      ["mental:60", "silver", "Reflexes de calcul", "Reussir 60 questions de calcul sans aide.", "60 calculs", "×", () => mentalCorrect() >= 60],
+      ["mental:150", "gold", "Calculateur solide", "Reussir 150 questions de calcul sans aide.", "150 calculs", "×", () => mentalCorrect() >= 150],
+      ["reader:20", "bronze", "Lecteur attentif", "Reussir 20 questions de lecture ou document.", "20 lectures", "▣", () => attentiveReaderCorrect() >= 20],
+      ["reader:60", "silver", "Preuves dans le texte", "Reussir 60 questions de lecture ou document.", "60 lectures", "▣", () => attentiveReaderCorrect() >= 60],
+      ["reader:150", "gold", "Analyse solide", "Reussir 150 questions de lecture ou document.", "150 lectures", "▣", () => attentiveReaderCorrect() >= 150],
+      ["science-precision:15", "bronze", "Scientifique precis", "Reussir 15 exercices avec une unite attendue.", "15 unites", "⚛", () => scientificPrecisionCorrect() >= 15],
+      ["science-precision:45", "silver", "Unites maitrisees", "Reussir 45 exercices avec une unite attendue.", "45 unites", "⚛", () => scientificPrecisionCorrect() >= 45],
+      ["science-precision:120", "gold", "Mesures solides", "Reussir 120 exercices avec une unite attendue.", "120 unites", "⚛", () => scientificPrecisionCorrect() >= 120],
+      ["comeback:1", "bronze", "Retour gagnant", "Remonter une notion autrefois sous 50 %.", "1 retour", "↗", () => comebackCount() >= 1],
+      ["comeback:3", "silver", "Progression visible", "Remonter 3 notions autrefois sous 50 %.", "3 retours", "↗", () => comebackCount() >= 3],
+      ["comeback:8", "gold", "Faiblesses transformees", "Remonter 8 notions autrefois sous 50 %.", "8 retours", "↗", () => comebackCount() >= 8],
       ["stage:Decouverte:60", "bronze", "J'apprends", "Reussir 60 questions en mode J'apprends.", "60 reussites", "1", () => stageCorrect("Decouverte") >= 60],
       ["stage:Consolidation:120", "silver", "Je m'entraine", "Reussir 120 questions en mode Je m'entraine.", "120 reussites", "2", () => stageCorrect("Consolidation") >= 120],
       ["stage:Type brevet:200", "gold", "Comme au brevet", "Reussir 200 questions Comme au brevet.", "200 reussites", "3", () => stageCorrect("Type brevet") >= 200],
@@ -3342,18 +3487,28 @@
       ["annales-exam:bronze", "bronze", "Ancien sujet bronze", "Refaire un ancien sujet complet avec une note correcte.", "1 examen, 10/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 10],
       ["annales-exam:silver", "silver", "Ancien sujet argent", "Refaire un ancien sujet complet avec une bonne note.", "1 examen, 14/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 14],
       ["annales-exam:gold", "gold", "Ancien sujet or", "Refaire un ancien sujet complet avec un niveau tres solide.", "1 examen, 17/20", "▤", () => annalExamCount() >= 1 && bestAnnalExamScore() >= 17],
+      ["final-stretch:2", "bronze", "Derniere ligne droite", "Reussir 2 anciens sujets avec au moins 14/20.", "2 sujets a 14/20", "▤", () => annalExamAtLeast(14) >= 2],
+      ["final-stretch:5", "silver", "Rythme brevet", "Reussir 5 anciens sujets avec au moins 14/20.", "5 sujets a 14/20", "▤", () => annalExamAtLeast(14) >= 5],
+      ["final-stretch:10", "gold", "Pret pour juin", "Reussir 10 anciens sujets avec au moins 14/20.", "10 sujets a 14/20", "▤", () => annalExamAtLeast(14) >= 10],
       ["annales-exam-count:3", "bronze", "Copies d'anciens sujets", "Enregistrer 3 anciens sujets complets.", "3 examens", "▤", () => annalExamCount() >= 3],
       ["annales-exam-count:8", "silver", "Rythme anciens sujets", "Enregistrer 8 anciens sujets complets.", "8 examens", "▤", () => annalExamCount() >= 8],
       ["annales-exam-count:15", "gold", "Grand entrainement", "Enregistrer 15 anciens sujets complets.", "15 examens", "▤", () => annalExamCount() >= 15],
       ["annales-exam-subjects:2", "bronze", "Sujets varies", "Faire des anciens sujets dans 2 matieres.", "2 matieres", "▤", () => annalSubjectCount() >= 2],
       ["annales-exam-subjects:3", "silver", "Tour des epreuves", "Faire des anciens sujets dans 3 matieres.", "3 matieres", "▤", () => annalSubjectCount() >= 3],
       ["annales-exam-subjects:4", "gold", "Pret pour l'examen", "Faire des anciens sujets dans les 4 matieres.", "4 matieres", "▤", () => annalSubjectCount() >= 4],
+      ["clean-slate:1", "bronze", "Rattrapage complet", "Revenir a 0 erreur en attente apres au moins 1 erreur reparee.", "0 erreur", "!", () => cleanSlateReached() && progress.repairs.length >= 1],
+      ["clean-slate:10", "silver", "Dossier propre", "Revenir a 0 erreur en attente apres 10 erreurs reparees.", "10 puis 0", "!", () => cleanSlateReached() && progress.repairs.length >= 10],
+      ["clean-slate:30", "gold", "Aucune dette", "Revenir a 0 erreur en attente apres 30 erreurs reparees.", "30 puis 0", "!", () => cleanSlateReached() && progress.repairs.length >= 30],
+      ["polyvalent:1", "bronze", "Polyvalent", "Obtenir le bronze dans tous les chapitres d'une matiere.", "1 matiere", "★", () => polyvalentSubjectCount() >= 1],
+      ["polyvalent:2", "silver", "Programme large", "Obtenir le bronze dans tous les chapitres de 2 matieres.", "2 matieres", "★", () => polyvalentSubjectCount() >= 2],
+      ["polyvalent:4", "gold", "Programme complet", "Obtenir le bronze dans tous les chapitres des 4 matieres.", "4 matieres", "★", () => polyvalentSubjectCount() >= 4],
       ["all-subject-gold", "ultimate", "Badge ultime", "Obtenir l'or dans les quatre matieres et garder un vrai rythme.", "Complet", "★", () => content.subjects.every((subject) => isSubjectTierUnlocked(subject.id, "gold")) && progress.perfectRuns >= 20 && progress.repairs.length >= 30]
     ];
     return specials.map(([id, tier, title, description, requirement, icon, imageOrEvaluate, maybeEvaluate]) => ({
       id: `special:${id}`,
       family: `special:${id.split(":")[0]}`,
       category: "Defi",
+      badgeGroup: getSpecialBadgeGroup(id),
       tier,
       title,
       description,
@@ -3363,6 +3518,14 @@
       lockedImage: null,
       evaluate: typeof imageOrEvaluate === "function" ? imageOrEvaluate : maybeEvaluate
     }));
+  }
+
+  function getSpecialBadgeGroup(id) {
+    if (id.includes("sessions") || id.includes("streak")) return "Rythme";
+    if (id.includes("perfect") || id.includes("no-help") || id.includes("careful") || id.includes("science-precision")) return "Precision";
+    if (id.includes("repairs") || id.includes("clean-slate") || id.includes("comeback")) return "Erreurs";
+    if (id.includes("guided") || id.includes("annales") || id.includes("final-stretch")) return "Anciens sujets";
+    return "Entrainement";
   }
 
   function isBadgeUnlocked(badge) {
