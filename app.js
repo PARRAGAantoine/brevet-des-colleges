@@ -2512,6 +2512,7 @@
       { keywords: ["moyenne", "mediane", "etendue", "statistique"], lesson: ["statistique", "moyenne"] },
       { keywords: ["programme de calcul", "tableur", "cellule"], lesson: ["programme", "tableur"] },
       { keywords: ["equation", "inconnue"], lesson: ["equation"] },
+      { keywords: ["echelle", "plan", "distance reelle"], lesson: ["echelle"] },
       { keywords: ["pythagore"], lesson: ["pythagore"] },
       { keywords: ["trigonometrie", "cosinus", "sinus", "tangente"], lesson: ["trigonometrie"] },
       { keywords: ["volume", "pave", "cube", "cylindre"], lesson: ["volume"] }
@@ -2666,6 +2667,14 @@
         <p><strong>Translation :</strong> la figure glisse sans tourner.</p>
         <p><strong>Rotation :</strong> la figure tourne autour d'un point.</p>
         <p><strong>Symetrie :</strong> la figure est retournee comme dans un miroir. Homothetie : elle est agrandie ou reduite.</p>
+      `;
+    }
+    if (text.includes("echelle") || text.includes("plan") || text.includes("distance reelle")) {
+      return `
+        <p><strong>Ce qu'il faut reconnaitre :</strong> une echelle relie une distance sur le plan a une distance reelle.</p>
+        <p><strong>Avec cette question :</strong> a l'echelle 1:1000, 1 cm sur le plan represente 1000 cm en realite.</p>
+        <p><strong>Methode :</strong> multiplie la longueur du plan par 1000, puis convertis les centimetres en metres.</p>
+        <p><strong>Exemple proche :</strong> 2 cm sur le plan donnent 2 x 1000 = 2000 cm, donc 20 m.</p>
       `;
     }
     if (text.includes("cosinus") || text.includes("sinus") || text.includes("tangente")) {
