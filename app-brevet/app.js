@@ -2688,8 +2688,10 @@
     return retry ? { ...retry, retryOf: mistake.id, reviewedBeforeRetry: true, retryVariant: retry.id !== mistake.exerciseId } : null;
   }
 
-  function startMistakeReview() {
-    const mistake = progress.mistakes.find((item) => !item.repaired);
+  function startMistakeReview(mistakeId = null) {
+    const mistake = mistakeId
+      ? progress.mistakes.find((item) => item.id === mistakeId && !item.repaired)
+      : progress.mistakes.find((item) => !item.repaired);
     if (!mistake) {
       showToast("Aucune erreur a revoir pour le moment.");
       return;
@@ -2840,7 +2842,7 @@
               <strong>${subjectLabel(mistake.subject)} - ${mistake.chapter}</strong>
               <p class="muted">Ratee ${mistake.count} fois. Un cours sera propose avant de recommencer.</p>
             </div>
-            <span class="status-pill">${mistake.reviewed ? "Cours relu" : "A retravailler"}</span>
+            <button class="status-pill status-pill-action" data-review-mistake="${mistake.id}" type="button">${mistake.reviewed ? "Cours relu" : "A retravailler"}</button>
           </div>
         `).join("")}</div>`
       : `<p class="muted">Aucune erreur en attente. Les prochaines erreurs deviendront des occasions de progresser.</p>`;
@@ -3331,6 +3333,11 @@
 
       if (event.target.closest("#homeReviewMistakeButton")) {
         startMistakeReview();
+      }
+
+      const reviewMistakeButton = event.target.closest("[data-review-mistake]");
+      if (reviewMistakeButton) {
+        startMistakeReview(reviewMistakeButton.dataset.reviewMistake);
       }
 
       const courseFilter = event.target.closest("[data-course-filter]");

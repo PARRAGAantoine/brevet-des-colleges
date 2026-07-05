@@ -488,12 +488,25 @@ body[data-current-view="landing"] .main-content {
   display: inline-flex;
   min-height: 30px;
   align-items: center;
+  border: 1px solid transparent;
   border-radius: 999px;
   padding: 0 12px;
   background: var(--surface-soft);
   color: var(--primary-dark);
   font-size: 0.82rem;
   font-weight: 800;
+}
+
+.status-pill-action {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.status-pill-action:hover,
+.status-pill-action:focus-visible {
+  background: var(--primary);
+  color: #fff;
+  outline: none;
 }
 
 .actions-row,
@@ -1313,16 +1326,12 @@ input[type="text"] {
 :root[data-theme="dark"] .tag *,
 :root[data-theme="dark"] .keyword-list span *,
 :root[data-theme="dark"] .step *,
-:root[data-theme="dark"] .history-item *,
-:root[data-theme="dark"] .mistake-item *,
 :root[data-theme="dark"] .order-token * {
   color: inherit;
 }
 
 :root[data-theme="dark"] .history-item .muted,
-:root[data-theme="dark"] .mistake-item .muted,
-:root[data-theme="dark"] .history-item p,
-:root[data-theme="dark"] .mistake-item p {
+:root[data-theme="dark"] .history-item p {
   color: #42576a;
 }
 
@@ -1429,13 +1438,18 @@ input[type="text"] {
 }
 
 :root[data-theme="dark"] .history-item {
-  background: #edf4f7;
-  color: #172033;
+  background: #17303d;
+  border: 1px solid #5d90a5;
+  color: #edf4f7;
 }
 
 :root[data-theme="dark"] .history-item .muted,
 :root[data-theme="dark"] .history-item span {
-  color: #42576a;
+  color: #d8e6ec;
+}
+
+:root[data-theme="dark"] .history-item strong {
+  color: #f5fbff;
 }
 
 .annal-document-summary {
@@ -1522,14 +1536,39 @@ input[type="text"] {
 }
 
 :root[data-theme="dark"] .mistake-item {
-  background: #fff7ec;
-  border-color: #f4d6a4;
-  color: #172033;
+  background: #17303d;
+  border-color: #5d90a5;
+  color: #edf4f7;
 }
 
 :root[data-theme="dark"] .mistake-item .muted,
 :root[data-theme="dark"] .mistake-item p {
-  color: #42576a;
+  color: #d8e6ec;
+}
+
+:root[data-theme="dark"] .mistake-item strong,
+:root[data-theme="dark"] .mistake-item h3,
+:root[data-theme="dark"] .mistake-item h4 {
+  color: #f5fbff;
+}
+
+:root[data-theme="dark"] .mistake-item .ghost-action,
+:root[data-theme="dark"] .mistake-item .secondary-action,
+:root[data-theme="dark"] .mistake-item .status-pill {
+  background: #8bc7d7;
+  border-color: #8bc7d7;
+  color: #07111d;
+}
+
+:root[data-theme="dark"] .mistake-item .ghost-action:hover,
+:root[data-theme="dark"] .mistake-item .ghost-action:focus-visible,
+:root[data-theme="dark"] .mistake-item .secondary-action:hover,
+:root[data-theme="dark"] .mistake-item .secondary-action:focus-visible,
+:root[data-theme="dark"] .mistake-item .status-pill:hover,
+:root[data-theme="dark"] .mistake-item .status-pill:focus-visible {
+  background: #b7e5ee;
+  border-color: #b7e5ee;
+  color: #07111d;
 }
 
 .toast {
