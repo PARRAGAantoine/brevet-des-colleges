@@ -18,6 +18,7 @@
     mistakes: [],
     repairs: [],
     chapterStatus: {},
+    courseReads: [],
     guidedTasks: [],
     annalExamRuns: [],
     perfectRuns: 0
@@ -867,7 +868,7 @@
   }
 
   function getInitialViewFromUrl() {
-    const allowedViews = new Set(["landing", "dashboard", "session", "practice", "annales", "progress", "badges", "settings"]);
+    const allowedViews = new Set(["landing", "dashboard", "session", "courses", "practice", "annales", "progress", "badges", "settings", "updates"]);
     const params = new URLSearchParams(window.location.search);
     const requestedView = params.get("view") || params.get("start") || window.location.hash.replace("#", "");
     return allowedViews.has(requestedView) ? requestedView : "landing";
@@ -1147,9 +1148,42 @@
         <span class="tag">${stageLabel(lesson.stage)} - ${subjectLabel(lesson.subject)} - ${lesson.chapter}</span>
         <h3>${lesson.title}</h3>
         ${renderLessonBody(lesson)}
+        <div class="course-actions">
+          <button class="${isCourseRead(lesson.id) ? "secondary-action" : "primary-action"}" data-mark-course-read="${lesson.id}" type="button">
+            ${isCourseRead(lesson.id) ? "Cours lu et compris" : "J'ai lu et compris"}
+          </button>
+          <span class="muted">${isCourseRead(lesson.id) ? "Ce cours est compté dans ta progression." : "Valide seulement si tu penses pouvoir expliquer l'idée principale."}</span>
+        </div>
         <button class="secondary-action" data-train-subject="${lesson.subject}" type="button">S'entrainer</button>
       </article>
     `).join("");
+  }
+
+  function isCourseRead(lessonId) {
+    return (progress.courseReads || []).some((item) => item.lessonId === lessonId);
+  }
+
+  function markCourseRead(lessonId) {
+    const lesson = content.lessons.find((item) => item.id === lessonId);
+    if (!lesson) return;
+    progress.courseReads = progress.courseReads || [];
+    const alreadyRead = progress.courseReads.some((item) => item.lessonId === lessonId);
+    if (!alreadyRead) {
+      progress.courseReads.push({
+        lessonId,
+        subject: lesson.subject,
+        chapter: lesson.chapter,
+        stage: lesson.stage || "Decouverte",
+        date: today()
+      });
+      addPoints(2);
+      awardBadges();
+      saveProgress();
+      showToast("Cours validé : il est ajouté à ta progression.");
+    } else {
+      showToast("Ce cours est déjà validé.");
+    }
+    render();
   }
 
   function getLessonTakeaway(lesson) {
@@ -3244,12 +3278,14 @@
       const correct = progress.answers.filter((answer) => answer.correct).length;
       const shortAnswers = progress.answers.filter((answer) => answer.answerType === "short_answer").length;
       const pendingMistakes = progress.mistakes.filter((mistake) => !mistake.repaired).length;
+      const coursesRead = (progress.courseReads || []).length;
       const bestSubject = subjectStats.filter((item) => item.stats.total >= 4).sort((a, b) => b.stats.rate - a.stats.rate)[0];
       const weakSubject = subjectStats.slice().sort((a, b) => a.stats.visualRate - b.stats.visualRate || a.stats.total - b.stats.total)[0];
       insightContainer.innerHTML = `
         <article><strong>${answered}</strong><span>questions repondues</span></article>
         <article><strong>${correct}</strong><span>bonnes reponses</span></article>
         <article><strong>${shortAnswers}</strong><span>reponses ecrites tentees</span></article>
+        <article><strong>${coursesRead}</strong><span>cours lus et compris</span></article>
         <article><strong>${pendingMistakes}</strong><span>erreurs a reprendre</span></article>
         <article><strong>${progress.repairs.length}</strong><span>erreurs reparees</span></article>
         <article><strong>${bestSubject ? bestSubject.label : "-"}</strong><span>matiere la plus solide</span></article>
@@ -3305,6 +3341,7 @@
       { id: "ultimate", title: "Badge ultime", description: "Le grand objectif de fin de pr\u00e9paration.", badges: badges.filter((badge) => badge.tier === "ultimate") },
       { id: "subjects", title: "Mati\u00e8res", description: "Un badge qui monte de bronze \u00e0 or dans chaque mati\u00e8re.", badges: badges.filter((badge) => badge.category === "Matiere") },
       { id: "rhythm", title: "Rythme", description: "S\u00e9ances, r\u00e9gularit\u00e9 et habitudes de travail.", badges: badges.filter((badge) => badge.category === "Defi" && badge.tier !== "ultimate" && badge.badgeGroup === "Rythme") },
+      { id: "courses", title: "Cours", description: "Lire et comprendre les fiches avant de s'entra\u00eener.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Cours") },
       { id: "precision", title: "Pr\u00e9cision", description: "Sans faute, sans aide, cours consult\u00e9 et r\u00e9ponses pr\u00e9cises.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Precision") },
       { id: "errors", title: "Erreurs", description: "Transformer les erreurs en progr\u00e8s visibles.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Erreurs") },
       { id: "training", title: "Entra\u00eenement", description: "Volume, r\u00e9ponses \u00e9crites, calcul, lecture et \u00e9quilibre entre mati\u00e8res.", badges: badges.filter((badge) => badge.category === "Defi" && badge.badgeGroup === "Entrainement") },
@@ -3415,6 +3452,7 @@
     if (badge.tier === "ultimate") return unlocked ? "Voir le bilan" : "Voir quoi travailler";
     if (badge.id.includes("streak")) return "Voir l'objectif";
     if (badge.id.includes("annales-exam")) return "Ouvrir les anciens sujets";
+    if (badge.id.includes("course-read") || badge.id.includes("course-subjects")) return "Ouvrir les cours";
     if (badge.id.includes("repairs")) return "Revoir mes erreurs";
     if (badge.id.includes("written")) return "Faire une reponse ecrite";
     if (badge.id.includes("no-help") || badge.id.includes("perfect")) return "Lancer une seance";
@@ -3489,6 +3527,11 @@
     if (badge.id.includes("final-stretch")) {
       setView("annales");
       showToast("Objectif badge : obtenir au moins 14/20 sur plusieurs anciens sujets.");
+      return;
+    }
+    if (badge.id.includes("course-read") || badge.id.includes("course-subjects")) {
+      setView("courses");
+      showToast("Objectif badge : lis un cours, puis valide que tu l'as compris.");
       return;
     }
     if (badge.id.includes("streak")) {
@@ -3849,6 +3892,8 @@
 
   function getSpecialBadges() {
     const subjectsDone = () => new Set(progress.answers.map((answer) => answer.subject)).size;
+    const coursesRead = () => (progress.courseReads || []).length;
+    const courseSubjectsRead = () => new Set((progress.courseReads || []).map((item) => item.subject)).size;
     const stageCorrect = (stage) => progress.answers.filter((answer) => answer.correct && answer.stage === stage).length;
     const guidedDone = () => (progress.guidedTasks || []).length;
     const guidedSolid = () => (progress.guidedTasks || []).filter((task) => task.score >= 4).length;
@@ -3887,6 +3932,10 @@
       ["streak:7", "silver", "Semaine solide", "Travailler 7 jours de suite.", "7 jours", "◷", () => progress.currentStreak >= 7],
       ["streak:30", "gold", "Mois complet", "Travailler 30 jours de suite.", "30 jours", "◷", () => progress.currentStreak >= 30],
       ["streak:100", "gold", "Cent jours", "Travailler 100 jours de suite.", "100 jours", "◷", () => progress.currentStreak >= 100],
+      ["course-read:1", "bronze", "Premier cours", "Lire et valider un premier cours.", "1 cours", "◇", () => coursesRead() >= 1],
+      ["course-read:10", "silver", "Base de cours", "Lire et valider 10 cours.", "10 cours", "◇", () => coursesRead() >= 10],
+      ["course-read:30", "gold", "Carnet de revision", "Lire et valider 30 cours.", "30 cours", "◇", () => coursesRead() >= 30],
+      ["course-subjects:4", "silver", "Cours dans chaque matiere", "Lire au moins un cours dans les quatre matieres.", "4 matieres", "◇", () => courseSubjectsRead() >= 4],
       ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", () => progress.repairs.length >= 1],
       ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", () => progress.repairs.length >= 10],
       ["repairs:30", "gold", "Anti-pieges", "Reparer 30 erreurs apres revision.", "30 erreurs", "!", () => progress.repairs.length >= 30],
@@ -3966,6 +4015,7 @@
 
   function getSpecialBadgeGroup(id) {
     if (id.includes("sessions") || id.includes("streak")) return "Rythme";
+    if (id.includes("course-read") || id.includes("course-subjects")) return "Cours";
     if (id.includes("perfect") || id.includes("no-help") || id.includes("careful") || id.includes("science-precision")) return "Precision";
     if (id.includes("repairs") || id.includes("clean-slate") || id.includes("comeback")) return "Erreurs";
     if (id.includes("guided") || id.includes("annales") || id.includes("final-stretch")) return "Anciens sujets";
@@ -4127,6 +4177,11 @@
       if (courseFilter) {
         selectedCourseSubject = courseFilter.dataset.courseFilter;
         renderCourses();
+      }
+
+      const courseReadButton = event.target.closest("[data-mark-course-read]");
+      if (courseReadButton) {
+        markCourseRead(courseReadButton.dataset.markCourseRead);
       }
 
       const roadmapFilter = event.target.closest("[data-roadmap-filter]");

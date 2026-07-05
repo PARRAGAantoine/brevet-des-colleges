@@ -22,6 +22,7 @@
         <nav class="nav-list">
           <button class="nav-item active" data-view="landing" type="button">Accueil</button>
           <button class="nav-item" data-view="session" type="button">Séance</button>
+          <button class="nav-item" data-view="courses" type="button">Cours</button>
           <button class="nav-item" data-view="practice" type="button">Exercices</button>
           <button class="nav-item" data-view="annales" type="button">Anciens sujets</button>
           <button class="nav-item" data-view="progress" type="button">Progression</button>
@@ -47,6 +48,7 @@
               <div class="home-minimal-action">
                 <button class="primary-action" id="installAppButton" type="button">Installer l'app</button>
                 <p>Installe l'application pour t'entraîner sans Internet, avec les cours, exercices et anciens sujets disponibles hors ligne.</p>
+                <p class="muted">Pendant le développement, il vaut mieux continuer en ligne quand tu as Internet : l'app est souvent améliorée et reçoit des mises à jour presque tous les jours.</p>
               </div>
               <div class="home-minimal-action">
                 <button class="secondary-action" id="continueOnlineButton" data-view-target="dashboard" type="button">Continuer en ligne</button>
@@ -55,6 +57,10 @@
               <div class="home-minimal-action">
                 <button class="secondary-action" data-view-target="settings" type="button">Paramètres</button>
                 <p>Installation, mode sombre, mises à jour et future connexion.</p>
+              </div>
+              <div class="home-minimal-action">
+                <button class="secondary-action" data-view-target="updates" type="button">Historique des mises à jour</button>
+                <p>Voir les dernières améliorations ajoutées à l'application.</p>
               </div>
               <div class="home-minimal-action">
                 <button class="secondary-action" data-view-target="settings" type="button">S'identifier</button>
@@ -66,6 +72,35 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <section class="view" id="updatesView">
+          <div class="page-heading">
+            <p class="eyebrow">Application</p>
+            <h2>Historique des mises à jour</h2>
+            <p>Les changements importants ajoutés à Brevet Sprint.</p>
+          </div>
+          <section class="panel">
+            <div class="history-list update-history-list">
+              <div class="history-item">
+                <span>2026-07-05</span>
+                <strong>Ajout de l'accès direct aux cours, validation des cours lus et badges de cours.</strong>
+              </div>
+              <div class="history-item">
+                <span>2026-07-05</span>
+                <strong>Meilleure correspondance entre les exercices, les cours et le bouton “Je ne comprends pas”.</strong>
+              </div>
+              <div class="history-item">
+                <span>2026-07-05</span>
+                <strong>Amélioration de l'installation hors ligne et du système de mise à jour.</strong>
+              </div>
+              <div class="history-item">
+                <span>2026-07-04</span>
+                <strong>Ajout des profils locaux, export/import de progression et anciens sujets hors ligne.</strong>
+              </div>
+            </div>
+            <button class="primary-action" data-view-target="landing" type="button">Retour au menu</button>
+          </section>
         </section>
 
         <section class="view" id="dashboardView">
@@ -104,6 +139,10 @@
               <button class="home-action" data-view-target="session" type="button">
                 <strong>Séance guidée</strong>
                 <span>Un cours, puis une série d'exercices corrigés.</span>
+              </button>
+              <button class="home-action" data-view-target="courses" type="button">
+                <strong>Cours</strong>
+                <span>Réviser un chapitre sans lancer de séance.</span>
               </button>
               <button class="home-action" data-view-target="practice" type="button">
                 <strong>Exercices libres</strong>

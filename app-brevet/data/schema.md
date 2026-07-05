@@ -76,5 +76,8 @@ Contient notamment :
 - `sessions` ;
 - `mistakes` ;
 - `repairs` ;
+- `courseReads` ;
 - `badges` ;
 - `annalExamRuns`.
+
+`courseReads` stocke les cours validés par l'élève avec : `lessonId`, `subject`, `chapter`, `stage`, `date`.

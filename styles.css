@@ -1372,6 +1372,22 @@ input[type="text"] {
   margin: 0;
 }
 
+.course-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 10px;
+}
+
+.course-actions .muted {
+  flex: 1 1 220px;
+}
+
+.update-history-list {
+  margin-bottom: 18px;
+}
+
 .tag {
   display: inline-flex;
   min-height: 26px;

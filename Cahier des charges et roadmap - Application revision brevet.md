@@ -23,6 +23,7 @@ L'app doit aider un eleve fragile a construire les bases, s'entrainer, reprendre
 Inclus :
 
 - accueil minimal ;
+- acces direct aux cours sans lancer de seance ;
 - seances guidees 10/20/30 exercices ;
 - exercices libres ;
 - progression locale ;
@@ -33,6 +34,7 @@ Inclus :
 - reponses ecrites simples ;
 - mini-series ciblees ;
 - bilan de seance.
+- historique simple des mises a jour.
 
 Exclu V1 :
 
@@ -53,6 +55,17 @@ L'epreuve orale sera traitee tout a la fin.
 4. Enrichir progressivement les cours les plus courts.
 5. Verifier installation PWA Android/iOS.
 6. Stabiliser la V1.
+
+## Derniere sauvegarde
+
+2026-07-05 :
+
+- acces "Cours" retabli dans le menu ;
+- validation "J'ai lu et compris" ajoutee sur les cours ;
+- progression enrichie avec le nombre de cours lus ;
+- badges de cours ajoutes ;
+- historique des mises a jour ajoute depuis l'accueil ;
+- cache PWA mis a jour.
 
 ## Roadmap future V2
 

@@ -7,6 +7,8 @@ URL publique : <https://parragaantoine.github.io/brevet-des-colleges/>
 ## Fonctionnalites
 
 - Cours simples avant exercices.
+- Acces direct aux cours sans lancer de seance.
+- Validation des cours lus et compris.
 - Seances guidees 10/20/30 exercices.
 - Exercices libres.
 - QCM, ordre, vrai/faux, reponses ecrites.
@@ -15,6 +17,7 @@ URL publique : <https://parragaantoine.github.io/brevet-des-colleges/>
 - Badges cliquables.
 - Anciens sujets PDF.
 - Installation PWA hors ligne.
+- Historique simple des mises a jour.
 
 ## Lancer en local
 

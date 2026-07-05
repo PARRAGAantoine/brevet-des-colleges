@@ -38,17 +38,19 @@ Fichiers principaux :
 ## Etat fonctionnel
 
 - Matieres : mathematiques, francais, histoire-geo EMC, sciences.
-- Cours : 76.
+- Cours : 88.
 - Exercices statiques : 428.
 - Reponses ecrites : 92.
 - Generateurs offline : 46.
 - Sujets guides : 12.
 - Notions : 33.
-- Badges : 132 paliers, regroupes en 50 familles.
+- Badges : 136 paliers, regroupes en 52 familles environ.
 
 Fonctions presentes :
 
 - page d'accueil minimale ;
+- acces direct aux cours sans lancer de seance ;
+- validation "J'ai lu et compris" pour suivre les cours lus ;
 - seance guidee avec cours puis 10/20/30 exercices ;
 - exercices libres ;
 - QCM, vrai/faux, remise en ordre, reponses ecrites ;
@@ -57,9 +59,11 @@ Fonctions presentes :
 - mini-series ciblees depuis les badges ;
 - reprise d'erreurs avec 3 questions proches a reussir ;
 - progression par matiere, historique, erreurs, bilan detaille ;
+- progression des cours lus ;
 - anciens sujets avec PDF et saisie note /20 ;
 - badges cliquables et sections repliables ;
-- PWA installable et mode sombre.
+- PWA installable et mode sombre ;
+- historique simple des mises a jour depuis l'accueil.
 
 ## Priorites restantes V1
 

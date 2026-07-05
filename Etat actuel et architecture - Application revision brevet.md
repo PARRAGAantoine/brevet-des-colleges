@@ -7,13 +7,13 @@ Application web offline de revision du brevet general.
 Validation actuelle :
 
 - matieres : 4 ;
-- cours : 76 ;
+- cours : 88 ;
 - exercices statiques : 428 ;
 - reponses ecrites : 92 ;
 - sujets guides : 12 ;
 - notions : 33 ;
 - generateurs offline : 46 ;
-- badges : 132 paliers ;
+- badges : 136 paliers ;
 - erreurs de validation : 0.
 
 ## Architecture
@@ -48,6 +48,7 @@ annales/
 - `render*` : affichage des vues.
 - `startSession` / `finishSession` : seances guidees.
 - `renderPracticeQuestion` : exercices libres et mini-series.
+- `renderCourses` : consultation des cours et validation "lu et compris".
 - `startMistakeReview` : reprise d'erreur.
 - `renderBadges` : badges cliquables et repliables.
 - `renderProgress` : progression detaillee.
@@ -55,6 +56,7 @@ annales/
 ## Points techniques importants
 
 - Progression dans `localStorage`.
+- Les cours lus sont suivis dans `progress.courseReads`.
 - Service worker en network-first pour la navigation, cache-first pour assets.
 - Cache versionne via `CACHE_NAME`.
 - Les QCM sont melanges.
