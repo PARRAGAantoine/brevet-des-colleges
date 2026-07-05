@@ -2498,16 +2498,33 @@
     const lessonMatches = [
       { keywords: ["thales"], lesson: ["thales"] },
       { keywords: ["trigonometrie", "cosinus", "sinus", "tangente"], lesson: ["trigonometrie", "cosinus"] },
-      { keywords: ["fraction", "simplifiee", "simplifier", "numerateur", "denominateur"], lesson: ["simplifier"] },
+      { keywords: ["probabilite", "urne", "boule", "jeton", "issue"], lesson: ["probabilite"] },
+      { keywords: ["fraction", "simplifiee", "simplifier", "numerateur", "denominateur"], lesson: ["simplifier", "fraction"] },
+      { keywords: ["puissance", "exposant", "ecriture scientifique"], lesson: ["puissance"] },
+      { keywords: ["developper", "developpement", "distributivite"], lesson: ["developper"] },
+      { keywords: ["factoriser", "factorisation", "facteur commun"], lesson: ["factoriser"] },
+      { keywords: ["fonction affine", "affine"], lesson: ["affine"] },
+      { keywords: ["fonction", "image", "antecedent"], lesson: ["fonction"] },
+      { keywords: ["proportionnalite", "proportionnel", "coefficient", "produit en croix"], lesson: ["proportionnalite"] },
+      { keywords: ["pourcentage", "pourcent"], lesson: ["pourcentage"] },
+      { keywords: ["relatif", "negative", "positif", "signe"], lesson: ["relatif"] },
+      { keywords: ["translation", "rotation", "symetrie", "homothetie", "transformation"], lesson: ["transformation"] },
+      { keywords: ["moyenne", "mediane", "etendue", "statistique"], lesson: ["statistique", "moyenne"] },
+      { keywords: ["programme de calcul", "tableur", "cellule"], lesson: ["programme", "tableur"] },
+      { keywords: ["equation", "inconnue"], lesson: ["equation"] },
       { keywords: ["pythagore"], lesson: ["pythagore"] },
       { keywords: ["trigonometrie", "cosinus", "sinus", "tangente"], lesson: ["trigonometrie"] },
       { keywords: ["volume", "pave", "cube", "cylindre"], lesson: ["volume"] }
     ];
     const match = lessonMatches.find((item) => item.keywords.some((keyword) => text.includes(keyword)));
     if (!match) return null;
-    return content.lessons.find((lesson) => {
-      const lessonText = normalizeText(`${lesson.id || ""} ${lesson.title || ""} ${lesson.summary || ""}`);
-      return lesson.subject === question.subject && match.lesson.some((keyword) => lessonText.includes(keyword));
+    const subjectLessons = content.lessons.filter((lesson) => lesson.subject === question.subject);
+    return subjectLessons.find((lesson) => {
+      const mainLessonText = normalizeText(`${lesson.id || ""} ${lesson.title || ""}`);
+      return match.lesson.some((keyword) => mainLessonText.includes(keyword));
+    }) || subjectLessons.find((lesson) => {
+      const lessonText = normalizeText(`${lesson.id || ""} ${lesson.title || ""} ${lesson.chapter || ""} ${lesson.summary || ""}`);
+      return match.lesson.some((keyword) => lessonText.includes(keyword));
     }) || null;
   }
 
@@ -2593,6 +2610,62 @@
       return `
         <p><strong>Ce qu'il faut faire :</strong> cherche si le nombre du haut et le nombre du bas ont un diviseur commun.</p>
         <p><strong>Avec cette question :</strong> teste les diviseurs simples : 2, 3, 5, 10.</p>
+      `;
+    }
+    if (text.includes("puissance") || text.includes("exposant") || /\^\d/.test(rawText)) {
+      return `
+        <p><strong>Ce qu'il faut reconnaitre :</strong> une puissance indique une multiplication repetee.</p>
+        <p><strong>Methode :</strong> lis l'exposant, puis remplace la puissance par une multiplication si besoin.</p>
+        <p><strong>Exemple proche :</strong> 5^2 veut dire 5 x 5. Ce n'est pas 5 x 2.</p>
+        <p><strong>Piege classique :</strong> avec 10^3, on multiplie par 1000, pas par 30.</p>
+      `;
+    }
+    if (text.includes("developp")) {
+      return `
+        <p><strong>Ce qu'il faut faire :</strong> developper, c'est enlever les parentheses en distribuant la multiplication.</p>
+        <p><strong>Methode :</strong> multiplie le nombre devant la parenthese par chaque terme a l'interieur.</p>
+        <p><strong>Exemple proche :</strong> 3(x + 4) = 3x + 12.</p>
+        <p><strong>Piege classique :</strong> ne multiplie pas seulement le premier terme de la parenthese.</p>
+      `;
+    }
+    if (text.includes("factoris") || text.includes("facteur commun")) {
+      return `
+        <p><strong>Ce qu'il faut faire :</strong> factoriser, c'est remettre un facteur commun devant une parenthese.</p>
+        <p><strong>Methode :</strong> cherche le nombre ou la lettre que l'on retrouve dans tous les termes.</p>
+        <p><strong>Exemple proche :</strong> 6x + 9 = 3(2x + 3).</p>
+        <p><strong>Verification :</strong> redeveloppe ta reponse pour voir si tu retrouves l'expression de depart.</p>
+      `;
+    }
+    if (text.includes("fonction") || text.includes("image") || text.includes("antecedent")) {
+      return `
+        <p><strong>Ce qu'il faut reconnaitre :</strong> une fonction transforme un nombre de depart en resultat.</p>
+        <p><strong>Methode :</strong> pour calculer une image, remplace x par la valeur donnee dans la formule.</p>
+        <p><strong>Exemple proche :</strong> si f(x) = 2x + 3, alors f(4) = 2 x 4 + 3 = 11.</p>
+        <p><strong>Piege classique :</strong> x est le nombre de depart ; f(x) est le resultat.</p>
+      `;
+    }
+    if (text.includes("proportionnalite") || text.includes("proportionnel") || text.includes("pourcentage") || text.includes("pourcent")) {
+      return `
+        <p><strong>Ce qu'il faut chercher :</strong> une relation proportionnelle utilise toujours le meme coefficient.</p>
+        <p><strong>Methode :</strong> trouve le coefficient, ou reviens a l'unite, puis applique-le a la valeur demandee.</p>
+        <p><strong>Pour un pourcentage :</strong> 20 % signifie 20/100. On multiplie donc la quantite par 20/100.</p>
+        <p><strong>Piege classique :</strong> deux nombres qui augmentent ensemble ne sont pas forcement proportionnels.</p>
+      `;
+    }
+    if (text.includes("relatif") || text.includes("nombre negatif") || text.includes("signe")) {
+      return `
+        <p><strong>Ce qu'il faut regarder :</strong> le signe du nombre indique s'il est positif ou negatif.</p>
+        <p><strong>Pour additionner :</strong> pense a une droite graduee ou regroupe les positifs et les negatifs.</p>
+        <p><strong>Pour multiplier :</strong> deux signes identiques donnent un resultat positif ; deux signes differents donnent un resultat negatif.</p>
+        <p><strong>Piege classique :</strong> la regle des signes concerne surtout les multiplications et divisions.</p>
+      `;
+    }
+    if (text.includes("translation") || text.includes("rotation") || text.includes("symetrie") || text.includes("homothetie") || text.includes("transformation")) {
+      return `
+        <p><strong>Ce qu'il faut observer :</strong> regarde comment la figure a bouge.</p>
+        <p><strong>Translation :</strong> la figure glisse sans tourner.</p>
+        <p><strong>Rotation :</strong> la figure tourne autour d'un point.</p>
+        <p><strong>Symetrie :</strong> la figure est retournee comme dans un miroir. Homothetie : elle est agrandie ou reduite.</p>
       `;
     }
     if (text.includes("cosinus") || text.includes("sinus") || text.includes("tangente")) {
