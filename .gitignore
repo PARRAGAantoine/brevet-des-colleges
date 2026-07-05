@@ -2,6 +2,8 @@
 *.pdf
 !app-brevet/annales/
 !app-brevet/annales/*.pdf
+!annales/
+!annales/*.pdf
 Documents supplementaires - Brevet general France/
 Sauvegardes/
 
