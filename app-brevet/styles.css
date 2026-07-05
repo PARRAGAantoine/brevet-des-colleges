@@ -1331,19 +1331,31 @@ input[type="text"] {
 :root[data-theme="dark"] .annal-guide > div,
 :root[data-theme="dark"] .annal-document-item,
 :root[data-theme="dark"] .question-help-content {
-  color: var(--text);
+  color: #edf4f7;
 }
 
 :root[data-theme="dark"] .lesson-callout.soft .muted,
 :root[data-theme="dark"] .home-action span,
+:root[data-theme="dark"] .home-action p,
 :root[data-theme="dark"] .annal-guide > div .muted,
 :root[data-theme="dark"] .annal-document-item .muted,
 :root[data-theme="dark"] .question-help-content .muted {
-  color: #c4d2d9;
+  color: #d8e6ec;
 }
 
 :root[data-theme="dark"] .home-action strong {
   color: #f5fbff;
+}
+
+:root[data-theme="dark"] .home-action {
+  background: #17303d;
+  border-color: #5d90a5;
+}
+
+:root[data-theme="dark"] .home-action:hover,
+:root[data-theme="dark"] .home-action:focus-visible {
+  border-color: #8bc7d7;
+  box-shadow: 0 0 0 2px rgba(139, 199, 215, 0.26), 0 16px 34px rgba(0, 0, 0, 0.24);
 }
 
 .progress-row {
