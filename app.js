@@ -458,10 +458,30 @@
   }
 
   function polishText(value) {
-    return textPolishRules.reduce((text, [from, to]) => {
+    const polished = textPolishRules.reduce((text, [from, to]) => {
       const pattern = new RegExp(`(^|[^\\p{L}\\p{N}])${escapeRegExp(from)}(?=$|[^\\p{L}\\p{N}])`, "gu");
       return text.replace(pattern, `$1${to}`);
     }, String(value || ""));
+    return formatMathText(polished);
+  }
+
+  function formatMathText(value) {
+    const superscripts = {
+      "-": "⁻",
+      "0": "⁰",
+      "1": "¹",
+      "2": "²",
+      "3": "³",
+      "4": "⁴",
+      "5": "⁵",
+      "6": "⁶",
+      "7": "⁷",
+      "8": "⁸",
+      "9": "⁹"
+    };
+    return String(value || "").replace(/\^(-?\d+)/g, (_, exponent) => (
+      [...exponent].map((char) => superscripts[char] || char).join("")
+    ));
   }
 
   function applyTextPolish(root = document.body) {
@@ -683,7 +703,7 @@
 
   function setupPwaInstall() {
     if ("serviceWorker" in navigator && location.protocol !== "file:") {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
+      navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});
     }
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
