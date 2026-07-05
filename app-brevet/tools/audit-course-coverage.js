@@ -1,22 +1,22 @@
 const fs = require("fs");
 const vm = require("vm");
 
-const files = [
+function extraContentOrder(file) {
+  const match = file.match(/^extra-content(?:-(\d+))?\.js$/);
+  return match ? Number(match[1] || 1) : 0;
+}
+
+const dataFiles = [
   "data/content.js",
-  "data/extra-content.js",
-  "data/extra-content-2.js",
-  "data/extra-content-3.js",
-  "data/extra-content-4.js",
-  "data/extra-content-5.js",
-  "data/extra-content-6.js",
-  "data/extra-content-7.js",
-  "data/extra-content-8.js",
-  "data/extra-content-9.js",
-  "data/extra-content-10.js",
-  "data/extra-content-11.js",
-  "data/extra-content-12.js",
-  "data/extra-content-13.js",
-  "data/notions.js",
+  ...fs.readdirSync("data")
+    .filter((file) => /^extra-content(?:-\d+)?\.js$/.test(file))
+    .sort((a, b) => extraContentOrder(a) - extraContentOrder(b))
+    .map((file) => `data/${file}`),
+  "data/notions.js"
+];
+
+const files = [
+  ...dataFiles,
   "generators/registry.js",
   "generators/math-calcul.js",
   "generators/science-calcul.js",

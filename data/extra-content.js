@@ -281,11 +281,13 @@
       id: "math_extra_005",
       subject: "mathematiques",
       chapter: "Geometrie",
+      lessonId: "math_echelle",
       stage: "Type brevet",
       type: "qcm",
       question: "A l'echelle 1:1000, 2 cm sur le plan representent...",
       choices: ["2 m", "20 m", "200 m", "1000 m"],
       answer: "20 m",
+      helpText: "A l'echelle 1:1000, 1 cm sur le plan represente 1000 cm en realite. Donc 2 cm representent 2000 cm, puis on convertit : 2000 cm = 20 m.",
       explanation: "2 cm sur le plan representent 2000 cm en realite, soit 20 m."
     },
     {

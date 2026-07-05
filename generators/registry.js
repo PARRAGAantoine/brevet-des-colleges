@@ -42,7 +42,7 @@
     const distractors = shuffle(seed + 31, [...new Set((data.distractors || []).map(String).filter((value) => value !== answer))]).slice(0, 3);
     const baseChoices = [answer, ...distractors].slice(0, 4);
     const choices = baseChoices.length >= 4 ? baseChoices : [...baseChoices, "Impossible", "0"].slice(0, 4);
-    return {
+    const exercise = {
       id: `${generatorId}:${seed}`,
       mode: "generated",
       generatorId,
@@ -58,6 +58,9 @@
       explanation: data.explanation,
       source: "generated"
     };
+    if (data.lessonId) exercise.lessonId = data.lessonId;
+    if (data.helpText) exercise.helpText = data.helpText;
+    return exercise;
   }
 
   root.utils = { createRng, pick, shuffle, gcd, fraction, makeExercise };

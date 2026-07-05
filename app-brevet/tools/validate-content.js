@@ -1,26 +1,22 @@
 const fs = require("fs");
 const vm = require("vm");
 
-const files = [
+function extraContentOrder(file) {
+  const match = file.match(/^extra-content(?:-(\d+))?\.js$/);
+  return match ? Number(match[1] || 1) : 0;
+}
+
+const dataFiles = [
   "data/content.js",
-  "data/extra-content.js",
-  "data/extra-content-2.js",
-  "data/extra-content-3.js",
-  "data/extra-content-4.js",
-  "data/extra-content-5.js",
-  "data/extra-content-6.js",
-  "data/extra-content-7.js",
-  "data/extra-content-8.js",
-  "data/extra-content-9.js",
-  "data/extra-content-10.js",
-  "data/extra-content-11.js",
-  "data/extra-content-12.js",
-  "data/extra-content-13.js",
-  "data/extra-content-14.js",
-  "data/extra-content-15.js",
-  "data/extra-content-16.js",
-  "data/extra-content-17.js",
-  "data/notions.js",
+  ...fs.readdirSync("data")
+    .filter((file) => /^extra-content(?:-\d+)?\.js$/.test(file))
+    .sort((a, b) => extraContentOrder(a) - extraContentOrder(b))
+    .map((file) => `data/${file}`),
+  "data/notions.js"
+];
+
+const files = [
+  ...dataFiles,
   "generators/registry.js",
   "generators/math-calcul.js",
   "generators/science-calcul.js",
@@ -36,6 +32,7 @@ const content = sandbox.window.BREVET_CONTENT;
 const generators = sandbox.window.BREVET_GENERATORS;
 const subjectIds = new Set(content.subjects.map((subject) => subject.id));
 const notionIds = new Set((content.notions || []).map((notion) => notion.id));
+const lessonById = new Map((content.lessons || []).map((lesson) => [lesson.id, lesson]));
 const errors = [];
 
 function requireField(item, field, label) {
@@ -50,6 +47,15 @@ function validateExercise(exercise, label = "exercise") {
   if (!subjectIds.has(exercise.subject)) errors.push(`${label} ${exercise.id} : matiere inconnue ${exercise.subject}`);
   if (!exercise.notionId) errors.push(`${label} ${exercise.id} : notionId manquant`);
   if (exercise.notionId && !notionIds.has(exercise.notionId)) errors.push(`${label} ${exercise.id} : notionId inconnu ${exercise.notionId}`);
+  if (exercise.lessonId) {
+    const lesson = lessonById.get(exercise.lessonId);
+    if (!lesson) {
+      errors.push(`${label} ${exercise.id} : lessonId inconnu ${exercise.lessonId}`);
+    } else if (lesson.subject !== exercise.subject) {
+      errors.push(`${label} ${exercise.id} : lessonId ${exercise.lessonId} rattache a une autre matiere`);
+    }
+  }
+  if (exercise.helpText != null && typeof exercise.helpText !== "string") errors.push(`${label} ${exercise.id} : helpText doit etre une chaine`);
   if (!["qcm", "true_false", "order", "short_answer"].includes(exerciseType)) errors.push(`${label} ${exercise.id} : type inconnu ${exercise.type}`);
   const minChoices = exerciseType === "true_false" ? 2 : 3;
   if (exerciseType !== "short_answer" && (!Array.isArray(exercise.choices) || exercise.choices.length < minChoices)) errors.push(`${label} ${exercise.id} : choix insuffisants`);

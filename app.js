@@ -2474,6 +2474,10 @@
 
   function getLessonForQuestion(question) {
     if (!question) return null;
+    const directLesson = question.lessonId
+      ? content.lessons.find((lesson) => lesson.id === question.lessonId && lesson.subject === question.subject)
+      : null;
+    if (directLesson) return directLesson;
     const keywordLesson = getKeywordLessonForQuestion(question);
     const exactNotionLesson = content.lessons.find((lesson) => lesson.notionId && lesson.notionId === question.notionId);
     const shouldPreferKeyword = question.subject === "mathematiques" && keywordLesson;
@@ -2575,6 +2579,9 @@
   }
 
   function renderDetailedQuestionHelp(question, lesson) {
+    const directHelp = question.helpText
+      ? `<p><strong>Aide ciblée :</strong> ${escapeHtml(question.helpText)}</p>`
+      : "";
     const specificHelp = getQuestionSpecificHelp(question);
     const fallback = lesson ? `
       <p><strong>Rappel utile :</strong> ${lesson.summary || lesson.takeaway || "Relis la consigne et repere ce que la question demande."}</p>
@@ -2586,7 +2593,7 @@
     return `
       <strong>On reprend pas a pas</strong>
       <p><strong>Question :</strong> ${escapeHtml(question.question || question.prompt || "")}</p>
-      ${specificHelp || fallback}
+      ${directHelp || specificHelp || fallback}
       ${question.explanation ? `<p><strong>Correction expliquee :</strong> ${escapeHtml(question.explanation)}</p>` : ""}
       <p><strong>Avant de repondre :</strong> refais le raisonnement lentement, puis choisis la reponse qui correspond a la methode.</p>
     `;

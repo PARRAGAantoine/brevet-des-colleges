@@ -26,15 +26,24 @@
   subject,
   chapter,
   notionId,
+  lessonId,
   stage,
   type,
   question,
   choices,
   answer,
   acceptedAnswers,
+  helpText,
   explanation
 }
 ```
+
+Champs optionnels :
+
+- `lessonId` : identifiant exact du cours à afficher pour cet exercice ;
+- `helpText` : aide courte affichée avec le bouton `Je ne comprends pas`.
+
+Ces champs ne remplacent pas `notionId` : ils servent à éviter les erreurs quand un chapitre contient plusieurs méthodes différentes.
 
 Types :
 

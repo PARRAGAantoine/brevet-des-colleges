@@ -105,11 +105,13 @@
       id: "math-extra3-grandeurs-2",
       subject: "mathematiques",
       chapter: "Grandeurs et mesures",
+      lessonId: "math_echelle",
       stage: "Consolidation",
       type: "qcm",
       question: "Un plan est a l'echelle 1:500. Une longueur de 4 cm sur le plan represente :",
       choices: ["20 m", "2 m", "200 m", "500 cm"],
       answer: "20 m",
+      helpText: "A l'echelle 1:500, 1 cm sur le plan represente 500 cm en realite. Pour 4 cm, calcule 4 x 500 = 2000 cm, puis convertis en metres.",
       explanation: "4 cm x 500 = 2000 cm, soit 20 m."
     },
     {
