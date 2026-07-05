@@ -2355,8 +2355,8 @@
     if (!question) return null;
     const keywordLesson = getKeywordLessonForQuestion(question);
     const exactNotionLesson = content.lessons.find((lesson) => lesson.notionId && lesson.notionId === question.notionId);
-    const isBroadGeometry = question.notionId === "math.geometrie";
-    return (isBroadGeometry ? keywordLesson : exactNotionLesson)
+    const shouldPreferKeyword = question.subject === "mathematiques" && keywordLesson;
+    return (shouldPreferKeyword ? keywordLesson : exactNotionLesson)
       || exactNotionLesson
       || keywordLesson
       || content.lessons.find((lesson) => lesson.subject === question.subject && chapterMatches(lesson.chapter, question.chapter))
@@ -2376,7 +2376,9 @@
     ].filter(Boolean).join(" "));
     const lessonMatches = [
       { keywords: ["thales"], lesson: ["thales"] },
-      { keywords: ["pythagore", "hypotenuse"], lesson: ["pythagore"] },
+      { keywords: ["trigonometrie", "cosinus", "sinus", "tangente"], lesson: ["trigonometrie", "cosinus"] },
+      { keywords: ["fraction", "simplifiee", "simplifier", "numerateur", "denominateur"], lesson: ["simplifier"] },
+      { keywords: ["pythagore"], lesson: ["pythagore"] },
       { keywords: ["trigonometrie", "cosinus", "sinus", "tangente"], lesson: ["trigonometrie"] },
       { keywords: ["volume", "pave", "cube", "cylindre"], lesson: ["volume"] }
     ];
@@ -2416,13 +2418,96 @@
   }
 
   function reportQuestionConfusion(button) {
+    const panel = button.closest(".question-panel, .session-stage");
     const context = button.dataset.answerContext;
     const question = getQuestionFromContext(context);
     if (!question) return;
+    const lesson = getLessonForQuestion(question);
+    const help = panel.querySelector(".question-help-content");
+    if (!help) return;
     markQuestionHelpUsed(question, context);
-    showQuestionHelp(button);
+    question.courseViewed = true;
+    help.hidden = false;
+    help.dataset.open = "true";
+    help.innerHTML = renderDetailedQuestionHelp(question, lesson);
+    applyTextPolish(help);
     showToast("Aide ouverte : cette question ne comptera pas pour une recompense sans aide.");
     renderDashboard();
+  }
+
+  function renderDetailedQuestionHelp(question, lesson) {
+    const specificHelp = getQuestionSpecificHelp(question);
+    const fallback = lesson ? `
+      <p><strong>Rappel utile :</strong> ${lesson.summary || lesson.takeaway || "Relis la consigne et repere ce que la question demande."}</p>
+      ${lesson.example ? `<p><strong>Exemple du cours :</strong> ${lesson.example}</p>` : ""}
+      ${lesson.takeaway ? `<p><strong>A retenir :</strong> ${lesson.takeaway}</p>` : ""}
+    ` : `
+      <p><strong>Methode :</strong> relis la consigne, repere les mots importants, puis elimine les reponses impossibles.</p>
+    `;
+    return `
+      <strong>On reprend pas a pas</strong>
+      <p><strong>Question :</strong> ${escapeHtml(question.question || question.prompt || "")}</p>
+      ${specificHelp || fallback}
+      ${question.explanation ? `<p><strong>Correction expliquee :</strong> ${escapeHtml(question.explanation)}</p>` : ""}
+      <p><strong>Avant de repondre :</strong> refais le raisonnement lentement, puis choisis la reponse qui correspond a la methode.</p>
+    `;
+  }
+
+  function getQuestionSpecificHelp(question) {
+    const rawText = [question.question, question.prompt, question.explanation].filter(Boolean).join(" ");
+    const text = normalizeText(rawText);
+    const fractionMatch = rawText.match(/fraction\s+(\d+)\s*\/\s*(\d+)/i) || rawText.match(/(\d+)\s*\/\s*(\d+)/);
+    if (fractionMatch && (text.includes("simplifie") || text.includes("fraction"))) {
+      const numerator = Number(fractionMatch[1]);
+      const denominator = Number(fractionMatch[2]);
+      const divisor = localGcd(numerator, denominator);
+      if (divisor > 1) {
+        return `
+          <p><strong>Ce qu'il faut faire :</strong> simplifier une fraction, c'est diviser le nombre du haut et le nombre du bas par le meme nombre.</p>
+          <p><strong>Avec cette question :</strong> ${numerator} et ${denominator} sont divisibles par ${divisor}.</p>
+          <p><strong>Donc :</strong> ${numerator}/${denominator} = ${numerator / divisor}/${denominator / divisor}.</p>
+          <p><strong>Piege classique :</strong> on ne divise jamais seulement le haut ou seulement le bas.</p>
+        `;
+      }
+      return `
+        <p><strong>Ce qu'il faut faire :</strong> cherche si le nombre du haut et le nombre du bas ont un diviseur commun.</p>
+        <p><strong>Avec cette question :</strong> teste les diviseurs simples : 2, 3, 5, 10.</p>
+      `;
+    }
+    if (text.includes("cosinus") || text.includes("sinus") || text.includes("tangente")) {
+      return `
+        <p><strong>Ce qu'il faut reconnaitre :</strong> la question parle de trigonometrie dans un triangle rectangle.</p>
+        <p><strong>Les trois formules utiles :</strong> cosinus = adjacent / hypotenuse ; sinus = oppose / hypotenuse ; tangente = oppose / adjacent.</p>
+        <p><strong>Avec cette question :</strong> comme on demande le cosinus, il faut choisir adjacent / hypotenuse.</p>
+        <p><strong>Piege classique :</strong> Pythagore calcule une longueur ; cosinus, sinus et tangente relient un angle a deux cotes.</p>
+      `;
+    }
+    if (text.includes("thales")) {
+      return `
+        <p><strong>Ce qu'il faut verifier :</strong> Thales s'utilise avec des points alignes et deux droites paralleles.</p>
+        <p><strong>Methode :</strong> ecris les rapports dans le meme ordre, puis remplace les longueurs connues.</p>
+        <p><strong>Piege classique :</strong> ne melange pas les cotes des deux triangles.</p>
+      `;
+    }
+    if (text.includes("pythagore") || text.includes("hypotenuse")) {
+      return `
+        <p><strong>Ce qu'il faut verifier :</strong> Pythagore s'utilise seulement dans un triangle rectangle.</p>
+        <p><strong>Methode :</strong> repere l'hypotenuse, puis utilise hypotenuse^2 = cote^2 + cote^2.</p>
+        <p><strong>Piege classique :</strong> l'hypotenuse est toujours le cote en face de l'angle droit.</p>
+      `;
+    }
+    return "";
+  }
+
+  function localGcd(a, b) {
+    let x = Math.abs(a);
+    let y = Math.abs(b);
+    while (y) {
+      const rest = x % y;
+      x = y;
+      y = rest;
+    }
+    return x || 1;
   }
 
   function markQuestionHelpUsed(question, context) {
