@@ -553,7 +553,8 @@
     const answers = progress.answers.filter((answer) => answer.subject === subjectId);
     const correct = answers.filter((answer) => answer.correct).length;
     const rate = answers.length ? Math.round((correct / answers.length) * 100) : 0;
-    return { total: answers.length, correct, rate };
+    const visualRate = answers.length >= 8 ? rate : Math.min(70, Math.round(rate * (answers.length / 8)));
+    return { total: answers.length, correct, rate, visualRate };
   }
 
   function getCurriculumStats(item) {
@@ -898,8 +899,8 @@
       const level = stats.total === 0 ? "Pas encore commence" : stats.rate >= 80 ? "Solide" : stats.rate >= 50 ? "En progres" : "A reprendre";
       return `
         <article class="subject-card">
-          <div class="subject-meta"><span>${subject.label}</span><strong>${stats.rate} %</strong></div>
-          <div class="progress-track"><div style="width:${stats.rate}%; background:${subject.color}"></div></div>
+          <div class="subject-meta"><span>${subject.label}</span><strong>${stats.total ? `${stats.rate} %` : "0 %"}</strong></div>
+          <div class="progress-track"><div style="width:${stats.visualRate}%; background:${subject.color}"></div></div>
           <span class="status-pill">${level}</span>
         </article>
       `;
@@ -2498,6 +2499,7 @@
       subject: question.subject,
       chapter: question.chapter,
       stage: question.stage || "Decouverte",
+      answerType: question.type || "qcm",
       correct,
       helpUsed: Boolean(question.helpUsed),
       date: today(),
@@ -2818,7 +2820,7 @@
       return `
         <div class="progress-row">
           <strong>${subject.label}</strong>
-          <div class="progress-track"><div style="width:${stats.rate}%; background:${subject.color}"></div></div>
+          <div class="progress-track"><div style="width:${stats.visualRate}%; background:${subject.color}"></div></div>
           <span>${label}</span>
         </div>
       `;
@@ -2953,8 +2955,9 @@
     const requirement = badge.requirement || "Objectif";
     const icon = badge.icon || getBadgeIcon(badge);
     const image = unlocked ? (badge.image || getDefaultBadgeImage(badge)) : (badge.lockedImage || getDefaultBadgeImage({ ...badge, tier: "locked" }));
+    const actionLabel = getBadgeActionLabel(badge, unlocked);
     return `
-      <article class="badge-card ${unlocked ? `unlocked tier-${tier}` : `locked tier-${tier}`} ${tier === "ultimate" ? "badge-ultimate" : ""}">
+      <article class="badge-card ${unlocked ? `unlocked tier-${tier}` : `locked tier-${tier}`} ${tier === "ultimate" ? "badge-ultimate" : ""}" data-badge-action="${badge.id}">
         <div class="badge-award" aria-hidden="true">
           ${image ? `<img class="badge-medal-image" src="${image}" alt="">` : `
             <div class="badge-halo"></div>
@@ -2970,9 +2973,135 @@
           <h3>${unlocked ? badge.title : (badge.lockedTitle || badge.title)}</h3>
           <p>${unlocked ? badge.description : (badge.lockedDescription || badge.description)}</p>
           <small>${unlocked ? `${tierMeta.level} - ${badge.category}` : `${tierMeta.label} \u00e0 d\u00e9bloquer`}${badge.nextRequirement ? ` - prochain palier : ${badge.nextRequirement}` : ""}</small>
+          <button class="badge-action" data-badge-action="${badge.id}" type="button">${actionLabel}</button>
         </div>
       </article>
     `;
+  }
+
+  function getBadgeActionLabel(badge, unlocked) {
+    if (badge.tier === "ultimate") return unlocked ? "Voir le bilan" : "Voir quoi travailler";
+    if (badge.id.includes("streak")) return "Voir l'objectif";
+    if (badge.id.includes("annales-exam")) return "Ouvrir les anciens sujets";
+    if (badge.id.includes("repairs")) return "Revoir mes erreurs";
+    if (badge.id.includes("written")) return "Faire une reponse ecrite";
+    if (badge.id.includes("no-help") || badge.id.includes("perfect")) return "Lancer une seance";
+    if (badge.id.includes("balanced")) return "Equilibrer les matieres";
+    if (badge.id.includes("questions")) return "Faire des exercices";
+    if (badge.id.includes("sessions")) return "Lancer une seance";
+    if (badge.category === "Chapitre") return unlocked ? "Continuer ce chapitre" : "Travailler ce chapitre";
+    if (badge.category === "Matiere") return unlocked ? "Passer au palier suivant" : "Travailler cette matiere";
+    return unlocked ? "Continuer" : "Commencer";
+  }
+
+  function getBadgeStageTarget(badge) {
+    if (badge.tier === "gold" || badge.id.includes("Type brevet")) return "Type brevet";
+    if (badge.tier === "silver" || badge.id.includes("Consolidation")) return "Consolidation";
+    return "Decouverte";
+  }
+
+  function getBadgeCurriculumItem(badge) {
+    if (badge.category !== "Chapitre") return null;
+    return content.curriculum.find((item) => badge.id.startsWith(`chapter:${item.id}:`)) || null;
+  }
+
+  function preparePracticeTarget(subject, stage = "auto", chapter = "all") {
+    const subjectSelect = document.getElementById("practiceSubject");
+    const stageSelect = document.getElementById("practiceStage");
+    const chapterSelect = document.getElementById("practiceChapter");
+    if (subjectSelect) subjectSelect.value = subject;
+    if (stageSelect) stageSelect.value = stage;
+    renderPracticeChapters();
+    if (chapterSelect) chapterSelect.value = [...chapterSelect.options].some((option) => option.value === chapter) ? chapter : "all";
+    currentPracticeQuestion = pickQuestion(subject, { stage, chapter });
+    setView("practice");
+    renderPracticeQuestion();
+  }
+
+  function startBadgeObjective(badgeId) {
+    const badge = getDisplayBadges(getAllBadges()).find((item) => item.id === badgeId)
+      || getAllBadges().find((item) => item.id === badgeId);
+    if (!badge) return;
+    if (badge.id.includes("repairs")) {
+      const pending = progress.mistakes.find((mistake) => !mistake.repaired);
+      if (pending) startMistakeReview(pending.id);
+      else {
+        setView("progress");
+        showToast("Aucune erreur a reprendre pour le moment.");
+      }
+      return;
+    }
+    if (badge.id.includes("annales-exam")) {
+      setView("annales");
+      showToast("Choisis un ancien sujet, fais-le, puis enregistre ta note.");
+      return;
+    }
+    if (badge.id.includes("streak")) {
+      setView("dashboard");
+      showToast("Ce badge se gagne en revenant travailler plusieurs jours de suite.");
+      return;
+    }
+    if (badge.tier === "ultimate") {
+      setView("badges");
+      showToast("Objectif ultime : or dans les matieres, seances sans faute et erreurs reparees.");
+      return;
+    }
+    if (badge.id.includes("sessions") || badge.id.includes("perfect") || badge.id.includes("no-help")) {
+      setView("session");
+      showToast("Objectif badge : reussir une vraie seance.");
+      return;
+    }
+    if (badge.id.includes("balanced")) {
+      const weakest = content.subjects
+        .map((subject) => ({ ...subject, correct: progress.answers.filter((answer) => answer.subject === subject.id && answer.correct).length }))
+        .sort((a, b) => a.correct - b.correct)[0];
+      preparePracticeTarget(weakest?.id || activeSubject, "auto", "all");
+      showToast("Objectif badge : avancer dans la matiere la moins travaillee.");
+      return;
+    }
+    if (badge.id.includes("written")) {
+      const writtenPool = content.exercises.filter((exercise) => exercise.type === "short_answer");
+      const answeredCounts = new Map();
+      progress.answers.forEach((answer) => answeredCounts.set(answer.exerciseId, (answeredCounts.get(answer.exerciseId) || 0) + 1));
+      const question = writtenPool.sort((a, b) => (answeredCounts.get(a.id) || 0) - (answeredCounts.get(b.id) || 0))[0];
+      if (question) {
+        const subjectSelect = document.getElementById("practiceSubject");
+        const stageSelect = document.getElementById("practiceStage");
+        const chapterSelect = document.getElementById("practiceChapter");
+        if (subjectSelect) subjectSelect.value = question.subject;
+        if (stageSelect) stageSelect.value = question.stage || "auto";
+        renderPracticeChapters();
+        if (chapterSelect) chapterSelect.value = [...chapterSelect.options].some((option) => option.value === question.chapter) ? question.chapter : "all";
+        currentPracticeQuestion = question;
+        setView("practice");
+        renderPracticeQuestion();
+        showToast("Objectif badge : reussir une reponse sans QCM.");
+      }
+      return;
+    }
+    if (badge.id.includes("questions")) {
+      preparePracticeTarget(activeSubject, "auto", "all");
+      showToast("Objectif badge : faire progresser ton volume d'exercices.");
+      return;
+    }
+    const curriculumItem = getBadgeCurriculumItem(badge);
+    if (curriculumItem) {
+      preparePracticeTarget(curriculumItem.subject, getBadgeStageTarget(badge), curriculumItem.chapter);
+      showToast(`Objectif badge : ${curriculumItem.chapter}.`);
+      return;
+    }
+    if (badge.subject) {
+      preparePracticeTarget(badge.subject, getBadgeStageTarget(badge), "all");
+      showToast(`Objectif badge : ${badgeSubjectLabel(badge.subject)}.`);
+      return;
+    }
+    const stageMatch = badge.id.match(/stage:([^:]+):/);
+    if (stageMatch) {
+      preparePracticeTarget(activeSubject, stageMatch[1], "all");
+      showToast("Objectif badge : reussir des questions de ce niveau.");
+      return;
+    }
+    setView("practice");
   }
 
   function getBadgeTierMeta(tier) {
@@ -3000,6 +3129,9 @@
     if (badge.subject === "sciences") return "subject-science";
     if (badge.id?.includes("sessions")) return "sessions";
     if (badge.id?.includes("questions")) return "questions";
+    if (badge.id?.includes("written")) return "questions";
+    if (badge.id?.includes("balanced")) return "questions";
+    if (badge.id?.includes("no-help")) return "perfect";
     if (badge.id?.includes("streak")) return "streak";
     if (badge.id?.includes("repairs")) return "repairs";
     if (badge.id?.includes("perfect")) return "perfect";
@@ -3166,6 +3298,9 @@
     const bestAnnalExamScore = () => Math.max(0, ...(progress.annalExamRuns || []).map((run) => Number(run.score) || 0));
     const annalExamCount = () => (progress.annalExamRuns || []).length;
     const annalSubjectCount = () => new Set((progress.annalExamRuns || []).map((run) => run.subject)).size;
+    const noHelpPerfectSessions = () => progress.sessions.filter((session) => session.correctAnswers === session.questionsAnswered && session.questionsAnswered > 0 && !session.usedHelp).length;
+    const writtenCorrect = () => progress.answers.filter((answer) => answer.correct && answer.answerType === "short_answer").length;
+    const balancedSubjectMinimum = () => Math.min(...content.subjects.map((subject) => progress.answers.filter((answer) => answer.subject === subject.id && answer.correct).length));
     const specials = [
       ["sessions:1", "bronze", "Premiere seance", "Terminer une premiere seance.", "1 seance", "◆", () => progress.sessions.length >= 1],
       ["sessions:10", "silver", "Routine installee", "Terminer 10 seances.", "10 seances", "◆", () => progress.sessions.length >= 10],
@@ -3187,7 +3322,16 @@
       ["perfect:5", "silver", "Precision argent", "Reussir 5 seances sans erreur.", "5 sans faute", "✓", () => progress.perfectRuns >= 5],
       ["perfect:20", "gold", "Precision or", "Reussir 20 seances sans erreur.", "20 sans faute", "✓", () => progress.perfectRuns >= 20],
       ["perfect:50", "gold", "Maitrise complete", "Reussir 50 seances sans erreur.", "50 sans faute", "✓", () => progress.perfectRuns >= 50],
+      ["no-help:3", "bronze", "Sans aide", "Reussir 3 seances sans erreur et sans utiliser l'aide.", "3 sans aide", "✓", () => noHelpPerfectSessions() >= 3],
+      ["no-help:15", "silver", "Autonomie", "Reussir 15 seances sans erreur et sans aide.", "15 sans aide", "✓", () => noHelpPerfectSessions() >= 15],
+      ["no-help:40", "gold", "Confiance solide", "Reussir 40 seances sans erreur et sans aide.", "40 sans aide", "✓", () => noHelpPerfectSessions() >= 40],
       ["subjects:4", "silver", "Tour d'horizon", "Travailler les quatre matieres.", "4 matieres", "★", () => subjectsDone() >= 4],
+      ["balanced:10", "bronze", "Equilibre", "Reussir au moins 10 questions dans chaque matiere.", "10 par matiere", "★", () => balancedSubjectMinimum() >= 10],
+      ["balanced:30", "silver", "Toutes les matieres", "Reussir au moins 30 questions dans chaque matiere.", "30 par matiere", "★", () => balancedSubjectMinimum() >= 30],
+      ["balanced:80", "gold", "Brevet complet", "Reussir au moins 80 questions dans chaque matiere.", "80 par matiere", "★", () => balancedSubjectMinimum() >= 80],
+      ["written:10", "bronze", "Reponses ecrites", "Reussir 10 exercices sans QCM.", "10 reponses", "✎", () => writtenCorrect() >= 10],
+      ["written:30", "silver", "Je sais rediger", "Reussir 30 exercices sans QCM.", "30 reponses", "✎", () => writtenCorrect() >= 30],
+      ["written:100", "gold", "Redaction solide", "Reussir 100 exercices sans QCM.", "100 reponses", "✎", () => writtenCorrect() >= 100],
       ["stage:Decouverte:60", "bronze", "J'apprends", "Reussir 60 questions en mode J'apprends.", "60 reussites", "1", () => stageCorrect("Decouverte") >= 60],
       ["stage:Consolidation:120", "silver", "Je m'entraine", "Reussir 120 questions en mode Je m'entraine.", "120 reussites", "2", () => stageCorrect("Consolidation") >= 120],
       ["stage:Type brevet:200", "gold", "Comme au brevet", "Reussir 200 questions Comme au brevet.", "200 reussites", "3", () => stageCorrect("Type brevet") >= 200],
@@ -3338,6 +3482,12 @@
       const reviewMistakeButton = event.target.closest("[data-review-mistake]");
       if (reviewMistakeButton) {
         startMistakeReview(reviewMistakeButton.dataset.reviewMistake);
+      }
+
+      const badgeAction = event.target.closest("[data-badge-action]");
+      if (badgeAction) {
+        event.preventDefault();
+        startBadgeObjective(badgeAction.dataset.badgeAction);
       }
 
       const courseFilter = event.target.closest("[data-course-filter]");
