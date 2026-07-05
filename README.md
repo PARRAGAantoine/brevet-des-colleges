@@ -9,6 +9,7 @@ URL publique : <https://parragaantoine.github.io/brevet-des-colleges/>
 - Cours simples avant exercices.
 - Acces direct aux cours sans lancer de seance.
 - Validation des cours lus et compris.
+- Cours restructures avec plan de lecture, exemple, methode et erreur a eviter.
 - Seances guidees 10/20/30 exercices.
 - Exercices libres.
 - QCM, ordre, vrai/faux, reponses ecrites.
@@ -42,3 +43,5 @@ node app-brevet\tools\audit-qcm.js
 ## Note
 
 La racine du depot est la version principale. `app-brevet/` est conserve en copie legacy.
+
+Dernier controle : les 88 cours sont presents et l'audit de couverture ne signale plus de cours faible.

@@ -1077,6 +1077,51 @@ input[type="text"] {
   color: #c4d2d9;
 }
 
+.course-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.course-map article {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: #f7fbfb;
+}
+
+.course-map span {
+  display: inline-grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
+  background: var(--teal);
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.course-map strong {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.course-map p {
+  margin: 0;
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .course-map article {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(135, 220, 242, 0.34);
+}
+
+:root[data-theme="dark"] .course-map p {
+  color: #e6f2f5;
+}
+
 .course-section {
   display: grid;
   gap: 8px;

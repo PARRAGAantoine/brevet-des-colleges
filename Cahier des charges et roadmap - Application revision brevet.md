@@ -11,6 +11,7 @@ L'app doit aider un eleve fragile a construire les bases, s'entrainer, reprendre
 - Premier ecran tres simple.
 - Pas de marketing inutile.
 - Un cours clair avant les exercices.
+- Les cours doivent rester lisibles par un eleve fragile : vocabulaire simple, plan visuel, exemple concret, methode courte.
 - Des exercices coherents avec le cours.
 - Des questions variees : QCM, ordre, vrai/faux, reponse ecrite.
 - Les mauvaises reponses doivent etre expliquees.
@@ -60,12 +61,15 @@ L'epreuve orale sera traitee tout a la fin.
 
 2026-07-05 :
 
+- cours restructures avec un plan "Comprendre / Faire / Verifier" ;
+- 6 cours courts enrichis : conversions, aires-volumes, echelles, decolonisation, point de vue, argumentation ;
+- audit de couverture des cours : 0 avertissement ;
+- cache PWA mis a jour en `brevet-sprint-v1.1.31` ;
 - acces "Cours" retabli dans le menu ;
 - validation "J'ai lu et compris" ajoutee sur les cours ;
 - progression enrichie avec le nombre de cours lus ;
 - badges de cours ajoutes ;
-- historique des mises a jour ajoute depuis l'accueil ;
-- cache PWA mis a jour.
+- historique des mises a jour ajoute depuis l'accueil.
 
 ## Roadmap future V2
 

@@ -1893,6 +1893,23 @@
     const prerequisite = lesson.prerequisite || "Tu peux commencer directement : lis la methode, puis observe l'exemple.";
     return `
       <p class="course-intro">${getStudentCourseIntro(lesson)}</p>
+      <div class="course-map" aria-label="Plan du cours">
+        <article>
+          <span>1</span>
+          <strong>Comprendre</strong>
+          <p>Lis l'idée simple et les mots importants.</p>
+        </article>
+        <article>
+          <span>2</span>
+          <strong>Faire</strong>
+          <p>Refais l'exemple lentement, une étape à la fois.</p>
+        </article>
+        <article>
+          <span>3</span>
+          <strong>Vérifier</strong>
+          <p>Regarde l'erreur à éviter avant les questions.</p>
+        </article>
+      </div>
       <div class="course-level-card">
         <span class="tag">${stageLabel(stage)}</span>
         <strong>${stageFocus.title}</strong>

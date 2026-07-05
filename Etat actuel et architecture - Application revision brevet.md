@@ -15,6 +15,7 @@ Validation actuelle :
 - generateurs offline : 46 ;
 - badges : 136 paliers ;
 - erreurs de validation : 0.
+- audit de couverture des cours : 0 avertissement.
 
 ## Architecture
 
@@ -49,6 +50,7 @@ annales/
 - `startSession` / `finishSession` : seances guidees.
 - `renderPracticeQuestion` : exercices libres et mini-series.
 - `renderCourses` : consultation des cours et validation "lu et compris".
+- `renderLessonBody` : cours structure en plan de lecture, prerequis, methode, exemple, phrase a retenir et erreur a eviter.
 - `startMistakeReview` : reprise d'erreur.
 - `renderBadges` : badges cliquables et repliables.
 - `renderProgress` : progression detaillee.
@@ -59,6 +61,7 @@ annales/
 - Les cours lus sont suivis dans `progress.courseReads`.
 - Service worker en network-first pour la navigation, cache-first pour assets.
 - Cache versionne via `CACHE_NAME`.
+- Cache actuel : `brevet-sprint-v1.1.31`.
 - Les QCM sont melanges.
 - Les reponses ecrites acceptent variantes simples, accents, espaces, unites et fractions numeriques.
 - Les badges acquis restent acquis.
