@@ -1,159 +1,79 @@
-# Contexte IA externe - Brevet Sprint
+# Contexte court pour IA externe - Brevet Sprint
 
-## Projet
+## But
 
-Brevet Sprint est une application web offline pour aider un eleve a preparer le Diplome national du brevet, serie generale, en France.
+Brevet Sprint est une application web offline pour preparer le Diplome national du brevet, serie generale, en France.
 
-Session visee : juin 2027. L'eleve n'a pas encore vu tout le programme, donc l'app doit apprendre progressivement, pas seulement faire reviser.
+Public vise : eleve qui passe le brevet plus tard et n'a pas encore vu tout le programme. L'app doit donc apprendre progressivement, pas seulement faire reviser.
 
-Exclusions : pas de brevet pro, pas CAP, pas bac, pas objectif principal "etranger".
+Exclusions : brevet pro, CAP, bac, centres etrangers.
 
-## Contraintes fortes
+## Contraintes
 
-- Application utilisable hors ligne.
-- HTML, CSS, JavaScript, sans backend obligatoire.
-- Progression stockee en `localStorage`.
-- PWA installable, mais aucune verification automatique de mise a jour au demarrage.
-- Les mises a jour doivent etre lancees volontairement depuis Parametres.
-- Les exercices doivent rester coherents avec le cours affiche.
-- Une erreur doit etre reprise avec cours puis questions proches, pas seulement en refaisant exactement la meme question.
+- App HTML/CSS/JS, sans backend obligatoire.
+- Utilisable hors ligne apres installation PWA.
+- Progression locale dans `localStorage`.
+- Pas de verification automatique des mises a jour : l'eleve choisit de verifier depuis Parametres.
+- Les cours doivent etre simples, clairs et utiles avant l'exercice.
+- Les exercices d'une seance doivent rester coherents avec le cours choisi.
+- Une erreur se reprend avec cours + questions proches, pas seulement la meme question.
 
-## Etat actuel
+## URL et architecture
 
-Code principal : `app-brevet/`.
+URL publique : `https://parragaantoine.github.io/brevet-des-colleges/`
 
-Etat valide :
+La racine du depot sert l'app principale. `app-brevet/` reste une copie legacy a garder synchronisee.
 
-```txt
-Matieres : 4
-Cours : 70
-Exercices statiques : 342
-Reponses a ecrire : 26
-QCM audites : 289
-Sujets guides longs : 12
-Notions referencees : 33
-Generateurs offline : 46
-Erreurs de validation : 0
-```
+Fichiers principaux :
 
-Matieres :
+- `index.html` : vues de l'app.
+- `styles.css` : design clair/sombre, badges, responsive.
+- `app.js` : logique, progression, seances, badges, annales.
+- `sw.js` : cache offline PWA.
+- `data/content.js` + `data/extra-content-*.js` : cours et exercices.
+- `data/notions.js` : notions et rattachements.
+- `data/annales.js` + `annales/` : anciens sujets PDF.
+- `generators/` : generateurs offline.
 
-- Mathematiques ;
-- Francais ;
-- Histoire-Geographie-EMC ;
-- Sciences, avec physique-chimie, SVT et technologie.
+## Etat fonctionnel
 
-## Fonctionnalites presentes
+- Matieres : mathematiques, francais, histoire-geo EMC, sciences.
+- Cours : 76.
+- Exercices statiques : 428.
+- Reponses ecrites : 92.
+- Generateurs offline : 46.
+- Sujets guides : 12.
+- Notions : 33.
+- Badges : 132 paliers, regroupes en 50 familles.
 
-- Accueil avec recommandation.
-- Seances guidees par matiere, chapitre et nombre d'exercices.
-- Cours avant questions.
-- Differenciation de cours par niveau : `J'apprends`, `Je m'entraine`, `Comme au brevet`.
-- QCM, vrai/faux, remise en ordre, reponses a ecrire.
-- Reponses QCM melangees.
-- Correction immediate.
-- Reprise d'erreurs avec cours puis 3 questions proches a reussir.
-- Annales : choix annee/matiere, documents references, saisie note sur 20. Les 180 PDF sont publies dans `app-brevet/annales/`, accessibles depuis GitHub Pages et mis en cache lors de l'installation PWA.
-- Badges evolutifs : une carte par famille, verrouille puis bronze/argent/or.
-- Parametres : PWA, mode clair/sombre, mise a jour volontaire, login futur.
+Fonctions presentes :
 
-## Architecture utile
+- page d'accueil minimale ;
+- seance guidee avec cours puis 10/20/30 exercices ;
+- exercices libres ;
+- QCM, vrai/faux, remise en ordre, reponses ecrites ;
+- correction immediate ;
+- aide "Voir le cours" et "Je ne comprends pas" ;
+- mini-series ciblees depuis les badges ;
+- reprise d'erreurs avec 3 questions proches a reussir ;
+- progression par matiere, historique, erreurs, bilan detaille ;
+- anciens sujets avec PDF et saisie note /20 ;
+- badges cliquables et sections repliables ;
+- PWA installable et mode sombre.
 
-```txt
-app-brevet/
-  index.html
-  styles.css
-  app.js
-  manifest.webmanifest
-  sw.js
-  version.json
-  data/
-    content.js
-    extra-content*.js
-    notions.js
-    annales.js
-    schema.md
-    source-map.md
-  generators/
-    registry.js
-    math-calcul.js
-    science-calcul.js
-    french-language.js
-  tools/
-    validate-content.js
-    audit-qcm.js
-    audit-course-coverage.js
-```
+## Priorites restantes V1
 
-## Schema exercices
+1. Continuer a equilibrer les reponses ecrites en francais et sciences.
+2. Enrichir les cours les plus courts.
+3. Verifier l'UX mobile PWA Android/iOS.
+4. Tester l'app avec un vrai eleve faible et noter les incomprehensions.
+5. Garder tous les fichiers `.md` courts.
 
-Tous les exercices, statiques ou generes, doivent ressembler au meme objet :
+## Regle de sauvegarde
 
-```js
-{
-  id,
-  subject,
-  chapter,
-  notionId,
-  stage,
-  type,
-  question,
-  choices,
-  answer,
-  acceptedAnswers,
-  explanation,
-  generatorId,
-  seed
-}
-```
+Quand l'utilisateur demande une sauvegarde :
 
-Types actuels :
-
-- `qcm`
-- `true_false`
-- `order`
-- `short_answer`
-
-Pour `short_answer`, l'eleve ecrit la reponse. La correction accepte deja des variantes simples : fractions equivalentes, virgule ou point decimal, unites courantes, formes comme `x = 5`.
-
-## Sources et annales
-
-Le corpus local contient environ 180 PDF d'annales serie generale France/metropole.
-
-Les sujets sont couverts pour 2017-2026 et les quatre matieres, mais les corriges restent incomplets selon les annees, surtout hors mathematiques.
-
-Les PDF publies dans `app-brevet/annales/` sont versionnes. Les documents sources hors app restent ignores pour eviter les doublons.
-
-Les annales servent surtout a calibrer le niveau et inspirer des exercices progressifs. Il ne faut pas recopier massivement les sujets.
-
-Les seances sont plafonnees selon les questions disponibles quand un chapitre n'a pas encore assez de contenu ou de generateur.
-
-## Commandes de validation
-
-Depuis `app-brevet/` :
-
-```powershell
-node --check app.js
-node --check sw.js
-node tools\validate-content.js
-node tools\audit-qcm.js
-```
-
-Le test attendu aujourd'hui :
-
-- `validate-content` : 0 erreur ;
-- `audit-qcm` : 0 alerte.
-
-## Priorites prochaines
-
-1. Tester l'app avec un eleve et noter les blocages reels.
-2. Revoir l'accueil pour le rendre plus epure : installer, continuer en ligne, parametres, connexion future, puis choix de travail.
-3. Ajouter pendant les exercices un bouton d'aide pour revoir le cours ou signaler que l'exercice n'est pas compris.
-4. Approfondir les cours par niveau avec de vrais contenus differents, pas seulement un encadre.
-5. Ajouter plus d'exercices issus des annales, surtout en maths et sciences.
-6. Etendre prudemment les reponses a ecrire hors maths : sciences calculables, francais tres cadre, dates/reperes.
-7. Nettoyer les fichiers `.md` historiques et creer une nouvelle roadmap courte pour la prochaine phase.
-
-## Point d'attention
-
-Le projet a beaucoup evolue. Pour toute proposition future, partir de l'etat actuel ci-dessus plutot que de l'historique ancien.
+1. mettre a jour les fichiers `.md` utiles ;
+2. verifier le code ;
+3. commit ;
+4. push `main` et `gh-pages`.

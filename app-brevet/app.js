@@ -26,6 +26,7 @@
   let settings = loadSettings();
   let activeSubject = getRecommendation().subject;
   let currentPracticeQuestion = null;
+  let currentPracticeSeries = null;
   let currentSession = null;
   let selectedCourseSubject = "all";
   let selectedCourseStage = "all";
@@ -417,6 +418,20 @@
     ["Prepare", "Pr\u00e9pare"],
     ["prepare", "pr\u00e9pare"],
     ["calcul pose", "calcul pos\u00e9"],
+    ["ecrites", "\u00e9crites"],
+    ["Ecrites", "\u00c9crites"],
+    ["reparees", "r\u00e9par\u00e9es"],
+    ["Reparees", "R\u00e9par\u00e9es"],
+    ["seances", "s\u00e9ances"],
+    ["Seances", "S\u00e9ances"],
+    ["priorite", "priorit\u00e9"],
+    ["Priorite", "Priorit\u00e9"],
+    ["ciblee", "cibl\u00e9e"],
+    ["Ciblee", "Cibl\u00e9e"],
+    ["terminee", "termin\u00e9e"],
+    ["terminees", "termin\u00e9es"],
+    ["matiere", "mati\u00e8re"],
+    ["Matiere", "Mati\u00e8re"],
     ["Bronze a", "Bronze \u00e0"],
     ["argent a", "argent \u00e0"],
     ["or a", "or \u00e0"],
@@ -2053,7 +2068,17 @@
     if (!currentPracticeQuestion) {
       currentPracticeQuestion = pickQuestion(document.getElementById("practiceSubject").value || activeSubject);
     }
-    container.innerHTML = renderQuestion(currentPracticeQuestion, "practice");
+    container.innerHTML = `
+      ${currentPracticeSeries ? `
+        <div class="series-banner">
+          <span class="tag">Mini-serie ciblee</span>
+          <strong>${currentPracticeSeries.label}</strong>
+          <p>${currentPracticeSeries.done} / ${currentPracticeSeries.total} question${currentPracticeSeries.total > 1 ? "s" : ""} terminee${currentPracticeSeries.done > 1 ? "s" : ""}. Continue pour stabiliser le reflexe.</p>
+        </div>
+      ` : ""}
+      ${renderQuestion(currentPracticeQuestion, "practice")}
+    `;
+    applyTextPolish(container);
   }
 
   function getGuidedCompletion(taskId) {
@@ -2179,6 +2204,10 @@
     const guide = annalSubjectGuides[subject] || annalSubjectGuides.mathematiques;
     container.innerHTML = `
       <div class="annal-guide">
+        <div>
+          <strong>Premier ancien sujet</strong>
+          <p>Si l'epreuve te parait longue, commence par une seule partie. Le but est d'abord de comprendre le format, puis tu feras un sujet complet.</p>
+        </div>
         <div>
           <strong>Duree et materiel</strong>
           <p>${guide.duration}</p>
@@ -2527,6 +2556,14 @@
     if (context === "session") {
       currentSession.correct += correct ? 1 : 0;
       currentSession.answered += 1;
+      currentSession.results.push({
+        id: question.id,
+        subject: question.subject,
+        chapter: question.chapter,
+        stage: question.stage || "Decouverte",
+        correct,
+        helpUsed: Boolean(question.helpUsed)
+      });
       const next = document.createElement("button");
       next.className = "primary-action";
       next.type = "button";
@@ -2535,17 +2572,36 @@
       feedback.appendChild(document.createElement("br"));
       feedback.appendChild(next);
     } else {
+      if (currentPracticeSeries && correct) {
+        currentPracticeSeries.done = Math.min(currentPracticeSeries.total, currentPracticeSeries.done + 1);
+      }
       const retryMistake = repairOutcome && !repairOutcome.repaired
         ? progress.mistakes.find((mistake) => mistake.id === question.retryOf)
         : null;
+      const continueSeries = currentPracticeSeries && currentPracticeSeries.done < currentPracticeSeries.total;
       const next = document.createElement("button");
       next.className = "secondary-action";
       next.type = "button";
-      next.textContent = retryMistake ? "Question proche suivante" : "Nouvelle question";
+      next.textContent = retryMistake
+        ? "Question proche suivante"
+        : continueSeries
+          ? `Continuer la mini-serie (${currentPracticeSeries.total - currentPracticeSeries.done} restantes)`
+          : "Nouvelle question";
       next.addEventListener("click", () => {
-        currentPracticeQuestion = retryMistake
-          ? (getRetryQuestionForMistake(retryMistake) || pickQuestion(question.subject))
-          : pickQuestion(question.subject);
+        if (retryMistake) {
+          currentPracticeQuestion = getRetryQuestionForMistake(retryMistake) || pickQuestion(question.subject);
+        } else if (continueSeries) {
+          currentPracticeQuestion = pickQuestion(currentPracticeSeries.subject, {
+            stage: currentPracticeSeries.stage,
+            chapter: currentPracticeSeries.chapter
+          });
+        } else {
+          if (currentPracticeSeries) {
+            showToast("Mini-serie terminee. Tu peux continuer ou changer d'objectif.");
+            currentPracticeSeries = null;
+          }
+          currentPracticeQuestion = pickQuestion(question.subject);
+        }
         render();
       });
       feedback.appendChild(document.createElement("br"));
@@ -2589,6 +2645,7 @@
       answered: 0,
       usedHelp: false,
       helpedQuestionIds: [],
+      results: [],
       startedAt: Date.now()
     };
     saveProgress();
@@ -2799,6 +2856,18 @@
       pointsEarned: points,
       usedHelp: currentSession.usedHelp
     });
+    const wrongResults = currentSession.results.filter((result) => !result.correct);
+    const chapterCounts = wrongResults.reduce((map, result) => {
+      map.set(result.chapter, (map.get(result.chapter) || 0) + 1);
+      return map;
+    }, new Map());
+    const mainWeakChapter = [...chapterCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || currentSession.focusChapter;
+    const correctChapters = [...new Set(currentSession.results.filter((result) => result.correct).map((result) => result.chapter))].slice(0, 3);
+    const nextAdvice = allCorrect
+      ? currentSession.usedHelp
+        ? "Refais une courte serie sans aide pour transformer l'entrainement en vraie validation."
+        : "Passe au niveau suivant ou tente un ancien sujet court."
+      : `Commence par reprendre ${mainWeakChapter}, puis reussis 3 questions proches.`;
     awardBadges();
     saveProgress();
     document.getElementById("sessionStage").innerHTML = `
@@ -2806,8 +2875,23 @@
         <p class="eyebrow">Bilan</p>
         <h3>${currentSession.correct} / ${currentSession.questions.length} bonnes reponses</h3>
         <p>${allCorrect ? (currentSession.usedHelp ? "Seance juste, avec aide. Tres bon entrainement : recommence sans aide pour valider la recompense." : "Seance sans erreur et sans aide. Tres solide.") : "Bon travail. Les questions ratees sont gardees pour les retravailler."}</p>
+        <div class="session-summary-grid">
+          <article>
+            <strong>Point fort</strong>
+            <p>${correctChapters.length ? correctChapters.join(", ") : "Tu as termine la seance."}</p>
+          </article>
+          <article>
+            <strong>Point a reprendre</strong>
+            <p>${wrongResults.length ? mainWeakChapter : "Aucune erreur reperee."}</p>
+          </article>
+          <article>
+            <strong>Conseil suivant</strong>
+            <p>${nextAdvice}</p>
+          </article>
+        </div>
         <p><strong>Temps reel :</strong> ${elapsedMinutes} min</p>
         <p><strong>Points gagnes :</strong> ${points}</p>
+        ${wrongResults.length ? `<button class="primary-action" id="summaryReviewMistakeButton" type="button">Revoir les erreurs</button>` : ""}
         <button class="secondary-action" data-view-target="progress" type="button">Voir la progression</button>
       </section>
     `;
@@ -2816,6 +2900,7 @@
   }
 
   function renderProgress() {
+    const subjectStats = content.subjects.map((subject) => ({ ...subject, stats: getSubjectStats(subject.id) }));
     document.getElementById("progressBySubject").innerHTML = content.subjects.map((subject) => {
       const stats = getSubjectStats(subject.id);
       const label = getProgressLabel(stats);
@@ -2837,6 +2922,26 @@
           </div>
         `).join("")}</div>`
       : `<p class="muted">Aucune seance terminee pour le moment.</p>`;
+
+    const insightContainer = document.getElementById("progressInsights");
+    if (insightContainer) {
+      const answered = progress.answers.length;
+      const correct = progress.answers.filter((answer) => answer.correct).length;
+      const shortAnswers = progress.answers.filter((answer) => answer.answerType === "short_answer").length;
+      const pendingMistakes = progress.mistakes.filter((mistake) => !mistake.repaired).length;
+      const bestSubject = subjectStats.filter((item) => item.stats.total >= 4).sort((a, b) => b.stats.rate - a.stats.rate)[0];
+      const weakSubject = subjectStats.slice().sort((a, b) => a.stats.visualRate - b.stats.visualRate || a.stats.total - b.stats.total)[0];
+      insightContainer.innerHTML = `
+        <article><strong>${answered}</strong><span>questions repondues</span></article>
+        <article><strong>${correct}</strong><span>bonnes reponses</span></article>
+        <article><strong>${shortAnswers}</strong><span>reponses ecrites tentees</span></article>
+        <article><strong>${pendingMistakes}</strong><span>erreurs a reprendre</span></article>
+        <article><strong>${progress.repairs.length}</strong><span>erreurs reparees</span></article>
+        <article><strong>${bestSubject ? bestSubject.label : "-"}</strong><span>matiere la plus solide</span></article>
+        <article><strong>${weakSubject ? weakSubject.label : "-"}</strong><span>priorite actuelle</span></article>
+        <article><strong>${progress.sessions.length}</strong><span>seances terminees</span></article>
+      `;
+    }
 
     const mistakes = progress.mistakes.filter((mistake) => !mistake.repaired);
     document.getElementById("mistakeList").innerHTML = mistakes.length
@@ -2897,26 +3002,32 @@
         <span>${content.subjects.filter((subject) => isSubjectTierUnlocked(subject.id, "gold")).length} / ${content.subjects.length} mati\u00e8res au niveau or</span>
       </article>
       ${nextBadges.length ? `
-        <section class="badge-section badge-section-next">
-          <div class="badge-section-heading">
-            <h3>Prochains badges</h3>
-            <p>Les objectifs les plus proches pour garder le cap.</p>
-          </div>
+        <details class="badge-section badge-section-next" open>
+          <summary class="badge-section-heading">
+            <span>
+              <h3>Prochains badges</h3>
+              <p>Les objectifs les plus proches pour garder le cap.</p>
+            </span>
+            <strong>${nextBadges.length}</strong>
+          </summary>
           <div class="badge-grid badge-grid-next">
             ${nextBadges.map(renderBadgeCard).join("")}
           </div>
-        </section>
+        </details>
       ` : ""}
       ${groups.map((group) => `
-        <section class="badge-section badge-section-${group.id}">
-          <div class="badge-section-heading">
-            <h3>${group.title}</h3>
-            <p>${group.description}</p>
-          </div>
+        <details class="badge-section badge-section-${group.id}" open>
+          <summary class="badge-section-heading">
+            <span>
+              <h3>${group.title}</h3>
+              <p>${group.description}</p>
+            </span>
+            <strong>${group.badges.length}</strong>
+          </summary>
           <div class="badge-grid">
             ${group.badges.map(renderBadgeCard).join("")}
           </div>
-        </section>
+        </details>
       `).join("")}
     `;
   }
@@ -3019,7 +3130,7 @@
     return content.curriculum.find((item) => badge.id.startsWith(`chapter:${item.id}:`)) || null;
   }
 
-  function preparePracticeTarget(subject, stage = "auto", chapter = "all") {
+  function preparePracticeTarget(subject, stage = "auto", chapter = "all", options = {}) {
     const subjectSelect = document.getElementById("practiceSubject");
     const stageSelect = document.getElementById("practiceStage");
     const chapterSelect = document.getElementById("practiceChapter");
@@ -3027,6 +3138,16 @@
     if (stageSelect) stageSelect.value = stage;
     renderPracticeChapters();
     if (chapterSelect) chapterSelect.value = [...chapterSelect.options].some((option) => option.value === chapter) ? chapter : "all";
+    currentPracticeSeries = options.series
+      ? {
+        subject,
+        stage,
+        chapter,
+        label: options.label || "Objectif cible",
+        total: options.count || 5,
+        done: 0
+      }
+      : null;
     currentPracticeQuestion = pickQuestion(subject, { stage, chapter });
     setView("practice");
     renderPracticeQuestion();
@@ -3074,7 +3195,7 @@
       const weakest = content.subjects
         .map((subject) => ({ ...subject, correct: progress.answers.filter((answer) => answer.subject === subject.id && answer.correct).length }))
         .sort((a, b) => a.correct - b.correct)[0];
-      preparePracticeTarget(weakest?.id || activeSubject, "auto", "all");
+      preparePracticeTarget(weakest?.id || activeSubject, "auto", "all", { series: true, label: "Equilibrer les matieres", count: 5 });
       showToast("Objectif badge : avancer dans la matiere la moins travaillee.");
       return;
     }
@@ -3082,22 +3203,22 @@
       const weakest = content.subjects
         .map((subject) => ({ ...subject, stats: getSubjectStats(subject.id) }))
         .sort((a, b) => a.stats.rate - b.stats.rate || a.stats.total - b.stats.total)[0];
-      preparePracticeTarget(weakest?.id || activeSubject, "auto", "all");
+      preparePracticeTarget(weakest?.id || activeSubject, "auto", "all", { series: true, label: "Transformer une faiblesse", count: 5 });
       showToast("Objectif badge : transformer une faiblesse en point fort.");
       return;
     }
     if (badge.id.includes("mental")) {
-      preparePracticeTarget("mathematiques", "auto", "Nombres et calculs");
+      preparePracticeTarget("mathematiques", "auto", "Nombres et calculs", { series: true, label: "Calcul mental", count: 5 });
       showToast("Objectif badge : calculer sans aide.");
       return;
     }
     if (badge.id.includes("reader")) {
-      preparePracticeTarget("francais", "auto", "Lecture");
+      preparePracticeTarget("francais", "auto", "Lecture", { series: true, label: "Lecture attentive", count: 5 });
       showToast("Objectif badge : lire attentivement et justifier.");
       return;
     }
     if (badge.id.includes("science-precision")) {
-      preparePracticeTarget("sciences", "auto", "Physique-chimie");
+      preparePracticeTarget("sciences", "auto", "Physique-chimie", { series: true, label: "Unites et precision", count: 5 });
       showToast("Objectif badge : donner des reponses precises avec unite.");
       return;
     }
@@ -3116,7 +3237,7 @@
     if (badge.id.includes("polyvalent")) {
       const subject = content.subjects.find((item) => countUnlockedChapterBadges(item.id, "bronze") < content.curriculum.filter((chapter) => chapter.subject === item.id).length)
         || content.subjects[0];
-      preparePracticeTarget(subject.id, "Decouverte", "all");
+      preparePracticeTarget(subject.id, "Decouverte", "all", { series: true, label: "Valider les chapitres", count: 5 });
       showToast("Objectif badge : valider tous les chapitres d'une matiere.");
       return;
     }
@@ -3133,6 +3254,14 @@
         if (stageSelect) stageSelect.value = question.stage || "auto";
         renderPracticeChapters();
         if (chapterSelect) chapterSelect.value = [...chapterSelect.options].some((option) => option.value === question.chapter) ? question.chapter : "all";
+        currentPracticeSeries = {
+          subject: question.subject,
+          stage: question.stage || "auto",
+          chapter: question.chapter,
+          label: "Reponses ecrites",
+          total: 5,
+          done: 0
+        };
         currentPracticeQuestion = question;
         setView("practice");
         renderPracticeQuestion();
@@ -3141,24 +3270,24 @@
       return;
     }
     if (badge.id.includes("questions")) {
-      preparePracticeTarget(activeSubject, "auto", "all");
+      preparePracticeTarget(activeSubject, "auto", "all", { series: true, label: "Volume d'exercices", count: 5 });
       showToast("Objectif badge : faire progresser ton volume d'exercices.");
       return;
     }
     const curriculumItem = getBadgeCurriculumItem(badge);
     if (curriculumItem) {
-      preparePracticeTarget(curriculumItem.subject, getBadgeStageTarget(badge), curriculumItem.chapter);
+      preparePracticeTarget(curriculumItem.subject, getBadgeStageTarget(badge), curriculumItem.chapter, { series: true, label: `Badge : ${curriculumItem.chapter}`, count: 5 });
       showToast(`Objectif badge : ${curriculumItem.chapter}.`);
       return;
     }
     if (badge.subject) {
-      preparePracticeTarget(badge.subject, getBadgeStageTarget(badge), "all");
+      preparePracticeTarget(badge.subject, getBadgeStageTarget(badge), "all", { series: true, label: `Badge : ${badgeSubjectLabel(badge.subject)}`, count: 5 });
       showToast(`Objectif badge : ${badgeSubjectLabel(badge.subject)}.`);
       return;
     }
     const stageMatch = badge.id.match(/stage:([^:]+):/);
     if (stageMatch) {
-      preparePracticeTarget(activeSubject, stageMatch[1], "all");
+      preparePracticeTarget(activeSubject, stageMatch[1], "all", { series: true, label: "Niveau cible", count: 5 });
       showToast("Objectif badge : reussir des questions de ce niveau.");
       return;
     }
@@ -3639,6 +3768,10 @@
       }
 
       if (event.target.closest("#homeReviewMistakeButton")) {
+        startMistakeReview();
+      }
+
+      if (event.target.closest("#summaryReviewMistakeButton")) {
         startMistakeReview();
       }
 

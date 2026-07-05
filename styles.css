@@ -601,11 +601,47 @@ body[data-current-view="landing"] .main-content {
   gap: 12px;
 }
 
+.badge-section[open] {
+  display: grid;
+}
+
 .badge-section-heading {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.badge-section-heading::-webkit-details-marker {
+  display: none;
+}
+
+.badge-section-heading::after {
+  content: "Replier";
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.badge-section:not([open]) .badge-section-heading::after {
+  content: "Ouvrir";
+}
+
+.badge-section-heading > strong {
+  min-width: 34px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--primary-dark);
 }
 
 .badge-section-heading h3,
@@ -1396,6 +1432,67 @@ input[type="text"] {
   align-items: center;
   gap: 12px;
   margin: 14px 0;
+}
+
+.progress-insights {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.progress-insights article,
+.series-banner {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--surface-soft);
+}
+
+.progress-insights strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1.35rem;
+}
+
+.progress-insights span,
+.series-banner p {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.series-banner {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.series-banner strong,
+.series-banner p {
+  margin: 0;
+}
+
+.session-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.session-summary-grid article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--surface-soft);
+}
+
+.session-summary-grid strong,
+.session-summary-grid p {
+  margin: 0;
+}
+
+.session-summary-grid p {
+  margin-top: 6px;
+  color: var(--muted);
 }
 
 .history-list {

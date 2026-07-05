@@ -6,6 +6,18 @@
     return values.map(String).filter((value, index, items) => value !== String(answer) && items.indexOf(value) === index);
   }
 
+  function plausibleFractionDistractors(answer, numerator, denominator, divisor) {
+    const simplifiedNumerator = numerator / divisor;
+    const simplifiedDenominator = denominator / divisor;
+    return uniqueDistractors(answer, [
+      `${numerator}/${denominator}`,
+      `${simplifiedNumerator}/${denominator}`,
+      `${numerator}/${simplifiedDenominator}`,
+      `${simplifiedNumerator + 1}/${simplifiedDenominator + 1}`,
+      `${Math.max(1, simplifiedNumerator - 1)}/${simplifiedDenominator}`
+    ]);
+  }
+
   function square(value) {
     return value * value;
   }
@@ -175,7 +187,7 @@
       stage: "Decouverte",
       question: `Quelle est la forme simplifiee de la fraction ${numerator}/${denominator} ?`,
       answer,
-      distractors: uniqueDistractors(answer, [`${numerator}/${baseDenominator}`, `${baseNumerator}/${denominator}`, `${denominator}/${numerator}`, `${numerator - multiplier}/${denominator - multiplier}`]),
+      distractors: plausibleFractionDistractors(answer, numerator, denominator, multiplier),
       explanation: `On divise ${numerator} et ${denominator} par ${multiplier}. On obtient ${answer}.`
     });
   });
@@ -193,7 +205,7 @@
       stage: "Consolidation",
       question: `Calcule ${a}/${denominator} + ${b}/${denominator}.`,
       answer,
-      distractors: uniqueDistractors(answer, [`${a + b}/${denominator * 2}`, `${a * b}/${denominator}`, `${a + b + 1}/${denominator}`]),
+      distractors: uniqueDistractors(answer, [`${a + b}/${denominator * 2}`, `${a * b}/${denominator}`, `${a + b + 1}/${denominator}`, `${a + b}/${denominator + denominator}`, `${a}/${denominator + b}`]),
       explanation: `Les deux fractions ont le meme denominateur, on additionne les numerateurs : ${a} + ${b} = ${a + b}, donc ${answer}.`
     });
   });

@@ -1,58 +1,41 @@
 # Brevet Sprint
 
-Application locale/offline de revision pour le Diplome national du brevet, serie generale, France.
+Application web offline pour reviser le brevet des colleges, serie generale, France.
 
-Objectif : aider un eleve qui passera le brevet en juin 2027 a apprendre progressivement les notions, s'entrainer avec des QCM corriges, suivre sa progression et reviser ses erreurs.
+URL publique : <https://parragaantoine.github.io/brevet-des-colleges/>
 
-## Lancer l'application
+## Fonctionnalites
 
-Version en ligne :
+- Cours simples avant exercices.
+- Seances guidees 10/20/30 exercices.
+- Exercices libres.
+- QCM, ordre, vrai/faux, reponses ecrites.
+- Reprise d'erreurs avec questions proches.
+- Progression locale.
+- Badges cliquables.
+- Anciens sujets PDF.
+- Installation PWA hors ligne.
 
-```txt
-https://parragaantoine.github.io/brevet-des-colleges/app-brevet/
-```
-
-Version locale :
-
-Ouvrir directement :
-
-```txt
-app-brevet/index.html
-```
-
-Pendant le developpement, il est aussi possible de lancer un petit serveur local :
+## Lancer en local
 
 ```powershell
-cd app-brevet
-python -m http.server 4174 --bind 127.0.0.1
+python -m http.server 4184
 ```
 
 Puis ouvrir :
 
 ```txt
-http://127.0.0.1:4174/
+http://127.0.0.1:4184/
 ```
 
-## Contenu actuel
-
-- 4 matieres : mathematiques, francais, histoire-geographie-EMC, sciences.
-- 70 cours.
-- 342 exercices statiques, dont 26 exercices avec reponse a ecrire.
-- 12 sujets guides longs.
-- 33 notions referencees.
-- 46 generateurs offline.
-- Catalogue d'annales integre dans l'app, avec 180 PDF publies sur GitHub Pages.
-- Installation PWA hors ligne depuis la page Parametres.
-- Badges avec medailles par famille, paliers verrouille, bronze, argent, or.
-- Reprise d'erreurs avec cours puis 3 questions proches a reussir.
-
-## Validation
+## Verifier
 
 ```powershell
-cd app-brevet
-node tools\validate-content.js
+node --check app.js
+node app-brevet\tools\validate-content.js
+node app-brevet\tools\audit-qcm.js
 ```
 
-## Notes
+## Note
 
-Les documents sources telecharges restent ignores hors de `app-brevet/annales/`. Les 180 PDF publies dans `app-brevet/annales/` sont versionnes pour etre accessibles depuis GitHub Pages et mis en cache lors de l'installation PWA.
+La racine du depot est la version principale. `app-brevet/` est conserve en copie legacy.
