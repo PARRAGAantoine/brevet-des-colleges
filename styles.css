@@ -476,6 +476,13 @@ body[data-current-view="landing"] .main-content {
   font-weight: 700;
 }
 
+.inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
 .panel-header {
   display: flex;
   align-items: flex-start;
@@ -1846,10 +1853,11 @@ input[type="text"] {
   .home-action-grid,
   .settings-grid,
   .cards-grid,
-    .badge-grid,
-    .dashboard-layout,
-    .progress-layout,
-    .practice-layout {
+  .badge-grid,
+  .dashboard-layout,
+  .progress-layout,
+  .practice-layout,
+  .inline-form {
     grid-template-columns: 1fr;
   }
 

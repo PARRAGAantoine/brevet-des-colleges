@@ -389,10 +389,35 @@
             <section class="panel settings-panel">
               <div>
                 <p class="eyebrow">Compte</p>
-                <h3>S'identifier</h3>
+                <h3>Profils locaux</h3>
               </div>
-              <p class="muted">Plus tard, cette zone servira a retrouver la progression sur telephone, tablette et ordinateur.</p>
-              <button class="ghost-action" type="button" disabled>S'identifier - bientôt</button>
+              <p class="muted">Plusieurs élèves peuvent utiliser la même app sur cet appareil. Chaque profil garde ses points, badges, erreurs et résultats.</p>
+              <div class="settings-row">
+                <span>Profil actif</span>
+                <strong id="activeProfileName">Élève</strong>
+              </div>
+              <label>
+                Changer de profil
+                <select id="profileSelect"></select>
+              </label>
+              <div class="inline-form">
+                <input id="profileNameInput" type="text" maxlength="32" placeholder="Prénom du nouvel élève">
+                <button class="secondary-action" id="createProfileButton" type="button">Créer</button>
+              </div>
+            </section>
+
+            <section class="panel settings-panel">
+              <div>
+                <p class="eyebrow">Sauvegarde</p>
+                <h3>Exporter / importer</h3>
+              </div>
+              <p class="muted">Pour changer d'appareil, exporte un fichier de progression puis importe-le sur l'autre appareil. Cela fonctionne sans compte et peut se faire hors ligne.</p>
+              <div class="actions-row">
+                <button class="secondary-action" id="exportProgressButton" type="button">Exporter ma progression</button>
+                <button class="ghost-action" id="importProgressButton" type="button">Importer une progression</button>
+              </div>
+              <input id="progressImportInput" type="file" accept="application/json,.json" hidden>
+              <p class="settings-status">Le fichier exporté contient uniquement la progression du profil actif.</p>
             </section>
 
             <section class="panel settings-panel">

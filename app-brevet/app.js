@@ -1,6 +1,7 @@
 ﻿(function () {
   const content = window.BREVET_CONTENT;
-  const storageKey = "brevetSprintProgress";
+  const legacyStorageKey = "brevetSprintProgress";
+  const profileStoragePrefix = "brevetSprintProgress:";
   const settingsKey = "brevetSprintSettings";
   const appVersion = "1.0.0";
   const today = () => new Date().toISOString().slice(0, 10);
@@ -22,8 +23,8 @@
     perfectRuns: 0
   };
 
-  let progress = loadProgress();
   let settings = loadSettings();
+  let progress = loadProgress();
   let activeSubject = getRecommendation().subject;
   let currentPracticeQuestion = null;
   let currentPracticeSeries = null;
@@ -440,26 +441,146 @@
 
   function loadProgress() {
     try {
-      return { ...initialProgress, ...JSON.parse(localStorage.getItem(storageKey)) };
+      const activeKey = getActiveProgressKey();
+      const stored = localStorage.getItem(activeKey) || (activeKey === `${profileStoragePrefix}default` ? localStorage.getItem(legacyStorageKey) : null);
+      return { ...initialProgress, ...JSON.parse(stored) };
     } catch (error) {
       return { ...initialProgress };
     }
   }
 
   function saveProgress() {
-    localStorage.setItem(storageKey, JSON.stringify(progress));
+    localStorage.setItem(getActiveProgressKey(), JSON.stringify(progress));
+    if (getActiveProfileId() === "default") {
+      localStorage.setItem(legacyStorageKey, JSON.stringify(progress));
+    }
   }
 
   function loadSettings() {
     try {
-      return { theme: "light", ...JSON.parse(localStorage.getItem(settingsKey)) };
+      const loaded = { theme: "light", profiles: [{ id: "default", name: "Eleve" }], activeProfileId: "default", ...JSON.parse(localStorage.getItem(settingsKey)) };
+      if (!Array.isArray(loaded.profiles) || !loaded.profiles.length) loaded.profiles = [{ id: "default", name: "Eleve" }];
+      if (!loaded.activeProfileId || !loaded.profiles.some((profile) => profile.id === loaded.activeProfileId)) loaded.activeProfileId = loaded.profiles[0].id;
+      return loaded;
     } catch (error) {
-      return { theme: "light" };
+      return { theme: "light", profiles: [{ id: "default", name: "Eleve" }], activeProfileId: "default" };
     }
   }
 
   function saveSettings() {
     localStorage.setItem(settingsKey, JSON.stringify(settings));
+  }
+
+  function getActiveProfileId() {
+    return settings.activeProfileId || "default";
+  }
+
+  function getActiveProgressKey() {
+    return `${profileStoragePrefix}${getActiveProfileId()}`;
+  }
+
+  function getActiveProfile() {
+    return (settings.profiles || []).find((profile) => profile.id === getActiveProfileId()) || { id: "default", name: "Eleve" };
+  }
+
+  function createProfileId(name) {
+    const base = normalizeText(name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "eleve";
+    let id = base;
+    let suffix = 2;
+    const used = new Set((settings.profiles || []).map((profile) => profile.id));
+    while (used.has(id)) {
+      id = `${base}-${suffix}`;
+      suffix += 1;
+    }
+    return id;
+  }
+
+  function switchProfile(profileId) {
+    if (!settings.profiles.some((profile) => profile.id === profileId)) return;
+    saveProgress();
+    settings.activeProfileId = profileId;
+    saveSettings();
+    progress = loadProgress();
+    currentPracticeQuestion = null;
+    currentPracticeSeries = null;
+    currentSession = null;
+    clearSessionStage();
+    showToast(`Profil actif : ${getActiveProfile().name}`);
+    render();
+  }
+
+  function createLocalProfile() {
+    const input = document.getElementById("profileNameInput");
+    const name = String(input?.value || "").trim();
+    if (!name) {
+      showToast("Ecris un prenom pour creer le profil.");
+      return;
+    }
+    const profile = { id: createProfileId(name), name: name.slice(0, 32) };
+    settings.profiles = [...(settings.profiles || []), profile];
+    saveProgress();
+    settings.activeProfileId = profile.id;
+    saveSettings();
+    progress = { ...initialProgress };
+    saveProgress();
+    currentPracticeQuestion = null;
+    currentPracticeSeries = null;
+    currentSession = null;
+    if (input) input.value = "";
+    clearSessionStage();
+    showToast(`Profil cree : ${profile.name}`);
+    render();
+  }
+
+  function exportProgress() {
+    const profile = getActiveProfile();
+    const payload = {
+      app: "Brevet Sprint",
+      format: 1,
+      version: appVersion,
+      exportedAt: new Date().toISOString(),
+      profile,
+      progress
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    const safeName = normalizeText(profile.name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "eleve";
+    link.href = URL.createObjectURL(blob);
+    link.download = `brevet-sprint-progression-${safeName}.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(link.href);
+    showToast("Progression exportee.");
+  }
+
+  function requestProgressImport() {
+    document.getElementById("progressImportInput")?.click();
+  }
+
+  function importProgressFile(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const payload = JSON.parse(String(reader.result || "{}"));
+        const importedProgress = payload.progress || payload;
+        if (!importedProgress || typeof importedProgress !== "object") throw new Error("invalid progress");
+        const importedName = payload.profile?.name ? ` (${payload.profile.name})` : "";
+        if (!window.confirm(`Importer cette progression${importedName} sur le profil actif ? La progression actuelle de ce profil sera remplacee.`)) return;
+        progress = { ...initialProgress, ...importedProgress };
+        saveProgress();
+        currentPracticeQuestion = null;
+        currentPracticeSeries = null;
+        currentSession = null;
+        clearSessionStage();
+        showToast("Progression importee.");
+        render();
+      } catch (error) {
+        showToast("Import impossible : fichier non reconnu.");
+      }
+    };
+    reader.readAsText(file);
   }
 
   function applyTheme(theme) {
@@ -3790,7 +3911,17 @@
     const themeSelect = document.getElementById("themeSelect");
     if (version) version.textContent = appVersion;
     if (themeSelect && themeSelect.value !== settings.theme) themeSelect.value = settings.theme;
+    renderProfileSettings();
     renderInstallHelp();
+  }
+
+  function renderProfileSettings() {
+    const profileSelect = document.getElementById("profileSelect");
+    const activeProfileName = document.getElementById("activeProfileName");
+    if (activeProfileName) activeProfileName.textContent = getActiveProfile().name;
+    if (!profileSelect) return;
+    profileSelect.innerHTML = (settings.profiles || []).map((profile) => `<option value="${profile.id}">${escapeHtml(profile.name)}</option>`).join("");
+    profileSelect.value = getActiveProfileId();
   }
 
   function compareVersions(a, b) {
@@ -3842,6 +3973,18 @@
       const installButton = event.target.closest("#installAppButton, #settingsInstallButton");
       if (installButton) {
         installApp();
+      }
+
+      if (event.target.closest("#createProfileButton")) {
+        createLocalProfile();
+      }
+
+      if (event.target.closest("#exportProgressButton")) {
+        exportProgress();
+      }
+
+      if (event.target.closest("#importProgressButton")) {
+        requestProgressImport();
       }
 
       const viewButton = event.target.closest("[data-view-target]");
@@ -3961,6 +4104,13 @@
         settings.theme = event.target.value === "dark" ? "dark" : "light";
         saveSettings();
         applyTheme(settings.theme);
+      }
+      if (event.target.id === "profileSelect") {
+        switchProfile(event.target.value);
+      }
+      if (event.target.id === "progressImportInput") {
+        importProgressFile(event.target.files?.[0]);
+        event.target.value = "";
       }
       if (event.target.id === "annalYear" || event.target.id === "annalSubject") {
         renderAnnalDocuments(Number(document.getElementById("annalYear").value), document.getElementById("annalSubject").value);
