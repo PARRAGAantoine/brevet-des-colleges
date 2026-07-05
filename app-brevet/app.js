@@ -943,8 +943,8 @@
     const firstBadge = badges[0];
     const tierMeta = getBadgeTierMeta(firstBadge.tier);
     const message = badges.length === 1
-      ? `Badge dÃ©bloquÃ© : ${firstBadge.title}`
-      : `${badges.length} badges dÃ©bloquÃ©s`;
+      ? `Badge débloqué : ${firstBadge.title}`
+      : `${badges.length} badges débloqués`;
     const toast = document.getElementById("toast");
     const image = firstBadge.image || getDefaultBadgeImage(firstBadge);
     toast.innerHTML = `
@@ -1991,11 +1991,8 @@
       pool = [...pool, ...generateQuestionsForChapter(subjectId, wantedChapter, 6, pool.length)];
     }
     if (!pool.length) pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
-    const answeredCounts = new Map();
-    progress.answers.forEach((answer) => {
-      answeredCounts.set(answer.exerciseId, (answeredCounts.get(answer.exerciseId) || 0) + 1);
-    });
-    return [...pool].sort((a, b) => (answeredCounts.get(a.id) || 0) - (answeredCounts.get(b.id) || 0))[0] || pool[0];
+    const answeredCounts = buildAnsweredQuestionCounts();
+    return [...pool].sort((a, b) => getAnsweredCount(a, answeredCounts) - getAnsweredCount(b, answeredCounts))[0] || pool[0];
   }
 
   function normalizeText(value) {
@@ -2005,6 +2002,30 @@
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, " ")
       .trim();
+  }
+
+  function questionKey(exercise) {
+    return normalizeText(exercise.question || exercise.prompt || exercise.id);
+  }
+
+  function buildAnsweredQuestionCounts() {
+    const byId = new Map();
+    const byQuestion = new Map();
+    const staticById = new Map(content.exercises.map((exercise) => [exercise.id, exercise]));
+    progress.answers.forEach((answer) => {
+      byId.set(answer.exerciseId, (byId.get(answer.exerciseId) || 0) + 1);
+      const exercise = staticById.get(answer.exerciseId);
+      if (!exercise) return;
+      const key = questionKey(exercise);
+      byQuestion.set(key, (byQuestion.get(key) || 0) + 1);
+    });
+    return { byId, byQuestion };
+  }
+
+  function getAnsweredCount(exercise, answeredCounts) {
+    const idCount = answeredCounts.byId.get(exercise.id) || 0;
+    const questionCount = answeredCounts.byQuestion.get(questionKey(exercise)) || 0;
+    return Math.max(idCount, questionCount);
   }
 
   function chapterMatches(focusChapter, exerciseChapter) {
@@ -2099,10 +2120,7 @@
     const targetStage = getTargetStage(subjectId);
     const stageOrder = ["Decouverte", "Consolidation", "Type brevet"];
     const targetIndex = stageOrder.indexOf(targetStage);
-    const answeredCounts = new Map();
-    progress.answers.forEach((answer) => {
-      answeredCounts.set(answer.exerciseId, (answeredCounts.get(answer.exerciseId) || 0) + 1);
-    });
+    const answeredCounts = buildAnsweredQuestionCounts();
 
     let pool = content.exercises.filter((exercise) => exercise.subject === subjectId);
 
@@ -2133,16 +2151,16 @@
         const bExampleGap = lesson ? textSimilarityScore(lesson.example, `${b.question || b.prompt} ${b.explanation}`) : 0;
         const aTooClose = aExampleGap > 0.45 ? 1 : 0;
         const bTooClose = bExampleGap > 0.45 ? 1 : 0;
-        return aTooClose - bTooClose || aStageGap - bStageGap || (answeredCounts.get(a.id) || 0) - (answeredCounts.get(b.id) || 0);
+        return aTooClose - bTooClose || aStageGap - bStageGap || getAnsweredCount(a, answeredCounts) - getAnsweredCount(b, answeredCounts);
       });
 
     const selected = [];
     const usedQuestions = new Set();
     sortedPool.forEach((exercise) => {
-      const questionKey = normalizeText(exercise.question || exercise.prompt || exercise.id);
-      if (selected.length >= count || usedQuestions.has(questionKey)) return;
+      const key = questionKey(exercise);
+      if (selected.length >= count || usedQuestions.has(key)) return;
       selected.push(exercise);
-      usedQuestions.add(questionKey);
+      usedQuestions.add(key);
     });
     const generatedCandidate = sortedPool.find((exercise) => exercise.mode === "generated" && !selected.some((item) => item.id === exercise.id));
     if (generatedCandidate && selected.length >= 3 && !selected.some((exercise) => exercise.mode === "generated")) {
@@ -2153,13 +2171,11 @@
 
   function pickMixedSessionQuestions(count) {
     const stageOrder = ["Decouverte", "Consolidation", "Type brevet"];
-    const answeredCounts = new Map();
-    progress.answers.forEach((answer) => {
-      answeredCounts.set(answer.exerciseId, (answeredCounts.get(answer.exerciseId) || 0) + 1);
-    });
+    const answeredCounts = buildAnsweredQuestionCounts();
 
     const picked = [];
     const used = new Set();
+    const usedQuestionKeys = new Set();
     while (picked.length < count && picked.length < content.exercises.length) {
       let addedThisRound = false;
       content.subjects.forEach((subject) => {
@@ -2167,15 +2183,19 @@
         const targetStage = getTargetStage(subject.id);
         const targetIndex = stageOrder.indexOf(targetStage);
         const question = content.exercises
-          .filter((exercise) => exercise.subject === subject.id && !used.has(exercise.id))
+          .filter((exercise) => {
+            const key = questionKey(exercise);
+            return exercise.subject === subject.id && !used.has(exercise.id) && !usedQuestionKeys.has(key);
+          })
           .sort((a, b) => {
             const aStageGap = Math.abs(stageOrder.indexOf(a.stage || "Decouverte") - targetIndex);
             const bStageGap = Math.abs(stageOrder.indexOf(b.stage || "Decouverte") - targetIndex);
-            return aStageGap - bStageGap || (answeredCounts.get(a.id) || 0) - (answeredCounts.get(b.id) || 0);
+            return aStageGap - bStageGap || getAnsweredCount(a, answeredCounts) - getAnsweredCount(b, answeredCounts);
           })[0];
         if (question) {
           picked.push(question);
           used.add(question.id);
+          usedQuestionKeys.add(questionKey(question));
           addedThisRound = true;
         }
       });
