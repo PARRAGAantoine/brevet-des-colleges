@@ -32,6 +32,7 @@
   let currentSession = null;
   let selectedCourseSubject = "all";
   let selectedCourseStage = "all";
+  let selectedCourseId = null;
   let selectedRoadmapSubject = "all";
   let selectedGuidedSubject = "all";
   let deferredInstallPrompt = null;
@@ -1143,20 +1144,43 @@
       return subjectOk && stageOk;
     });
 
+    const selectedLesson = selectedCourseId ? content.lessons.find((lesson) => lesson.id === selectedCourseId) : null;
+    const selectedLessonVisible = selectedLesson && lessons.some((lesson) => lesson.id === selectedLesson.id);
+
+    if (selectedLessonVisible) {
+      document.getElementById("courseList").innerHTML = `
+      <article class="course-card course-card-full">
+        <button class="secondary-action course-back-button" data-back-to-courses type="button">Retour aux cours</button>
+        <span class="tag">${stageLabel(selectedLesson.stage)} - ${subjectLabel(selectedLesson.subject)} - ${selectedLesson.chapter}</span>
+        <h3>${selectedLesson.title}</h3>
+        ${renderLessonBody(selectedLesson)}
+        <div class="course-actions">
+          <button class="${isCourseRead(selectedLesson.id) ? "secondary-action" : "primary-action"}" data-mark-course-read="${selectedLesson.id}" type="button">
+            ${isCourseRead(selectedLesson.id) ? "Cours lu et compris" : "J'ai lu et compris"}
+          </button>
+          <span class="muted">${isCourseRead(selectedLesson.id) ? "Ce cours est compté dans ta progression." : "Valide seulement si tu penses pouvoir expliquer l'idée principale."}</span>
+        </div>
+        <button class="secondary-action" data-train-subject="${selectedLesson.subject}" type="button">S'entraîner</button>
+      </article>
+      `;
+      applyTextPolish(document.getElementById("courseList"));
+      return;
+    }
+
+    selectedCourseId = null;
     document.getElementById("courseList").innerHTML = lessons.map((lesson) => `
-      <article class="course-card">
+      <article class="course-card course-list-card">
         <span class="tag">${stageLabel(lesson.stage)} - ${subjectLabel(lesson.subject)} - ${lesson.chapter}</span>
         <h3>${lesson.title}</h3>
-        ${renderLessonBody(lesson)}
-        <div class="course-actions">
-          <button class="${isCourseRead(lesson.id) ? "secondary-action" : "primary-action"}" data-mark-course-read="${lesson.id}" type="button">
-            ${isCourseRead(lesson.id) ? "Cours lu et compris" : "J'ai lu et compris"}
-          </button>
-          <span class="muted">${isCourseRead(lesson.id) ? "Ce cours est compté dans ta progression." : "Valide seulement si tu penses pouvoir expliquer l'idée principale."}</span>
+        <p class="course-card-goal"><strong>Ce que tu vas savoir faire :</strong> ${getStudentCourseGoal(lesson)}</p>
+        <p class="muted">${isCourseRead(lesson.id) ? "Déjà lu et compris." : "Ouvre le cours quand tu veux le lire tranquillement."}</p>
+        <div class="course-actions compact-actions">
+          <button class="primary-action" data-open-course="${lesson.id}" type="button">Lire le cours</button>
+          <button class="secondary-action" data-train-subject="${lesson.subject}" type="button">S'entraîner</button>
         </div>
-        <button class="secondary-action" data-train-subject="${lesson.subject}" type="button">S'entrainer</button>
       </article>
-    `).join("");
+    `).join("") || `<article class="panel"><p>Aucun cours ne correspond à ce filtre.</p></article>`;
+    applyTextPolish(document.getElementById("courseList"));
   }
 
   function isCourseRead(lessonId) {
@@ -1850,6 +1874,25 @@
     return `Tu vas travailler ${lesson.chapter}. Le but est de comprendre l'idee principale, puis de t'entrainer avec des questions progressives.`;
   }
 
+  function getStudentCourseGoal(lesson) {
+    const title = String(lesson.title || "").toLowerCase();
+    const chapter = String(lesson.chapter || "").toLowerCase();
+    if (title.includes("pythagore")) return "calculer une longueur dans un triangle rectangle avec la formule de Pythagore.";
+    if (title.includes("thales")) return "utiliser des droites parallèles pour trouver une longueur manquante.";
+    if (title.includes("trigonom")) return "choisir sinus, cosinus ou tangente dans un triangle rectangle.";
+    if (title.includes("probabil")) return "compter les cas possibles et écrire une probabilité simple.";
+    if (title.includes("equation") || title.includes("équation")) return "isoler l'inconnue et vérifier ta solution.";
+    if (title.includes("fonction")) return "remplacer x par une valeur et lire une information de fonction.";
+    if (title.includes("réécriture") || title.includes("reecriture")) return "transformer une phrase sans perdre le sens ni les accords.";
+    if (title.includes("document")) return "lire un document et justifier une réponse avec un indice précis.";
+    if (title.includes("graphique")) return "lire un graphique sans confondre les axes, les unités et les données.";
+    if (lesson.subject === "mathematiques") return `résoudre une question de ${lesson.chapter} en posant les étapes clairement.`;
+    if (lesson.subject === "francais") return `répondre à une question de ${lesson.chapter} avec une phrase claire.`;
+    if (lesson.subject === "histoire") return `utiliser les mots importants du cours pour répondre à une question de ${lesson.chapter}.`;
+    if (lesson.subject === "sciences") return `observer les données, choisir la bonne méthode et conclure avec les bons mots.`;
+    return `comprendre l'idée principale du chapitre ${lesson.chapter}.`;
+  }
+
   function getCourseVocabulary(lesson) {
     const subject = lesson.subject;
     const text = `${lesson.chapter || ""} ${lesson.title || ""}`.toLowerCase();
@@ -1892,7 +1935,10 @@
     const stageFocus = getStageCourseFocus(lesson, stage);
     const prerequisite = lesson.prerequisite || "Tu peux commencer directement : lis la methode, puis observe l'exemple.";
     return `
-      <p class="course-intro">${getStudentCourseIntro(lesson)}</p>
+      <div class="course-goal-card">
+        <p class="eyebrow">Ce que tu vas savoir faire</p>
+        <strong>${getStudentCourseGoal(lesson)}</strong>
+      </div>
       <div class="course-map" aria-label="Plan du cours">
         <article>
           <span>1</span>
@@ -4193,6 +4239,18 @@
       const courseFilter = event.target.closest("[data-course-filter]");
       if (courseFilter) {
         selectedCourseSubject = courseFilter.dataset.courseFilter;
+        selectedCourseId = null;
+        renderCourses();
+      }
+
+      const openCourseButton = event.target.closest("[data-open-course]");
+      if (openCourseButton) {
+        selectedCourseId = openCourseButton.dataset.openCourse;
+        renderCourses();
+      }
+
+      if (event.target.closest("[data-back-to-courses]")) {
+        selectedCourseId = null;
         renderCourses();
       }
 
@@ -4353,6 +4411,7 @@
     });
     document.getElementById("courseStageFilter").addEventListener("change", (event) => {
       selectedCourseStage = event.target.value;
+      selectedCourseId = null;
       renderCourses();
     });
   }
