@@ -943,6 +943,7 @@
 
   function showBadgeUnlock(badges) {
     const firstBadge = badges[0];
+    const goldBadge = badges.find((badge) => ["gold", "ultimate"].includes(badge.tier));
     const tierMeta = getBadgeTierMeta(firstBadge.tier);
     const message = badges.length === 1
       ? `Badge débloqué : ${firstBadge.title}`
@@ -960,6 +961,28 @@
     `;
     toast.classList.add("visible", "badge-unlock-toast");
     window.setTimeout(() => toast.classList.remove("visible", "badge-unlock-toast"), 4200);
+    if (goldBadge) showGoldBadgeCelebration(goldBadge);
+  }
+
+  function showGoldBadgeCelebration(badge) {
+    document.querySelector(".badge-celebration")?.remove();
+    const tierMeta = getBadgeTierMeta(badge.tier);
+    const image = badge.image || getDefaultBadgeImage(badge);
+    const overlay = document.createElement("div");
+    overlay.className = "badge-celebration";
+    overlay.innerHTML = `
+      <div class="badge-celebration-card" role="dialog" aria-modal="true" aria-label="Badge important débloqué">
+        <p class="eyebrow">${tierMeta.label} débloqué</p>
+        ${image ? `<img src="${image}" alt="">` : `<div class="badge-toast-medal tier-${badge.tier || "gold"}">${tierMeta.number}</div>`}
+        <h3>${badge.title}</h3>
+        <p>${badge.requirement || "Objectif atteint"}</p>
+        <button class="primary-action" data-close-celebration type="button">Continuer</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay || event.target.closest("[data-close-celebration]")) overlay.remove();
+    });
   }
 
   function setView(viewName) {
@@ -1877,12 +1900,13 @@
   function getStudentCourseGoal(lesson) {
     const title = String(lesson.title || "").toLowerCase();
     const chapter = String(lesson.chapter || "").toLowerCase();
+    if (lesson.subject === "francais" && title.includes("nature et fonction")) return "distinguer ce qu'est un mot et son rôle dans la phrase.";
     if (title.includes("pythagore")) return "calculer une longueur dans un triangle rectangle avec la formule de Pythagore.";
     if (title.includes("thales")) return "utiliser des droites parallèles pour trouver une longueur manquante.";
     if (title.includes("trigonom")) return "choisir sinus, cosinus ou tangente dans un triangle rectangle.";
     if (title.includes("probabil")) return "compter les cas possibles et écrire une probabilité simple.";
     if (title.includes("equation") || title.includes("équation")) return "isoler l'inconnue et vérifier ta solution.";
-    if (title.includes("fonction")) return "remplacer x par une valeur et lire une information de fonction.";
+    if (lesson.subject === "mathematiques" && title.includes("fonction")) return "remplacer x par une valeur et lire une information de fonction.";
     if (title.includes("réécriture") || title.includes("reecriture")) return "transformer une phrase sans perdre le sens ni les accords.";
     if (title.includes("document")) return "lire un document et justifier une réponse avec un indice précis.";
     if (title.includes("graphique")) return "lire un graphique sans confondre les axes, les unités et les données.";
@@ -3515,7 +3539,7 @@
     if (badge.tier === "ultimate") return unlocked ? "Voir le bilan" : "Voir quoi travailler";
     if (badge.id.includes("streak")) return "Voir l'objectif";
     if (badge.id.includes("annales-exam")) return "Ouvrir les anciens sujets";
-    if (badge.id.includes("course-read") || badge.id.includes("course-subjects")) return "Ouvrir les cours";
+    if (badge.id.includes("course-read") || badge.id.includes("course-subjects") || badge.id.includes("course-applied")) return "Ouvrir les cours";
     if (badge.id.includes("repairs")) return "Revoir mes erreurs";
     if (badge.id.includes("written")) return "Faire une reponse ecrite";
     if (badge.id.includes("no-help") || badge.id.includes("perfect")) return "Lancer une seance";
@@ -3592,7 +3616,7 @@
       showToast("Objectif badge : obtenir au moins 14/20 sur plusieurs anciens sujets.");
       return;
     }
-    if (badge.id.includes("course-read") || badge.id.includes("course-subjects")) {
+    if (badge.id.includes("course-read") || badge.id.includes("course-subjects") || badge.id.includes("course-applied")) {
       setView("courses");
       showToast("Objectif badge : lis un cours, puis valide que tu l'as compris.");
       return;
@@ -3995,9 +4019,9 @@
       ["streak:7", "silver", "Semaine solide", "Travailler 7 jours de suite.", "7 jours", "◷", () => progress.currentStreak >= 7],
       ["streak:30", "gold", "Mois complet", "Travailler 30 jours de suite.", "30 jours", "◷", () => progress.currentStreak >= 30],
       ["streak:100", "gold", "Cent jours", "Travailler 100 jours de suite.", "100 jours", "◷", () => progress.currentStreak >= 100],
-      ["course-read:1", "bronze", "Premier cours", "Lire et valider un premier cours.", "1 cours", "◇", () => coursesRead() >= 1],
-      ["course-read:10", "silver", "Base de cours", "Lire et valider 10 cours.", "10 cours", "◇", () => coursesRead() >= 10],
-      ["course-read:30", "gold", "Carnet de revision", "Lire et valider 30 cours.", "30 cours", "◇", () => coursesRead() >= 30],
+      ["course-read:5", "bronze", "Premiers cours", "Lire et valider 5 cours.", "5 cours", "◇", () => coursesRead() >= 5],
+      ["course-read:20", "silver", "Base de cours", "Lire et valider 20 cours.", "20 cours", "◇", () => coursesRead() >= 20],
+      ["course-applied:10", "gold", "Cours appliques", "Lire 10 cours puis reussir 10 questions apres avoir vu le cours.", "10 cours + 10 reussites", "◇", () => coursesRead() >= 10 && carefulCorrect() >= 10],
       ["course-subjects:4", "silver", "Cours dans chaque matiere", "Lire au moins un cours dans les quatre matieres.", "4 matieres", "◇", () => courseSubjectsRead() >= 4],
       ["repairs:1", "bronze", "Erreurs", "Relire le cours puis reussir une question proche.", "1 erreur", "!", () => progress.repairs.length >= 1],
       ["repairs:10", "silver", "Erreurs reparees", "Reparer 10 erreurs apres revision.", "10 erreurs", "!", () => progress.repairs.length >= 10],
