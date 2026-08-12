@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Français — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--green:#4ade80;--violet:#a78bfa;--or:#ffd700}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:20}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);font-weight:700;cursor:pointer}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:1.6rem;color:#fff;margin:24px 0 6px}
+h2{font-size:1.05rem;color:#fff;margin:30px 0 10px;text-align:center}
+p.note{color:var(--muted);margin-bottom:20px;font-size:.9rem}
+
+.chemin-wrap{position:relative;margin:0 auto 8px;width:340px;max-width:100%}
+.chemin-svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.trace{fill:none;stroke-linecap:round}
+.trace-fond{stroke:#000;stroke-opacity:.25;stroke-width:13}
+.trace-a-faire{stroke:var(--border);stroke-width:7;stroke-dasharray:2 12}
+.trace-faite{stroke:var(--or);stroke-width:7;stroke-dasharray:2 12;filter:drop-shadow(0 0 4px rgba(255,215,0,.5))}
+.noeud{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;width:118px;text-align:center;z-index:2}
+.noeud .rond{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,.4);background:var(--card);border:2px solid var(--border);transition:background .5s ease,border-color .5s ease,box-shadow .5s ease}
+.noeud.verrouille .rond{opacity:.55}
+.noeud.ouvert .rond{background:linear-gradient(135deg,#0ea5e9,#38bdf8);border-color:var(--blue);box-shadow:0 0 14px rgba(56,189,248,.45)}
+.noeud.reussi .rond{background:linear-gradient(135deg,#f59e0b,#fbbf24);border-color:var(--or);box-shadow:0 0 16px rgba(255,215,0,.5)}
+.noeud .titre{color:#fff;font-weight:700;font-size:.74rem;line-height:1.25}
+.noeud .sous{color:var(--muted);font-size:.66rem}
+.noeud.boss .rond{width:68px;height:68px;font-size:1.9rem}
+.noeud.boss.verrouille .rond{border-color:var(--violet)}
+.noeud.boss.debloque .rond{background:linear-gradient(135deg,rgba(167,139,250,.55),var(--card));border-color:var(--violet);box-shadow:0 0 18px rgba(167,139,250,.55)}
+.noeud.retente .rond{background:linear-gradient(135deg,#fb923c,#f59e0b);border-color:#fb923c;box-shadow:0 0 12px rgba(251,146,60,.4)}
+.noeud.sansfaute .rond{background:linear-gradient(135deg,#38bdf8,#a78bfa);border-color:var(--violet);box-shadow:0 0 18px rgba(167,139,250,.6)}
+.pion-donjon{position:absolute;transform:translate(-50%,-50%);font-size:1.5rem;z-index:3;filter:drop-shadow(0 4px 6px rgba(0,0,0,.6));animation:rebond 1.6s ease-in-out infinite}
+@keyframes rebond{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../../matieres.html">← Royaumes</a>
+</div>
+<div class="container">
+  <h1>📖 Royaume des Lettres</h1>
+  <p class="note">Grammaire, conjugaison, orthographe, Écriture, Littérature. Lis un cours pour trouver la clé 🔑 et débloquer son exercice, réussis l'exercice pour ouvrir le coffre ⭐.</p>
+  <div id="racine"></div>
+</div>
+<script>
+  var annalesHref = 'annales/index.html';
+  var salles = [
+    { nom: "Grammaire, conjugaison, orthographe", chapitreSlug: 'chapitre1-grammaire', cours: [
+      { id: 'accord-participe', titre: "L'accord du participe passé" },
+      { id: 'classes-mots', titre: "Les classes de mots" },
+      { id: 'conjonctives', titre: "Les propositions conjonctives" },
+      { id: 'fonctions', titre: "Les fonctions dans la phrase" },
+      { id: 'homophones', titre: "Les homophones grammaticaux" },
+      { id: 'imperatif-subjonctif', titre: "L'impératif et le subjonctif" },
+      { id: 'relatives', titre: "Les propositions relatives" },
+      { id: 'temps-composes', titre: "Les temps composés" },
+      { id: 'temps-simples', titre: "Conjugaison aux temps simples" },
+      { id: 'types-phrases', titre: "Les types et formes de phrases" }
+    ]},
+    { nom: "Écriture", chapitreSlug: 'chapitre2-ecriture', cours: [
+      { id: 'argumentatif', titre: "Écrire un texte argumentatif" },
+      { id: 'explicatif', titre: "Écrire un texte explicatif" },
+      { id: 'lettre-formelle', titre: "Écrire une lettre formelle" },
+      { id: 'recit', titre: "Écrire un récit" },
+      { id: 'resumer', titre: "Résumer un texte" }
+    ]},
+    { nom: "Littérature", chapitreSlug: 'chapitre3-litterature', cours: [
+      { id: 'etude-recit', titre: "Étudier un récit" },
+      { id: 'figures-style', titre: "Les figures de style" },
+      { id: 'poesie', titre: "La poésie" },
+      { id: 'registres', titre: "Les registres littéraires" },
+      { id: 'theatre', titre: "Le théâtre" }
+    ]}
+  ];
+
+  function dessinerChemin(conteneur, items, largeur) {
+    var AMPL = 76, FREQ = 0.8, ESPY = 132, MARGE = 66;
+    var hauteur = MARGE * 2 + ESPY * (items.length - 1);
+    var pts = items.map(function (it, i) {
+      return { x: largeur / 2 + AMPL * Math.sin(i * FREQ), y: MARGE + i * ESPY, item: it };
+    });
+    conteneur.style.height = hauteur + 'px';
+
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('class', 'chemin-svg');
+    svg.setAttribute('viewBox', '0 0 ' + largeur + ' ' + hauteur);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    for (var i = 0; i < pts.length - 1; i++) {
+      var a = pts[i], b = pts[i + 1];
+      var midY = (a.y + b.y) / 2;
+      var d = 'M' + a.x + ',' + a.y + ' C ' + a.x + ',' + midY + ' ' + b.x + ',' + midY + ' ' + b.x + ',' + b.y;
+      var fond = document.createElementNS(svgNS, 'path');
+      fond.setAttribute('d', d);
+      fond.setAttribute('class', 'trace trace-fond');
+      svg.appendChild(fond);
+      var trace = document.createElementNS(svgNS, 'path');
+      trace.setAttribute('d', d);
+      trace.setAttribute('class', 'trace ' + ((a.item.etat === 'reussi' || a.item.etat === 'sansfaute') ? 'trace-faite' : 'trace-a-faire'));
+      svg.appendChild(trace);
+    }
+    conteneur.appendChild(svg);
+
+    pts.forEach(function (p) {
+      var it = p.item;
+      var el = document.createElement(it.href ? 'a' : 'div');
+      if (it.href) el.href = it.href;
+      if (it.id) el.dataset.id = it.id;
+      el.className = 'noeud ' + it.etat + (it.boss ? ' boss' : '');
+      el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
+      el.innerHTML = '<span class="rond">' + it.icone + '</span><span class="titre">' + it.titre + '</span>' + (it.sous ? '<span class="sous">' + it.sous + '</span>' : '');
+      conteneur.appendChild(el);
+    });
+    return pts;
+  }
+
+  var idsTous = [];
+  salles.forEach(function (s) { s.cours.forEach(function (c) { idsTous.push(c.id); }); });
+  var coffresOuverts = idsTous.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui'; }).length;
+  var bossDebloque = coffresOuverts === idsTous.length;
+
+  var racine = document.getElementById('racine');
+  var dernierAtteint = null;
+  salles.forEach(function (salle, si) {
+    var h2 = document.createElement('h2');
+    h2.textContent = salle.nom;
+    racine.appendChild(h2);
+
+    var items = salle.cours.map(function (c) {
+      var lu = localStorage.getItem('brevet2027_cours_' + c.id) === 'lu';
+      var tente = localStorage.getItem('brevet2027_exo_' + c.id + '_tente') === 'oui';
+      var reussi = localStorage.getItem('brevet2027_exo_' + c.id + '_reussi') === 'oui';
+      var sansfaute = localStorage.getItem('brevet2027_exo_' + c.id + '_sansfaute') === 'oui';
+      var etat, icone;
+      if (sansfaute) { etat = 'sansfaute'; icone = '💎'; }
+      else if (reussi) { etat = 'reussi'; icone = '⭐'; }
+      else if (tente && lu) { etat = 'retente'; icone = '🔁'; }
+      else if (lu) { etat = 'ouvert'; icone = '🔑'; }
+      else { etat = 'verrouille'; icone = '🔒'; }
+      return { id: c.id, titre: c.titre, href: salle.chapitreSlug + '/' + c.id + '/index.html', etat: etat, icone: icone, lu: lu };
+    });
+
+    if (si === salles.length - 1) {
+      items.push({
+        titre: bossDebloque ? 'Boss : Brevet Blanc' : 'Boss verrouillé',
+        href: bossDebloque ? annalesHref : null,
+        etat: bossDebloque ? 'debloque' : 'verrouille',
+        icone: bossDebloque ? '⚔️' : '🔒',
+        boss: true,
+        sous: bossDebloque ? 'Affronte les vraies annales' : ('Ouvre les ' + idsTous.length + ' coffres (' + coffresOuverts + '/' + idsTous.length + ')')
+      });
+    }
+
+    var wrap = document.createElement('div');
+    wrap.className = 'chemin-wrap';
+    racine.appendChild(wrap);
+    var pts = dessinerChemin(wrap, items, 340);
+    items.forEach(function (it, idx) {
+      if (it.lu) dernierAtteint = { wrap: wrap, pt: pts[idx] };
+    });
+  });
+
+  if (dernierAtteint) {
+    var pion = document.createElement('span');
+    pion.className = 'pion-donjon';
+    pion.textContent = '🧍';
+    pion.style.left = (dernierAtteint.pt.x + 42) + 'px';
+    pion.style.top = (dernierAtteint.pt.y - 18) + 'px';
+    dernierAtteint.wrap.appendChild(pion);
+  }
+
+  // Animation de révélation si on arrive juste après avoir réussi un exercice
+  var idArrivee = sessionStorage.getItem('brevet2027_arrivee');
+  if (idArrivee) {
+    sessionStorage.removeItem('brevet2027_arrivee');
+    var noeudArrivee = racine.querySelector('.noeud[data-id="' + idArrivee + '"]');
+    if (noeudArrivee) {
+      var classeFinale = noeudArrivee.className;
+      var rondArrivee = noeudArrivee.querySelector('.rond');
+      var iconeFinale = rondArrivee.textContent;
+      noeudArrivee.className = 'noeud ouvert';
+      rondArrivee.textContent = '🔑';
+      if (pion) pion.style.opacity = '0';
+      setTimeout(function () {
+        noeudArrivee.className = classeFinale;
+        rondArrivee.textContent = iconeFinale;
+        noeudArrivee.animate(
+          [{ transform: 'translate(-50%,-50%) scale(1)' }, { transform: 'translate(-50%,-50%) scale(1.4)' }, { transform: 'translate(-50%,-50%) scale(1)' }],
+          { duration: 550, easing: 'ease-out' }
+        );
+        if (pion) { pion.style.transition = 'opacity .5s ease'; pion.style.opacity = '1'; }
+      }, 700);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 3 - Contenu prioritaire</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="06-phase-2.html">← Phase 2</a>
+    <a class="btn btn-primary" href="08-phase-4.html">Phase 4 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 3 — Contenu prioritaire</h1>
+  <p>Étendre le contenu sur le cœur du brevet, en restant concentré sur la qualité plutôt que sur la quantité.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>Remplir l’application avec les cours et exercices les plus utiles pour un élève de 3ème en difficulté. On ne vise pas encore les 88 cours. On vise un noyau solide de 25 à 35 cours de très bonne qualité.</p>
+    <p>Chaque nouveau cours reprend le moule validé en Phase 1 et passe le test ELEVE_TEST.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ce qu’il faut produire</h2>
+    <h3>Français</h3>
+    <ul>
+      <li>Grammaire essentielle (types de phrases, classes de mots, fonctions, temps, accords…)</li>
+      <li>Écriture de base (récit, argumentatif simple, résumé)</li>
+    </ul>
+
+    <h3>Mathématiques</h3>
+    <ul>
+      <li>Nombres (relatifs, fractions, puissances, calcul littéral, équations simples)</li>
+      <li>Géométrie de base (Pythagore, Thalès, aires, volumes simples)</li>
+      <li>Proportionnalité</li>
+    </ul>
+
+    <h3>Histoire-Géo-EMC</h3>
+    <ul>
+      <li>Sujets incontournables du programme de 3ème</li>
+      <li>Repères chronologiques et spatiaux essentiels</li>
+    </ul>
+
+    <h3>Sciences</h3>
+    <ul>
+      <li>Bases Physique-Chimie (matière, forces, énergie, électricité)</li>
+      <li>Bases SVT (corps humain, biodiversité, reproduction)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Règles à respecter</h2>
+    <ul>
+      <li>Toujours le même template de cours (9 sections)</li>
+      <li>Toujours le même template d’exercice (3-5 questions + 2 aides empilées)</li>
+      <li>Vocabulaire simple, phrases courtes</li>
+      <li>Un cours = un sujet ciblé, pas un chapitre entier</li>
+      <li>Prioriser ce qui tombe souvent au brevet</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Checklist de fin de phase</h2>
+    <ul class="check">
+      <li class="done">Cœur Français couvert : 13 cours (grammaire 10 + écriture 3)</li>
+      <li class="done">Cœur Maths couvert : 10 cours (nombres 5, géométrie 4, proportionnalité 1)</li>
+      <li class="done">Sujets Histoire-Géo-EMC prioritaires rédigés : 4 cours (WWI, WWII, aires urbaines, valeurs de la République)</li>
+      <li class="done">Bases Sciences rédigées : 4 cours (états de la matière, énergie, système nerveux, reproduction)</li>
+      <li class="done">Total : 31 cours de bonne qualité (13+10+4+4)</li>
+      <li class="done">Chaque cours a ses exercices (4 questions, aide 2 niveaux empilés)</li>
+      <li class="done">Test ELEVE_TEST PASS sur les nouveaux contenus (vérification statique intégrale + tests navigateur en direct sur un échantillon représentatif de chaque matière, 08/08/2026)</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> un noyau de 25 à 35 cours prioritaires, toutes matières confondues, avec exercices associés, prêts à être utilisés.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> · 
+      <a href="06-phase-2.html">← Phase 2</a> · 
+      <a href="08-phase-4.html">Phase 4 →</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

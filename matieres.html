@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choisis une matière — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--violet:#a78bfa;--or:#ffd700}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:20;flex-wrap:wrap;gap:10px}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);font-weight:700;cursor:pointer}
+.nav-liens{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.entete{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:1.6rem;color:#fff}
+.streak{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:8px 16px;font-weight:700;font-size:.9rem}
+.streak .torche{font-size:1.2rem}
+.streak.eteinte{opacity:.5}
+.pnj{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:14px;padding:16px 20px;margin-bottom:20px}
+.pnj .avatar{font-size:2rem}
+.pnj p{color:var(--text);margin:0}
+
+/* --- Carte du monde --- */
+.carte{position:relative;width:360px;max-width:100%;margin:0 auto;border-radius:20px;overflow:hidden;background:
+    radial-gradient(ellipse at 50% 8%, rgba(74,222,128,.16), transparent 42%),
+    radial-gradient(ellipse at 50% 32%, rgba(56,189,248,.16), transparent 42%),
+    radial-gradient(ellipse at 50% 58%, rgba(251,191,36,.16), transparent 42%),
+    radial-gradient(ellipse at 50% 84%, rgba(167,139,250,.16), transparent 42%),
+    linear-gradient(180deg, #0f1b16, #0c1620 40%, #1a1710 70%, #160f1e);
+  border:1px solid var(--border)}
+.nuage{position:absolute;font-size:1.6rem;opacity:.5;pointer-events:none;animation:derive 14s ease-in-out infinite}
+@keyframes derive{0%,100%{transform:translateX(0)}50%{transform:translateX(14px)}}
+.chemin-svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.trace{fill:none;stroke-linecap:round}
+.trace-fond{stroke:#000;stroke-opacity:.25;stroke-width:15}
+.trace-a-faire{stroke:var(--border);stroke-width:9;stroke-dasharray:2 14}
+.trace-faite{stroke:var(--or);stroke-width:9;stroke-dasharray:2 14;filter:drop-shadow(0 0 4px rgba(255,215,0,.5))}
+
+.noeud{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;width:120px;text-align:center;z-index:2}
+.halo{position:absolute;transform:translate(-50%,-50%);border-radius:50%;filter:blur(22px);pointer-events:none;z-index:1}
+
+.anneau{width:84px;height:84px;border-radius:50%;padding:5px;box-shadow:0 6px 16px rgba(0,0,0,.45)}
+.rond{width:100%;height:100%;border-radius:50%;background:var(--card);border:2px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:2.1rem;position:relative}
+.noeud .couronne{position:absolute;top:-6px;right:2px;font-size:1.1rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.noeud .mascotte{position:absolute;bottom:-6px;left:-4px;font-size:1.3rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.noeud .titre{color:#fff;font-weight:700;font-size:.82rem;line-height:1.25}
+.noeud .sous{color:var(--muted);font-size:.72rem}
+
+.noeud.marqueur .rond{width:58px;height:58px;font-size:1.6rem;margin:0 auto;background:var(--card);border:2px solid var(--border)}
+.noeud.marqueur.depart .rond{border-color:var(--green);box-shadow:0 0 12px rgba(74,222,128,.35)}
+.noeud.marqueur.fin.debloque .rond{border-color:var(--or);background:radial-gradient(circle,rgba(255,215,0,.25),var(--card));box-shadow:0 0 18px rgba(255,215,0,.55)}
+.noeud.marqueur.fin.verrouille .rond{opacity:.55}
+.pion{position:absolute;transform:translate(-50%,-50%);font-size:1.8rem;z-index:3;filter:drop-shadow(0 4px 6px rgba(0,0,0,.6));animation:rebond 1.6s ease-in-out infinite}
+@keyframes rebond{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
+
+/* --- Niveau + quêtes --- */
+.carte-niveau{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:14px}
+.carte-niveau .icone-niveau{font-size:2.2rem}
+.carte-niveau .titre-niveau{color:#fff;font-weight:700;font-size:1.05rem}
+.carte-niveau .xp{color:var(--muted);font-size:.8rem;margin-top:2px}
+.carte-niveau .barre-xp{height:8px;border-radius:999px;background:var(--border);margin-top:8px;overflow:hidden}
+.carte-niveau .barre-xp-remplie{height:100%;background:linear-gradient(90deg,var(--blue),var(--or))}
+.quetes{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:20px}
+.quetes h2{font-size:.95rem;color:#fff;margin-bottom:10px}
+.quete{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--muted);font-size:.9rem}
+.quete.faite{color:var(--green)}
+.quete .puce{font-size:1.1rem}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="index.html">← Accueil</a>
+  <div class="nav-liens">
+    <a href="inventaire.html">🎒 Inventaire</a>
+    <a href="progression.html">Progression</a>
+    <a href="badges.html">Badges</a>
+    <a href="parametres.html">Paramètres</a>
+  </div>
+</div>
+<div class="container">
+  <div class="entete">
+    <h1>🗺️ Carte des royaumes</h1>
+    <div class="streak" id="streak"></div>
+  </div>
+
+  <div class="carte-niveau" id="carte-niveau"></div>
+
+  <div class="quetes" id="quetes"></div>
+
+  <div class="pnj">
+    <span class="avatar">🦉</span>
+    <p id="message-pnj">Bienvenue, aventurier ! Choisis un royaume pour commencer ta quête.</p>
+  </div>
+
+  <div class="carte" id="carte"></div>
+</div>
+<script>
+  var royaumes = [
+    { id: 'francais', nom: 'Royaume des Lettres', icone: '📖', href: 'matieres/francais/index.html', couleur: '#4ade80',
+      mascotte: ['🥚', '🐤', '🦜', '🦉'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🦉 Chouette sage'],
+      cours: ['accord-participe','classes-mots','conjonctives','fonctions','homophones','imperatif-subjonctif','relatives','temps-composes','temps-simples','types-phrases','argumentatif','explicatif','lettre-formelle','recit','resumer','etude-recit','figures-style','poesie','registres','theatre'] },
+    { id: 'mathematiques', nom: 'Royaume des Nombres', icone: '🔢', href: 'matieres/mathematiques/index.html', couleur: '#38bdf8',
+      mascotte: ['🥚', '🔷', '💠', '💎'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '💎 Diamant parfait'],
+      cours: ['calcul-litteral','equations','fractions','inequations','nombres-relatifs','puissances','aires','angles-cercle','pythagore','thales','transformations','trigonometrie','volumes','proportionnalite','fonctions-affines','fonctions-lineaires','probabilites','representation-graphique','statistiques','algorithmique-scratch'] },
+    { id: 'histoire-geo-emc', nom: 'Royaume du Temps', icone: '🌍', href: 'matieres/histoire-geo-emc/index.html', couleur: '#fbbf24',
+      mascotte: ['🥚', '🦎', '🐢', '🐉'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🐉 Dragon ancien'],
+      cours: ['construction-europeenne','france-seconde-guerre-mondiale','guerre-froide','monde-depuis-1991','premiere-guerre-mondiale','seconde-guerre-mondiale','totalitarismes','aires-urbaines','espaces-faible-densite','espaces-productifs','france-europe-monde','mobilites','territoires-ue','citoyennete','defense-paix','droits-homme','numerique-droits','valeurs-republique'] },
+    { id: 'sciences', nom: 'Royaume des Éléments', icone: '🔬', href: 'matieres/sciences/index.html', couleur: '#a78bfa',
+      mascotte: ['🥚', '🐛', '🦋', '🦄'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🦄 Esprit élémentaire'],
+      cours: ['chaine-energetique','conversions','electricite','energie','etats-matiere','forces','gravitation','poids-masse','ressources-energetiques','signaux-lumineux','signaux-sonores','solutions','transformations','biodiversite','circulation','contraception','developpement-durable','impact-humain','muscles','nutrition','reproduction-humaine','respiration','risques-naturels','systeme-nerveux','tabac-alcool-drogues','transmission-vie','analyser-objet','bases-programmation','conception','evolution-techno','impact-environnemental','scratch-python'] }
+  ];
+
+  function etapeMascotte(pct) {
+    if (pct >= 66) return 3;
+    if (pct >= 33) return 2;
+    if (pct >= 1) return 1;
+    return 0;
+  }
+
+  var totalClesGlobal = 0, totalCoffresGlobal = 0, totalCoursGlobal = 0, totalSansFauteGlobal = 0;
+  royaumes.forEach(function (r) {
+    r.cles = r.cours.filter(function (id) { return localStorage.getItem('brevet2027_cours_' + id) === 'lu'; }).length;
+    r.coffres = r.cours.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui'; }).length;
+    r.sansfaute = r.cours.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_sansfaute') === 'oui'; }).length;
+    r.pct = Math.round((r.cles / r.cours.length) * 100);
+    r.pctCoffres = Math.round((r.coffres / r.cours.length) * 100);
+    r.complet = r.coffres === r.cours.length;
+    r.etape = etapeMascotte(r.pctCoffres);
+    totalClesGlobal += r.cles;
+    totalCoffresGlobal += r.coffres;
+    totalCoursGlobal += r.cours.length;
+    totalSansFauteGlobal += r.sansfaute;
+  });
+  var royaumesConquis = royaumes.filter(function (r) { return r.complet; }).length;
+  var tousComplets = totalCoffresGlobal === totalCoursGlobal;
+
+  // Streak (torche allumée si visite un jour, puis le lendemain)
+  var streakCompte = 0;
+  (function () {
+    var jourStr = function (d) { return d.toISOString().slice(0, 10); };
+    var aujourdhui = jourStr(new Date());
+    var dernier = localStorage.getItem('brevet2027_streak_dernier_jour');
+    var compte = parseInt(localStorage.getItem('brevet2027_streak_compte') || '0', 10);
+
+    if (dernier !== aujourdhui) {
+      var hier = new Date();
+      hier.setDate(hier.getDate() - 1);
+      if (dernier === jourStr(hier)) {
+        compte = compte + 1;
+      } else {
+        compte = 1;
+      }
+      localStorage.setItem('brevet2027_streak_dernier_jour', aujourdhui);
+      localStorage.setItem('brevet2027_streak_compte', String(compte));
+    }
+    streakCompte = compte;
+
+    var el = document.getElementById('streak');
+    el.className = 'streak' + (compte > 0 ? '' : ' eteinte');
+    el.innerHTML = '<span class="torche">' + (compte > 0 ? '🔥' : '🕯️') + '</span> ' + compte + ' jour' + (compte > 1 ? 's' : '') + ' de suite';
+  })();
+
+  // Niveau / XP (clé=10, coffre=20, sans-faute=15, royaume conquis=50, streak plafonné à 30 jours)
+  var xp = totalClesGlobal * 10 + totalCoffresGlobal * 20 + totalSansFauteGlobal * 15 + royaumesConquis * 50 + Math.min(streakCompte, 30) * 5;
+  var NIVEAUX = [
+    { seuil: 0, titre: 'Novice', icone: '🌱' },
+    { seuil: 150, titre: 'Apprenti', icone: '📘' },
+    { seuil: 500, titre: 'Chevalier', icone: '⚔️' },
+    { seuil: 1000, titre: 'Vétéran', icone: '🛡️' },
+    { seuil: 1800, titre: 'Maître du Brevet', icone: '👑' },
+    { seuil: 3000, titre: 'Légende du Brevet', icone: '🏆' }
+  ];
+  var niveauActuel = NIVEAUX[0], niveauSuivant = null;
+  for (var ni = 0; ni < NIVEAUX.length; ni++) {
+    if (xp >= NIVEAUX[ni].seuil) { niveauActuel = NIVEAUX[ni]; niveauSuivant = NIVEAUX[ni + 1] || null; }
+  }
+  var carteNiveau = document.getElementById('carte-niveau');
+  if (niveauSuivant) {
+    var pctNiveau = Math.round(((xp - niveauActuel.seuil) / (niveauSuivant.seuil - niveauActuel.seuil)) * 100);
+    carteNiveau.innerHTML =
+      '<span class="icone-niveau">' + niveauActuel.icone + '</span>' +
+      '<span style="flex:1">' +
+      '<div class="titre-niveau">' + niveauActuel.titre + '</div>' +
+      '<div class="xp">' + xp + ' XP · ' + (niveauSuivant.seuil - xp) + ' XP avant ' + niveauSuivant.titre + ' ' + niveauSuivant.icone + '</div>' +
+      '<div class="barre-xp"><div class="barre-xp-remplie" style="width:' + pctNiveau + '%"></div></div>' +
+      '</span>';
+  } else {
+    carteNiveau.innerHTML =
+      '<span class="icone-niveau">' + niveauActuel.icone + '</span>' +
+      '<span style="flex:1">' +
+      '<div class="titre-niveau">' + niveauActuel.titre + '</div>' +
+      '<div class="xp">' + xp + ' XP · niveau maximum atteint !</div>' +
+      '<div class="barre-xp"><div class="barre-xp-remplie" style="width:100%"></div></div>' +
+      '</span>';
+  }
+
+  // Quêtes du jour
+  var jourCourant = localStorage.getItem('brevet2027_jour_courant');
+  var aujourdhuiISO = new Date().toISOString().slice(0, 10);
+  var jourReussites = (jourCourant === aujourdhuiISO) ? parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10) : 0;
+  var quetesJour = [
+    { texte: 'Réussis 1 exercice aujourd\'hui', fait: jourReussites >= 1 },
+    { texte: 'Réussis 3 exercices aujourd\'hui', fait: jourReussites >= 3 }
+  ];
+  var quetesEl = document.getElementById('quetes');
+  quetesEl.innerHTML = '<h2>📋 Quêtes du jour</h2>' + quetesJour.map(function (q) {
+    return '<div class="quete' + (q.fait ? ' faite' : '') + '"><span class="puce">' + (q.fait ? '✅' : '⬜') + '</span>' + q.texte + '</div>';
+  }).join('');
+
+  var items = [{ type: 'depart' }]
+    .concat(royaumes.map(function (r) { return { type: 'royaume', data: r }; }))
+    .concat([{ type: 'fin', debloque: tousComplets }]);
+
+  var LARGEUR = 360, AMPL = 108, FREQ = 0.85, ESPY = 190, MARGE = 100;
+  var hauteur = MARGE * 2 + ESPY * (items.length - 1);
+  var pts = items.map(function (it, i) {
+    return { x: LARGEUR / 2 + AMPL * Math.sin(i * FREQ), y: MARGE + i * ESPY, item: it };
+  });
+
+  var carte = document.getElementById('carte');
+  carte.style.height = hauteur + 'px';
+
+  // Nuages décoratifs
+  [0.06, 0.22, 0.4].forEach(function (f, i) {
+    var n = document.createElement('span');
+    n.className = 'nuage';
+    n.textContent = '☁️';
+    n.style.left = (20 + i * 110) + 'px';
+    n.style.top = (hauteur * f) + 'px';
+    n.style.animationDelay = (i * 2) + 's';
+    carte.appendChild(n);
+  });
+
+  // Chemin SVG (fond + tracé)
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('class', 'chemin-svg');
+  svg.setAttribute('viewBox', '0 0 ' + LARGEUR + ' ' + hauteur);
+  svg.setAttribute('preserveAspectRatio', 'none');
+  for (var i = 0; i < pts.length - 1; i++) {
+    var a = pts[i], b = pts[i + 1];
+    var midY = (a.y + b.y) / 2;
+    var d = 'M' + a.x + ',' + a.y + ' C ' + a.x + ',' + midY + ' ' + b.x + ',' + midY + ' ' + b.x + ',' + b.y;
+    var termine = (a.item.type === 'depart') || (a.item.type === 'royaume' && a.item.data.complet);
+    var fond = document.createElementNS(svgNS, 'path');
+    fond.setAttribute('d', d);
+    fond.setAttribute('class', 'trace trace-fond');
+    svg.appendChild(fond);
+    var trace = document.createElementNS(svgNS, 'path');
+    trace.setAttribute('d', d);
+    trace.setAttribute('class', 'trace ' + (termine ? 'trace-faite' : 'trace-a-faire'));
+    svg.appendChild(trace);
+  }
+  carte.appendChild(svg);
+
+  // Halos + noeuds
+  pts.forEach(function (p) {
+    var it = p.item;
+
+    if (it.type === 'royaume') {
+      var halo = document.createElement('div');
+      halo.className = 'halo';
+      halo.style.left = p.x + 'px';
+      halo.style.top = p.y + 'px';
+      halo.style.width = halo.style.height = '150px';
+      halo.style.background = it.data.couleur;
+      halo.style.opacity = (0.12 + 0.35 * (it.data.pct / 100)).toFixed(2);
+      carte.appendChild(halo);
+    }
+
+    var el;
+    if (it.type === 'depart') {
+      el = document.createElement('div');
+      el.className = 'noeud marqueur depart';
+      el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
+      el.innerHTML = '<span class="rond">🏠</span><span class="titre">Départ</span>';
+    } else if (it.type === 'fin') {
+      el = document.createElement(it.debloque ? 'a' : 'div');
+      if (it.debloque) el.href = 'inventaire.html';
+      el.className = 'noeud marqueur fin ' + (it.debloque ? 'debloque' : 'verrouille');
+      el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
+      el.innerHTML = '<span class="rond">' + (it.debloque ? '🏆' : '🔒') + '</span>' +
+        '<span class="titre">' + (it.debloque ? 'Légende accomplie' : 'Trophée final') + '</span>' +
+        (it.debloque ? '' : '<span class="sous">Ouvre tous les coffres des 4 royaumes</span>');
+    } else {
+      var r = it.data;
+      el = document.createElement('a');
+      el.href = r.href;
+      el.className = 'noeud';
+      el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
+      el.innerHTML =
+        '<span class="anneau" style="background:conic-gradient(' + r.couleur + ' ' + r.pct + '%, var(--border) 0)">' +
+        '<span class="rond">' + r.icone + (r.complet ? '<span class="couronne">👑</span>' : '') + '<span class="mascotte" title="' + r.nomsMascotte[r.etape] + '">' + r.mascotte[r.etape] + '</span></span>' +
+        '</span>' +
+        '<span class="titre">' + r.nom + '</span>' +
+        '<span class="sous">🔑 ' + r.cles + '/' + r.cours.length + ' · 📦 ' + r.coffres + '/' + r.cours.length + '</span>';
+    }
+    carte.appendChild(el);
+  });
+
+  // Pion animé : position sur le dernier noeud atteint
+  var indexAtteint = 0;
+  pts.forEach(function (p, i) {
+    var it = p.item;
+    if (it.type === 'depart') { indexAtteint = Math.max(indexAtteint, i); }
+    else if (it.type === 'royaume' && it.data.cles > 0) { indexAtteint = Math.max(indexAtteint, i); }
+    else if (it.type === 'fin' && it.debloque) { indexAtteint = Math.max(indexAtteint, i); }
+  });
+  var pionPt = pts[indexAtteint];
+  var pion = document.createElement('span');
+  pion.className = 'pion';
+  pion.textContent = '🧍';
+  pion.style.left = (pionPt.x + 46) + 'px';
+  pion.style.top = (pionPt.y - 20) + 'px';
+  carte.appendChild(pion);
+
+  // Message du PNJ selon la progression globale
+  var messagePnj = document.getElementById('message-pnj');
+  if (totalClesGlobal === 0) {
+    messagePnj.textContent = "Bienvenue, aventurier ! Choisis un royaume pour commencer ta quête.";
+  } else if (tousComplets) {
+    messagePnj.textContent = "Incroyable ! Tous les royaumes sont conquis. Ton trophée légendaire t'attend au bout de la carte.";
+  } else if (totalClesGlobal < totalCoursGlobal) {
+    messagePnj.textContent = "Bien joué ! Tu as déjà " + totalClesGlobal + " clé" + (totalClesGlobal > 1 ? 's' : '') + ". Continue, chaque royaume a ses secrets.";
+  } else {
+    messagePnj.textContent = "Tu as trouvé toutes les clés des 4 royaumes. Il te reste des coffres à ouvrir, et des boss à affronter...";
+  }
+</script>
+</body>
+</html>

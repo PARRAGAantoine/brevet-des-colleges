@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brevet Sprint 2027 - Accueil</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--green:#4ade80;--yellow:#fbbf24;--red:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.header{padding:48px 20px 32px;text-align:center;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(56,189,248,.08),transparent)}
+.header h1{font-size:2.4rem;color:#fff;letter-spacing:-0.02em}
+.dev-subtitle{display:inline-block;margin-top:14px;font-size:.85rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--yellow);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.35);padding:6px 14px;border-radius:999px}
+.header p.slogan{font-size:1.25rem;margin-top:18px;color:#fff;font-weight:600}
+.header p.sub{color:var(--muted);margin-top:14px;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.7;font-size:1rem}
+.container{max-width:900px;margin:0 auto;padding:24px 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;align-items:flex-start}
+.card h3{font-size:1.05rem;color:#fff;margin-bottom:6px;width:100%}
+.card p{color:var(--muted);font-size:.9rem;margin-bottom:14px;width:100%}
+.btn{display:inline-flex;justify-content:center;background:var(--blue);color:#000;font-weight:700;padding:10px 18px;border-radius:10px;text-decoration:none;min-height:44px;margin-top:auto}
+.badge{display:inline-block;font-size:.7rem;padding:4px 9px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:10px}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+.section-title{font-size:1.15rem;color:#fff;margin:32px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.note{background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:16px 18px;color:var(--muted);font-size:.95rem;margin-top:24px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Brevet Sprint 2027</h1>
+<p class="dev-subtitle">Site de cadrage pour les développeurs de l'app Brevet Sprint 2027</p>
+<p class="slogan">Un cours. Un exercice. Un progrès.</p>
+<p class="sub">Brevet Sprint 2027 est une application gratuite pour aider les élèves de 3ème en difficulté à réviser le brevet. Elle contient 88 cours répartis en 4 matières. Le fonctionnement est volontairement simple : l'élève lit un cours, indique qu'il l'a compris, puis fait des exercices liés. S'il bloque, il peut demander un indice, puis une aide plus détaillée. L'application suit ce qu'il a lu, ce qu'il a réussi et ce qu'il doit revoir, avec des badges pour le motiver. Les annales officielles sont aussi disponibles. L'ensemble doit rester simple, calme, sans pub et sans compte à créer.</p>
+</div>
+<div class="container">
+<div class="note">📍 infos nécessaires pour coder Brevet Sprint 2027 :<br>
+1) Lis 00-Présentation, 01-Instructions et 02-Rôles pour comprendre les règles,<br>
+2) Regarde 03-Roadmap, 13-Architecture et 12-Catalogue pour voir la structure et le contenu,<br>
+3) Suis les phases détaillées de 0 à 6, puis le Check final.<br>
+La phase 0 est en cours, elle ne passe en terminée que sur feu vert.</div>
+<div class="section-title">📘 Comprendre</div>
+<div class="grid">
+<div class="card"><span class="badge badge-doing">🟡 EN COURS</span><h3>00 - Présentation</h3><p>présentation de l'application</p><a class="btn" href="00-presentation.html">Voir →</a></div>
+<div class="card"><span class="badge badge-doing">🟡 EN COURS</span><h3>01 - Instructions</h3><p>Stack 0€, email vrai.</p><a class="btn" href="01-instructions.html">Voir →</a></div>
+<div class="card"><span class="badge badge-doing">🟡 EN COURS</span><h3>02 - Rôles</h3><p>ELEVE_TEST à chaque étape.</p><a class="btn" href="02-roles.html">Voir →</a></div>
+</div>
+<div class="section-title">🗺️ Roadmap + Architecture + Catalogue</div>
+<div class="grid">
+<div class="card"><span class="badge badge-doing">🟡 EN COURS</span><h3>03 - Roadmap 8 phases</h3><p>0 à 7 + catalogue + architecture.</p><a class="btn" href="03-roadmap.html">Voir →</a></div>
+<div class="card"><span class="badge badge-doing">🟡 EN COURS</span><h3>13 - Architecture</h3><p>Arborescence Matieres/.../Annales sans accents.</p><a class="btn" href="13-architecture.html">Voir →</a></div>
+<div class="card"><span class="badge badge-doing">🟡 EN COURS</span><h3>12 - Catalogue 88 cours</h3><p>20+18+18+32, Annales corrigé.</p><a class="btn" href="12-catalogue.html">Voir →</a></div>
+</div>
+</div>
+</body>
+</html>

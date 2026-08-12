@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — Écrire un texte argumentatif — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Français · Écriture</p>
+  <h1>Exercices — Écrire un texte argumentatif</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'argumentatif';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: 'Que doit-on formuler clairement au début d’un texte argumentatif ?', choix: [
+        { texte: 'un exemple', correct: false }, { texte: 'sa thèse', correct: true }, { texte: 'une conclusion', correct: false }
+      ], aide1: 'C’est l’avis que l’on va défendre.', aide2: 'La thèse doit apparaître dès le début pour que le lecteur sache ce que tu défends.' },
+    { enonce: 'Un argument doit être accompagné de...', choix: [
+        { texte: 'une conjonction', correct: false }, { texte: 'un exemple', correct: true }, { texte: 'une question', correct: false }
+      ], aide1: 'Sans lui, un argument reste trop abstrait.', aide2: 'Un exemple concret rend l’argument plus convaincant.' },
+    { enonce: 'Quel mot est un connecteur logique ?', choix: [
+        { texte: 'maison', correct: false }, { texte: 'cependant', correct: true }, { texte: 'rapidement', correct: false }
+      ], aide1: 'Cherche un mot qui relie deux idées.', aide2: '« Cependant » relie deux idées en marquant une opposition.' },
+    { enonce: 'Combien d’idées différentes doit-on mettre dans un même argument ?', choix: [
+        { texte: 'plusieurs', correct: false }, { texte: 'une seule', correct: true }, { texte: 'aucune', correct: false }
+      ], aide1: 'Pense à la clarté pour le lecteur.', aide2: 'Un argument mélangeant plusieurs idées devient confus : une seule idée par argument.' },
+    { enonce: 'Quel est le rôle d’un connecteur logique ?', choix: [
+        { texte: 'relier les idées entre elles', correct: true }, { texte: 'remplacer un exemple', correct: false }, { texte: 'conclure le texte à lui seul', correct: false }
+      ], aide1: 'À quoi sert un mot comme « cependant » ou « de plus » dans un texte ?', aide2: 'Un connecteur logique sert à relier les idées entre elles pour que le texte soit clair.' },
+    { enonce: 'Quel mot est un connecteur logique ?', choix: [
+        { texte: 'de plus', correct: true }, { texte: 'maison', correct: false }, { texte: 'gentiment', correct: false }
+      ], aide1: 'Cherche un mot qui relie deux idées, comme dans une question précédente.', aide2: '« de plus » ajoute une idée à ce qui précède : c’est un connecteur logique.' },
+    { enonce: 'Une thèse doit être formulée...', choix: [
+        { texte: 'seulement à la fin', correct: false }, { texte: 'dès le début', correct: true }, { texte: 'jamais explicitement', correct: false }
+      ], aide1: 'Pense à ce qui aide le lecteur à comprendre immédiatement ton avis.', aide2: 'La thèse doit apparaître dès le début pour que le lecteur sache ce que tu défends.' },
+    { enonce: 'Combien d’arguments recommande-t-on en général pour convaincre ?', choix: [
+        { texte: '1', correct: false }, { texte: '2 à 3', correct: true }, { texte: '10', correct: false }
+      ], aide1: 'Ni trop peu (pas assez convaincant), ni trop (le texte devient trop long).', aide2: '2 à 3 arguments bien développés valent mieux qu’une longue liste superficielle.' },
+    { enonce: 'Un exemple sert à...', choix: [
+        { texte: 'remplacer l’argument', correct: false }, { texte: 'illustrer concrètement l’argument', correct: true }, { texte: 'introduire la thèse', correct: false }
+      ], aide1: 'Sans lui, un argument reste trop abstrait.', aide2: 'Un exemple concret rend l’argument plus convaincant en l’illustrant.' },
+    { enonce: 'Quel connecteur marque une opposition ?', choix: [
+        { texte: 'cependant', correct: true }, { texte: 'd’abord', correct: false }, { texte: 'enfin', correct: false }
+      ], aide1: 'Cherche celui qui répond à l’idée de « mais... ».', aide2: '« Cependant » marque une opposition entre deux idées.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: 'L’avis que l’on défend dans un texte argumentatif s’appelle une... (un mot)', reponses: ['these', 'thèse'], aide1: 'C’est l’avis que l’on va défendre.', aide2: 'Ce mot vient du grec et désigne une position que l’on soutient dans un débat.' },
+    { enonce: 'Une raison qui soutient la thèse s’appelle un... (un mot)', reponses: ['argument'], aide1: 'C’est ce qui vient justifier la thèse.', aide2: 'Ce mot est de la même famille que le verbe « argumenter ».' },
+    { enonce: 'Un fait concret qui illustre un argument s’appelle un... (un mot)', reponses: ['exemple'], aide1: 'Sans lui, un argument reste trop abstrait.', aide2: 'Ce mot désigne un cas concret pris pour illustrer une idée générale.' },
+    { enonce: 'Un mot comme « cependant » qui relie les idées s’appelle un connecteur... (un mot)', reponses: ['logique'], aide1: 'Ce type de connecteur organise le raisonnement.', aide2: 'Ce mot qualifie un raisonnement qui s’enchaîne de façon cohérente.' },
+    { enonce: '« ___, il améliore la santé. » — connecteur qui introduit le tout premier argument (un mot avec apostrophe)', reponses: ['dabord', 'd’abord', "d'abord"], aide1: 'Cherche le connecteur qui ouvre une liste chronologique.', aide2: 'C’est le tout premier connecteur d’une liste, avant « ensuite », « de plus », « enfin ».' },
+    { enonce: '« ___, il apprend le travail d’équipe. » — connecteur d’ajout (deux mots)', reponses: ['de plus'], aide1: 'Ce connecteur ajoute une idée à ce qui précède.', aide2: 'C’est un connecteur d’ajout, qui vient renforcer un argument déjà donné.' },
+    { enonce: '« Le sport est bénéfique. ___, il coûte parfois cher. » — connecteur d’opposition (un mot)', reponses: ['cependant'], aide1: 'Cherche le connecteur qui marque une opposition.', aide2: 'C’est un connecteur qui introduit une idée contraire à ce qui précède.' },
+    { enonce: '« ___, on peut dire que le sport est essentiel. » — connecteur de conclusion (un mot)', reponses: ['enfin'], aide1: 'Cherche le connecteur qui introduit la toute dernière idée.', aide2: 'C’est le connecteur qui introduit la dernière idée, souvent la conclusion.' },
+    { enonce: 'Combien d’idées maximum doit contenir un seul argument ? (un chiffre)', reponses: ['1', 'une'], aide1: 'Pense à la clarté pour le lecteur : que se passe-t-il si on mélange plusieurs idées ?', aide2: 'Un argument qui mélange plusieurs idées devient confus pour le lecteur.' },
+    { enonce: 'Un argument sans exemple reste trop... (un mot)', reponses: ['abstrait'], aide1: 'C’est le contraire de « concret ».', aide2: 'Sans exemple concret, l’argument reste théorique et peu convaincant.' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'");
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

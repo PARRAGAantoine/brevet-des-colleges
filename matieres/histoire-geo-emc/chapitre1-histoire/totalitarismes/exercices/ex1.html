@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — Les régimes totalitaires — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Histoire-Géo-EMC · Histoire</p>
+  <h1>Exercices — Les régimes totalitaires</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'totalitarismes';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: 'Qui dirige l’Allemagne nazie ?', choix: [
+        { texte: 'Staline', correct: false }, { texte: 'Hitler', correct: true }, { texte: 'Mussolini', correct: false }
+      ], aide1: 'Le nazisme est allemand.', aide2: 'Hitler dirige l’Allemagne nazie à partir de 1933.' },
+    { enonce: 'Qui dirige l’URSS communiste dans les années 1930 ?', choix: [
+        { texte: 'Staline', correct: true }, { texte: 'Hitler', correct: false }, { texte: 'Mussolini', correct: false }
+      ], aide1: 'Il succède à Lénine.', aide2: 'Staline dirige l’URSS communiste durant cette période.' },
+    { enonce: 'Qu’est-ce qu’un régime totalitaire contrôle ?', choix: [
+        { texte: 'uniquement l’armée', correct: false }, { texte: 'la totalité de la société', correct: true }, { texte: 'uniquement l’économie', correct: false }
+      ], aide1: 'C’est indiqué dans le nom même du régime.', aide2: 'Un régime totalitaire contrôle tous les aspects de la société : politique, économie, culture, information.' },
+    { enonce: 'Quel outil les régimes totalitaires utilisent-ils pour contrôler les esprits ?', choix: [
+        { texte: 'la propagande', correct: true }, { texte: 'le commerce', correct: false }, { texte: 'l’agriculture', correct: false }
+      ], aide1: 'Cela passe par la presse, l’école, les affiches.', aide2: 'La propagande diffuse massivement les idées du régime pour influencer les esprits.' },
+    { enonce: 'Qui dirige l’Italie fasciste ?', choix: [
+        { texte: 'Mussolini', correct: true }, { texte: 'Hitler', correct: false }, { texte: 'Staline', correct: false }
+      ], aide1: 'Il est le fondateur du fascisme.', aide2: 'Mussolini dirige l’Italie fasciste à partir de 1922.' },
+    { enonce: 'Combien de partis politiques sont autorisés dans un régime totalitaire ?', choix: [
+        { texte: 'un seul', correct: true }, { texte: 'plusieurs', correct: false }, { texte: 'aucun cadre légal', correct: false }
+      ], aide1: 'On parle de « parti unique ».', aide2: 'Un seul parti politique est autorisé, celui du régime au pouvoir.' },
+    { enonce: 'Que fait un régime totalitaire de toute opposition politique ?', choix: [
+        { texte: 'il l’interdit et la réprime', correct: true }, { texte: 'il l’encourage', correct: false }, { texte: 'il l’ignore complètement', correct: false }
+      ], aide1: 'Pense à la censure et aux arrestations.', aide2: 'Toute opposition politique est interdite et sévèrement réprimée.' },
+    { enonce: 'Quel type de police les régimes totalitaires utilisent-ils pour surveiller la population ?', choix: [
+        { texte: 'une police politique et secrète', correct: true }, { texte: 'une police uniquement routière', correct: false }, { texte: 'aucune police', correct: false }
+      ], aide1: 'Elle surveille et arrête les opposants.', aide2: 'Une police politique et secrète surveille étroitement la population.' },
+    { enonce: 'Le culte de la personnalité consiste à...', choix: [
+        { texte: 'glorifier le chef comme un être exceptionnel', correct: true }, { texte: 'interdire toute image du chef', correct: false }, { texte: 'organiser des élections libres', correct: false }
+      ], aide1: 'Pense aux affiches et statues géantes du dirigeant.', aide2: 'Le culte de la personnalité présente le chef du régime comme un guide infaillible.' },
+    { enonce: 'Les régimes totalitaires étudiés se développent principalement durant...', choix: [
+        { texte: 'l’entre-deux-guerres (années 1920-1930)', correct: true }, { texte: 'le Moyen Âge', correct: false }, { texte: 'les années 1990', correct: false }
+      ], aide1: 'C’est la période entre les deux guerres mondiales.', aide2: 'Ces régimes se développent surtout dans les années 1920 et 1930, entre les deux guerres mondiales.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: 'Qui dirige l’Allemagne nazie ? (un nom de famille)', reponses: ['hitler'], aide1: 'Le nazisme est allemand.', aide2: 'Ce dirigeant arrive au pouvoir en 1933.' },
+    { enonce: 'Qui dirige l’URSS communiste dans les années 1930 ? (un nom de famille)', reponses: ['staline'], aide1: 'Il succède à Lénine.', aide2: 'Ce dirigeant impose une terreur politique en URSS.' },
+    { enonce: 'Qui dirige l’Italie fasciste ? (un nom de famille)', reponses: ['mussolini'], aide1: 'Il est le fondateur du fascisme.', aide2: 'Ce dirigeant arrive au pouvoir en Italie en 1922.' },
+    { enonce: 'Quel outil de diffusion massive les régimes totalitaires utilisent-ils pour contrôler les esprits ? (un mot)', reponses: ['propagande'], aide1: 'Cela passe par la presse, l’école, les affiches.', aide2: 'Ce mot désigne la diffusion massive d’idées pour influencer une population.' },
+    { enonce: 'Dans un régime totalitaire, combien de partis politiques sont autorisés ? (un nombre)', reponses: ['1'], aide1: 'On parle de « parti unique ».', aide2: 'Un seul parti, celui du régime, est autorisé.' },
+    { enonce: 'Comment appelle-t-on la police secrète qui surveille et réprime la population dans un régime totalitaire ? (2 mots)', reponses: ['police secrete', 'policesecrete', 'police politique', 'policepolitique'], aide1: 'Elle surveille et arrête les opposants dans l’ombre.', aide2: 'Cette police agit souvent sans que la population le sache directement.' },
+    { enonce: 'Comment appelle-t-on la glorification du chef comme un être exceptionnel ? (3 mots : culte de la ...)', reponses: ['culte de la personnalite', 'cultedelapersonnalite', 'culte de la personnalité'], aide1: 'Pense aux affiches et statues géantes du dirigeant.', aide2: 'Cette expression décrit le chef présenté comme un guide infaillible.' },
+    { enonce: 'En quelle décennie ces régimes totalitaires se développent-ils principalement (donne l’année de la décennie, ex 1930) ? (un nombre)', reponses: ['1930'], aide1: 'C’est entre les deux guerres mondiales.', aide2: 'Cette décennie voit l’arrivée au pouvoir d’Hitler.' },
+    { enonce: 'Comment appelle-t-on le régime italien dirigé par Mussolini ? (un mot)', reponses: ['fascisme'], aide1: 'Ce mot donne aussi son nom à l’adjectif « fasciste ».', aide2: 'Ce régime autoritaire naît en Italie en 1922.' },
+    { enonce: 'Comment appelle-t-on un régime qui contrôle la totalité de la société (politique, économie, culture, information) ? (un mot)', reponses: ['totalitarisme'], aide1: 'C’est le titre de ce cours.', aide2: 'Ce mot vient de « total », car ce régime contrôle tout.' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'")
+      .replace(/\s+/g, '');
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

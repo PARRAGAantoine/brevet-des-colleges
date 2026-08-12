@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>00 - Présentation</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card)}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:900px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+h1{font-size:2rem;color:#fff;margin-bottom:8px} h2{font-size:1.3rem;color:#fff;margin:22px 0 12px} h3{font-size:1.05rem;color:var(--blue);margin:16px 0 8px}
+p{margin-bottom:14px;color:var(--muted)}
+ul,ol{padding-left:22px} li{margin-bottom:10px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08)}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.box-purple{border-left-color:#a78bfa;background:rgba(167,139,250,.08)}
+</style>
+</head>
+<body>
+<div class="top"><a class="btn" href="index.html">← Retour Accueil</a><div style="display:flex;gap:8px"><a class="btn" href="03-roadmap.html">Roadmap</a><a class="btn btn-primary" href="13-architecture.html">Architecture →</a></div></div>
+<div class="container">
+<span class="badge badge-doing">🟡 EN COURS - ne passe en TERMINÉ que sur ton feu vert</span>
+<h1>📘 Brevet Sprint 2027 — Présentation</h1>
+
+<div class="card">
+<h2>🎯 Pourquoi cette application ?</h2>
+<p>Le brevet des collèges fait peur. Surtout quand on est en difficulté, qu'on ne sait pas par où commencer, et que les manuels sont trop épais ou trop compliqués. <strong>Brevet Sprint 2027</strong> est née d'un constat simple : un élève de 3ème n'a pas besoin de tout réviser en même temps. Il a besoin d'un cours court, d'un exercice qui va avec, et de sentir qu'il avance.</p>
+<p>L'application est gratuite, sans publicité, sans compte à créer et sans collecte de données. L'objectif est de transformer la révision du brevet en une série de petites victoires, chaque jour.</p>
+<div class="box-green">
+<strong>Mantra central :</strong> Un cours. Un exercice. Un progrès.
+</div>
+</div>
+
+<div class="card">
+<h2>👤 Pour qui ?</h2>
+<p>Pour les élèves de 3ème qui ont du mal à suivre en classe, qui paniquent face au brevet, ou qui ne savent tout simplement pas par où commencer. Le vocabulaire est simple, les phrases restent courtes, et chaque cours est conçu pour être lu et compris en quelques minutes sur téléphone.</p>
+<p>Mais cette page s'adresse aussi à toi, développeur ou conceptrice, qui va construire l'application. Si tu ne lis que cette présentation, tu dois avoir en tête l'esprit du projet. Les détails techniques, l'arborescence des fichiers et le catalogue complet des 88 cours sont dans les pages dédiées.</p>
+</div>
+
+<div class="card">
+<h2>📚 Ce qu'on propose</h2>
+<p>Quatre matières, 88 cours au total : 20 en français, 18 en mathématiques, 18 en histoire-géographie-EMC et 32 en sciences. Chaque cours est court, ciblé, et directement suivi d'exercices qui portent sur le même contenu. Pas d'exercice hors sujet, pas de surprise.</p>
+<p>Les annales officielles du brevet sont aussi disponibles en PDF, rangées par matière, pour s'entraîner sur de vrais sujets quand l'élève se sent prêt.</p>
+<p>La progression est honnête : on distingue clairement ce que l'élève a lu, ce qu'il a tenté, ce qu'il a réussi et ce qu'il doit revoir. Pas de fausses notes, pas de classement. Juste des badges en bronze, argent et or qui récompensent l'effort, la régularité et la persévérance.</p>
+</div>
+
+<div class="card" style="border:1px solid rgba(251,191,36,.4)">
+<h2>🚨 Les règles qui font la différence</h2>
+<p>Ce ne sont pas des contraintes techniques pour faire joli. Ce sont des promesses faites à l'élève. Les voici :</p>
+<ol>
+<li><strong>Un logo qui respire.</strong> Une animation douce, lente, qui ne stresse pas. Pas de clignotement, pas d'urgence.</li>
+<li><strong>Un bouton "J'ai fini de lire" obligatoire.</strong> C'est la seule façon de marquer un cours comme lu. Pas de suivi automatique, pas de fausses suppositions. L'élève est maître de sa progression.</li>
+<li><strong>Deux niveaux d'aide, toujours empilés.</strong> Quand l'élève bloque sur un exercice, il appuie sur "Aide" et reçoit un indice. S'il bloque encore, un bouton "Aide supplémentaire" apparaît et donne une explication détaillée, sans jamais effacer le premier indice.</li>
+<li><strong>Pas de notes sur 20.</strong> Des badges bronze, argent et or. La motivation vient de l'accumulation, pas de la peur d'échouer.</li>
+<li><strong>Une ambiance sombre apaisante.</strong> Fond #0d1418 par défaut pour tous. Pas de mode clair, pas de choix à faire. Moins fatigant pour les yeux, plus calme le soir.</li>
+<li><strong>Un vrai email de contact.</strong> <a href="mailto:parraga.antoine@gmail.com">parraga.antoine@gmail.com</a>, affiché en clair, cliquable. Si l'élève ou ses parents veulent écrire, ils peuvent.</li>
+<li><strong>Des vraies annales, déjà là.</strong> Des sujets officiels en PDF, hébergés directement, sans lien externe qui disparaît.</li>
+<li><strong>Un site propre sous le capot.</strong> Pas d'accents dans les noms de dossiers, pas d'espaces, tout en minuscules. Ça évite les bugs et ça reste simple à héberger.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>🔄 Le parcours d'un élève, en cinq étapes</h2>
+<p>Voici comment un élève vit l'application, du début à la fin d'une session :</p>
+<ol>
+<li><strong>Il arrive.</strong> Une page d'accueil très simple : le logo qui flotte doucement, le slogan, et deux boutons seulement. Pas de menu, pas de distraction. "Accès aux matières" pour apprendre, "Me contacter" s'il a besoin d'aide.</li>
+<li><strong>Il choisit un cours.</strong> Quatre matières, puis des chapitres, puis des cours. Il clique sur celui qui l'intéresse. Chaque page de cours suit toujours le même ordre : ce qu'il va apprendre, le vocabulaire, les prérequis, l'idée principale, la méthode pas à pas, un exemple guidé, les pièges à éviter, le récapitulatif, et une astuce.</li>
+<li><strong>Il valide.</strong> En bas du cours, un bouton bleu "J'ai fini de lire". Quand il clique, le bouton devient vert et affiche "Lu ✅". Le cours est enregistré dans sa progression. Un badge peut se débloquer. Un nouveau bouton apparaît : "Faire les exercices".</li>
+<li><strong>Il s'entraîne.</strong> Trois à cinq questions, directement liées au cours. S'il hésite, il demande de l'aide. D'abord un indice léger, puis une explication détaillée si besoin. Il peut toujours revenir au cours en un clic.</li>
+<li><strong>Il voit sa progression.</strong> Une page dédiée montre clairement : combien de cours il a lus, combien d'exercices il a faits, combien il a réussis, et lesquels il doit reprendre. C'est honnête, sans jugement.</li>
+</ol>
+</div>
+
+<div class="card box-purple" style="border:1px solid rgba(167,139,250,.4)">
+<h2>🎮 Le Mode Aventure</h2>
+<p>La révision du brevet devient un jeu d'exploration. L'élève n'est plus un simple élève qui révise : c'est un aventurier qui traverse quatre royaumes pour récupérer son diplôme.</p>
+
+<h3>🗺️ La carte du brevet</h3>
+<p>Quatre royaumes représentent les quatre matières : Français, Mathématiques, Histoire-Géo-EMC et Sciences. Chaque royaume contient plusieurs donjons — un par chapitre. L'élève avance sur une carte, zone par zone, et choisit où il veut aller.</p>
+
+<h3>🔑 Cours lu = clé trouvée</h3>
+<p>Quand l'élève lit un cours jusqu'au bout et clique sur "J'ai fini de lire", il trouve une clé. Cette clé lui permet d'ouvrir la porte du donjon et de passer aux exercices. Sans la clé, pas d'exercice. C'est un moyen ludique de l'inciter à lire avant de se jeter sur les questions.</p>
+
+<h3>📦 Exercice réussi = coffre ouvert</h3>
+<p>Chaque exercice réussi fait apparaître un coffre qui s'ouvre avec une petite animation. À l'intérieur : des pièces et de l'expérience. L'élève voit son trésor grandir au fil de ses victoires.</p>
+
+<h3>💎 Badges = butin</h3>
+<p>Les badges ne sont plus de simples médailles. Ce sont des objets de jeu : un coffre en bois pour le bronze, un coffre en argent pour l'argent, un coffre légendaire qui brille pour l'or. Ils s'accumulent dans un inventaire visible, et l'élève peut montrer sa collection.</p>
+
+<h3>👹 Annales = boss final</h3>
+<p>À la fin de chaque royaume, l'élève affronte le boss "Brevet Blanc". C'est un sujet d'annale officiel, en conditions réelles. S'il réussit, il débloque le royaume suivant. S'il échoue, il peut s'entraîner davantage et retenter le combat quand il se sent prêt.</p>
+
+<h3>⚡ Des bonus qui motivent</h3>
+<ul>
+<li><strong>🔥 Streak = torche allumée.</strong> Si l'élève révise chaque jour, sa torche reste allumée. S'il manque un jour, elle s'éteint. Simple, visuel, efficace.</li>
+<li><strong>🧙 Un petit personnage.</strong> Un guide qui l'accompagne et lui dit "Bien joué ! Tu as trouvé la clé du passé composé !" quand il progresse.</li>
+<li><strong>🏆 Tableau des légendes.</strong> Pas de classement stressant, juste une reconnaissance : "Tu fais partie des explorateurs qui ont ouvert dix coffres."</li>
+</ul>
+
+<div class="box" style="margin-top:16px">
+<strong>Comment ça marche techniquement ?</strong> On garde exactement la même stack HTML / CSS / JS vanilla. On ajoute juste <code>phaser.min.js</code> (~150 ko), un framework de jeu 2D gratuit et open-source. La progression utilise le même localStorage que la version calme. Pas de nouveau système, pas de serveur, pas de coût. L'élève peut basculer à tout moment entre la vue classique et la vue aventure, mais l'aventure est le cœur de l'expérience.
+</div>
+</div>
+
+<div class="card">
+<h2>🛠️ Ce qu'il y a sous le capot</h2>
+<p>L'application est entièrement gratuite à construire et à héberger. Pas de framework, pas de backend, pas de base de données. Du HTML, du CSS et du JavaScript vanilla, hébergé sur GitHub Pages. Toute la progression de l'élève vit dans son navigateur, via le localStorage, avec le préfixe <code>brevet2027_</code>.</p>
+<p>C'est volontairement simple. Moins il y a de pièces, moins il y a de choses qui peuvent casser. L'application doit tenir sur un téléphone Android lent, charger vite, et fonctionner même avec une connexion faible.</p>
+<p>Les détails complets de l'architecture fichiers, du catalogue des 88 cours et des phases de développement se trouvent dans les pages liées ci-dessous.</p>
+</div>
+
+<div class="card">
+<h2>🎨 L'ambiance visuelle</h2>
+<p>Un fond sombre apaisant (#0d1418) pour tout le monde, tout le temps. Des cartes légèrement plus claires, des bordures discrètes. Du bleu pour guider le regard, du vert pour valider, du jaune pour attirer l'attention sans alarmer, et du violet pour l'aventure. Les boutons font au minimum 44 pixels de hauteur pour être facilement cliquables au doigt. Le logo flotte doucement avec une animation lente de trois secondes. Rien ne presse.</p>
+</div>
+
+<div class="card" style="margin-top:32px">
+<p style="margin-bottom:0"><a href="index.html">← Retour Accueil</a> · <a href="01-instructions.html">01-Instructions →</a> · <a href="13-architecture.html">Architecture</a> · <a href="12-catalogue.html">Catalogue</a></p>
+</div>
+
+</div>
+</body>
+</html>

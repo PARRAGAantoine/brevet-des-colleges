@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventaire — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--bois:#a97449;--argent:#c0c0c0;--legendaire:#ffd700}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);font-weight:700;cursor:pointer}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:1.6rem;color:#fff;margin-bottom:20px}
+h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
+.resume{display:flex;gap:12px;flex-wrap:wrap}
+.stat{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center}
+.stat .icone{font-size:1.8rem}
+.stat .chiffre{font-size:1.5rem;font-weight:800;color:#fff;margin-top:6px}
+.stat .label{color:var(--muted);font-size:.8rem;margin-top:2px}
+.loot{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px}
+.loot.debloque{border-color:var(--medal, var(--blue))}
+.loot .medaille{font-size:2.2rem;filter:grayscale(1);opacity:.4}
+.loot.debloque .medaille{filter:none;opacity:1}
+.loot .titre{color:#fff;font-weight:700}
+.loot .desc{color:var(--muted);font-size:.85rem}
+.loot.debloque .desc{color:var(--green)}
+.carte-niveau{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:20px 0}
+.carte-niveau .icone-niveau{font-size:2.2rem}
+.carte-niveau .titre-niveau{color:#fff;font-weight:700;font-size:1.05rem}
+.carte-niveau .xp{color:var(--muted);font-size:.8rem;margin-top:2px}
+.carte-niveau .barre-xp{height:8px;border-radius:999px;background:var(--border);margin-top:8px;overflow:hidden}
+.carte-niveau .barre-xp-remplie{height:100%;background:linear-gradient(90deg,var(--blue),var(--legendaire))}
+.note-erreurs{color:var(--muted);font-size:.85rem;margin-top:6px}
+.compagnons{display:flex;flex-direction:column;gap:12px}
+.compagnon{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px}
+.compagnon .emoji{font-size:2.4rem}
+.compagnon .nom-royaume{color:#fff;font-weight:700;font-size:1rem}
+.compagnon .etape{color:var(--muted);font-size:.85rem;margin:2px 0 6px}
+.compagnon .barre{height:6px;border-radius:999px;background:var(--border);overflow:hidden}
+.compagnon .barre-remplie{height:100%;background:var(--blue)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="matieres.html">← Carte des royaumes</a>
+</div>
+<div class="container">
+  <h1>🎒 Inventaire</h1>
+
+  <div class="resume">
+    <div class="stat"><div class="icone">🔑</div><div class="chiffre" id="nb-cles">0</div><div class="label">Clés trouvées</div></div>
+    <div class="stat"><div class="icone">📦</div><div class="chiffre" id="nb-coffres">0</div><div class="label">Coffres ouverts</div></div>
+    <div class="stat"><div class="icone">💎</div><div class="chiffre" id="nb-sansfaute">0</div><div class="label">Sans-faute</div></div>
+    <div class="stat"><div class="icone">🔁</div><div class="chiffre" id="nb-erreurs">0</div><div class="label">Erreurs corrigées</div></div>
+  </div>
+  <p class="note-erreurs">Chaque erreur t'a rapproché de la réussite : elles comptent aussi dans ton parcours.</p>
+
+  <div class="carte-niveau" id="carte-niveau"></div>
+
+  <h2>🐾 Mes compagnons</h2>
+  <div class="compagnons" id="compagnons"></div>
+
+  <h2>Loot (badges)</h2>
+  <div id="loots"></div>
+</div>
+<script>
+  var idsCours = [
+    'accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre', 'calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch', 'construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique', 'chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'
+  ];
+
+  var royaumes = [
+    { nom: 'Royaume des Lettres', icone: '📖', couleur: '#4ade80', mascotte: ['🥚', '🐤', '🦜', '🦉'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🦉 Chouette sage'],
+      cours: ['accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre'] },
+    { nom: 'Royaume des Nombres', icone: '🔢', couleur: '#38bdf8', mascotte: ['🥚', '🔷', '💠', '💎'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '💎 Diamant parfait'],
+      cours: ['calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch'] },
+    { nom: 'Royaume du Temps', icone: '🌍', couleur: '#fbbf24', mascotte: ['🥚', '🦎', '🐢', '🐉'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🐉 Dragon ancien'],
+      cours: ['construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique'] },
+    { nom: 'Royaume des Éléments', icone: '🔬', couleur: '#a78bfa', mascotte: ['🥚', '🐛', '🦋', '🦄'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🦄 Esprit élémentaire'],
+      cours: ['chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'] }
+  ];
+
+  function etapeMascotte(pct) {
+    if (pct >= 66) return 3;
+    if (pct >= 33) return 2;
+    if (pct >= 1) return 1;
+    return 0;
+  }
+
+  var cles = idsCours.filter(function (id) { return localStorage.getItem('brevet2027_cours_' + id) === 'lu'; }).length;
+  var coffres = idsCours.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui'; }).length;
+  var sansfaute = idsCours.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_sansfaute') === 'oui'; }).length;
+  var erreurs = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+  var streakCompte = parseInt(localStorage.getItem('brevet2027_streak_compte') || '0', 10);
+  var royaumesConquis = royaumes.filter(function (r) {
+    return r.cours.every(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui'; });
+  }).length;
+
+  var conteneurCompagnons = document.getElementById('compagnons');
+  royaumes.forEach(function (r) {
+    var coffresRoyaume = r.cours.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui'; }).length;
+    var pctRoyaume = Math.round((coffresRoyaume / r.cours.length) * 100);
+    var etape = etapeMascotte(pctRoyaume);
+    var seuils = [0, 1, 33, 66];
+    var pctDansEtape = etape < 3 ? Math.round(((pctRoyaume - seuils[etape]) / (seuils[etape + 1] - seuils[etape])) * 100) : 100;
+    var div = document.createElement('div');
+    div.className = 'compagnon';
+    div.innerHTML =
+      '<span class="emoji">' + r.mascotte[etape] + '</span>' +
+      '<span style="flex:1">' +
+      '<div class="nom-royaume">' + r.icone + ' ' + r.nom + '</div>' +
+      '<div class="etape">' + r.nomsMascotte[etape] + (etape < 3 ? ' · ' + coffresRoyaume + '/' + r.cours.length + ' coffres (prochaine évolution à ' + seuils[etape + 1] + '%)' : ' · évolution finale atteinte') + '</div>' +
+      '<div class="barre"><div class="barre-remplie" style="width:' + pctDansEtape + '%;background:' + r.couleur + '"></div></div>' +
+      '</span>';
+    conteneurCompagnons.appendChild(div);
+  });
+
+  document.getElementById('nb-cles').textContent = cles + '/' + idsCours.length;
+  document.getElementById('nb-coffres').textContent = coffres + '/' + idsCours.length;
+  document.getElementById('nb-sansfaute').textContent = sansfaute + '/' + idsCours.length;
+  document.getElementById('nb-erreurs').textContent = erreurs;
+
+  var xp = cles * 10 + coffres * 20 + sansfaute * 15 + royaumesConquis * 50 + Math.min(streakCompte, 30) * 5;
+  var NIVEAUX = [
+    { seuil: 0, titre: 'Novice', icone: '🌱' },
+    { seuil: 150, titre: 'Apprenti', icone: '📘' },
+    { seuil: 500, titre: 'Chevalier', icone: '⚔️' },
+    { seuil: 1000, titre: 'Vétéran', icone: '🛡️' },
+    { seuil: 1800, titre: 'Maître du Brevet', icone: '👑' },
+    { seuil: 3000, titre: 'Légende du Brevet', icone: '🏆' }
+  ];
+  var niveauActuel = NIVEAUX[0], niveauSuivant = null;
+  for (var ni = 0; ni < NIVEAUX.length; ni++) {
+    if (xp >= NIVEAUX[ni].seuil) { niveauActuel = NIVEAUX[ni]; niveauSuivant = NIVEAUX[ni + 1] || null; }
+  }
+  var carteNiveau = document.getElementById('carte-niveau');
+  var pctNiveau = niveauSuivant ? Math.round(((xp - niveauActuel.seuil) / (niveauSuivant.seuil - niveauActuel.seuil)) * 100) : 100;
+  carteNiveau.innerHTML =
+    '<span class="icone-niveau">' + niveauActuel.icone + '</span>' +
+    '<span style="flex:1">' +
+    '<div class="titre-niveau">' + niveauActuel.titre + '</div>' +
+    '<div class="xp">' + xp + ' XP' + (niveauSuivant ? (' · ' + (niveauSuivant.seuil - xp) + ' XP avant ' + niveauSuivant.titre + ' ' + niveauSuivant.icone) : ' · niveau maximum atteint !') + '</div>' +
+    '<div class="barre-xp"><div class="barre-xp-remplie" style="width:' + pctNiveau + '%"></div></div>' +
+    '</span>';
+
+  var paliers = [
+    { seuil: 10, medaille: '🪵', titre: 'Loot Bois', couleur: 'var(--bois)' },
+    { seuil: 40, medaille: '🥈', titre: 'Loot Argent', couleur: 'var(--argent)' },
+    { seuil: idsCours.length, medaille: '🏆', titre: 'Loot Légendaire', couleur: 'var(--legendaire)' }
+  ];
+
+  var conteneur = document.getElementById('loots');
+  paliers.forEach(function (p) {
+    var debloque = coffres >= p.seuil;
+    var div = document.createElement('div');
+    div.className = 'loot' + (debloque ? ' debloque' : '');
+    if (debloque) div.style.setProperty('--medal', p.couleur);
+    div.innerHTML =
+      '<span class="medaille">' + p.medaille + '</span>' +
+      '<span>' +
+      '<div class="titre">' + p.titre + '</div>' +
+      '<div class="desc">' + (debloque ? 'Débloqué !' : p.seuil + ' coffre' + (p.seuil > 1 ? 's' : '') + ' pour débloquer') + '</div>' +
+      '</span>';
+    conteneur.appendChild(div);
+  });
+</script>
+</body>
+</html>

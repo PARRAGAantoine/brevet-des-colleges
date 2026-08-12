@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — Les espaces productifs — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Histoire-Géo-EMC · Géographie</p>
+  <h1>Exercices — Les espaces productifs</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'espaces-productifs';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: 'Quel type d’espace productif domine dans les grandes métropoles françaises aujourd’hui ?', choix: [
+        { texte: 'agricole', correct: false }, { texte: 'industriel', correct: false }, { texte: 'services', correct: true }
+      ], aide1: 'Pense à Paris, Lyon...', aide2: 'Les grandes métropoles sont aujourd’hui dominées par les activités de services.' },
+    { enonce: 'Où trouve-t-on principalement les espaces agricoles ?', choix: [
+        { texte: 'dans les grandes villes', correct: false }, { texte: 'dans les zones rurales', correct: true }, { texte: 'au bord de la mer uniquement', correct: false }
+      ], aide1: 'L’agriculture a besoin d’espace.', aide2: 'Les espaces agricoles se trouvent principalement dans les zones rurales.' },
+    { enonce: 'L’industrie a-t-elle totalement disparu de France ?', choix: [
+        { texte: 'Oui', correct: false }, { texte: 'Non, elle reste présente mais transformée', correct: true }
+      ], aide1: 'Pense à la modernisation des usines.', aide2: 'L’industrie française existe toujours, mais elle a beaucoup évolué et s’est modernisée.' },
+    { enonce: 'Un même territoire peut-il combiner plusieurs types d’espaces productifs ?', choix: [
+        { texte: 'Oui', correct: true }, { texte: 'Non', correct: false }
+      ], aide1: 'Pense à une ville avec une zone industrielle et un centre de services.', aide2: 'Un territoire peut très bien combiner agriculture, industrie et services selon les zones.' },
+    { enonce: 'Qu’est-ce qu’un espace productif ?', choix: [
+        { texte: 'un espace organisé pour produire des richesses', correct: true }, { texte: 'un espace naturel protégé', correct: false }, { texte: 'un espace sans aucune activité', correct: false }
+      ], aide1: 'Pense au mot « produire ».', aide2: 'Un espace productif est aménagé et organisé pour produire des biens ou des services.' },
+    { enonce: 'Le secteur primaire regroupe...', choix: [
+        { texte: 'l’agriculture, la pêche, les mines', correct: true }, { texte: 'les usines', correct: false }, { texte: 'les banques et les commerces', correct: false }
+      ], aide1: 'C’est le secteur le plus proche de la nature.', aide2: 'Le secteur primaire exploite directement les ressources naturelles.' },
+    { enonce: 'Le secteur secondaire regroupe...', choix: [
+        { texte: 'l’industrie', correct: true }, { texte: 'l’agriculture', correct: false }, { texte: 'les services', correct: false }
+      ], aide1: 'Pense aux usines qui transforment des matières premières.', aide2: 'Le secteur secondaire transforme des matières premières en produits.' },
+    { enonce: 'Le secteur tertiaire regroupe...', choix: [
+        { texte: 'les services', correct: true }, { texte: 'l’agriculture', correct: false }, { texte: 'les mines', correct: false }
+      ], aide1: 'Pense aux commerces, banques, écoles...', aide2: 'Le secteur tertiaire regroupe l’ensemble des activités de services.' },
+    { enonce: 'Quel secteur emploie aujourd’hui le plus de Français ?', choix: [
+        { texte: 'le secteur tertiaire (services)', correct: true }, { texte: 'le secteur primaire', correct: false }, { texte: 'le secteur secondaire', correct: false }
+      ], aide1: 'Pense aux emplois de bureau, de commerce, de santé...', aide2: 'La grande majorité des actifs français travaillent aujourd’hui dans le secteur tertiaire.' },
+    { enonce: 'Une zone industrialo-portuaire se situe...', choix: [
+        { texte: 'près d’un grand port', correct: true }, { texte: 'en pleine montagne', correct: false }, { texte: 'au centre d’une petite ville rurale', correct: false }
+      ], aide1: 'Le mot contient « port ».', aide2: 'Ces zones combinent activités industrielles et portuaires, comme au Havre ou à Marseille.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: 'Comment appelle-t-on un espace organisé pour produire des richesses ? (2 mots)', reponses: ['espace productif', 'espaceproductif'], aide1: 'Pense au mot « produire ».', aide2: 'C’est le titre de ce cours.' },
+    { enonce: 'Comment s’appelle le secteur qui regroupe agriculture, pêche et mines ? (un mot)', reponses: ['primaire'], aide1: 'C’est le premier des trois grands secteurs économiques.', aide2: 'Ce secteur exploite directement les ressources naturelles.' },
+    { enonce: 'Comment s’appelle le secteur qui regroupe l’industrie ? (un mot)', reponses: ['secondaire'], aide1: 'C’est le deuxième des trois grands secteurs économiques.', aide2: 'Ce secteur transforme des matières premières en produits.' },
+    { enonce: 'Comment s’appelle le secteur qui regroupe les services (commerce, santé, éducation...) ? (un mot)', reponses: ['tertiaire'], aide1: 'C’est le troisième des trois grands secteurs économiques.', aide2: 'Ce secteur emploie aujourd’hui la majorité des actifs en France.' },
+    { enonce: 'Quel secteur emploie aujourd’hui le plus de Français ? (un mot)', reponses: ['tertiaire'], aide1: 'Pense aux emplois de bureau, de commerce, de santé...', aide2: 'Ce secteur regroupe l’ensemble des activités de services.' },
+    { enonce: 'Une zone industrialo-... se situe près d’un grand port (un mot)', reponses: ['portuaire'], aide1: 'Le mot contient « port ».', aide2: 'Cet adjectif désigne ce qui est lié à un port.' },
+    { enonce: 'Dans quel type d’espace trouve-t-on principalement l’agriculture ? (un mot)', reponses: ['rural'], aide1: 'C’est le contraire d’« urbain ».', aide2: 'Ce type d’espace, peu dense, accueille la majorité des terres agricoles.' },
+    { enonce: 'Quel type d’activité domine dans les grandes métropoles françaises aujourd’hui ? (un mot)', reponses: ['services'], aide1: 'Pense à Paris, Lyon...', aide2: 'Ces activités regroupent commerce, finance, éducation, santé...' },
+    { enonce: 'Un même territoire peut-il combiner plusieurs types d’espaces productifs ? (oui ou non)', reponses: ['oui'], aide1: 'Pense à une ville avec une zone industrielle et un centre de services.', aide2: 'Un territoire combine souvent plusieurs activités économiques selon les zones.' },
+    { enonce: 'Quelle activité économique transforme des matières premières en produits ? (un mot)', reponses: ['industrie'], aide1: 'Pense aux usines.', aide2: 'Cette activité appartient au secteur secondaire.' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'")
+      .replace(/\s+/g, '');
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

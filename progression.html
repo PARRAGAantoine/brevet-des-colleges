@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progression — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10;flex-wrap:wrap;gap:10px}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);font-weight:700;cursor:pointer}
+.nav-liens{display:flex;gap:16px;flex-wrap:wrap}
+.container{max-width:720px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:1.6rem;color:#fff;margin-bottom:20px}
+h2{font-size:1.1rem;color:#fff;margin:28px 0 12px}
+.resume{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.stat{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.stat .chiffre{font-size:1.6rem;font-weight:800;color:#fff}
+.stat .label{color:var(--muted);font-size:.8rem;margin-top:4px}
+.cours{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.cours .titre{color:#fff;font-weight:700;margin-bottom:10px}
+.etats{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem}
+.etat{display:flex;align-items:center;gap:6px;color:var(--muted)}
+.etat.ok{color:var(--green)}
+.etat.revoir{color:var(--yellow)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="index.html">← Accueil</a>
+  <div class="nav-liens">
+    <a href="matieres.html">Matières</a>
+    <a href="inventaire.html">🎒 Inventaire</a>
+    <a href="badges.html">Badges</a>
+    <a href="parametres.html">Paramètres</a>
+  </div>
+</div>
+<div class="container">
+  <h1>📊 Ma progression</h1>
+  <div class="resume" id="resume"></div>
+  <div id="liste"></div>
+</div>
+<script>
+  var matieres = [
+    { nom: '📖 Français', cours: [
+      { id: 'accord-participe', titre: "L'accord du participe passé" },
+      { id: 'classes-mots', titre: "Les classes de mots" },
+      { id: 'conjonctives', titre: "Les propositions conjonctives" },
+      { id: 'fonctions', titre: "Les fonctions dans la phrase" },
+      { id: 'homophones', titre: "Les homophones grammaticaux" },
+      { id: 'imperatif-subjonctif', titre: "L'impératif et le subjonctif" },
+      { id: 'relatives', titre: "Les propositions relatives" },
+      { id: 'temps-composes', titre: "Les temps composés" },
+      { id: 'temps-simples', titre: "Conjugaison aux temps simples" },
+      { id: 'types-phrases', titre: "Les types et formes de phrases" },
+      { id: 'argumentatif', titre: "Écrire un texte argumentatif" },
+      { id: 'explicatif', titre: "Écrire un texte explicatif" },
+      { id: 'lettre-formelle', titre: "Écrire une lettre formelle" },
+      { id: 'recit', titre: "Écrire un récit" },
+      { id: 'resumer', titre: "Résumer un texte" },
+      { id: 'etude-recit', titre: "Étudier un récit" },
+      { id: 'figures-style', titre: "Les figures de style" },
+      { id: 'poesie', titre: "La poésie" },
+      { id: 'registres', titre: "Les registres littéraires" },
+      { id: 'theatre', titre: "Le théâtre" }
+    ]},
+    { nom: '🔢 Mathématiques', cours: [
+      { id: 'calcul-litteral', titre: "Le calcul littéral" },
+      { id: 'equations', titre: "Les équations simples" },
+      { id: 'fractions', titre: "Les fractions" },
+      { id: 'inequations', titre: "Les inéquations" },
+      { id: 'nombres-relatifs', titre: "Les nombres relatifs" },
+      { id: 'puissances', titre: "Les puissances" },
+      { id: 'aires', titre: "Les aires" },
+      { id: 'angles-cercle', titre: "Angles et cercle" },
+      { id: 'pythagore', titre: "Le théorème de Pythagore" },
+      { id: 'thales', titre: "Le théorème de Thalès" },
+      { id: 'transformations', titre: "Les transformations" },
+      { id: 'trigonometrie', titre: "La trigonométrie" },
+      { id: 'volumes', titre: "Les volumes" },
+      { id: 'proportionnalite', titre: "La proportionnalité" },
+      { id: 'fonctions-affines', titre: "Les fonctions affines" },
+      { id: 'fonctions-lineaires', titre: "Les fonctions linéaires" },
+      { id: 'probabilites', titre: "Les probabilités" },
+      { id: 'representation-graphique', titre: "La représentation graphique" },
+      { id: 'statistiques', titre: "Les statistiques" },
+      { id: 'algorithmique-scratch', titre: "Algorithmique et Scratch" }
+    ]},
+    { nom: '🌍 Histoire-Géo-EMC', cours: [
+      { id: 'construction-europeenne', titre: "La construction européenne" },
+      { id: 'france-seconde-guerre-mondiale', titre: "La France dans la Seconde Guerre mondiale" },
+      { id: 'guerre-froide', titre: "La Guerre froide" },
+      { id: 'monde-depuis-1991', titre: "Le monde depuis 1991" },
+      { id: 'premiere-guerre-mondiale', titre: "La Première Guerre mondiale" },
+      { id: 'seconde-guerre-mondiale', titre: "La Seconde Guerre mondiale" },
+      { id: 'totalitarismes', titre: "Les régimes totalitaires" },
+      { id: 'aires-urbaines', titre: "Les aires urbaines en France" },
+      { id: 'espaces-faible-densite', titre: "Les espaces de faible densité" },
+      { id: 'espaces-productifs', titre: "Les espaces productifs" },
+      { id: 'france-europe-monde', titre: "La France en Europe et dans le monde" },
+      { id: 'mobilites', titre: "Les mobilités" },
+      { id: 'territoires-ue', titre: "Les territoires de l'Union européenne" },
+      { id: 'citoyennete', titre: "La citoyenneté" },
+      { id: 'defense-paix', titre: "Défense et paix" },
+      { id: 'droits-homme', titre: "Les droits de l'homme" },
+      { id: 'numerique-droits', titre: "Numérique et droits" },
+      { id: 'valeurs-republique', titre: "Les valeurs de la République" }
+    ]},
+    { nom: '🔬 Sciences', cours: [
+      { id: 'chaine-energetique', titre: "La chaîne énergétique" },
+      { id: 'conversions', titre: "Les conversions d'unités" },
+      { id: 'electricite', titre: "L'électricité" },
+      { id: 'energie', titre: "L'énergie : formes et conservation" },
+      { id: 'etats-matiere', titre: "Les états de la matière" },
+      { id: 'forces', titre: "Les forces" },
+      { id: 'gravitation', titre: "La gravitation" },
+      { id: 'poids-masse', titre: "Poids et masse" },
+      { id: 'ressources-energetiques', titre: "Les ressources énergétiques" },
+      { id: 'signaux-lumineux', titre: "Les signaux lumineux" },
+      { id: 'signaux-sonores', titre: "Les signaux sonores" },
+      { id: 'solutions', titre: "Les solutions" },
+      { id: 'transformations', titre: "Les transformations de la matière" },
+      { id: 'biodiversite', titre: "La biodiversité" },
+      { id: 'circulation', titre: "La circulation sanguine" },
+      { id: 'contraception', titre: "La contraception" },
+      { id: 'developpement-durable', titre: "Le développement durable" },
+      { id: 'impact-humain', titre: "L'impact humain sur l'environnement" },
+      { id: 'muscles', titre: "Les muscles et le mouvement" },
+      { id: 'nutrition', titre: "La nutrition" },
+      { id: 'reproduction-humaine', titre: "La reproduction humaine" },
+      { id: 'respiration', titre: "La respiration" },
+      { id: 'risques-naturels', titre: "Les risques naturels" },
+      { id: 'systeme-nerveux', titre: "Le système nerveux" },
+      { id: 'tabac-alcool-drogues', titre: "Tabac, alcool et drogues" },
+      { id: 'transmission-vie', titre: "La puberté" },
+      { id: 'analyser-objet', titre: "Analyser un objet technique" },
+      { id: 'bases-programmation', titre: "Capteurs et programmation" },
+      { id: 'conception', titre: "La conception d'un objet" },
+      { id: 'evolution-techno', titre: "L'évolution des objets techniques" },
+      { id: 'impact-environnemental', titre: "L'impact environnemental d'un objet" },
+      { id: 'scratch-python', titre: "De Scratch à Python" }
+    ]}
+  ];
+
+  var totalCours = 0, lus = 0, tentes = 0, reussis = 0, aRevoir = 0;
+  var liste = document.getElementById('liste');
+
+  matieres.forEach(function (mat) {
+    var h2 = document.createElement('h2');
+    h2.textContent = mat.nom;
+    liste.appendChild(h2);
+
+    mat.cours.forEach(function (c) {
+      totalCours++;
+      var lu = localStorage.getItem('brevet2027_cours_' + c.id) === 'lu';
+      var tente = localStorage.getItem('brevet2027_exo_' + c.id + '_tente') === 'oui';
+      var reussi = localStorage.getItem('brevet2027_exo_' + c.id + '_reussi') === 'oui';
+      var revoir = tente && !reussi;
+      if (lu) lus++;
+      if (tente) tentes++;
+      if (reussi) reussis++;
+      if (revoir) aRevoir++;
+
+      var div = document.createElement('div');
+      div.className = 'cours';
+      div.innerHTML =
+        '<div class="titre">' + c.titre + '</div>' +
+        '<div class="etats">' +
+        '<span class="etat' + (lu ? ' ok' : '') + '">📖 Cours ' + (lu ? 'lu' : 'non lu') + '</span>' +
+        '<span class="etat' + (tente ? ' ok' : '') + '">✏️ Exercice ' + (tente ? 'tenté' : 'non tenté') + '</span>' +
+        '<span class="etat' + (reussi ? ' ok' : '') + '">🏆 Exercice ' + (reussi ? 'réussi' : 'non réussi') + '</span>' +
+        (revoir ? '<span class="etat revoir">🔁 À revoir</span>' : '') +
+        '</div>';
+      liste.appendChild(div);
+    });
+  });
+
+  document.getElementById('resume').innerHTML =
+    '<div class="stat"><div class="chiffre">' + lus + '/' + totalCours + '</div><div class="label">Cours lus</div></div>' +
+    '<div class="stat"><div class="chiffre">' + tentes + '/' + totalCours + '</div><div class="label">Exercices tentés</div></div>' +
+    '<div class="stat"><div class="chiffre">' + reussis + '/' + totalCours + '</div><div class="label">Exercices réussis</div></div>' +
+    '<div class="stat"><div class="chiffre">' + aRevoir + '</div><div class="label">À revoir</div></div>';
+</script>
+</body>
+</html>

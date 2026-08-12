@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — Les classes de mots — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Français · Grammaire, conjugaison, orthographe</p>
+  <h1>Exercices — Les classes de mots</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'classes-mots';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: 'Dans « Le petit chien noir dort. », quelle est la classe du mot « petit » ?', choix: [
+        { texte: 'Nom', correct: false }, { texte: 'Adjectif', correct: true }, { texte: 'Verbe', correct: false }
+      ], aide1: 'Ce mot donne une précision sur le nom « chien ».', aide2: 'Essaie d’accorder ce mot avec le nom : « un petit chien » devient « une petite chienne ». S’il s’accorde en genre et en nombre avec le nom qu’il précise, c’est un adjectif.' },
+    { enonce: 'Quel mot est un verbe dans « Elle mange une pomme. » ?', choix: [
+        { texte: 'Elle', correct: false }, { texte: 'mange', correct: true }, { texte: 'pomme', correct: false }
+      ], aide1: 'Cherche le mot qui changerait si tu disais « je » à la place de « elle ».', aide2: 'Change le sujet de la phrase : si le mot change de forme (elle mange → je mange, tu manges), c’est qu’il se conjugue. Seuls les verbes se conjuguent ainsi.' },
+    { enonce: 'Quelle est la classe du mot « rapidement » dans « Il court rapidement. » ?', choix: [
+        { texte: 'Adjectif', correct: false }, { texte: 'Adverbe', correct: true }, { texte: 'Nom', correct: false }
+      ], aide1: 'Ce mot précise comment il court, et il ne s’accorde jamais.', aide2: 'Essaie d’accorder ce mot au féminin ou au pluriel : s’il ne change jamais de forme, ce n’est pas un adjectif. Les mots en « -ment » qui précisent un verbe sont souvent des adverbes.' },
+    { enonce: 'Quel mot est un déterminant dans « La maison est grande. » ?', choix: [
+        { texte: 'maison', correct: false }, { texte: 'La', correct: true }, { texte: 'grande', correct: false }
+      ], aide1: 'Ce mot se place juste devant le nom.', aide2: 'Cherche le mot placé juste avant le nom, qui change selon son genre (la maison / le jardin). C’est le rôle du déterminant.' },
+    { enonce: 'Quelle est la classe du mot « Nous » dans « Nous partons demain. » ?', choix: [
+        { texte: 'Nom', correct: false }, { texte: 'Pronom', correct: true }, { texte: 'Verbe', correct: false }
+      ], aide1: 'Ce mot remplace-t-il un nom déjà connu (les personnes qui parlent) ?', aide2: '« Nous » représente les personnes qui parlent sans les nommer : il remplace un nom, c’est un pronom.' },
+    { enonce: 'Quelle est la classe du mot « avec » dans « Il marche avec son chien. » ?', choix: [
+        { texte: 'Préposition', correct: true }, { texte: 'Adverbe', correct: false }, { texte: 'Conjonction', correct: false }
+      ], aide1: 'Ce petit mot invariable relie « marche » et « son chien ».', aide2: 'Comme « à, de, dans » : ce petit mot invariable qui relie deux groupes de mots est une préposition.' },
+    { enonce: 'Quelle est la classe du mot « et » dans « Elle est arrivée et elle est repartie. » ?', choix: [
+        { texte: 'Conjonction', correct: true }, { texte: 'Préposition', correct: false }, { texte: 'Adverbe', correct: false }
+      ], aide1: 'Ce petit mot invariable relie deux phrases entières.', aide2: 'Comme « ou, mais, donc » : ce petit mot invariable qui relie deux phrases est une conjonction.' },
+    { enonce: 'Quelle est la classe du mot « Ce » dans « Ce livre est passionnant. » ?', choix: [
+        { texte: 'Déterminant', correct: true }, { texte: 'Pronom', correct: false }, { texte: 'Adjectif', correct: false }
+      ], aide1: 'Ce mot est-il placé juste devant un nom ?', aide2: '« Ce » est placé juste devant le nom « livre » qu’il introduit : c’est un déterminant.' },
+    { enonce: 'Quelle est la classe du mot « celui-ci » dans « Regarde celui-ci ! » ?', choix: [
+        { texte: 'Pronom', correct: true }, { texte: 'Déterminant', correct: false }, { texte: 'Nom', correct: false }
+      ], aide1: 'Ce mot est-il suivi d’un nom, ou remplace-t-il un nom déjà connu ?', aide2: '« celui-ci » n’est suivi d’aucun nom : il remplace un nom déjà évoqué, c’est un pronom.' },
+    { enonce: 'Quelle est la classe du mot « bleu » dans « Le ciel est bleu. » ?', choix: [
+        { texte: 'Adjectif', correct: true }, { texte: 'Nom', correct: false }, { texte: 'Adverbe', correct: false }
+      ], aide1: 'Ce mot précise le nom « ciel » : s’accorde-t-il avec lui ?', aide2: 'Il s’accorde avec le nom qu’il qualifie (le ciel bleu / la mer bleue) : c’est un adjectif.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: '« Le chat dort sur le canapé. » — quelle est la classe du mot « chat » ? (un mot)', reponses: ['nom'], aide1: 'Peux-tu mettre « le/la/un/une » devant ce mot ?', aide2: 'On peut dire « le chat » : ce mot désigne un animal — cette classe sert à « nommer » les choses, les êtres ou les idées.' },
+    { enonce: '« Elle chante magnifiquement. » — quelle est la classe du mot « magnifiquement » ? (un mot)', reponses: ['adverbe'], aide1: 'Ce mot précise comment elle chante : s’accorde-t-il ?', aide2: 'Il ne s’accorde jamais et précise le verbe « chante » : cette classe est faite pour préciser un verbe ou un adjectif.' },
+    { enonce: '« Tu prends ton sac. » — quelle est la classe du mot « prends » ? (un mot)', reponses: ['verbe'], aide1: 'Ce mot changerait-il de forme si tu disais « je » à la place de « tu » ?', aide2: '« Tu prends » devient « je prends » : ce mot se conjugue, comme toute action ou tout état.' },
+    { enonce: '« Un grand arbre. » — quelle est la classe du mot « grand » ? (un mot)', reponses: ['adjectif'], aide1: 'Ce mot précise le nom « arbre » : s’accorde-t-il avec lui ?', aide2: 'Il s’accorde en genre et en nombre avec le nom qu’il qualifie (un grand arbre / une grande maison).' },
+    { enonce: '« Je pars avec toi. » — quelle est la classe du mot « avec » ? (un mot)', reponses: ['preposition', 'préposition'], aide1: 'Ce petit mot invariable relie « pars » et « toi ».', aide2: 'Comme « à, de, dans » : ce petit mot invariable qui relie deux groupes de mots forme cette classe.' },
+    { enonce: '« Il pleut, mais je sors quand même. » — quelle est la classe du mot « mais » ? (un mot)', reponses: ['conjonction'], aide1: 'Ce petit mot invariable relie deux phrases entières.', aide2: 'Comme « et, ou, donc » : ce petit mot invariable qui relie deux phrases forme cette classe.' },
+    { enonce: '« Cette histoire est vraie. » — quelle est la classe du mot « Cette » ? (un mot)', reponses: ['determinant', 'déterminant'], aide1: 'Ce mot se place juste devant le nom « histoire ».', aide2: 'Il change selon le genre du nom (cette/cet/ce) et introduit toujours un nom.' },
+    { enonce: '« Je le vois arriver. » — quelle est la classe du mot « le » ? (un mot)', reponses: ['pronom'], aide1: 'Ce mot est-il suivi d’un nom, ou remplace-t-il quelqu’un déjà évoqué ?', aide2: 'Il n’est suivi d’aucun nom : il remplace une personne déjà évoquée, sans la nommer.' },
+    { enonce: '« Les enfants jouent joyeusement dans le jardin. » — quelle est la classe du mot « joyeusement » ? (un mot)', reponses: ['adverbe'], aide1: 'Ce mot précise comment les enfants jouent : s’accorde-t-il ?', aide2: 'Il ne s’accorde jamais et précise le verbe « jouent ».' },
+    { enonce: '« Elle a un beau sourire. » — quelle est la classe du mot « beau » ? (un mot)', reponses: ['adjectif'], aide1: 'Ce mot précise le nom « sourire » : s’accorde-t-il avec lui ?', aide2: 'Il s’accorde avec le nom qu’il qualifie (un beau sourire / une belle robe).' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'");
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

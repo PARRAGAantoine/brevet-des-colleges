@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 5 - Mode Aventure</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="08-phase-4.html">← Phase 4</a>
+    <a class="btn btn-primary" href="10-phase-6.html">Phase 6 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 5 — Mode Aventure</h1>
+  <p>Ajouter la couche jeu une fois le mode calme solide et utile.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>Transformer la révision en exploration sans casser le mode calme. L’élève peut basculer entre la vue classique et la vue Aventure. La progression reste la même (localStorage).</p>
+    <p>Le Mode Aventure est le cœur de l’expérience élève. Il arrive en dernier dans la roadmap parce qu’il s’appuie sur le contenu et la progression du mode calme.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ce qu’il faut produire</h2>
+    <h3>Concept</h3>
+    <ul>
+      <li>4 royaumes = 4 matières</li>
+      <li>Chaque chapitre = un donjon</li>
+      <li>Cours lu = clé trouvée</li>
+      <li>Exercice réussi = coffre ouvert</li>
+      <li>Badges = loot (bois / argent / légendaire)</li>
+      <li>Annales = boss « Brevet Blanc »</li>
+    </ul>
+
+    <h3>Éléments de jeu</h3>
+    <ul>
+      <li>Carte simple avec zones cliquables</li>
+      <li>Inventaire (clés, coffres, badges)</li>
+      <li>Streak (torche allumée si révision quotidienne)</li>
+      <li>Petit PNJ de encouragement</li>
+      <li>Interrupteur Mode Classique / Mode Aventure</li>
+    </ul>
+
+    <h3>Technique</h3>
+    <ul>
+      <li>Stack inchangée (HTML / CSS / JS vanilla)</li>
+      <li>Ajout possible de <code>phaser.min.js</code> (~150 ko) ou pure CSS/JS</li>
+      <li>Réutilisation du localStorage existant</li>
+      <li>0 €, pas de serveur</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Règles à respecter</h2>
+    <ul>
+      <li>Le mode calme doit rester intact et utilisable seul</li>
+      <li>Pas de pression, pas de classement stressant</li>
+      <li>Les animations restent douces (pas de clignotement agressif)</li>
+      <li>La progression est partagée entre les deux modes</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Checklist de fin de phase</h2>
+    <ul class="check">
+      <li class="done">Carte des 4 royaumes fonctionnelle (aventure.html)</li>
+      <li class="done">Clé liée au bouton « J'ai fini de lire » (🔑 dans le donjon)</li>
+      <li class="done">Coffre lié aux exercices réussis (📦 dans le donjon)</li>
+      <li class="done">Badges affichés comme loot (inventaire.html : bois/argent/légendaire)</li>
+      <li class="done">Boss annales accessible (lien « Brevet Blanc » en bas de chaque donjon)</li>
+      <li class="done">Interrupteur Classique / Aventure opérationnel (liens croisés sur toutes les pages transverses)</li>
+      <li class="done">Mode calme toujours intact (accueil à 2 boutons non modifié, vérifié en direct)</li>
+      <li class="done">Test ELEVE_TEST PASS sur les deux modes (08/08/2026) — progression partagée confirmée entre les deux modes</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> Mode Aventure jouable, interrupteur fonctionnel, mode calme intact, progression partagée.
+  </div>
+
+  <div class="box">
+    <strong>Évolution (12/08/2026) :</strong> sur remarque de l'utilisateur — les clés/coffres n'avaient aucune conséquence réelle au-delà d'un changement d'icône — le Mode Aventure est devenu le mode unique et permanent de l'application (plus d'interrupteur Classique/Aventure). <code>aventure.html</code> a été fusionné dans <code>matieres.html</code> (carte des royaumes), et <code>aventure-donjon.html</code> a été fusionné dans chaque <code>matieres/&lt;matière&gt;/index.html</code> (donjon par matière). Les récompenses sont maintenant fonctionnelles : la clé 🔑 (cours lu) débloque réellement le bouton d'exercice sur la page du cours, et le coffre 📦 (exercice réussi) déverrouille désormais l'accès au Boss (annales) une fois tous les coffres d'un royaume ouverts — auparavant les annales étaient toujours accessibles sans condition. <code>inventaire.html</code> (loot bois/argent/légendaire) est conservé tel quel.
+  </div>
+
+  <div class="box">
+    <strong>Évolution graphique (12/08/2026) :</strong> sur demande de l'utilisateur d'une "vraie carte avec de vrais graphismes", les listes/cartes plates ont été remplacées par une carte-jeu illustrée en SVG maison (aucun asset externe, 0€) : <code>matieres.html</code> est maintenant un chemin sinueux Départ → 4 royaumes (anneaux de progression, halos de couleur, icône couronne 👑 si royaume conquis) → Trophée final (débloqué à 90/90 coffres, relié à <code>inventaire.html</code>). Chaque donjon par matière affiche un chemin de niveaux façon Candy Crush (un nœud par cours : 🔒 non lu, 🔑 lu, ⭐ réussi, tracé doré une fois le nœud réussi), qui se termine par le nœud Boss verrouillé/débloqué.
+  </div>
+
+  <div class="box">
+    <strong>Gamification approfondie (12/08/2026) :</strong> sur demande explicite de l'utilisateur ("comment gamifier encore plus ?", puis "utiliser aussi les échecs, pas que les réussites"), plusieurs mécaniques se sont ajoutées, toujours dans l'esprit "sans pression" de cette phase — aucune ne pénalise l'échec, un échec ne fait jamais reculer ni perdre quoi que ce soit :
+    <ul style="margin-top:8px">
+      <li><strong>XP / niveaux :</strong> calculé en direct (jamais stocké) à partir des clés (+10), coffres (+20), sans-faute (+15), royaumes conquis (+50) et streak (+5/jour, plafonné 30j) ; 6 paliers de Novice 🌱 à Légende du Brevet 🏆, affichés sur <code>matieres.html</code> et <code>inventaire.html</code>.</li>
+      <li><strong>Sans-faute :</strong> nouveau flag <code>_sansfaute</code> par cours, posé quand les 4 questions d'un exercice sont réussies sans aucune erreur ; nœud 💎 distinct dans le donjon (au lieu de ⭐).</li>
+      <li><strong>Erreurs comme donnée positive :</strong> chaque mauvaise réponse incrémente un compteur global <code>brevet2027_erreurs_total</code>, affiché dans l'inventaire sous "🔁 Erreurs corrigées" avec le message "chaque erreur t'a rapprochée de la réussite" — jamais présenté comme un échec.</li>
+      <li><strong>Quêtes du jour :</strong> 2 objectifs quotidiens (réussir 1 puis 3 exercices) sur <code>matieres.html</code>, basés sur un compteur journalier remis à zéro automatiquement au changement de date.</li>
+      <li><strong>Pion animé 🧍 :</strong> se positionne sur le dernier nœud atteint, sur la carte du monde et dans chaque donjon.</li>
+      <li><strong>Confettis + son :</strong> à chaque exercice terminé (Web Audio généré, sans fichier téléchargé) et à chaque bonne réponse.</li>
+    </ul>
+    Techniquement, ces changements ont nécessité un patch scripté (Node, anchors texte vérifiés identiques sur les 90 fichiers avant application) des 90 pages <code>exercices/ex1.html</code>, qui partagent un gabarit strictement identique.
+  </div>
+
+  <div class="box">
+    <strong>Mascottes évolutives (12/08/2026) :</strong> sur "d'autres idées pour gamifier ?" → "la mascotte qui évolue me paraît très bien", ajout d'un compagnon par royaume (🥚 Œuf → Éveil → Croissance → forme finale unique : 🦉 Lettres, 💎 Nombres, 🐉 Temps, 🦄 Éléments), visible en badge sur <code>matieres.html</code> et en détail dans <code>inventaire.html</code>. L'utilisateur a signalé que le catalogue va grandir (contrôle continu) : les seuils d'évolution sont donc en **pourcentage** de coffres du royaume (1%, 33%, 66%), jamais en nombre absolu de cours — l'ajout de nouveaux cours dans un royaume ne casse donc rien, il rallonge juste le chemin vers chaque étape.
+  </div>
+
+  <div class="box">
+    <strong>Retour automatique + révélation (12/08/2026) :</strong> à la fin d'un exercice, un minuteur visible (5s, annulable via "Rester ici", ou accélérable via "Voir ma progression maintenant →") renvoie vers le donjon de la matière. À l'arrivée, le nœud du cours qui vient d'être réussi apparaît d'abord dans son état précédent (🔑) puis bascule avec une pulsation vers son état final (⭐/💎) après ~700ms, pendant que le pion s'estompe puis réapparaît — un repère <code>sessionStorage</code> éphémère (effacé après usage) fait le lien entre la page d'exercice et le donjon. Jamais de redirection silencieuse, conformément à la philosophie "sans pression" de cette phase.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> · 
+      <a href="08-phase-4.html">← Phase 4</a> · 
+      <a href="10-phase-6.html">Phase 6 →</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

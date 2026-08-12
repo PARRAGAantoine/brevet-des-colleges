@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>13 - Architecture fichiers</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+pre{background:#0d1418;border:1px solid var(--border);padding:14px;border-radius:8px;overflow:auto;color:var(--muted);font-size:.85em;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="index.html">← Retour Accueil</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="03-roadmap.html">Roadmap</a>
+    <a class="btn btn-primary" href="12-catalogue.html">Catalogue</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-doing">🟡 EN COURS</span>
+  <h1>📁 Architecture fichiers</h1>
+  <p>Arborescence de l’espace de travail et de l’application élève. Tout en minuscules, sans accents, sans espaces.</p>
+
+  <div class="card">
+    <h2>Espace de travail (racine)</h2>
+<pre>brevet-sprint-2027/
+│
+├── presentation-brevet-sprint-2027/     ← site de cadrage (Phase 0)
+│   ├── index.html
+│   ├── 00-presentation.html
+│   ├── 01-instructions.html
+│   ├── 02-roles.html
+│   ├── 03-roadmap.html
+│   ├── 04-phase-0.html … 11-phase-7.html
+│   ├── 12-catalogue.html
+│   ├── 13-architecture.html
+│   └── skills/                          ← skills des agents
+│       ├── skill_chef.md
+│       ├── skill_design.md
+│       ├── skill_cours.md
+│       ├── skill_exo.md
+│       ├── skill_test.md
+│       └── skill_tech.md
+│
+├── annales/                             ← PDF bruts (non triés)
+│
+├── cours/                               ← brouillons de travail
+│   ├── francais/
+│   ├── mathematiques/
+│   ├── histoire-geographie-emc/
+│   └── sciences/
+│
+└── (application élève — à construire)</pre>
+  </div>
+
+  <div class="card">
+    <h2>Rôles de chaque dossier</h2>
+    <ul>
+      <li><strong>presentation-brevet-sprint-2027/</strong> — site de cadrage. Règles, roadmap, rôles, skills. Pas pour les élèves.</li>
+      <li><strong>skills/</strong> — fichiers <code>skill_[nom].md</code> des 6 agents. Figés en Phase 0.</li>
+      <li><strong>annales/</strong> — PDF officiels bruts. Seront classés plus tard dans <code>matieres/.../annales/</code> de l’app.</li>
+      <li><strong>cours/</strong> — brouillons et sources. Les cours finis iront dans l’application élève.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Application élève (cible)</h2>
+    <p>Structure de l’app une fois construite. Noms sans accents, sans espaces, tout en minuscules.</p>
+<pre>brevet-sprint-2027/          ← ou sous-dossier app/ selon choix final
+├── index.html               ← accueil (logo float + slogan + 2 boutons)
+├── matieres.html
+├── chapitres.html
+├── cours.html
+├── badges.html
+├── progression.html
+├── parametres.html
+├── contact.html             ← parraga.antoine@gmail.com
+├── matieres/
+│   ├── francais/
+│   │   ├── chapitre1-grammaire/
+│   │   │   ├── cours1-types-phrases/
+│   │   │   │   ├── index.html       ← cours + « J’ai fini de lire »
+│   │   │   │   └── exercices/
+│   │   │   │       └── ex1.html     ← aide 2 niveaux empilés
+│   │   │   └── …
+│   │   └── annales/                 ← PDF classés depuis /annales
+│   ├── mathematiques/
+│   │   └── annales/
+│   ├── histoire-geo-emc/
+│   │   └── annales/
+│   └── sciences/
+│       └── annales/
+└── assets/
+    ├── logo.png
+    └── style.css</pre>
+  </div>
+
+  <div class="card">
+    <h2>Règles de nommage</h2>
+    <ul>
+      <li>Tout en minuscules</li>
+      <li>Pas d’accents → <code>francais</code>, <code>mathematiques</code>, <code>histoire-geo-emc</code>, <code>sciences</code></li>
+      <li>Pas d’espaces → tirets uniquement</li>
+      <li>Pas de parenthèses ni de <code>+</code> dans les noms de dossiers</li>
+      <li><code>annales/</code> (2 n), pas « anales »</li>
+    </ul>
+    <div class="box box-yellow">
+      Les dossiers actuels dans <code>cours/</code> (ex. : mathématiques, sciences(physique-chimie+…)) devront être renommés proprement avant intégration dans l’app.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Flux des fichiers</h2>
+    <ul>
+      <li><strong>Annales</strong> : <code>annales/</code> (bruts) → plus tard <code>matieres/.../annales/</code> (classés dans l’app)</li>
+      <li><strong>Cours</strong> : <code>cours/</code> (brouillons) → <code>matieres/.../coursX/</code> (version finale dans l’app)</li>
+      <li><strong>Skills</strong> : restent dans <code>presentation-brevet-sprint-2027/skills/</code> (outil de dev, pas livré aux élèves)</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Principe :</strong> le site de cadrage et les skills restent séparés de l’application élève. L’élève ne voit jamais <code>presentation-brevet-sprint-2027/</code> ni <code>skills/</code>.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="index.html">← Retour Accueil</a> · 
+      <a href="03-roadmap.html">Roadmap</a> · 
+      <a href="12-catalogue.html">Catalogue</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

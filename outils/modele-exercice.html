@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — {{TITRE}} — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="{{COURS_HREF}}">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">{{MATIERE}} · {{CHAPITRE}}</p>
+  <h1>Exercices — {{TITRE}}</h1>
+
+  {{QUESTIONS}}
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="{{COURS_HREF}}">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = '{{ID}}';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var questions = document.querySelectorAll('.question');
+  var reussies = {};
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === questions.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      document.getElementById('fin').classList.add('visible');
+    }
+  }
+
+  questions.forEach(function (q) {
+    var qid = q.dataset.id;
+    var feedback = q.querySelector('.feedback');
+    q.querySelectorAll('.reponse').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        marquerTente();
+        q.querySelectorAll('.reponse').forEach(function (b) {
+          b.classList.remove('correcte-select', 'fausse-select');
+        });
+        if (btn.dataset.correct === 'true') {
+          btn.classList.add('correcte-select');
+          feedback.textContent = 'Bravo ✅';
+          feedback.className = 'feedback ok';
+          reussies[qid] = true;
+          var aides = q.querySelector('.aides');
+          if (aides) aides.style.display = 'none';
+          verifierTout();
+        } else {
+          btn.classList.add('fausse-select');
+          feedback.textContent = 'Presque, réessaie';
+          feedback.className = 'feedback non';
+        }
+      });
+    });
+
+    q.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        q.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = q.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

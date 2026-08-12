@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capteurs et programmation — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.btn-done{background:var(--green);color:#000;border-color:var(--green)}
+.hero{padding:32px 16px 26px;background:linear-gradient(180deg,rgba(56,189,248,.12),transparent);border-bottom:1px solid var(--border)}
+.hero-inner{max-width:720px;margin:0 auto}
+.fil{display:inline-block;background:rgba(56,189,248,.12);color:var(--blue);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.hero h1{font-size:1.9rem;color:#fff;line-height:1.3}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:14px;padding:20px;margin:16px 0}
+.card.accent-vert{border-left-color:var(--green);background:linear-gradient(135deg,rgba(74,222,128,.06),var(--card) 60%)}
+.card.accent-jaune{border-left-color:var(--yellow);background:linear-gradient(135deg,rgba(251,191,36,.07),var(--card) 60%)}
+.card.accent-astuce{background:linear-gradient(135deg,rgba(56,189,248,.10),var(--card) 60%)}
+.card h2{font-size:1.15rem;color:#fff;margin-bottom:10px}
+.card p{margin-bottom:12px;color:var(--text)}
+.card ul{padding-left:20px;margin-bottom:12px}
+.card li{margin-bottom:8px;color:var(--text)}
+.card li strong{color:#fff}
+.card h3{font-size:1rem;color:var(--blue);margin:14px 0 6px}
+.actions{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+#btn-exos{display:none}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../../index.html">← Retour</a>
+</div>
+<div class="hero">
+  <div class="hero-inner">
+    <p class="fil">Sciences · Technologie</p>
+    <h1>💻 Capteurs et programmation</h1>
+  </div>
+</div>
+<div class="container">
+
+  <div class="card">
+    <h2>🎯 Tu vas apprendre</h2>
+    <p>À la fin de ce cours, tu sauras expliquer comment un objet programmable réagit à son environnement.</p>
+  </div>
+
+  <div class="card">
+    <h2>📖 Vocabulaire à connaître</h2>
+    <ul>
+<li><strong>Capteur</strong> : un élément qui mesure une information (température, lumière, mouvement...).</li>
+<li><strong>Actionneur</strong> : un élément qui réalise une action (moteur, lumière, son...).</li>
+<li><strong>Programme</strong> : la suite d'instructions qui relie capteur et actionneur.</li>
+</ul>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Avant de commencer</h2>
+    <p>Pour bien suivre ce cours, il suffit d'avoir déjà vu un lampadaire s'allumer automatiquement la nuit.</p>
+  </div>
+
+  <div class="card">
+    <h2>💡 L'idée principale</h2>
+    <p>Un objet technique programmable réagit à des informations (capteurs) pour déclencher une action (actionneurs), selon un programme précis.</p>
+  </div>
+
+  <div class="card">
+    <h2>📝 Méthode pas à pas</h2>
+    <h3>1. Identifie le capteur</h3>
+<p>Il mesure une information (température, lumière, mouvement...).</p>
+<h3>2. Identifie l'actionneur</h3>
+<p>Il réalise une action (moteur, lumière, son...).</p>
+<h3>3. Comprends le programme</h3>
+<p>Il relie capteur et actionneur selon des instructions (« si... alors »).</p>
+  </div>
+
+  <div class="card accent-vert">
+    <h2>🔍 Exemple guidé</h2>
+    <p><strong>Un lampadaire automatique</strong> utilise un capteur de lumière : quand il détecte la nuit, un programme déclenche l'actionneur qui allume la lumière.</p>
+  </div>
+
+  <div class="card accent-jaune">
+    <h2>⚠️ Pièges à éviter</h2>
+    <ul>
+<li>Ne confonds pas capteur (mesure) et actionneur (agit).</li>
+<li>Un objet programmé suit exactement les instructions données, il ne « pense » pas par lui-même.</li>
+</ul>
+  </div>
+
+  <div class="card accent-vert">
+    <h2>📌 À retenir</h2>
+    <ul>
+<li>Capteur = mesure une information. Actionneur = réalise une action.</li>
+<li>Programme = relie les deux selon des instructions.</li>
+</ul>
+  </div>
+
+  <div class="card accent-astuce">
+    <h2>⭐ Astuce</h2>
+    <p>Pense capteur = les « yeux » de l'objet, actionneur = ses « mains ».</p>
+  </div>
+
+  <div class="actions">
+    <button id="btn-lu" class="btn btn-primary">J'ai fini de lire</button>
+    <a id="btn-exos" class="btn btn-primary" href="exercices/ex1.html">Faire les exercices →</a>
+  </div>
+</div>
+
+<script>
+  var key = 'brevet2027_cours_bases-programmation';
+  var btnLu = document.getElementById('btn-lu');
+  var btnExos = document.getElementById('btn-exos');
+
+  function marquerLu() {
+    btnLu.textContent = 'Lu ✅';
+    btnLu.classList.remove('btn-primary');
+    btnLu.classList.add('btn-done');
+    btnExos.style.display = 'inline-flex';
+  }
+
+  if (localStorage.getItem(key) === 'lu') {
+    marquerLu();
+  }
+
+  btnLu.addEventListener('click', function () {
+    localStorage.setItem(key, 'lu');
+    marquerLu();
+  });
+</script>
+</body>
+</html>

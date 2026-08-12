@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 8 - Banque de questions</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="11-phase-7.html">← Check final</a>
+    <a class="btn btn-primary" href="index.html">Accueil</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 8 — Banque de questions par cours</h1>
+  <p>Faire évoluer chaque exercice d'une série fixe de questions vers une banque de questions avec tirage aléatoire, pour qu'un élève ne voie pas toujours les mêmes exercices.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>Jusqu'ici, chaque cours a exactement 1 exercice avec un nombre fixe de questions (3 à 5), toujours les mêmes. Cette phase introduit une banque de questions par cours : un ensemble plus large de questions, dont un sous-ensemble est tiré au hasard à chaque passage.</p>
+    <p>Un <strong>pilote</strong> sur un seul cours a d'abord validé le mécanisme et l'expérience élève. Le feu vert a ensuite été donné pour généraliser le mécanisme à tout le catalogue, cours par cours, avec un test en direct systématique à chaque cours converti.</p>
+  </div>
+
+  <div class="card">
+    <h2>Pilote choisi</h2>
+    <ul>
+      <li><strong>Cours :</strong> Français — L'accord du participe passé (<code>francais/chapitre1-grammaire/accord-participe</code>)</li>
+      <li><strong>Banque :</strong> 20 questions distinctes (aucun doublon) — 10 QCM (comme le format existant) + 10 à réponse écrite (nouveau format)</li>
+      <li><strong>Tirage :</strong> à chaque ouverture de l'exercice, 2 QCM + 2 questions écrites sont tirées au hasard parmi les 20</li>
+      <li><strong>Correction des réponses écrites :</strong> comparaison texte normalisée côté navigateur (espaces ignorés, majuscules/minuscules ignorées, accents tolérés) — pas d'IA externe, pas de connexion nécessaire pour corriger</li>
+      <li><strong>Réponses multiples acceptées :</strong> possible pour les cas ambigus (ex. accord dépendant du genre non précisé), via une liste de formes valides pour une même question</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Pourquoi pas une IA externe pour corriger ?</h2>
+    <p>L'option a été étudiée puis écartée : les réponses attendues sont objectivement correctes ou non (une seule orthographe correcte, éventuellement 2-3 variantes acceptées), donc une IA n'apporte rien qu'une comparaison de texte ne fasse déjà. Une IA externe ajouterait une dépendance à un service tiers, une clé d'API exposée côté client sur un hébergement statique, et un comportement non garanti — sans bénéfice réel ici.</p>
+  </div>
+
+  <div class="card">
+    <h2>Règles à respecter</h2>
+    <ul>
+      <li>Même gabarit visuel que les exercices existants (cartes, couleurs, boutons ≥ 48 px)</li>
+      <li>Aide à 2 niveaux empilés conservée, pour chaque question tirée</li>
+      <li>Un exercice reste « réussi » quand toutes les questions tirées à cette ouverture sont correctes</li>
+      <li>Mêmes clés localStorage (<code>_tente</code> / <code>_reussi</code>), pas de nouveau préfixe</li>
+      <li>L'aide supplémentaire des questions écrites donne la règle et le radical, jamais la réponse finale complète, pour ne pas transformer l'exercice en copier-coller</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Méthode de généralisation aux autres cours</h2>
+    <p>Après validation du pilote, l'utilisateur a demandé de généraliser le mécanisme. Pour rester fiable à cette échelle, la généralisation suit une méthode fixe, cours par cours :</p>
+    <ul>
+      <li><strong>1. Lecture du contenu existant</strong> — relire le cours et l'ancien exercice statique pour s'appuyer sur les notions réellement enseignées (pas de questions hors-sujet).</li>
+      <li><strong>2. Rédaction de 20 questions distinctes</strong> — 10 QCM (réutilisant si possible les questions existantes) + 10 à réponse écrite, aucun doublon, avec 2 niveaux d'aide propres à chaque question.</li>
+      <li><strong>3. Remplacement de l'exercice</strong> — même gabarit technique que le pilote (banque + tirage 2 QCM/2 écrites + correction tolérante aux accents).</li>
+      <li><strong>4. Test individuel dans le navigateur</strong> — chaque cours généralisé est rechargé et testé en direct (au moins 1 QCM et 1 question écrite, avec une réponse sans accent pour vérifier la tolérance), avant de passer au suivant.</li>
+      <li><strong>5. Vérification console + nettoyage</strong> — 0 erreur console exigée, puis remise à zéro du localStorage de test.</li>
+    </ul>
+    <p>Généralisation faite matière par matière, chapitre par chapitre, en commençant par le français. Si un cours pose un problème de conception (ex. une distinction reposant uniquement sur un accent, incompatible avec la tolérance aux accents), la banque de questions de ce cours est adaptée pour l'éviter plutôt que d'affaiblir la correction.</p>
+  </div>
+
+  <div class="card">
+    <h2>Avancement de la généralisation</h2>
+    <ul class="check">
+      <li class="done">Français — Chapitre 1 (Grammaire, conjugaison, orthographe) : 10/10 cours généralisés et testés (types-phrases, classes-mots, temps-simples, fonctions, relatives, conjonctives, temps-composes, accord-participe, imperatif-subjonctif, homophones)</li>
+      <li class="done">Français — Chapitre 2 (Écriture) : 5/5 cours généralisés et testés (argumentatif, récit, résumer, explicatif, lettre formelle)</li>
+      <li class="done">Français — Chapitre 3 (Littérature) : 5/5 cours généralisés et testés (étude de récit, théâtre, poésie, figures de style, registres)</li>
+      <li class="done"><strong>Français complet : 20/20 cours généralisés</strong> (400 questions rédigées, 20 par cours)</li>
+      <li class="done">Mathématiques — Chapitre 1 (Nombres et calculs) : 6/6 cours généralisés et testés (nombres-relatifs, fractions, puissances, calcul-littéral, équations, inéquations)</li>
+      <li class="done">Mathématiques — Chapitre 2 (Géométrie) : 7/7 cours généralisés et testés (Pythagore, Thalès, aires, volumes, trigonométrie, angles et cercle, transformations)</li>
+      <li class="done">Mathématiques — Chapitre 3 (Proportionnalité) : 1/1 cours généralisé et testé (proportionnalité)</li>
+      <li class="done">Mathématiques — Chapitre 4 (Données et fonctions) : 5/5 cours généralisés et testés (statistiques, probabilités, fonctions linéaires, fonctions affines, représentation graphique)</li>
+      <li class="done">Mathématiques — Chapitre 5 (Algorithmique) : 1/1 cours généralisé et testé (algorithmique et Scratch)</li>
+      <li class="done"><strong>Mathématiques complet : 20/20 cours généralisés</strong> (400 questions rédigées, 20 par cours)</li>
+      <li class="done">Histoire-Géo-EMC — Chapitre 1 (Histoire) : 7/7 cours généralisés et testés (construction européenne, France dans la Seconde Guerre mondiale, Guerre froide, monde depuis 1991, Première Guerre mondiale, Seconde Guerre mondiale, régimes totalitaires)</li>
+      <li class="done">Histoire-Géo-EMC — Chapitre 2 (Géographie) : 6/6 cours généralisés et testés (aires urbaines, espaces de faible densité, espaces productifs, France en Europe et dans le monde, mobilités, territoires de l'UE)</li>
+      <li class="done">Histoire-Géo-EMC — Chapitre 3 (EMC) : 5/5 cours généralisés et testés (citoyenneté, défense et paix, droits de l'homme, numérique et droits, valeurs de la République)</li>
+      <li class="done"><strong>Histoire-Géo-EMC complet : 18/18 cours généralisés</strong> (360 questions rédigées, 20 par cours)</li>
+      <li class="done">Sciences — Chapitre 1 (Physique-Chimie) : 13/13 cours généralisés et testés (chaîne énergétique, conversions, électricité, énergie, états de la matière, forces, gravitation, poids et masse, ressources énergétiques, signaux lumineux, signaux sonores, solutions, transformations)</li>
+      <li class="done">Sciences — Chapitre 2 (SVT) : 13/13 cours généralisés et testés (biodiversité, circulation sanguine, contraception, développement durable, impact humain, muscles et mouvement, nutrition, reproduction humaine, respiration, risques naturels, système nerveux, tabac/alcool/drogues, puberté)</li>
+      <li class="done">Sciences — Chapitre 3 (Technologie) : 6/6 cours généralisés et testés (analyser un objet technique, capteurs et programmation, conception d'un objet, évolution des objets techniques, impact environnemental d'un objet, de Scratch à Python)</li>
+      <li class="done"><strong>Sciences complet : 32/32 cours généralisés</strong> (640 questions rédigées, 20 par cours)</li>
+      <li class="done"><strong>Catalogue complet : 90/90 cours généralisés (1800 questions rédigées au total)</strong></li>
+    </ul>
+  </div>
+
+  <div class="box box-yellow">
+    Cette phase prolonge la roadmap initiale (phases 0 à 7) : elle est née d'un besoin identifié après le Check final, pas prévue dans le cadrage de départ.
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> mécanisme de banque de questions + tirage aléatoire, généralisé et testé sur l'intégralité des 90 cours du catalogue (Français, Mathématiques, Histoire-Géo-EMC, Sciences), soit 1800 questions rédigées.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> ·
+      <a href="11-phase-7.html">← Check final</a> ·
+      <a href="index.html">Accueil</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

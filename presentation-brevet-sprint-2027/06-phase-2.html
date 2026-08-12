@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2 - Interface de navigation</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="05-phase-1.html">← Phase 1</a>
+    <a class="btn btn-primary" href="07-phase-3.html">Phase 3 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 2 — Interface de navigation</h1>
+  <p>Construire la coquille de l’application autour du contenu déjà produit en Phase 1.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>L’élève doit pouvoir se déplacer facilement dans l’application : arriver sur l’accueil, choisir une matière, ouvrir un chapitre, lire un cours, faire les exercices, voir sa progression et contacter l’auteur.</p>
+    <p>On ne crée pas encore tout le contenu. On construit l’interface qui accueillera les cours et exercices déjà prêts, puis ceux à venir.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ce qu’il faut produire</h2>
+    <h3>1. Accueil</h3>
+    <ul>
+      <li>Logo animé (float lent, 3 secondes)</li>
+      <li>Slogan : « Un cours. Un exercice. Un progrès. »</li>
+      <li>Deux boutons uniquement : Accès matières, Me contacter</li>
+      <li>Pas de menu complexe, pas de distraction</li>
+    </ul>
+
+    <h3>2. Navigation matières et chapitres</h3>
+    <ul>
+      <li>Page matières (4 blocs : Français, Maths, Histoire-Géo-EMC, Sciences)</li>
+      <li>Page chapitres par matière</li>
+      <li>Liste des cours d’un chapitre (avec indication « Lu » si déjà validé)</li>
+      <li>Boutons Retour partout</li>
+    </ul>
+
+    <h3>3. Pages transverses</h3>
+    <ul>
+      <li><strong>Progression</strong> : cours lus, exercices tentés, réussis, à revoir</li>
+      <li><strong>Badges</strong> : bronze / argent / or (affichage, même si seuils encore simples)</li>
+      <li><strong>Paramètres</strong> : infos + réinitialisation de la progression</li>
+      <li><strong>Contact</strong> : email réel cliquable <code>parraga.antoine@gmail.com</code></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Règles à respecter</h2>
+    <ul>
+      <li>Style sombre uniquement (<code>#0d1418</code>)</li>
+      <li>Boutons minimum 48 px de hauteur</li>
+      <li>Retour disponible sur chaque page</li>
+      <li>localStorage avec préfixe <code>brevet2027_</code></li>
+      <li>Cours lu ≠ exercice réussi (affichage distinct)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Checklist de fin de phase</h2>
+    <ul class="check">
+      <li class="done">Accueil avec logo animé + 2 boutons</li>
+      <li class="done">Navigation matières → chapitres → cours</li>
+      <li class="done">Page Progression fonctionnelle</li>
+      <li class="done">Page Badges</li>
+      <li class="done">Page Paramètres (réinitialisation OK)</li>
+      <li class="done">Page Contact avec email cliquable</li>
+      <li class="done">Retour partout</li>
+      <li class="done">Test ELEVE_TEST PASS sur le parcours complet (08/08/2026)</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> une interface de navigation complète et fluide, dans laquelle les cours et exercices de la Phase 1 sont accessibles et la progression est visible.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> · 
+      <a href="05-phase-1.html">← Phase 1</a> · 
+      <a href="07-phase-3.html">Phase 3 →</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — Les fractions — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Mathématiques · Nombres</p>
+  <h1>Exercices — Les fractions</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'fractions';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: '1/4 + 1/2 = ?', choix: [
+        { texte: '3/4', correct: true }, { texte: '2/6', correct: false }, { texte: '1/6', correct: false }
+      ], aide1: 'Mets d’abord au même dénominateur.', aide2: '1/2 devient 2/4, donc 1/4 + 2/4 = 3/4.' },
+    { enonce: 'Simplifie 4/8.', choix: [
+        { texte: '1/2', correct: true }, { texte: '2/4', correct: false }, { texte: '4/8', correct: false }
+      ], aide1: 'Divise le numérateur et le dénominateur par un même nombre.', aide2: '4/8 : on divise par 4 en haut et en bas → 1/2.' },
+    { enonce: '1/3 × 1/2 = ?', choix: [
+        { texte: '1/6', correct: true }, { texte: '2/5', correct: false }, { texte: '1/5', correct: false }
+      ], aide1: 'Multiplie les numérateurs entre eux, puis les dénominateurs entre eux.', aide2: '1×1=1 et 3×2=6, donc 1/6.' },
+    { enonce: 'Pour additionner deux fractions, il faut d’abord...', choix: [
+        { texte: 'les simplifier', correct: false }, { texte: 'les mettre au même dénominateur', correct: true }, { texte: 'les multiplier', correct: false }
+      ], aide1: 'Sans cette étape, l’addition est impossible.', aide2: 'Il faut toujours un dénominateur commun avant d’additionner ou de soustraire des fractions.' },
+    { enonce: '1/5 + 2/5 = ?', choix: [
+        { texte: '3/5', correct: true }, { texte: '3/10', correct: false }, { texte: '2/5', correct: false }
+      ], aide1: 'Les dénominateurs sont déjà identiques.', aide2: '1/5 + 2/5 : additionne les numérateurs (1+2=3), garde le dénominateur (5) → 3/5.' },
+    { enonce: 'Simplifie 6/9.', choix: [
+        { texte: '2/3', correct: true }, { texte: '3/6', correct: false }, { texte: '6/9', correct: false }
+      ], aide1: 'Cherche un nombre qui divise à la fois 6 et 9.', aide2: '6/9 : on divise par 3 en haut et en bas → 2/3.' },
+    { enonce: '2/5 × 1/3 = ?', choix: [
+        { texte: '2/15', correct: true }, { texte: '3/8', correct: false }, { texte: '2/8', correct: false }
+      ], aide1: 'Multiplie les numérateurs entre eux, puis les dénominateurs entre eux.', aide2: '2×1=2 et 5×3=15, donc 2/15.' },
+    { enonce: '3/5 - 1/5 = ?', choix: [
+        { texte: '2/5', correct: true }, { texte: '4/5', correct: false }, { texte: '2/10', correct: false }
+      ], aide1: 'Les dénominateurs sont déjà identiques.', aide2: '3/5 - 1/5 : soustrais les numérateurs (3-1=2), garde le dénominateur (5) → 2/5.' },
+    { enonce: 'Le numérateur d’une fraction est...', choix: [
+        { texte: 'le nombre du haut', correct: true }, { texte: 'le nombre du bas', correct: false }, { texte: 'le résultat de la division', correct: false }
+      ], aide1: 'Regarde au-dessus de la barre de fraction.', aide2: 'Le numérateur est le nombre du haut, le dénominateur le nombre du bas.' },
+    { enonce: 'Le dénominateur d’une fraction est...', choix: [
+        { texte: 'le nombre du bas', correct: true }, { texte: 'le nombre du haut', correct: false }, { texte: 'toujours pair', correct: false }
+      ], aide1: 'Regarde en dessous de la barre de fraction.', aide2: 'Le dénominateur est le nombre du bas, le numérateur le nombre du haut.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: '1/6 + 2/6 = ? (une fraction, ex. 3/4)', reponses: ['3/6', '1/2'], aide1: 'Les dénominateurs sont déjà identiques : que fait-on avec les numérateurs ?', aide2: 'Même dénominateur : additionne seulement les numérateurs (1+2), garde le dénominateur (6).' },
+    { enonce: 'Simplifie 8/12. (une fraction)', reponses: ['2/3'], aide1: 'Cherche un nombre qui divise à la fois 8 et 12.', aide2: '8 et 12 sont divisibles par 4 : divise le numérateur et le dénominateur par 4.' },
+    { enonce: '2/7 × 1/2 = ? (une fraction)', reponses: ['2/14', '1/7'], aide1: 'Multiplie les numérateurs entre eux, puis les dénominateurs entre eux.', aide2: 'Numérateurs : 2×1. Dénominateurs : 7×2.' },
+    { enonce: '5/8 - 3/8 = ? (une fraction)', reponses: ['2/8', '1/4'], aide1: 'Les dénominateurs sont déjà identiques : que fait-on avec les numérateurs ?', aide2: 'Même dénominateur : soustrais seulement les numérateurs (5-3), garde le dénominateur (8).' },
+    { enonce: 'Le nombre du haut d’une fraction s’appelle le... (un mot)', reponses: ['numerateur', 'numérateur'], aide1: 'C’est le nombre au-dessus de la barre de fraction.', aide2: 'Ce mot vient du latin « numerare », compter : c’est ce qui est compté.' },
+    { enonce: 'Le nombre du bas d’une fraction s’appelle le... (un mot)', reponses: ['denominateur', 'dénominateur'], aide1: 'C’est le nombre en dessous de la barre de fraction.', aide2: 'Ce mot est de la même famille que « nommer » : il nomme les parts (demis, tiers, quarts...).' },
+    { enonce: '1/2 + 1/4 = ? (une fraction)', reponses: ['3/4'], aide1: 'Mets d’abord les deux fractions au même dénominateur.', aide2: '1/2 devient 2/4 (dénominateur commun 4), puis additionne les numérateurs.' },
+    { enonce: 'Simplifie 10/15. (une fraction)', reponses: ['2/3'], aide1: 'Cherche un nombre qui divise à la fois 10 et 15.', aide2: '10 et 15 sont divisibles par 5 : divise le numérateur et le dénominateur par 5.' },
+    { enonce: '3/4 × 2/3 = ? (une fraction)', reponses: ['6/12', '1/2'], aide1: 'Multiplie les numérateurs entre eux, puis les dénominateurs entre eux.', aide2: 'Numérateurs : 3×2. Dénominateurs : 4×3.' },
+    { enonce: '7/10 - 2/10 = ? (une fraction)', reponses: ['5/10', '1/2'], aide1: 'Les dénominateurs sont déjà identiques : que fait-on avec les numérateurs ?', aide2: 'Même dénominateur : soustrais seulement les numérateurs (7-2), garde le dénominateur (10).' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'");
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

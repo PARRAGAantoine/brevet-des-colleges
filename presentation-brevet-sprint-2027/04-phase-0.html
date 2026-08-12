@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 0 - Cadrage</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul,ol{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="index.html">Accueil</a>
+    <a class="btn btn-primary" href="05-phase-1.html">Phase 1 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 0 — Cadrage</h1>
+  <p>Création du site de préparation qui définit l’esprit, les règles et le plan du projet Brevet Sprint 2027 avant le lancement de l’application.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>Avant d’écrire la moindre ligne de l’application élève, on construit un site de cadrage. Ce site sert de référence unique pour tous ceux qui travailleront sur le projet.</p>
+    <p>Il contient la présentation du projet, les règles immuables, les rôles, les skills des agents, la roadmap, l’architecture fichiers et le catalogue des 88 cours. On fige les skills en même temps que les règles et les templates. Tout le cadrage est prêt avant de produire. Tant que ce site n’est pas validé, on ne commence pas le développement de l’app.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ce que ce site doit contenir</h2>
+    <ul>
+      <li><strong>00 — Présentation</strong> : pourquoi l’app existe, pour qui, les règles qui font la différence, le Mode Aventure.</li>
+      <li><strong>01 — Instructions</strong> : stack technique, interdits, budget 0 €, nommage des fichiers, contact réel.</li>
+      <li><strong>02 — Rôles</strong> : les agents et leurs skills (chef, design, cours, exo, test, tech). Fichiers <code>skill_[nom].md</code> figés ici.</li>
+      <li><strong>03 — Roadmap</strong> : les 7 phases, les principes, les livrables et critères de sortie.</li>
+      <li><strong>04 à 10 — Détail des phases</strong> : une page par phase avec les attendus concrets.</li>
+      <li><strong>12 — Catalogue</strong> : les 88 cours répartis en 4 matières.</li>
+      <li><strong>13 — Architecture</strong> : arborescence fichiers, sans accents, Annales hébergées.</li>
+      <li><strong>Index</strong> : point d’entrée clair pour naviguer dans tout le cadrage.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Création des skills (fichiers .md)</h2>
+    <p>Chaque agent a un fichier <code>skill_[nom].md</code> (ex. : <code>skill_cours.md</code>, <code>skill_exo.md</code>). Ces fichiers sont rédigés et figés en Phase 0.</p>
+
+    <h3>Structure optimale d’un skill</h3>
+    <ul>
+      <li><strong>Nom et rôle</strong> — une ligne claire (ex. : « cours — Créateur de cours »)</li>
+      <li><strong>Mission</strong> — ce que l’agent doit accomplir, en 1 ou 2 phrases</li>
+      <li><strong>Entrées</strong> — ce qu’il reçoit (ex. : titre du cours, matière, niveau)</li>
+      <li><strong>Sorties</strong> — ce qu’il produit (ex. : page HTML complète du cours)</li>
+      <li><strong>Règles immuables</strong> — contraintes qu’il ne doit jamais enfreindre (vocabulaire simple, template 9 sections, bouton « J’ai fini de lire », etc.)</li>
+      <li><strong>Format attendu</strong> — structure exacte du livrable</li>
+      <li><strong>Exemple copier-coller</strong> — un mini-exemple concret prêt à réutiliser</li>
+      <li><strong>Critère de validation</strong> — comment savoir que le travail est bon (ex. : passe le test ELEVE_TEST)</li>
+    </ul>
+
+    <h3>Principes d’écriture</h3>
+    <ul>
+      <li>Court et actionnable : un skill se lit en moins de 2 minutes</li>
+      <li>Pas de jargon inutile</li>
+      <li>Chaque règle est testable</li>
+      <li>L’exemple doit pouvoir être copié-collé directement</li>
+      <li>On commence par <code>skill_cours.md</code> et <code>skill_exo.md</code> (les plus critiques)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Règles de travail pendant cette phase</h2>
+    <ul>
+      <li>On ne code pas encore l’application élève.</li>
+      <li>On reste en HTML/CSS simple, même style sombre <code>#0d1418</code>.</li>
+      <li>Chaque page du site de cadrage doit être claire, courte et actionnable.</li>
+      <li>Les décisions prises ici (bouton « J’ai fini de lire », aide à 2 niveaux, dark only, localStorage, badges, etc.) deviennent des règles immuables pour la suite.</li>
+      <li>Les skills sont figés ici, avant toute production de contenu.</li>
+      <li>La phase 0 ne passe en TERMINÉ que sur feu vert explicite.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Checklist de fin de phase</h2>
+    <ul class="check">
+      <li class="done">Index clair avec liens vers toutes les pages</li>
+      <li class="done">Présentation (00) rédigée</li>
+      <li class="done">Instructions (01) rédigées</li>
+      <li class="done">Rôles (02) définis</li>
+      <li class="done">Skills des 6 agents figés (<code>skill_[nom].md</code>)</li>
+      <li class="done">Roadmap (03) en 7 phases validée</li>
+      <li class="done">Pages de détail des phases 0 à 6 complètes</li>
+      <li class="done">Catalogue (12) à jour</li>
+      <li class="done">Architecture (13) à jour</li>
+      <li class="done">Cohérence visuelle sur toutes les pages</li>
+      <li class="done">Aucun lien cassé</li>
+      <li class="done">Feu vert final donné</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> un site de cadrage complet, cohérent et validé, qui sert de référence unique avant de commencer la Phase 1 (templates + premiers contenus de l’application élève).
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> · 
+      <a href="index.html">Accueil</a> · 
+      <a href="05-phase-1.html">Phase 1 →</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — La chaîne énergétique — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Sciences · Physique-Chimie</p>
+  <h1>Exercices — La chaîne énergétique</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'chaine-energetique';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: 'Dans une chaîne énergétique, l’énergie totale...', choix: [
+        { texte: 'disparaît', correct: false }, { texte: 'reste constante (conservée)', correct: true }, { texte: 'augmente', correct: false }
+      ], aide1: 'Principe de conservation de l’énergie.', aide2: 'L’énergie totale ne se crée ni ne se détruit : elle se transforme.' },
+    { enonce: 'Quelle énergie est souvent « dissipée » dans une transformation ?', choix: [
+        { texte: 'l’énergie thermique (chaleur)', correct: true }, { texte: 'l’énergie chimique', correct: false }, { texte: 'rien', correct: false }
+      ], aide1: 'Pense à un appareil qui chauffe.', aide2: 'La chaleur est la forme d’énergie dissipée la plus fréquente.' },
+    { enonce: 'Une ampoule transforme l’énergie électrique en énergie lumineuse (utile) et...', choix: [
+        { texte: 'énergie thermique (dissipée)', correct: true }, { texte: 'énergie chimique', correct: false }, { texte: 'rien', correct: false }
+      ], aide1: 'Touche une ampoule allumée : elle chauffe.', aide2: 'Une partie de l’énergie électrique se dissipe en chaleur.' },
+    { enonce: 'Un rendement de 100% existe-t-il souvent dans la réalité ?', choix: [
+        { texte: 'Oui', correct: false }, { texte: 'Non', correct: true }
+      ], aide1: 'Il y a presque toujours une perte.', aide2: 'Il y a presque toujours de l’énergie dissipée : un rendement de 100% est très rare en pratique.' },
+    { enonce: 'Une chaîne énergétique représente...', choix: [
+        { texte: 'les transformations successives d’énergie dans un objet', correct: true }, { texte: 'la couleur d’un objet', correct: false }, { texte: 'le poids d’un objet', correct: false }
+      ], aide1: 'Pense à un schéma avec des flèches.', aide2: 'Elle montre comment l’énergie d’entrée se transforme en énergie utile et en énergie dissipée.' },
+    { enonce: 'L’énergie utile est...', choix: [
+        { texte: 'l’énergie qui sert à la fonction recherchée de l’objet', correct: true }, { texte: 'l’énergie totalement perdue', correct: false }, { texte: 'l’énergie qui n’existe pas', correct: false }
+      ], aide1: 'C’est ce que l’appareil est censé produire.', aide2: 'Pour une ampoule, l’énergie utile est la lumière.' },
+    { enonce: 'Le rendement d’un appareil se calcule par...', choix: [
+        { texte: 'énergie utile ÷ énergie totale', correct: true }, { texte: 'énergie totale ÷ énergie utile', correct: false }, { texte: 'énergie utile × énergie totale', correct: false }
+      ], aide1: 'Le rendement est toujours inférieur ou égal à 1 (ou 100%).', aide2: 'Le rendement compare l’énergie réellement utile à l’énergie totale fournie.' },
+    { enonce: 'Un moteur de voiture transforme l’énergie chimique du carburant en...', choix: [
+        { texte: 'énergie mécanique (et thermique dissipée)', correct: true }, { texte: 'énergie lumineuse uniquement', correct: false }, { texte: 'rien', correct: false }
+      ], aide1: 'Pense au mouvement produit par le moteur.', aide2: 'Le moteur transforme le carburant en mouvement, avec une part importante de chaleur dissipée.' },
+    { enonce: 'Une chaîne énergétique se représente souvent par...', choix: [
+        { texte: 'un schéma avec des flèches', correct: true }, { texte: 'un tableau de nombres uniquement', correct: false }, { texte: 'une photo', correct: false }
+      ], aide1: 'Chaque flèche représente une transformation d’énergie.', aide2: 'Ce schéma montre les différentes formes d’énergie successives, de l’entrée à la sortie.' },
+    { enonce: 'Plus le rendement d’un appareil est élevé, moins il...', choix: [
+        { texte: 'gaspille d’énergie', correct: true }, { texte: 'consomme d’énergie utile', correct: false }, { texte: 'fonctionne', correct: false }
+      ], aide1: 'Un bon rendement signifie peu de pertes.', aide2: 'Un rendement élevé indique que peu d’énergie est dissipée inutilement.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: 'Quelle énergie est souvent perdue sous forme de chaleur dans une transformation ? (un mot)', reponses: ['thermique'], aide1: 'Pense à un appareil qui chauffe.', aide2: 'Cette énergie est la forme la plus fréquente d’énergie dissipée.' },
+    { enonce: 'Comment appelle-t-on le principe selon lequel l’énergie ne se crée ni ne se détruit ? (un mot)', reponses: ['conservation'], aide1: 'C’est un principe fondamental de la physique.', aide2: 'Ce principe explique que l’énergie totale reste toujours constante.' },
+    { enonce: 'Comment appelle-t-on l’énergie qui sert réellement à la fonction de l’appareil ? (un mot)', reponses: ['utile'], aide1: 'C’est ce que l’appareil est censé produire.', aide2: 'Pour une ampoule, c’est la lumière produite.' },
+    { enonce: 'Comment appelle-t-on le rapport entre énergie utile et énergie totale ? (un mot)', reponses: ['rendement'], aide1: 'C’est un indicateur d’efficacité.', aide2: 'Ce rapport indique la performance d’un appareil.' },
+    { enonce: 'Une ampoule transforme l’énergie électrique en énergie lumineuse et... (un mot)', reponses: ['thermique'], aide1: 'Touche une ampoule allumée : elle chauffe.', aide2: 'Cette énergie est dissipée, non utile pour l’éclairage.' },
+    { enonce: 'Comment appelle-t-on la représentation avec des flèches des transformations d’énergie ? (un mot)', reponses: ['schema', 'schéma'], aide1: 'C’est un outil visuel utilisé en physique.', aide2: 'Ce dessin montre les différentes formes d’énergie successives.' },
+    { enonce: 'Un moteur transforme l’énergie chimique en énergie... (un mot)', reponses: ['mecanique', 'mécanique'], aide1: 'Pense au mouvement produit par le moteur.', aide2: 'Cette énergie correspond au déplacement, au mouvement.' },
+    { enonce: 'Un rendement de 100% est-il courant dans la réalité ? (oui ou non)', reponses: ['non'], aide1: 'Il y a presque toujours une perte.', aide2: 'Il y a presque toujours de l’énergie dissipée sous forme de chaleur.' },
+    { enonce: 'Quelle forme d’énergie dissipée est la plus fréquente dans les appareils ? (un mot)', reponses: ['chaleur'], aide1: 'C’est ce qui rend un appareil chaud en fonctionnement.', aide2: 'Cette forme d’énergie est presque toujours perdue.' },
+    { enonce: 'Comment appelle-t-on l’énergie perdue, non exploitée par l’appareil (contraire d’utile) ? (un mot)', reponses: ['dissipee', 'dissipée'], aide1: 'C’est le contraire d’« utile ».', aide2: 'Cette énergie se retrouve souvent sous forme de chaleur.' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'")
+      .replace(/\s+/g, '');
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

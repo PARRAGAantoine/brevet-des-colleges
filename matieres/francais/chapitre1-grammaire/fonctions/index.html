@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les fonctions dans la phrase — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.btn-done{background:var(--green);color:#000;border-color:var(--green)}
+.hero{padding:32px 16px 26px;background:linear-gradient(180deg,rgba(56,189,248,.12),transparent);border-bottom:1px solid var(--border)}
+.hero-inner{max-width:720px;margin:0 auto}
+.fil{display:inline-block;background:rgba(56,189,248,.12);color:var(--blue);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.hero h1{font-size:1.9rem;color:#fff;line-height:1.3}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:14px;padding:20px;margin:16px 0}
+.card.accent-vert{border-left-color:var(--green);background:linear-gradient(135deg,rgba(74,222,128,.06),var(--card) 60%)}
+.card.accent-jaune{border-left-color:var(--yellow);background:linear-gradient(135deg,rgba(251,191,36,.07),var(--card) 60%)}
+.card.accent-astuce{background:linear-gradient(135deg,rgba(56,189,248,.10),var(--card) 60%)}
+.card h2{font-size:1.15rem;color:#fff;margin-bottom:10px}
+.card p{margin-bottom:12px;color:var(--text)}
+.card ul{padding-left:20px;margin-bottom:12px}
+.card li{margin-bottom:8px;color:var(--text)}
+.card li strong{color:#fff}
+.card h3{font-size:1rem;color:var(--blue);margin:14px 0 6px}
+.actions{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+#btn-exos{display:none}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../../index.html">← Retour</a>
+</div>
+<div class="hero">
+  <div class="hero-inner">
+    <p class="fil">Français · Grammaire, conjugaison, orthographe</p>
+    <h1>📖 Les fonctions dans la phrase</h1>
+  </div>
+</div>
+<div class="container">
+
+  <div class="card">
+    <h2>🎯 Tu vas apprendre</h2>
+    <p>À la fin de ce cours, tu sauras reconnaître les fonctions principales d'un mot ou d'un groupe de mots dans une phrase : sujet, COD, COI, attribut du sujet et complément circonstanciel.</p>
+  </div>
+
+  <div class="card">
+    <h2>📖 Vocabulaire à connaître</h2>
+    <ul>
+<li><strong>Fonction</strong> : le rôle que joue un mot ou un groupe de mots dans une phrase précise.</li>
+<li><strong>Sujet</strong> : celui qui fait l'action ou dont on parle.</li>
+<li><strong>COD</strong> (complément d'objet direct) : ce qui suit directement le verbe, sans préposition.</li>
+<li><strong>COI</strong> (complément d'objet indirect) : ce qui suit le verbe avec une préposition (à, de).</li>
+<li><strong>Attribut du sujet</strong> : ce qui dit comment est le sujet, après un verbe d'état.</li>
+<li><strong>Complément circonstanciel (CC)</strong> : précise où, quand ou comment se passe l'action.</li>
+</ul>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Avant de commencer</h2>
+    <p>Pour bien suivre ce cours, tu dois savoir reconnaître les classes de mots (nom, verbe, adjectif...). Si tu ne les maîtrises pas encore, revois d'abord le cours « Les classes de mots ».</p>
+  </div>
+
+  <div class="card">
+    <h2>💡 L'idée principale</h2>
+    <p>Contrairement à la <strong>classe</strong> d'un mot (qui ne change presque jamais), sa <strong>fonction</strong> dépend entièrement de la phrase. Le mot « chien » est toujours un nom (classe), mais il peut être sujet dans une phrase et complément dans une autre (fonction).</p>
+  </div>
+
+  <div class="card">
+    <h2>📝 Méthode pas à pas</h2>
+    <h3>1. Trouve le verbe conjugué</h3>
+<p>C'est le point de départ pour trouver toutes les fonctions.</p>
+<h3>2. Trouve le sujet</h3>
+<p>Pose la question « qui est-ce qui... ? » ou « qu'est-ce qui... ? » juste avant le verbe.</p>
+<h3>3. Trouve le COD</h3>
+<p>Pose la question « verbe + quoi ? » ou « verbe + qui ? » juste après le verbe, sans préposition.</p>
+<h3>4. Trouve le COI</h3>
+<p>Pose la question « verbe + à qui ? », « à quoi ? », « de qui ? » ou « de quoi ? ». Il y a toujours une préposition.</p>
+<h3>5. Trouve l'attribut du sujet</h3>
+<p>Cherche après un verbe d'état (être, sembler, paraître, devenir...). Il décrit le sujet.</p>
+<h3>6. Range le reste en complément circonstanciel</h3>
+<p>Ce qui précise le temps, le lieu ou la manière est un complément circonstanciel (CC).</p>
+  </div>
+
+  <div class="card accent-vert">
+    <h2>🔍 Exemple guidé</h2>
+    <p><strong>Phrase : « Le chat mange sa gamelle rapidement. »</strong></p>
+<ul>
+<li>« mange » → verbe conjugué</li>
+<li>« Le chat » → sujet (qui est-ce qui mange ? le chat)</li>
+<li>« sa gamelle » → COD (mange quoi ? sa gamelle, sans préposition)</li>
+<li>« rapidement » → complément circonstanciel de manière (comment mange-t-il ?)</li>
+</ul>
+  </div>
+
+  <div class="card accent-jaune">
+    <h2>⚠️ Pièges à éviter</h2>
+    <ul>
+<li>Ne confonds pas COD et COI : s'il y a une préposition (à, de) juste avant, c'est un COI, pas un COD.</li>
+<li>Un verbe d'état (être, sembler...) n'a jamais de COD : ce qui suit est un attribut du sujet.</li>
+<li>Le sujet n'est pas toujours juste avant le verbe : dans « Dans le jardin joue Léa. », le sujet reste « Léa ».</li>
+</ul>
+  </div>
+
+  <div class="card accent-vert">
+    <h2>📌 À retenir</h2>
+    <ul>
+<li>Fonctions principales : sujet, COD, COI, attribut du sujet, complément circonstanciel.</li>
+<li>La fonction change selon la phrase, contrairement à la classe qui reste presque fixe.</li>
+<li>COD = sans préposition, COI = avec préposition (à, de).</li>
+</ul>
+  </div>
+
+  <div class="card accent-astuce">
+    <h2>⭐ Astuce</h2>
+    <p>Pour ne jamais confondre COD et COI, pose la question juste après le verbe : si tu as besoin d'un « à » ou d'un « de » pour que la question ait un sens, c'est un COI.</p>
+  </div>
+
+  <div class="actions">
+    <button id="btn-lu" class="btn btn-primary">J'ai fini de lire</button>
+    <a id="btn-exos" class="btn btn-primary" href="exercices/ex1.html">Faire les exercices →</a>
+  </div>
+</div>
+
+<script>
+  var key = 'brevet2027_cours_fonctions';
+  var btnLu = document.getElementById('btn-lu');
+  var btnExos = document.getElementById('btn-exos');
+
+  function marquerLu() {
+    btnLu.textContent = 'Lu ✅';
+    btnLu.classList.remove('btn-primary');
+    btnLu.classList.add('btn-done');
+    btnExos.style.display = 'inline-flex';
+  }
+
+  if (localStorage.getItem(key) === 'lu') {
+    marquerLu();
+  }
+
+  btnLu.addEventListener('click', function () {
+    localStorage.setItem(key, 'lu');
+    marquerLu();
+  });
+</script>
+</body>
+</html>

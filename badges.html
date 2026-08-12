@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badges — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--bronze:#cd7f32;--argent:#c0c0c0;--or:#ffd700}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10;flex-wrap:wrap;gap:10px}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);font-weight:700;cursor:pointer}
+.nav-liens{display:flex;gap:16px;flex-wrap:wrap}
+.container{max-width:720px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:1.6rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);margin-bottom:24px;font-size:.9rem}
+.grille{display:flex;flex-direction:column;gap:14px}
+.badge{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.badge.debloque{border-color:var(--medal, var(--blue))}
+.badge .medaille{font-size:2.4rem;filter:grayscale(1);opacity:.4}
+.badge.debloque .medaille{filter:none;opacity:1}
+.badge .titre{color:#fff;font-weight:700;font-size:1.05rem}
+.badge .desc{color:var(--muted);font-size:.85rem;margin-top:2px}
+.badge.debloque .desc{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="index.html">← Accueil</a>
+  <div class="nav-liens">
+    <a href="matieres.html">Matières</a>
+    <a href="inventaire.html">🎒 Inventaire</a>
+    <a href="progression.html">Progression</a>
+    <a href="parametres.html">Paramètres</a>
+  </div>
+</div>
+<div class="container">
+  <h1>🏅 Mes badges</h1>
+  <p class="note">Un badge se débloque selon le nombre d'exercices réussis.</p>
+  <div class="grille" id="grille"></div>
+</div>
+<script>
+  var idsCours = [
+    'accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre', 'calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch', 'construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique', 'chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'
+  ];
+  var reussis = idsCours.filter(function (id) {
+    return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui';
+  }).length;
+
+  var paliers = [
+    { seuil: 10, medaille: '🥉', titre: 'Bronze', couleur: 'var(--bronze)' },
+    { seuil: 40, medaille: '🥈', titre: 'Argent', couleur: 'var(--argent)' },
+    { seuil: idsCours.length, medaille: '🥇', titre: 'Or', couleur: 'var(--or)' }
+  ];
+
+  var grille = document.getElementById('grille');
+  paliers.forEach(function (p) {
+    var debloque = reussis >= p.seuil;
+    var div = document.createElement('div');
+    div.className = 'badge' + (debloque ? ' debloque' : '');
+    if (debloque) div.style.setProperty('--medal', p.couleur);
+    div.innerHTML =
+      '<span class="medaille">' + p.medaille + '</span>' +
+      '<span>' +
+      '<div class="titre">' + p.titre + '</div>' +
+      '<div class="desc">' + (debloque ? 'Débloqué !' : p.seuil + ' exercice' + (p.seuil > 1 ? 's' : '') + ' réussi' + (p.seuil > 1 ? 's' : '') + ' pour débloquer') + '</div>' +
+      '</span>';
+    grille.appendChild(div);
+  });
+</script>
+</body>
+</html>

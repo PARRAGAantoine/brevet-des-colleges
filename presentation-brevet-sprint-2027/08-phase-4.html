@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 4 - Annales + qualité</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="07-phase-3.html">← Phase 3</a>
+    <a class="btn btn-primary" href="09-phase-5.html">Phase 5 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 4 — Annales + qualité</h1>
+  <p>Finaliser les annales et verrouiller la qualité de tout ce qui existe déjà.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>Rendre les annales officielles accessibles dans l’application et s’assurer que l’ensemble du parcours (cours, exercices, progression, badges) est fiable et honnête pour l’élève.</p>
+    <p>C’est la phase où l’on corrige les frictions et où l’on pose les premiers seuils des badges, ajustables ensuite selon la difficulté observée à l’usage.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ce qu’il faut produire</h2>
+    <h3>1. Annales</h3>
+    <ul>
+      <li>PDF officiels hébergés localement dans chaque matière</li>
+      <li>Dossiers <code>Annales/</code> (sans accents, minuscules)</li>
+      <li>Accès clair depuis l’interface (par matière)</li>
+      <li>Pas de lien externe qui peut disparaître</li>
+    </ul>
+
+    <h3>2. Progression et badges</h3>
+    <ul>
+      <li>Distinction nette : cours lu ≠ exercice tenté ≠ exercice réussi ≠ à revoir</li>
+      <li>Badges bronze / argent / or avec premiers seuils posés (ajustables selon l’usage)</li>
+      <li>Page Progression lisible et sans jugement</li>
+    </ul>
+
+    <h3>3. Qualité</h3>
+    <ul>
+      <li>Mur ELEVE_TEST appliqué sur tout le parcours existant</li>
+      <li>Correction des bugs et des frictions détectées</li>
+      <li>Vérification des retours, des boutons et du localStorage</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Règles à respecter</h2>
+    <ul>
+      <li>Annales en PDF hébergés, jamais en lien externe seul</li>
+      <li>Pas de note sur 20, uniquement des badges</li>
+      <li>L’élève reste maître de sa progression (bouton « J’ai fini de lire »)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Checklist de fin de phase</h2>
+    <ul class="check">
+      <li class="done">Annales PDF présentes et accessibles pour les 4 matières (65 Français + 71 Maths + 17 Histoire-Géo-EMC + 27 Sciences = 180 sujets, hébergés localement)</li>
+      <li class="done">Progression claire (lu / tenté / réussi / à revoir — 4ᵉ état ajouté sur progression.html)</li>
+      <li class="done">Premiers seuils des badges bronze / argent / or posés et affichés (5 / 15 / 31, ajustables)</li>
+      <li class="done">Mur ELEVE_TEST passé sur l’ensemble du parcours : 31 cours + 31 exercices visités en direct dans le navigateur, tous réussis, 0 erreur console (08/08/2026)</li>
+      <li class="done">Aucune friction bloquante restante</li>
+      <li class="done">0 FAIL sur la checklist qualité (0 lien cassé sur 76 pages HTML + 180 PDF)</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> annales intégrées, badges opérationnels, progression honnête, et parcours sans faille selon le test ELEVE_TEST.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> · 
+      <a href="07-phase-3.html">← Phase 3</a> · 
+      <a href="09-phase-5.html">Phase 5 →</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

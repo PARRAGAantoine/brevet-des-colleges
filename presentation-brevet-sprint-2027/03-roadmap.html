@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 - Roadmap</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px;text-decoration:none}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:920px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;height:100%}
+.card h3{font-size:1.05rem;color:#fff;margin-bottom:8px;width:100%;line-height:1.3}
+.card p{color:var(--muted);font-size:.9rem;margin-bottom:14px;width:100%;flex-grow:1}
+.card ul{padding-left:18px;margin:10px 0}
+.card li{color:var(--muted);margin:6px 0;font-size:.9rem}
+.badge{display:inline-block;font-size:.7rem;padding:4px 9px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;align-items:stretch}
+.section-title{font-size:1.15rem;color:#fff;margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:16px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+.box{padding:14px 16px;border-radius:10px;margin:16px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted);font-size:.95rem}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.principle{display:flex;gap:12px;align-items:flex-start;margin:10px 0}
+.principle-num{background:var(--blue);color:#000;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="index.html">← Retour Accueil</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="13-architecture.html">Architecture</a>
+    <a class="btn btn-primary" href="12-catalogue.html">Catalogue</a>
+  </div>
+</div>
+
+<div class="container">
+  <h1>🗺️ Roadmap — 7 phases</h1>
+
+  <div class="box box-yellow">
+    On produit d’abord des cours et exercices réellement utiles, on construit l’interface autour, puis on ajoute la couche jeu une fois le socle solide.
+  </div>
+
+  <div class="section-title">🎯 Principes</div>
+  <div class="card" style="height:auto">
+    <div class="principle"><div class="principle-num">1</div><div><strong>Contenu avant coquille</strong> — Un élève a besoin de cours et d’exercices, pas d’une belle page d’accueil vide.</div></div>
+    <div class="principle"><div class="principle-num">2</div><div><strong>Qualité continue</strong> — Le mur ELEVE_TEST s’applique dès le premier cours.</div></div>
+    <div class="principle"><div class="principle-num">3</div><div><strong>Priorisation</strong> — Mieux vaut 30 cours excellents que 88 moyens. On commence par le cœur du brevet.</div></div>
+    <div class="principle"><div class="principle-num">4</div><div><strong>Aventure au cœur, socle d’abord</strong> — Le Mode Aventure est le cœur de l’expérience élève, pas un bonus. Il est construit après le mode calme car il s’appuie sur le même contenu et la même progression, pas parce qu’il serait secondaire.</div></div>
+    <div class="principle"><div class="principle-num">5</div><div><strong>Règles immuables</strong> — Bouton « J’ai fini de lire », aide à 2 niveaux empilés, dark only #0d1418, localStorage, 0 €, pas de notes sur 20.</div></div>
+  </div>
+
+  <div class="box box-green">
+    <strong>Logique de validation d'un exercice (fixée en Phase 1) :</strong> un exercice est « réussi » quand toutes ses questions ont été cliquées correctement (une mauvaise réponse affiche « Presque, réessaie » et ne compte jamais comme réussite). Deux clés localStorage séparées : <code>_tente</code> (dès le premier clic, bon ou mauvais) et <code>_reussi</code> (seulement quand tout est correct).
+  </div>
+
+  <div class="section-title">🔧 Les 7 phases</div>
+  <div class="grid">
+
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 0 — Cadrage</h3>
+      <p>Valider les règles, le template des 9 sections de cours, le comportement des 2 boutons d’aide, le schéma localStorage et le design system.</p>
+      <ul>
+        <li>Template cours validé</li>
+        <li>Aide 2 niveaux figée</li>
+        <li>Design system (couleurs, boutons ≥ 48 px, logo float)</li>
+        <li>Préfixe localStorage <code>brevet2027_</code></li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="04-phase-0.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 1 — Templates + premiers contenus</h3>
+      <p>Créer les moules et produire les premiers cours + exercices.</p>
+      <ul>
+        <li>Moule cours + bouton « J’ai fini de lire »</li>
+        <li>Moule exercice (3-5 questions + 2 aides empilées)</li>
+        <li>5 cours Français prioritaires + exercices (dépasse le minimum de 3)</li>
+        <li>Annales PDF Français intégrées</li>
+        <li>Test ELEVE_TEST PASS sur chaque élément (5/5, 08/08/2026)</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="05-phase-1.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 2 — Interface de navigation</h3>
+      <p>Construire la coquille autour du contenu existant.</p>
+      <ul>
+        <li>Accueil (logo animé + slogan + 2 boutons)</li>
+        <li>Matières → Chapitres → Liste des cours</li>
+        <li>Pages Progression, Badges, Paramètres, Contact</li>
+        <li>Progression claire (lu / tenté / réussi)</li>
+        <li>Retour partout, boutons ≥ 48 px</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="06-phase-2.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 3 — Contenu prioritaire</h3>
+      <p>Étendre le contenu sur le cœur du brevet.</p>
+      <ul>
+        <li>Français : 13 cours (grammaire + écriture)</li>
+        <li>Maths : 10 cours (nombres, géométrie, proportionnalité)</li>
+        <li>Histoire-Géo-EMC : 4 cours incontournables</li>
+        <li>Sciences : 4 cours de base</li>
+        <li>Total : 31 cours de bonne qualité</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="07-phase-3.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 4 — Annales + qualité</h3>
+      <p>Finaliser les annales et verrouiller la qualité.</p>
+      <ul>
+        <li>180 annales PDF hébergées (4 matières)</li>
+        <li>Cours lu ≠ exercice tenté ≠ réussi ≠ à revoir</li>
+        <li>Mur qualité ELEVE_TEST systématique sur les 31 cours</li>
+        <li>Badges bronze / argent / or (seuils 5/15/31)</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="08-phase-4.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 5 — Mode Aventure</h3>
+      <p>Ajouter la couche jeu une fois le mode calme solide.</p>
+      <ul>
+        <li>Carte des 4 royaumes</li>
+        <li>Clé = cours lu</li>
+        <li>Coffre = exercice réussi</li>
+        <li>Badges = loot</li>
+        <li>Boss = annales</li>
+        <li>Streak, inventaire, PNJ</li>
+        <li>Devenu le mode unique et permanent (12/08/2026, plus d'interrupteur — voir détail)</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="09-phase-5.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-doing">🟡 EN COURS</span>
+      <h3>Phase 6 — Complétion</h3>
+      <p>Atteindre les 88 cours et mettre en ligne.</p>
+      <ul>
+        <li>Catalogue complet : 90 cours (dépasse l'objectif de 88)</li>
+        <li>Optimisation vérifiée (0 dépendance externe, pages légères)</li>
+        <li>Check final</li>
+        <li>Mise en ligne GitHub Pages — en attente du feu vert utilisateur</li>
+      </ul>
+      <a class="btn" href="10-phase-6.html" style="margin-top:auto">Détail →</a>
+    </div>
+
+  </div>
+
+  <div class="box box-yellow" style="margin-top:20px">
+    Les phases 0 à 6 (+ Check final) sont le cadrage initial. La phase ci-dessous prolonge la roadmap : elle est née d'un besoin identifié après le Check final, pas prévue au départ.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="badge badge-done">✅ TERMINÉ</span>
+      <h3>Phase 8 — Banque de questions par cours</h3>
+      <p>Faire évoluer les exercices d'une série fixe de questions vers une banque avec tirage aléatoire.</p>
+      <ul>
+        <li>Pilote sur 1 cours (Français — accord du participe passé)</li>
+        <li>Banque de 20 questions (10 QCM + 10 écrites)</li>
+        <li>Tirage aléatoire de 4 questions à chaque passage</li>
+        <li>Correction texte tolérante aux accents, sans IA externe</li>
+        <li>Généralisé aux 90/90 cours (1800 questions au total)</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--green);font-size:.85rem">✅ Feu vert donné</p>
+      <a class="btn" href="14-phase-8.html" style="margin-top:auto">Détail →</a>
+    </div>
+  </div>
+
+  <div class="section-title">📋 Livrables par phase</div>
+  <div class="card" style="height:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.9rem;color:var(--muted)">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border);text-align:left">
+          <th style="padding:8px 6px;color:#fff">Phase</th>
+          <th style="padding:8px 6px;color:#fff">Livrable</th>
+          <th style="padding:8px 6px;color:#fff">Critère de sortie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 6px">0</td>
+          <td style="padding:8px 6px">Règles + templates figés</td>
+          <td style="padding:8px 6px">Feu vert explicite</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 6px">1</td>
+          <td style="padding:8px 6px">3-5 cours FR + exercices + annales FR</td>
+          <td style="padding:8px 6px">ELEVE_TEST PASS</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 6px">2</td>
+          <td style="padding:8px 6px">Navigation + pages transverses</td>
+          <td style="padding:8px 6px">Parcours élève fluide</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 6px">3</td>
+          <td style="padding:8px 6px">25-35 cours prioritaires</td>
+          <td style="padding:8px 6px">Cœur brevet couvert</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 6px">4</td>
+          <td style="padding:8px 6px">Annales + badges + qualité</td>
+          <td style="padding:8px 6px">0 FAIL ELEVE_TEST</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 6px">5</td>
+          <td style="padding:8px 6px">Mode Aventure + interrupteur</td>
+          <td style="padding:8px 6px">Mode calme intact</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 6px">6</td>
+          <td style="padding:8px 6px">88 cours + mise en ligne</td>
+          <td style="padding:8px 6px">Check final OK</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box box-green" style="margin-top:24px">
+    <strong>Ordre :</strong> Phase 0 → Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
+  </div>
+
+  <div class="card" style="margin-top:32px;height:auto">
+    <p style="margin-bottom:0;color:var(--muted)">
+      <a href="index.html">← Retour Accueil</a> · 
+      <a href="00-presentation.html">00-Présentation</a> · 
+      <a href="01-instructions.html">01-Instructions</a> · 
+      <a href="13-architecture.html">Architecture</a> ·
+      <a href="12-catalogue.html">Catalogue</a> ·
+      <a href="14-phase-8.html">Phase 8</a>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>

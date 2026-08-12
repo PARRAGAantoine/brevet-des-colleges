@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 1 - Templates + premiers contenus</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+.badge-done{color:var(--green);border-color:var(--green);background:rgba(74,222,128,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul,ol{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="04-phase-0.html">← Phase 0</a>
+    <a class="btn btn-primary" href="06-phase-2.html">Phase 2 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-done">✅ TERMINÉ</span>
+  <h1>Phase 1 — Templates + premiers contenus</h1>
+  <p>Créer les moules techniques et produire les premiers cours et exercices réellement utilisables par un élève.</p>
+
+  <div class="card">
+    <h2>Objectif de cette phase</h2>
+    <p>Passer du cadrage à du contenu concret. On ne construit pas encore toute l’interface. On crée d’abord les modèles (templates) d’un cours et d’un exercice, puis on les remplit avec 3 à 5 vrais cours de Français prioritaires.</p>
+    <p>À la fin de cette phase, un élève doit pouvoir lire un cours, cliquer sur « J’ai fini de lire », faire les exercices avec les deux niveaux d’aide, et accéder aux annales de Français.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ce qu’il faut produire</h2>
+    <h3>1. Moule de cours</h3>
+    <ul>
+      <li>Structure en 9 sections : Tu vas apprendre / Vocabulaire / Avant de commencer / Idée principale / Méthode / Exemple guidé / Pièges / À retenir / Astuces</li>
+      <li>Bouton obligatoire « J’ai fini de lire » qui enregistre la progression dans localStorage</li>
+      <li>Vocabulaire simple, phrases courtes</li>
+      <li>Style sombre <code>#0d1418</code>, boutons ≥ 48 px</li>
+    </ul>
+
+    <h3>2. Moule d’exercice</h3>
+    <ul>
+      <li>3 à 5 questions directement liées au cours</li>
+      <li>Deux boutons d’aide empilés : « Aide » (indice) puis « Aide supplémentaire » (explication détaillée)</li>
+      <li>Lien de retour vers le cours</li>
+      <li>Distinction claire entre exercice tenté et exercice réussi</li>
+    </ul>
+
+    <h3>3. Premiers contenus Français</h3>
+    <ul>
+      <li>3 à 5 cours prioritaires (ex. : types de phrases, classes de mots, temps simples…)</li>
+      <li>Exercices associés à chaque cours</li>
+      <li>Annales PDF de Français hébergées localement</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Règles à respecter</h2>
+    <ul>
+      <li>HTML / CSS / JS vanilla uniquement</li>
+      <li>Pas de framework CSS</li>
+      <li>Progression uniquement via localStorage (préfixe <code>brevet2027_</code>)</li>
+      <li>Cours lu ≠ exercice réussi</li>
+      <li>Chaque élément doit passer le test ELEVE_TEST</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Checklist de fin de phase</h2>
+    <ul class="check">
+      <li class="done">Moule de cours validé (9 sections + bouton « J’ai fini de lire »)</li>
+      <li class="done">Moule d’exercice validé (3-5 questions + 2 aides empilées)</li>
+      <li class="done">3 à 5 cours Français rédigés et intégrés (5 : types de phrases, classes de mots, fonctions, relatives, temps simples)</li>
+      <li class="done">Exercices associés à chaque cours</li>
+      <li class="done">Annales PDF Français accessibles (65 sujets)</li>
+      <li class="done">localStorage fonctionnel (cours lu / exercices) — vérifié par lecture de code</li>
+      <li class="done">Test ELEVE_TEST PASS sur chaque élément — confirmé dans un vrai navigateur (5/5 PASS, 08/08/2026)</li>
+    </ul>
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> des templates réutilisables + 3 à 5 cours Français complets avec exercices et annales, testés et utilisables par un élève.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> · 
+      <a href="04-phase-0.html">← Phase 0</a> · 
+      <a href="06-phase-2.html">Phase 2 →</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

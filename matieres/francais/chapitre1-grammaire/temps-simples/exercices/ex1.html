@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices — Conjugaison aux temps simples — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.fil{color:var(--muted);font-size:.85rem;margin-bottom:6px}
+h1{font-size:1.5rem;color:#fff;margin-bottom:6px}
+p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+.question{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin:16px 0}
+.question h2{font-size:1rem;color:var(--blue);margin-bottom:4px}
+.question p.enonce{color:#fff;font-size:1.05rem;margin-bottom:14px}
+.choix{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.reponse{min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);text-align:left;font-size:.95rem;cursor:pointer}
+.reponse.correcte-select{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.reponse.fausse-select{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.zone-texte{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.champ-reponse{flex:1;min-width:160px;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-size:.95rem}
+.champ-reponse:focus{outline:none;border-color:var(--blue)}
+.champ-reponse.correcte{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green)}
+.champ-reponse.fausse{border-color:var(--red);background:rgba(248,113,113,.12);color:var(--red)}
+.btn-valider{min-height:48px;padding:10px 20px;border-radius:10px;border:1px solid var(--blue);background:var(--blue);color:#000;font-weight:700;cursor:pointer;font-size:.95rem}
+.feedback{font-weight:700;margin-bottom:10px;min-height:1.2em}
+.feedback.ok{color:var(--green)}
+.feedback.non{color:var(--yellow)}
+.aides{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.btn-aide{align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--blue);font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-aide[data-niveau="2"]{display:none}
+.aide-texte{display:none;padding:10px 14px;border-radius:8px;background:rgba(56,189,248,.08);border-left:4px solid var(--blue);color:var(--text);font-size:.9rem}
+.aide-texte.visible{display:block}
+.btn-voir-reponse{display:none;align-self:flex-start;min-height:48px;padding:8px 14px;border-radius:9px;border:1px solid var(--yellow);background:transparent;color:var(--yellow);font-weight:700;cursor:pointer;font-size:.9rem}
+.feedback.revele{color:var(--blue)}
+.reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
+.fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
+.fin.visible{display:block}
+.fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.actions-bas{margin-top:24px}
+@keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+.fin-compte{color:var(--muted);font-size:.85rem;margin-top:8px}
+.fin-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../index.html">← Revoir le cours</a>
+</div>
+<div class="container">
+  <p class="fil">Français · Grammaire, conjugaison, orthographe</p>
+  <h1>Exercices — Conjugaison aux temps simples</h1>
+  <p class="note">4 nouvelles questions à chaque fois, tirées d'une banque de 20.</p>
+
+  <div id="questions"></div>
+
+  <div id="fin" class="fin">
+    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p class="fin-compte" id="fin-compte"></p>
+    <div class="fin-actions">
+      <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
+    </div>
+  </div>
+
+  <div class="actions-bas">
+    <a class="btn btn-primary" href="../index.html">← Revoir le cours</a>
+  </div>
+</div>
+
+<script>
+  var idCours = 'temps-simples';
+  var keyTente = 'brevet2027_exo_' + idCours + '_tente';
+  var keyReussi = 'brevet2027_exo_' + idCours + '_reussi';
+  var keySansFaute = 'brevet2027_exo_' + idCours + '_sansfaute';
+
+  var banqueQCM = [
+    { enonce: 'Comment conjugue-t-on « chanter » au présent avec « nous » ?', choix: [
+        { texte: 'nous chantons', correct: true }, { texte: 'nous chantions', correct: false }, { texte: 'nous chanterons', correct: false }
+      ], aide1: 'Au présent, la terminaison avec « nous » est « -ons ».', aide2: '« nous chantons » : radical « chant- » + terminaison du présent « -ons ».' },
+    { enonce: 'Quel est le temps de « je chantais » ?', choix: [
+        { texte: 'Présent', correct: false }, { texte: 'Imparfait', correct: true }, { texte: 'Futur simple', correct: false }
+      ], aide1: 'Regarde la terminaison « -ais ».', aide2: 'La terminaison « -ais » à la première personne du singulier est caractéristique de l’imparfait.' },
+    { enonce: 'Comment conjugue-t-on « aimer » au futur simple avec « tu » ?', choix: [
+        { texte: 'tu aimais', correct: false }, { texte: 'tu aimes', correct: false }, { texte: 'tu aimeras', correct: true }
+      ], aide1: 'Le futur simple garde le « r » de l’infinitif « aimer ».', aide2: '« tu aimeras » : radical « aimer- » (avec le r de l’infinitif) + terminaison du futur « -as ».' },
+    { enonce: 'Quel est le radical du verbe « manger » ?', choix: [
+        { texte: 'man-', correct: false }, { texte: 'mang-', correct: true }, { texte: 'manger-', correct: false }
+      ], aide1: 'Enlève la terminaison « -er » de l’infinitif.', aide2: 'Le radical est ce qui reste quand tu enlèves la terminaison de l’infinitif (-er, -ir ou -re). Applique cette règle au verbe de la question.' },
+    { enonce: 'Quel est le temps de « il finit » dans « Il finit toujours ses devoirs avant le dîner. » ?', choix: [
+        { texte: 'Présent', correct: true }, { texte: 'Imparfait', correct: false }, { texte: 'Futur simple', correct: false }
+      ], aide1: 'Le mot « toujours » indique une habitude actuelle : à quel temps parle-t-on d’une habitude présente ?', aide2: '« il finit » a la terminaison « -it » du présent pour un verbe du 2e groupe comme « finir ».' },
+    { enonce: 'Comment conjugue-t-on « vendre » au présent avec « elle » ?', choix: [
+        { texte: 'elle vend', correct: true }, { texte: 'elle vende', correct: false }, { texte: 'elle vendra', correct: false }
+      ], aide1: 'Les verbes en « -re » perdent leur terminaison au présent avec « il/elle ».', aide2: '« elle vend » : le radical « vend- » seul, sans terminaison ajoutée, à la 3e personne du singulier du présent.' },
+    { enonce: 'Quel est le temps de « nous partirons » ?', choix: [
+        { texte: 'Présent', correct: false }, { texte: 'Imparfait', correct: false }, { texte: 'Futur simple', correct: true }
+      ], aide1: 'Regarde la terminaison « -ons » précédée d’un « r ».', aide2: 'La terminaison « -rons » (avec le r) à la première personne du pluriel est caractéristique du futur simple.' },
+    { enonce: 'Comment conjugue-t-on « finir » à l’imparfait avec « vous » ?', choix: [
+        { texte: 'vous finissiez', correct: true }, { texte: 'vous finissez', correct: false }, { texte: 'vous finirez', correct: false }
+      ], aide1: 'À l’imparfait, le radical des verbes en « -ir » comme « finir » prend « -iss- ».', aide2: '« vous finissiez » : radical « finiss- » + terminaison de l’imparfait avec « vous » : « -iez ».' },
+    { enonce: 'Quel est le radical du verbe « grandir » ?', choix: [
+        { texte: 'grand-', correct: true }, { texte: 'grandi-', correct: false }, { texte: 'grandir-', correct: false }
+      ], aide1: 'Enlève la terminaison « -ir » de l’infinitif.', aide2: 'Le radical est ce qui reste quand tu enlèves la terminaison de l’infinitif : « grandir » → « grand- ».' },
+    { enonce: 'Comment conjugue-t-on « être » au présent avec « ils » ?', choix: [
+        { texte: 'ils sont', correct: true }, { texte: 'ils étaient', correct: false }, { texte: 'ils seront', correct: false }
+      ], aide1: '« être » est un verbe irrégulier à connaître par cœur.', aide2: '« ils sont » est la forme du présent de « être » à la 3e personne du pluriel — à apprendre par cœur, elle ne suit pas de règle de radical + terminaison.' }
+  ];
+
+  var banqueTexte = [
+    { enonce: '« Je ___ (finir) mes devoirs. » — présent (un mot)', reponses: ['finis'], aide1: 'Quelle est la terminaison du présent avec « je » pour un verbe comme « finir » ?', aide2: 'Le radical de « finir » est « fin- » ; à la 1ère personne du singulier du présent, on ajoute « -is ».' },
+    { enonce: '« Elle ___ (parler) tous les jours. » — imparfait (un mot)', reponses: ['parlait'], aide1: 'Quelle est la terminaison de l’imparfait avec « elle » ?', aide2: 'Le radical de « parler » est « parl- » ; à l’imparfait, la 3e personne du singulier prend « -ait ».' },
+    { enonce: '« Nous ___ (arriver) demain. » — futur simple (un mot)', reponses: ['arriverons'], aide1: 'Au futur simple, on garde l’infinitif complet comme radical.', aide2: '« arriver » + terminaison du futur avec « nous » : « -ons ».' },
+    { enonce: '« Tu ___ (avoir) raison. » — présent (un mot)', reponses: ['as'], aide1: '« avoir » est un verbe irrégulier à connaître par cœur au présent.', aide2: 'Au présent, « avoir » avec « tu » donne une forme très courte, à deux lettres.' },
+    { enonce: '« Ils ___ (aller) à l’école. » — imparfait (un mot)', reponses: ['allaient'], aide1: 'L’imparfait de « aller » se forme sur le radical « all- ».', aide2: '« all- » + terminaison de l’imparfait avec « ils » : « -aient ».' },
+    { enonce: '« Vous ___ (venir) avec nous. » — futur simple (un mot)', reponses: ['viendrez'], aide1: '« venir » est irrégulier au futur : son radical change.', aide2: 'Le radical du futur de « venir » est « viendr- » ; ajoute la terminaison du futur avec « vous » : « -ez ».' },
+    { enonce: '« Je ___ (être) content. » — présent (un mot)', reponses: ['suis'], aide1: '« être » est un verbe irrégulier à connaître par cœur au présent.', aide2: 'Au présent, « être » avec « je » donne une forme très courte, à quatre lettres.' },
+    { enonce: '« Elle ___ (faire) ses devoirs. » — imparfait (un mot)', reponses: ['faisait'], aide1: 'L’imparfait de « faire » se forme sur le radical « fais- ».', aide2: '« fais- » + terminaison de l’imparfait avec « elle » : « -ait ».' },
+    { enonce: '« Nous ___ (voir) ce film. » — futur simple (un mot)', reponses: ['verrons'], aide1: '« voir » est irrégulier au futur : son radical change.', aide2: 'Le radical du futur de « voir » est « verr- » ; ajoute la terminaison du futur avec « nous » : « -ons ».' },
+    { enonce: '« Tu ___ (dire) la vérité. » — présent (un mot)', reponses: ['dis'], aide1: 'Au présent, la terminaison avec « tu » pour ce verbe est courte.', aide2: 'Le radical de « dire » est « di- » ; à la 2e personne du singulier du présent, on ajoute « -s ».' }
+  ];
+
+  function melanger(tableau) {
+    var copie = tableau.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copie[i]; copie[i] = copie[j]; copie[j] = tmp;
+    }
+    return copie;
+  }
+
+  function normaliser(s) {
+    return s.trim().toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[’`]/g, "'");
+  }
+
+  function brevetJournee() {
+    var j = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_jour_courant') !== j) {
+      localStorage.setItem('brevet2027_jour_courant', j);
+      localStorage.setItem('brevet2027_jour_reussites', '0');
+    }
+  }
+  function brevetErreur() {
+    var n = parseInt(localStorage.getItem('brevet2027_erreurs_total') || '0', 10);
+    localStorage.setItem('brevet2027_erreurs_total', String(n + 1));
+  }
+  function brevetReussiteJour() {
+    brevetJournee();
+    var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+  }
+  function brevetConfetti() {
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden';
+    document.body.appendChild(c);
+    var couleurs = ['#38bdf8', '#fbbf24', '#4ade80', '#f87171', '#a78bfa', '#ffd700'];
+    for (var i = 0; i < 40; i++) {
+      var p = document.createElement('span');
+      var coul = couleurs[Math.floor(Math.random() * couleurs.length)];
+      var gauche = Math.random() * 100;
+      var duree = 1.4 + Math.random() * 1.2;
+      var delai = Math.random() * 0.3;
+      p.style.cssText = 'position:absolute;top:-10px;left:' + gauche + '%;width:8px;height:8px;background:' + coul + ';border-radius:2px;animation:brevet-confetti ' + duree + 's ease-in ' + delai + 's forwards;opacity:0';
+      c.appendChild(p);
+    }
+    setTimeout(function () { c.remove(); }, 3000);
+  }
+  function brevetSon(succes) {
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.value = succes ? 660 : 220;
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (succes ? 0.35 : 0.18));
+      o.start();
+      o.stop(ctx.currentTime + (succes ? 0.35 : 0.18));
+      if (succes) {
+        var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+        o2.connect(g2); g2.connect(ctx.destination);
+        o2.type = 'sine'; o2.frequency.value = 880;
+        g2.gain.setValueAtTime(0.07, ctx.currentTime + 0.12);
+        g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+        o2.start(ctx.currentTime + 0.12); o2.stop(ctx.currentTime + 0.45);
+      }
+    } catch (e) {}
+  }
+
+  function demarrerRetourAuto() {
+    var secondes = 5;
+    var annule = false;
+    var elCompte = document.getElementById('fin-compte');
+    var btnRester = document.getElementById('btn-rester');
+    function tick() {
+      if (annule) return;
+      if (secondes <= 0) {
+        window.location.href = '../../../index.html';
+        return;
+      }
+      elCompte.textContent = 'Retour à la carte dans ' + secondes + 's…';
+      secondes--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+    btnRester.addEventListener('click', function () {
+      annule = true;
+      elCompte.textContent = 'D\'accord, prends ton temps ici 🙂';
+    });
+  }
+
+  var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
+  var reussies = {};
+  var uneErreur = false;
+  var conteneur = document.getElementById('questions');
+
+  function marquerTente() {
+    if (localStorage.getItem(keyTente) !== 'oui') {
+      localStorage.setItem(keyTente, 'oui');
+    }
+  }
+
+  function verifierTout() {
+    if (Object.keys(reussies).length === tirage.length) {
+      localStorage.setItem(keyReussi, 'oui');
+      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+      brevetReussiteJour();
+      document.getElementById('fin').classList.add('visible');
+      brevetConfetti();
+      brevetSon(true);
+      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      demarrerRetourAuto();
+    }
+  }
+
+  tirage.forEach(function (q, index) {
+    var qid = 'q' + index;
+    var div = document.createElement('div');
+    div.className = 'question';
+
+    var corpsHtml = q.choix
+      ? '<div class="choix">' + q.choix.map(function (c) {
+          return '<button class="reponse" data-correct="' + c.correct + '">' + c.texte + '</button>';
+        }).join('') + '</div>'
+      : '<div class="zone-texte"><input type="text" class="champ-reponse" placeholder="Ta réponse"><button class="btn-valider">Valider</button></div>';
+
+    div.innerHTML =
+      '<h2>Question ' + (index + 1) + '</h2>' +
+      '<p class="enonce">' + q.enonce + '</p>' +
+      corpsHtml +
+      '<p class="feedback"></p>' +
+      '<div class="aides">' +
+      '<button class="btn-aide" data-niveau="1">Aide</button>' +
+      '<div class="aide-texte" data-niveau="1">' + q.aide1 + '</div>' +
+      '<button class="btn-aide" data-niveau="2">Aide supplémentaire</button>' +
+      '<div class="aide-texte" data-niveau="2">' + q.aide2 + '</div>' +
+      '<button class="btn-voir-reponse">Voir la réponse</button>' +
+      '</div>';
+
+    conteneur.appendChild(div);
+
+    var feedback = div.querySelector('.feedback');
+
+    function marquerReussi() {
+      feedback.textContent = 'Bravo ✅';
+      feedback.className = 'feedback ok';
+      reussies[qid] = true;
+      div.querySelector('.aides').style.display = 'none';
+      brevetSon(true);
+      verifierTout();
+    }
+
+    function marquerRate() {
+      feedback.textContent = 'Presque, réessaie';
+      feedback.className = 'feedback non';
+      uneErreur = true;
+      brevetErreur();
+      brevetSon(false);
+    }
+
+    function marquerRevele() {
+      feedback.textContent = 'Réponse révélée 💡';
+      feedback.className = 'feedback revele';
+      reussies[qid] = true;
+      uneErreur = true;
+      div.querySelector('.aides').style.display = 'none';
+      verifierTout();
+    }
+
+    if (q.choix) {
+      div.querySelectorAll('.reponse').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          marquerTente();
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+          });
+          if (btn.dataset.correct === 'true') {
+            btn.classList.add('correcte-select');
+            marquerReussi();
+          } else {
+            btn.classList.add('fausse-select');
+            marquerRate();
+          }
+        });
+      });
+    } else {
+      var champ = div.querySelector('.champ-reponse');
+      var btnValider = div.querySelector('.btn-valider');
+      var accepteesNorm = q.reponses.map(normaliser);
+
+      function valider() {
+        marquerTente();
+        champ.classList.remove('correcte', 'fausse');
+        if (accepteesNorm.indexOf(normaliser(champ.value)) !== -1) {
+          champ.classList.add('correcte');
+          marquerReussi();
+        } else {
+          champ.classList.add('fausse');
+          marquerRate();
+        }
+      }
+
+      btnValider.addEventListener('click', valider);
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') valider();
+      });
+    }
+
+    div.querySelectorAll('.btn-aide').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var niveau = btn.dataset.niveau;
+        div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
+        if (niveau === '1') {
+          var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
+          if (aide2) aide2.style.display = 'inline-flex';
+        }
+        if (niveau === '2') {
+          var btnVoir = div.querySelector('.btn-voir-reponse');
+          if (btnVoir) btnVoir.style.display = 'inline-flex';
+        }
+      });
+    });
+
+    var btnVoirReponse = div.querySelector('.btn-voir-reponse');
+    if (btnVoirReponse) {
+      btnVoirReponse.addEventListener('click', function () {
+        if (q.choix) {
+          div.querySelectorAll('.reponse').forEach(function (b) {
+            b.classList.remove('correcte-select', 'fausse-select');
+            b.disabled = true;
+            if (b.dataset.correct === 'true') b.classList.add('correcte-select');
+          });
+        } else {
+          var champReponse = div.querySelector('.champ-reponse');
+          champReponse.value = q.reponses[0];
+          champReponse.classList.remove('fausse');
+          champReponse.classList.add('correcte');
+          champReponse.disabled = true;
+          div.querySelector('.btn-valider').disabled = true;
+        }
+        marquerRevele();
+      });
+    }
+  });
+</script>
+</body>
+</html>

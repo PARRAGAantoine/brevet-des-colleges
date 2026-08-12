@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check final</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);min-height:44px}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}
+.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px}
+h2{font-size:1.2rem;color:#fff;margin:18px 0 10px}
+h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+p{margin-bottom:14px;color:var(--muted)}
+ul{padding-left:22px}
+li{margin-bottom:8px;color:var(--muted)}
+li strong{color:var(--text)}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:14px 16px;border-radius:10px;margin:14px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08);color:var(--muted)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.check{list-style:none;padding-left:0}
+.check li{padding-left:28px;position:relative;margin-bottom:10px}
+.check li::before{content:"☐";position:absolute;left:0;color:var(--yellow)}
+.check li.done::before{content:"✅";color:var(--green)}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="03-roadmap.html">← Roadmap</a>
+  <div style="display:flex;gap:8px">
+    <a class="btn" href="10-phase-6.html">← Phase 6</a>
+    <a class="btn btn-primary" href="14-phase-8.html">Phase 8 →</a>
+  </div>
+</div>
+
+<div class="container">
+  <span class="badge badge-doing">🟡 EN COURS</span>
+  <h1>Check final</h1>
+  <p>Vérification complète avant de considérer le projet Brevet Sprint 2027 comme prêt pour les élèves.</p>
+
+  <div class="card">
+    <h2>Objectif</h2>
+    <p>S’assurer que tout ce qui a été défini dans le cadrage et construit dans les phases 1 à 6 est bien en place, cohérent et utilisable.</p>
+    <p>Ce check sert de dernière porte avant de dire « l’application est prête ».</p>
+  </div>
+
+  <div class="card">
+    <h2>Checklist globale</h2>
+    <h3>Contenu</h3>
+    <ul class="check">
+      <li class="done">90 cours présents et accessibles (objectif 88 dépassé)</li>
+      <li class="done">Exercices liés à chaque cours</li>
+      <li class="done">Aide à 2 niveaux empilés fonctionnelle partout (gabarit commun, testé sur échantillon toutes matières)</li>
+      <li class="done">Annales PDF hébergées pour les 4 matières (180 PDF)</li>
+    </ul>
+
+    <h3>Progression et motivation</h3>
+    <ul class="check">
+      <li class="done">Bouton « J’ai fini de lire » obligatoire et enregistré</li>
+      <li class="done">Cours lu ≠ exercice tenté ≠ exercice réussi ≠ à revoir</li>
+      <li class="done">Badges bronze / argent / or opérationnels (seuils 10/40/90)</li>
+      <li class="done">Page Progression claire et honnête</li>
+    </ul>
+
+    <h3>Interface et technique</h3>
+    <ul class="check">
+      <li class="done">Accueil simple (logo animé + 2 boutons)</li>
+      <li class="done">Navigation matières → chapitres → cours fluide</li>
+      <li class="done">Retour présent partout (0 lien cassé sur 197 pages)</li>
+      <li class="done">Boutons ≥ 48 px</li>
+      <li class="done">Dark only <code>#0d1418</code></li>
+      <li class="done">localStorage préfixe <code>brevet2027_</code></li>
+      <li class="done">Email de contact réel et cliquable</li>
+    </ul>
+
+    <h3>Mode Aventure</h3>
+    <ul class="check">
+      <li class="done">Interrupteur Classique / Aventure</li>
+      <li class="done">Mode calme intact</li>
+      <li class="done">Progression partagée entre les deux modes</li>
+    </ul>
+
+    <h3>Mise en ligne</h3>
+    <ul class="check">
+      <li>Application en ligne sur GitHub Pages — <strong>en attente : l'utilisateur a choisi de ne pas publier pour l'instant (08/08/2026)</strong></li>
+      <li class="done">Aucun lien cassé</li>
+      <li>Test complet sur téléphone réel — <strong>non réalisable dans cet environnement</strong> (seule une émulation de largeur d'écran dans le navigateur a pu être testée, pas un vrai appareil)</li>
+    </ul>
+  </div>
+
+  <div class="box box-yellow">
+    Tant qu’un point de cette checklist est en échec, le projet n’est pas considéré comme terminé.
+  </div>
+
+  <div class="box box-green">
+    <strong>Livrable de sortie :</strong> validation finale que l’application est prête à être utilisée par les élèves de 3ème.
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin-bottom:0">
+      <a href="03-roadmap.html">← Roadmap</a> ·
+      <a href="10-phase-6.html">← Phase 6</a> ·
+      <a href="14-phase-8.html">Phase 8 →</a> ·
+      <a href="index.html">Accueil</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

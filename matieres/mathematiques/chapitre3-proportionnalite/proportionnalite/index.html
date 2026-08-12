@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La proportionnalité — Brevet Sprint 2027</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.95rem;background:var(--card);font-weight:700;cursor:pointer}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue)}
+.btn-done{background:var(--green);color:#000;border-color:var(--green)}
+.hero{padding:32px 16px 26px;background:linear-gradient(180deg,rgba(56,189,248,.12),transparent);border-bottom:1px solid var(--border)}
+.hero-inner{max-width:720px;margin:0 auto}
+.fil{display:inline-block;background:rgba(56,189,248,.12);color:var(--blue);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.hero h1{font-size:1.9rem;color:#fff;line-height:1.3}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:14px;padding:20px;margin:16px 0}
+.card.accent-vert{border-left-color:var(--green);background:linear-gradient(135deg,rgba(74,222,128,.06),var(--card) 60%)}
+.card.accent-jaune{border-left-color:var(--yellow);background:linear-gradient(135deg,rgba(251,191,36,.07),var(--card) 60%)}
+.card.accent-astuce{background:linear-gradient(135deg,rgba(56,189,248,.10),var(--card) 60%)}
+.card h2{font-size:1.15rem;color:#fff;margin-bottom:10px}
+.card p{margin-bottom:12px;color:var(--text)}
+.card ul{padding-left:20px;margin-bottom:12px}
+.card li{margin-bottom:8px;color:var(--text)}
+.card li strong{color:#fff}
+.card h3{font-size:1rem;color:var(--blue);margin:14px 0 6px}
+.actions{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+#btn-exos{display:none}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="btn" href="../../index.html">← Retour</a>
+</div>
+<div class="hero">
+  <div class="hero-inner">
+    <p class="fil">Mathématiques · Proportionnalité</p>
+    <h1>📊 La proportionnalité</h1>
+  </div>
+</div>
+<div class="container">
+
+  <div class="card">
+    <h2>🎯 Tu vas apprendre</h2>
+    <p>À la fin de ce cours, tu sauras reconnaître une situation de proportionnalité et calculer une valeur manquante.</p>
+  </div>
+
+  <div class="card">
+    <h2>📖 Vocabulaire à connaître</h2>
+    <ul>
+<li><strong>Proportionnalité</strong> : deux grandeurs sont proportionnelles si leur rapport est constant.</li>
+<li><strong>Coefficient de proportionnalité</strong> : le nombre par lequel on multiplie une grandeur pour obtenir l'autre.</li>
+<li><strong>Produit en croix</strong> : une technique pour résoudre une égalité de deux rapports.</li>
+<li><strong>Pourcentage</strong> : une proportion exprimée sur 100.</li>
+</ul>
+  </div>
+
+  <div class="card">
+    <h2>🚀 Avant de commencer</h2>
+    <p>Pour bien suivre ce cours, tu dois savoir manipuler des fractions et faire des multiplications et divisions.</p>
+  </div>
+
+  <div class="card">
+    <h2>💡 L'idée principale</h2>
+    <p>Deux grandeurs sont proportionnelles si l'une est obtenue en multipliant l'autre par un nombre fixe, le coefficient de proportionnalité.</p>
+  </div>
+
+  <div class="card">
+    <h2>📝 Méthode pas à pas</h2>
+    <h3>1. Vérifie la proportionnalité</h3>
+<p>Le rapport entre les deux grandeurs est-il constant ?</p>
+<h3>2. Utilise le produit en croix</h3>
+<p>Pour une égalité a/b = c/d, on a a×d = b×c.</p>
+<h3>3. Pour un pourcentage</h3>
+<p>Multiplie par le pourcentage divisé par 100.</p>
+  </div>
+
+  <div class="card accent-vert">
+    <h2>🔍 Exemple guidé</h2>
+    <ul>
+<li>3kg de pommes coûtent 6€. Combien coûtent 5kg ? 3/6 = 5/x → x = 6×5/3 = 10€</li>
+<li>20% de 50 = 50×20/100 = 10</li>
+</ul>
+  </div>
+
+  <div class="card accent-jaune">
+    <h2>⚠️ Pièges à éviter</h2>
+    <ul>
+<li>N'applique pas de produit en croix si les grandeurs ne sont pas proportionnelles.</li>
+<li>Vérifie bien quelle grandeur correspond à quelle colonne dans ton tableau.</li>
+</ul>
+  </div>
+
+  <div class="card accent-vert">
+    <h2>📌 À retenir</h2>
+    <ul>
+<li>Proportionnalité = rapport constant.</li>
+<li>Produit en croix pour résoudre. Pourcentage = × (p/100).</li>
+</ul>
+  </div>
+
+  <div class="card accent-astuce">
+    <h2>⭐ Astuce</h2>
+    <p>Fais toujours un tableau de proportionnalité pour organiser tes données avant de calculer.</p>
+  </div>
+
+  <div class="actions">
+    <button id="btn-lu" class="btn btn-primary">J'ai fini de lire</button>
+    <a id="btn-exos" class="btn btn-primary" href="exercices/ex1.html">Faire les exercices →</a>
+  </div>
+</div>
+
+<script>
+  var key = 'brevet2027_cours_proportionnalite';
+  var btnLu = document.getElementById('btn-lu');
+  var btnExos = document.getElementById('btn-exos');
+
+  function marquerLu() {
+    btnLu.textContent = 'Lu ✅';
+    btnLu.classList.remove('btn-primary');
+    btnLu.classList.add('btn-done');
+    btnExos.style.display = 'inline-flex';
+  }
+
+  if (localStorage.getItem(key) === 'lu') {
+    marquerLu();
+  }
+
+  btnLu.addEventListener('click', function () {
+    localStorage.setItem(key, 'lu');
+    marquerLu();
+  });
+</script>
+</body>
+</html>

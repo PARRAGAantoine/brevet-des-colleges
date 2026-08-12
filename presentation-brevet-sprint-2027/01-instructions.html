@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 - Instructions</title>
+<style>
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
+a{color:var(--blue);text-decoration:none;font-weight:600} .btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card)}
+.btn-primary{background:var(--blue);color:#000;border-color:var(--blue);font-weight:700}
+.container{max-width:850px;margin:0 auto;padding:28px 16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.badge{display:inline-block;font-size:.75rem;padding:4px 10px;border-radius:999px;font-weight:700;border:1px solid;margin-bottom:12px}
+.badge-todo{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.1)}.badge-doing{color:var(--yellow);border-color:var(--yellow);background:rgba(251,191,36,.1)}
+h1{font-size:1.8rem;color:#fff;margin-bottom:8px} h2{font-size:1.2rem;color:#fff;margin:18px 0 10px} h3{font-size:1rem;color:var(--blue);margin:12px 0 6px}
+ul,ol{padding-left:22px} li{margin-bottom:6px;color:var(--muted)} code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;color:var(--blue);font-size:.9em}
+.box{padding:12px 14px;border-radius:8px;margin:12px 0;border-left:4px solid var(--blue);background:rgba(56,189,248,.08)} pre{background:#0d1418;border:1px solid var(--border);padding:12px;border-radius:8px;overflow:auto;color:var(--muted);font-size:.85em}
+.box-yellow{border-left-color:var(--yellow);background:rgba(251,191,36,.08)}
+.box-green{border-left-color:var(--green);background:rgba(74,222,128,.08)}
+.box-red{border-left-color:var(--red);background:rgba(248,113,113,.08)}
+</style>
+</head>
+<body>
+<div class="top"><a class="btn" href="index.html">← Retour Accueil</a><div style="display:flex;gap:8px"><a class="btn" href="03-roadmap.html">Roadmap</a><a class="btn btn-primary" href="index.html">Accueil</a></div></div>
+<div class="container">
+<span class="badge badge-doing">🟡 EN COURS</span>
+<h1>📋 Instructions IA</h1>
+<p style="color:var(--muted)">Les règles immuables du projet — pas de négociation, pas de raccourci. Phase 0 EN COURS.</p>
+
+<div class="card box-red">
+<h2>🚨 Ce qui est interdit</h2>
+<p>Quelques lignes rouges qu'on ne traverse jamais, même quand c'est plus rapide :</p>
+<ul>
+<li><strong>Pas de Bootstrap, pas de Tailwind, pas de framework CSS.</strong> On écrit le CSS à la main. Ça reste léger, compréhensible, et ça ne casse pas.</li>
+<li><strong>Pas de backend, pas de base de données, pas d'API.</strong> localStorage uniquement.</li>
+<li><strong>Pas de données personnelles.</strong> Pas de compte, pas de mot de passe, pas de nom, pas d'adresse, pas de suivi comportemental caché.</li>
+<li><strong>Pas de publicité.</strong> Jamais. Ni bannière, ni interstitielle, ni partenariat.</li>
+<li><strong>Pas de mode clair.</strong> Uniquement le mode sombre #0d1418. Pas de choix à faire, pas de flash blanc au chargement.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>💰 Budget 0€</h2>
+<p>Tout est gratuit et open-source. L'hébergement se fait sur <strong>GitHub Pages</strong>. Pas de VPS, pas de CDN payant, pas de service SaaS. Si une fonctionnalité coûte de l'argent, on la remplace par une alternative gratuite ou on l'abandonne.</p>
+<div class="box">Stack validée : HTML / CSS / JS vanilla, hébergé sur GitHub Pages, progression dans localStorage.</div>
+</div>
+
+<div class="card">
+<h2>📱 Pas de données personnelles</h2>
+<p>L'élève n'a pas besoin de créer un compte. Toute sa progression vit dans son navigateur, via <code>localStorage</code> avec le préfixe <code>brevet2027_</code>. Quand il efface ses données navigateur, il perd sa progression. C'est un choix assumé : la simplicité prime sur la persistance.</p>
+<div class="box box-yellow"><strong>Conséquence :</strong> pas de formulaire d'inscription, pas de mot de passe oublié, pas de RGPD complexe. Juste une app qui charge et qui marche.</div>
+</div>
+
+<div class="card">
+<h2>⚡ Léger et rapide</h2>
+<p>Le site doit charger en moins de 2 secondes sur un téléphone Android d'entrée de gamme avec une connexion 3G. Pas de bibliothèque lourde, pas de polyfills inutiles. Le CSS est inline dans chaque page pour éviter une requête HTTP supplémentaire.</p>
+</div>
+
+<div class="card">
+<h2>🏅 Badges, pas de notes</h2>
+<p>On ne met jamais de note sur 20. La motivation vient de l'accumulation, pas de la peur d'échouer. Trois niveaux :</p>
+<ul>
+<li><strong>Bronze</strong> — premier effort, régularité, lecture d'un premier cours</li>
+<li><strong>Argent</strong> — persévérance, série d'exercices réussis, retour sur ses erreurs</li>
+<li><strong>Or</strong> — maîtrise, tous les exercices d'un chapitre réussis, annale validée</li>
+</ul>
+<p>Les seuils exacts seront ajustés à l'usage, selon la difficulté observée. L'important est que chaque badge soit mérité et visible dans la page <code>badges.html</code>.</p>
+</div>
+
+<div class="card">
+<h2>🛠️ Stack technique</h2>
+<p>Du vanilla, toujours du vanilla. Pas de React, pas de Vue, pas de Angular. Trois fichiers par page maximum :</p>
+<ul>
+<li><strong>HTML</strong> — structure sémantique, inline CSS dans <code>&lt;style&gt;</code></li>
+<li><strong>CSS</strong> — variables CSS pour les couleurs, flexbox et grid, boutons min 44px de haut</li>
+<li><strong>JS</strong> — vanilla ES6, localStorage pour la persistance, pas de jQuery</li>
+</ul>
+<div class="box box-green"><strong>Thème :</strong> fond <code>#0d1418</code> sombre par défaut pour tout le monde. Pas de mode clair. Pas de toggle. Moins fatigant pour les yeux, plus calme le soir.</div>
+</div>
+
+<div class="card">
+<h2>📧 Contact vrai</h2>
+<p>Un vrai email de contact affiché en clair et cliquable : <a href="mailto:parraga.antoine@gmail.com">parraga.antoine@gmail.com</a>. Il apparaît sur <code>contact.html</code> et éventuellement dans le footer des pages. Pas de formulaire qui collecte des données — juste un lien <code>mailto:</code> qui ouvre le client email de l'élève.</p>
+<div class="box">Pourquoi un vrai email ? Parce qu'un élève en difficulté (ou ses parents) doit pouvoir écrire s'il bloque sur un bug ou s'il veut simplement dire merci.</div>
+</div>
+
+<div class="card">
+<h2>📁 Nommage des fichiers</h2>
+<p>Pas d'accents, pas d'espaces, tout en minuscules. C'est une règle technique qui évite des bugs à l'hébergement sur GitHub Pages :</p>
+<pre>
+✅ francais/
+✅ mathematiques/
+✅ histoire-geo-emc/
+✅ sciences/
+✅ annales/  (avec 2 n, corrigé depuis "Anales")
+❌ Français/
+❌ Mathématiques/
+❌ Histoire-Géo-EMC/
+❌ Anales/
+</pre>
+<p>Les PDF des annales officielles sont déjà téléchargés et hébergés directement dans les dossiers <code>Matieres/.../Annales/</code>. Pas de lien externe qui disparaît dans six mois.</p>
+</div>
+
+<div class="card" style="margin-top:32px">
+<p style="margin-bottom:0"><a href="index.html">← Retour Accueil</a> · <a href="00-presentation.html">00-Présentation ←</a> · <a href="02-roles.html">02-Rôles →</a> · <a href="13-architecture.html">Architecture</a> · <a href="12-catalogue.html">Catalogue</a></p>
+</div>
+
+</div>
+</body>
+</html>
