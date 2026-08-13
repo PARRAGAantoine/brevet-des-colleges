@@ -50,12 +50,12 @@ h1{font-size:1.6rem;color:#fff}
   background:
     radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--rc) 45%, transparent), transparent 55%),
     linear-gradient(180deg, color-mix(in srgb, var(--rc) 20%, #0d1a14), #0a1310 60%, color-mix(in srgb, var(--rc) 28%, #0a1310))}
-.scene::after{content:"";position:absolute;left:-20%;right:-20%;bottom:-40%;height:72%;border-radius:50%;background:color-mix(in srgb, var(--rc) 32%, #060b09);opacity:.85}
-.icone-centre{position:relative;z-index:2;filter:drop-shadow(0 2px 3px rgba(0,0,0,.75))}
+.icone-centre{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 3px 5px rgba(0,0,0,.75))}
+.icone-centre .mascotte-emoji{font-size:2.4rem}
 .etincelle-noeud{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 5px #fff;z-index:2;animation:scintille-noeud 2.4s ease-in-out infinite}
 @keyframes scintille-noeud{0%,100%{opacity:.1;transform:scale(.6)}50%{opacity:1;transform:scale(1.3)}}
-.noeud .couronne{position:absolute;top:-6px;right:2px;font-size:1.1rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));text-shadow:0 0 6px rgba(255,215,0,.8)}
-.noeud .mascotte{position:absolute;bottom:-6px;left:-4px;font-size:1.3rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));background:radial-gradient(circle, color-mix(in srgb, var(--rc) 55%, transparent), transparent 70%);border-radius:50%;padding:3px}
+.noeud .couronne{position:absolute;top:-6px;right:2px;font-size:1.1rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));text-shadow:0 0 6px rgba(255,215,0,.8);z-index:4}
+.noeud .badge-matiere{position:absolute;bottom:-6px;left:-4px;font-size:1.2rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));background:radial-gradient(circle, color-mix(in srgb, var(--rc) 55%, transparent), transparent 70%);border-radius:50%;padding:3px;z-index:4}
 .noeud .titre{color:#fff;font-weight:700;font-size:.82rem;line-height:1.25}
 .noeud .sous{color:var(--muted);font-size:.72rem}
 
@@ -113,19 +113,86 @@ h1{font-size:1.6rem;color:#fff}
 </div>
 <script>
   var royaumes = [
-    { id: 'francais', nom: 'Royaume des Lettres', icone: '📖', href: 'matieres/francais/index.html', couleur: '#4ade80',
+    { id: 'francais', nom: 'Royaume des Lettres', icone: '📖', href: 'matieres/francais/index.html', couleur: '#4ade80', formeType: 'hibou',
       mascotte: ['🥚', '🐤', '🦜', '🦉'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🦉 Chouette sage'],
       cours: ['accord-participe','classes-mots','conjonctives','fonctions','homophones','imperatif-subjonctif','relatives','temps-composes','temps-simples','types-phrases','argumentatif','explicatif','lettre-formelle','recit','resumer','etude-recit','figures-style','poesie','registres','theatre'] },
-    { id: 'mathematiques', nom: 'Royaume des Nombres', icone: '🔢', href: 'matieres/mathematiques/index.html', couleur: '#38bdf8',
+    { id: 'mathematiques', nom: 'Royaume des Nombres', icone: '🔢', href: 'matieres/mathematiques/index.html', couleur: '#38bdf8', formeType: 'cristal',
       mascotte: ['🥚', '🔷', '💠', '💎'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '💎 Diamant parfait'],
       cours: ['calcul-litteral','equations','fractions','inequations','nombres-relatifs','puissances','aires','angles-cercle','pythagore','thales','transformations','trigonometrie','volumes','proportionnalite','fonctions-affines','fonctions-lineaires','probabilites','representation-graphique','statistiques','algorithmique-scratch'] },
-    { id: 'histoire-geo-emc', nom: 'Royaume du Temps', icone: '🌍', href: 'matieres/histoire-geo-emc/index.html', couleur: '#fbbf24',
+    { id: 'histoire-geo-emc', nom: 'Royaume du Temps', icone: '🌍', href: 'matieres/histoire-geo-emc/index.html', couleur: '#fbbf24', formeType: 'dragon',
       mascotte: ['🥚', '🦎', '🐢', '🐉'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🐉 Dragon ancien'],
       cours: ['construction-europeenne','france-seconde-guerre-mondiale','guerre-froide','monde-depuis-1991','premiere-guerre-mondiale','seconde-guerre-mondiale','totalitarismes','aires-urbaines','espaces-faible-densite','espaces-productifs','france-europe-monde','mobilites','territoires-ue','citoyennete','defense-paix','droits-homme','numerique-droits','valeurs-republique'] },
-    { id: 'sciences', nom: 'Royaume des Éléments', icone: '🔬', href: 'matieres/sciences/index.html', couleur: '#a78bfa',
+    { id: 'sciences', nom: 'Royaume des Éléments', icone: '🔬', href: 'matieres/sciences/index.html', couleur: '#a78bfa', formeType: 'esprit',
       mascotte: ['🥚', '🐛', '🦋', '🦄'], nomsMascotte: ['Œuf', 'Éveil', 'Croissance', '🦄 Esprit élémentaire'],
       cours: ['chaine-energetique','conversions','electricite','energie','etats-matiere','forces','gravitation','poids-masse','ressources-energetiques','signaux-lumineux','signaux-sonores','solutions','transformations','biodiversite','circulation','contraception','developpement-durable','impact-humain','muscles','nutrition','reproduction-humaine','respiration','risques-naturels','systeme-nerveux','tabac-alcool-drogues','transmission-vie','analyser-objet','bases-programmation','conception','evolution-techno','impact-environnemental','scratch-python'] }
   ];
+
+  // --- Helpers couleur + illustrations SVG (mascotte forme finale + décor) ---
+  function hexRgb(h) { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(function (c) { return c + c; }).join(''); var n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+  function versClair(hex, pct) { var c = hexRgb(hex); return 'rgb(' + c.map(function (v) { return Math.round(v + (255 - v) * pct); }).join(',') + ')'; }
+  function versSombre(hex, pct) { var c = hexRgb(hex); return 'rgb(' + c.map(function (v) { return Math.round(v * (1 - pct)); }).join(',') + ')'; }
+
+  function svgMascotteFinale(type, couleur, uid) {
+    var clair = versClair(couleur, .55), sombre = versSombre(couleur, .3), tresSombre = versSombre(couleur, .55);
+    var defs = '<defs><radialGradient id="g' + uid + '" cx="35%" cy="28%" r="78%"><stop offset="0%" stop-color="' + clair + '"/><stop offset="100%" stop-color="' + couleur + '"/></radialGradient></defs>';
+    if (type === 'hibou') {
+      return defs +
+        '<ellipse cx="50" cy="58" rx="24" ry="27" fill="url(#g' + uid + ')"/>' +
+        '<ellipse cx="50" cy="65" rx="13" ry="15" fill="#eaf9ee" opacity=".9"/>' +
+        '<ellipse cx="28" cy="52" rx="8" ry="14" fill="' + sombre + '" transform="rotate(-18 28 52)"/>' +
+        '<ellipse cx="72" cy="52" rx="8" ry="14" fill="' + sombre + '" transform="rotate(18 72 52)"/>' +
+        '<polygon points="36,26 43,12 48,28" fill="' + couleur + '"/>' +
+        '<polygon points="64,26 57,12 52,28" fill="' + couleur + '"/>' +
+        '<circle cx="41" cy="44" r="10" fill="#fff"/><circle cx="59" cy="44" r="10" fill="#fff"/>' +
+        '<circle cx="41" cy="44" r="5" fill="#14202a"/><circle cx="59" cy="44" r="5" fill="#14202a"/>' +
+        '<circle cx="43" cy="42" r="1.4" fill="#fff"/><circle cx="61" cy="42" r="1.4" fill="#fff"/>' +
+        '<polygon points="50,49 46,56 54,56" fill="#f5a623"/>';
+    }
+    if (type === 'cristal') {
+      return defs +
+        '<polygon points="50,16 75,42 62,82 38,82 25,42" fill="url(#g' + uid + ')" stroke="' + clair + '" stroke-width="1.5"/>' +
+        '<polygon points="50,16 62,82 38,82" fill="#fff" opacity=".12"/>' +
+        '<polygon points="50,16 25,42 38,42" fill="#fff" opacity=".24"/>' +
+        '<circle cx="42" cy="47" r="5" fill="#14202a"/><circle cx="58" cy="47" r="5" fill="#14202a"/>' +
+        '<circle cx="43.5" cy="45.5" r="1.3" fill="#fff"/><circle cx="59.5" cy="45.5" r="1.3" fill="#fff"/>' +
+        '<path d="M42,60 Q50,66 58,60" stroke="#14202a" stroke-width="2" fill="none" stroke-linecap="round"/>';
+    }
+    if (type === 'dragon') {
+      return defs +
+        '<ellipse cx="46" cy="64" rx="22" ry="19" fill="url(#g' + uid + ')"/>' +
+        '<circle cx="60" cy="42" r="15" fill="url(#g' + uid + ')"/>' +
+        '<ellipse cx="74" cy="46" rx="7" ry="5" fill="' + couleur + '"/>' +
+        '<polygon points="52,30 56,15 61,31" fill="' + sombre + '"/>' +
+        '<polygon points="65,29 69,14 72,30" fill="' + sombre + '"/>' +
+        '<polygon points="28,56 12,45 30,70" fill="' + sombre + '" opacity=".9"/>' +
+        '<circle cx="56" cy="40" r="4" fill="#14202a"/><circle cx="57" cy="39" r="1.1" fill="#fff"/>' +
+        '<circle cx="77" cy="47" r="1.3" fill="' + tresSombre + '"/>';
+    }
+    return defs +
+      '<ellipse cx="50" cy="60" rx="22" ry="24" fill="url(#g' + uid + ')"/>' +
+      '<polygon points="50,12 45,38 55,38" fill="' + clair + '"/>' +
+      '<ellipse cx="29" cy="48" rx="7" ry="12" fill="' + sombre + '" transform="rotate(-25 29 48)"/>' +
+      '<ellipse cx="71" cy="48" rx="7" ry="12" fill="' + sombre + '" transform="rotate(25 71 48)"/>' +
+      '<circle cx="41" cy="56" r="9" fill="#fff"/><circle cx="59" cy="56" r="9" fill="#fff"/>' +
+      '<circle cx="41" cy="56" r="4.5" fill="#14202a"/><circle cx="59" cy="56" r="4.5" fill="#14202a"/>' +
+      '<circle cx="42.5" cy="54.5" r="1.2" fill="#fff"/><circle cx="60.5" cy="54.5" r="1.2" fill="#fff"/>' +
+      '<path d="M44,70 Q50,74 56,70" stroke="#14202a" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  }
+
+  function svgDecorFond(couleur) {
+    var loin = versSombre(couleur, .72), milieu = versSombre(couleur, .55), pres = versSombre(couleur, .35), tresSombre = versSombre(couleur, .8);
+    return '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%">' +
+      '<path d="M0,52 Q22,42 44,49 T100,46 V100 H0 Z" fill="' + loin + '"/>' +
+      '<path d="M0,62 Q25,50 50,59 T100,55 V100 H0 Z" fill="' + milieu + '"/>' +
+      '<g transform="translate(66,32) scale(0.42)" fill="' + tresSombre + '" opacity=".85">' +
+        '<rect x="0" y="18" width="9" height="22"/><rect x="12" y="8" width="13" height="32"/><rect x="27" y="20" width="9" height="20"/>' +
+        '<polygon points="12,8 18.5,0 25,8"/>' +
+      '</g>' +
+      '<path d="M0,72 Q28,60 56,69 T100,64 V100 H0 Z" fill="' + pres + '"/>' +
+      '<polygon points="14,80 20,64 26,80" fill="' + tresSombre + '"/>' +
+      '<polygon points="82,84 88,70 94,84" fill="' + tresSombre + '"/>' +
+      '</svg>';
+  }
 
   function etapeMascotte(pct) {
     if (pct >= 66) return 3;
@@ -306,16 +373,20 @@ h1{font-size:1.6rem;color:#fff}
       el.className = 'noeud';
       el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
       el.style.setProperty('--rc', r.couleur);
+      var mascotteHTML = (r.etape === 3)
+        ? '<svg viewBox="0 0 100 100" width="60" height="60">' + svgMascotteFinale(r.formeType, r.couleur, r.id) + '</svg>'
+        : '<span class="mascotte-emoji">' + r.mascotte[r.etape] + '</span>';
       el.innerHTML =
         '<span class="anneau" style="background:conic-gradient(' + r.couleur + ' ' + r.pct + '%, var(--border) 0)">' +
         '<span class="rond royaume-decor">' +
           '<span class="scene">' +
-            '<span class="etincelle-noeud" style="left:22%;top:20%"></span>' +
-            '<span class="etincelle-noeud" style="left:72%;top:32%;animation-delay:1.1s"></span>' +
-            '<span class="icone-centre">' + r.icone + '</span>' +
+            svgDecorFond(r.couleur) +
+            '<span class="etincelle-noeud" style="left:14%;top:16%"></span>' +
+            '<span class="etincelle-noeud" style="left:80%;top:24%;animation-delay:1.1s"></span>' +
+            '<span class="icone-centre" title="' + r.nomsMascotte[r.etape] + '">' + mascotteHTML + '</span>' +
           '</span>' +
           (r.complet ? '<span class="couronne">👑</span>' : '') +
-          '<span class="mascotte" title="' + r.nomsMascotte[r.etape] + '">' + r.mascotte[r.etape] + '</span>' +
+          '<span class="badge-matiere" title="' + r.nom + '">' + r.icone + '</span>' +
         '</span>' +
         '</span>' +
         '<span class="titre">' + r.nom + '</span>' +
