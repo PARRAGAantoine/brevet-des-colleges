@@ -66,6 +66,7 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
     <p class="fin-compte" id="fin-compte"></p>
     <div class="fin-actions">
       <button id="btn-rester" class="btn" type="button">Rester ici</button>
+      <button id="btn-refaire" class="btn" type="button">🔁 Refaire l'exercice</button>
       <a class="btn btn-primary" href="../../../index.html">Voir ma progression maintenant →</a>
     </div>
   </div>
@@ -173,6 +174,9 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
     if (localStorage.getItem('brevet2027_semaine_lundi') !== lundi) {
       localStorage.setItem('brevet2027_semaine_lundi', lundi);
       localStorage.setItem('brevet2027_semaine_reussites', '0');
+      localStorage.setItem('brevet2027_semaine_aide1_reussites', '0');
+      localStorage.setItem('brevet2027_semaine_aide2_reussites', '0');
+      localStorage.setItem('brevet2027_semaine_sansaide_reussites', '0');
     }
     var ns = parseInt(localStorage.getItem('brevet2027_semaine_reussites') || '0', 10);
     localStorage.setItem('brevet2027_semaine_reussites', String(ns + 1));
@@ -237,10 +241,17 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
     });
   }
 
+  var btnRefaire = document.getElementById('btn-refaire');
+  if (btnRefaire) {
+    btnRefaire.addEventListener('click', function () { location.reload(); });
+  }
+
   var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
   var reussies = {};
   var uneErreur = false;
   var uneRevelee = false;
+  var aide1Utilisee = false;
+  var aide2Utilisee = false;
   var conteneur = document.getElementById('questions');
 
   function marquerTente() {
@@ -257,6 +268,15 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
         localStorage.setItem(keyReussi, 'oui');
         if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
         brevetReussiteJour();
+        if (aide1Utilisee) {
+          localStorage.setItem('brevet2027_semaine_aide1_reussites', String(parseInt(localStorage.getItem('brevet2027_semaine_aide1_reussites') || '0', 10) + 1));
+        }
+        if (aide2Utilisee) {
+          localStorage.setItem('brevet2027_semaine_aide2_reussites', String(parseInt(localStorage.getItem('brevet2027_semaine_aide2_reussites') || '0', 10) + 1));
+        }
+        if (!aide1Utilisee && !aide2Utilisee) {
+          localStorage.setItem('brevet2027_semaine_sansaide_reussites', String(parseInt(localStorage.getItem('brevet2027_semaine_sansaide_reussites') || '0', 10) + 1));
+        }
         brevetConfetti();
         brevetSon(true);
         sessionStorage.setItem('brevet2027_arrivee', idCours);
@@ -368,10 +388,12 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
         var niveau = btn.dataset.niveau;
         div.querySelector('.aide-texte[data-niveau="' + niveau + '"]').classList.add('visible');
         if (niveau === '1') {
+          aide1Utilisee = true;
           var aide2 = div.querySelector('.btn-aide[data-niveau="2"]');
           if (aide2) aide2.style.display = 'inline-flex';
         }
         if (niveau === '2') {
+          aide2Utilisee = true;
           var btnVoir = div.querySelector('.btn-voir-reponse');
           if (btnVoir) btnVoir.style.display = 'inline-flex';
         }
