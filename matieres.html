@@ -93,7 +93,6 @@ h1{font-size:1.6rem;color:#fff}
     <a href="inventaire.html">🎒 Inventaire</a>
     <a href="succes.html">🏆 Succès</a>
     <a href="progression.html">Progression</a>
-    <a href="badges.html">Badges</a>
     <a href="parametres.html">Paramètres</a>
   </div>
 </div>
@@ -101,7 +100,7 @@ h1{font-size:1.6rem;color:#fff}
   <div class="entete">
     <h1>🗺️ Carte des royaumes</h1>
     <div style="display:flex;align-items:center;gap:10px">
-      <a href="badges.html" class="badge-embleme" id="badge-embleme"></a>
+      <a href="succes.html" class="badge-embleme" id="badge-embleme"></a>
       <div class="streak" id="streak"></div>
     </div>
   </div>
@@ -254,30 +253,25 @@ h1{font-size:1.6rem;color:#fff}
     el.innerHTML = '<span class="torche">' + (compte > 0 ? '🔥' : '🕯️') + '</span> ' + compte + ' jour' + (compte > 1 ? 's' : '') + ' de suite';
   })();
 
-  // Badges (voir badges.html) : bronze/argent/or, maître de royaume, secrets — chacun vaut +20 XP
-  var nbBadgesRoyaumes = royaumes.filter(function (r) { return r.complet; }).length;
-  var badgeOr = totalCoffresGlobal >= totalCoursGlobal;
-  var badgeArgent = totalCoffresGlobal >= 40;
-  var badgeBronze = totalCoffresGlobal >= 10;
-  var badgeLeveTot = localStorage.getItem('brevet2027_badge_leve_tot') === 'oui';
-  var badgeOiseauNuit = localStorage.getItem('brevet2027_badge_oiseau_nuit') === 'oui';
-  var nbBadges = (badgeBronze ? 1 : 0) + (badgeArgent ? 1 : 0) + (badgeOr ? 1 : 0) + nbBadgesRoyaumes + (badgeLeveTot ? 1 : 0) + (badgeOiseauNuit ? 1 : 0);
+  // Succès « Maître de royaume » et secrets (voir succes.html) — chacun vaut +20 XP
+  var nbSuccesRoyaumes = royaumes.filter(function (r) { return r.complet; }).length;
+  var succesLeveTot = localStorage.getItem('brevet2027_badge_leve_tot') === 'oui';
+  var succesOiseauNuit = localStorage.getItem('brevet2027_badge_oiseau_nuit') === 'oui';
+  var nbBadges = nbSuccesRoyaumes + (succesLeveTot ? 1 : 0) + (succesOiseauNuit ? 1 : 0);
 
   var emblemeBadge = document.getElementById('badge-embleme');
   var emblemeIcone = '', emblemeTitre = '';
-  if (badgeOr) { emblemeIcone = '🥇'; emblemeTitre = 'Badge Or débloqué'; }
-  else if (nbBadgesRoyaumes > 0) { emblemeIcone = '👑'; emblemeTitre = 'Badge Maître de royaume débloqué'; }
-  else if (badgeArgent) { emblemeIcone = '🥈'; emblemeTitre = 'Badge Argent débloqué'; }
-  else if (badgeOiseauNuit) { emblemeIcone = '🌙'; emblemeTitre = 'Badge Oiseau de nuit débloqué'; }
-  else if (badgeLeveTot) { emblemeIcone = '🌅'; emblemeTitre = 'Badge Lève-tôt débloqué'; }
-  else if (badgeBronze) { emblemeIcone = '🥉'; emblemeTitre = 'Badge Bronze débloqué'; }
+  if (tousComplets) { emblemeIcone = '🏰'; emblemeTitre = 'Succès Suzerain des 4 royaumes débloqué'; }
+  else if (nbSuccesRoyaumes > 0) { emblemeIcone = '👑'; emblemeTitre = 'Succès Maître de royaume débloqué'; }
+  else if (succesOiseauNuit) { emblemeIcone = '🌙'; emblemeTitre = 'Succès Oiseau de nuit débloqué'; }
+  else if (succesLeveTot) { emblemeIcone = '🌅'; emblemeTitre = 'Succès Lève-tôt débloqué'; }
   if (emblemeIcone) {
     emblemeBadge.textContent = emblemeIcone;
-    emblemeBadge.title = emblemeTitre + ' — voir tous mes badges';
+    emblemeBadge.title = emblemeTitre + ' — voir tous mes succès';
     emblemeBadge.classList.add('visible');
   }
 
-  // Niveau / XP (clé=10, coffre=20, sans-faute=15, royaume conquis=50, badge=20, streak plafonné à 30 jours)
+  // Niveau / XP (clé=10, coffre=20, sans-faute=15, royaume conquis=50, succès royaume/secret=20, streak plafonné à 30 jours)
   var xp = totalClesGlobal * 10 + totalCoffresGlobal * 20 + totalSansFauteGlobal * 15 + royaumesConquis * 50 + nbBadges * 20 + Math.min(streakCompte, 30) * 5;
   var NIVEAUX = [
     { seuil: 0, titre: 'Novice', icone: '🌱' },
