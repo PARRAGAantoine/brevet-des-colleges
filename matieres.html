@@ -20,6 +20,8 @@ h1{font-size:1.6rem;color:#fff}
 .pnj{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--violet);border-radius:14px;padding:16px 20px;margin-bottom:20px}
 .pnj .avatar{font-size:2rem}
 .pnj p{color:var(--text);margin:0}
+.legende-carte{color:var(--muted);font-size:.82rem;text-align:center;margin:0 0 14px;line-height:1.6}
+.legende-carte a{font-weight:600}
 
 /* --- Carte du monde --- */
 .carte{position:relative;width:360px;max-width:100%;margin:0 auto;border-radius:20px;overflow:hidden;background:
@@ -40,10 +42,20 @@ h1{font-size:1.6rem;color:#fff}
 .noeud{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;width:120px;text-align:center;z-index:2}
 .halo{position:absolute;transform:translate(-50%,-50%);border-radius:50%;filter:blur(22px);pointer-events:none;z-index:1}
 
-.anneau{width:84px;height:84px;border-radius:50%;padding:5px;box-shadow:0 6px 16px rgba(0,0,0,.45)}
+.anneau{width:104px;height:104px;border-radius:50%;padding:5px;box-shadow:0 8px 20px rgba(0,0,0,.5), 0 0 18px color-mix(in srgb, var(--rc) 55%, transparent);animation:flotte-noeud 3.6s ease-in-out infinite}
+@keyframes flotte-noeud{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .rond{width:100%;height:100%;border-radius:50%;background:var(--card);border:2px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:2.1rem;position:relative}
-.noeud .couronne{position:absolute;top:-6px;right:2px;font-size:1.1rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
-.noeud .mascotte{position:absolute;bottom:-6px;left:-4px;font-size:1.3rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.rond.royaume-decor{font-size:2.3rem;border-color:rgba(255,255,255,.16);background:transparent}
+.scene{position:absolute;inset:0;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 50% 22%, color-mix(in srgb, var(--rc) 45%, transparent), transparent 55%),
+    linear-gradient(180deg, color-mix(in srgb, var(--rc) 20%, #0d1a14), #0a1310 60%, color-mix(in srgb, var(--rc) 28%, #0a1310))}
+.scene::after{content:"";position:absolute;left:-20%;right:-20%;bottom:-40%;height:72%;border-radius:50%;background:color-mix(in srgb, var(--rc) 32%, #060b09);opacity:.85}
+.icone-centre{position:relative;z-index:2;filter:drop-shadow(0 2px 3px rgba(0,0,0,.75))}
+.etincelle-noeud{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 5px #fff;z-index:2;animation:scintille-noeud 2.4s ease-in-out infinite}
+@keyframes scintille-noeud{0%,100%{opacity:.1;transform:scale(.6)}50%{opacity:1;transform:scale(1.3)}}
+.noeud .couronne{position:absolute;top:-6px;right:2px;font-size:1.1rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));text-shadow:0 0 6px rgba(255,215,0,.8)}
+.noeud .mascotte{position:absolute;bottom:-6px;left:-4px;font-size:1.3rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6));background:radial-gradient(circle, color-mix(in srgb, var(--rc) 55%, transparent), transparent 70%);border-radius:50%;padding:3px}
 .noeud .titre{color:#fff;font-weight:700;font-size:.82rem;line-height:1.25}
 .noeud .sous{color:var(--muted);font-size:.72rem}
 
@@ -55,12 +67,14 @@ h1{font-size:1.6rem;color:#fff}
 @keyframes rebond{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
 
 /* --- Niveau + quêtes --- */
-.carte-niveau{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:14px}
-.carte-niveau .icone-niveau{font-size:2.2rem}
+.carte-niveau{display:flex;align-items:center;gap:16px;background:linear-gradient(160deg, rgba(56,189,248,.10), var(--card));border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:14px;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.carte-niveau .icone-niveau{flex:none;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;background:radial-gradient(circle at 35% 30%, #ffe680, var(--or) 70%);box-shadow:0 0 0 3px rgba(255,215,0,.18), 0 0 18px rgba(255,215,0,.55)}
 .carte-niveau .titre-niveau{color:#fff;font-weight:700;font-size:1.05rem}
 .carte-niveau .xp{color:var(--muted);font-size:.8rem;margin-top:2px}
-.carte-niveau .barre-xp{height:8px;border-radius:999px;background:var(--border);margin-top:8px;overflow:hidden}
-.carte-niveau .barre-xp-remplie{height:100%;background:linear-gradient(90deg,var(--blue),var(--or))}
+.carte-niveau .barre-xp{height:12px;border-radius:999px;background:#0b1418;margin-top:8px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.6)}
+.carte-niveau .barre-xp-remplie{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--or));box-shadow:0 0 12px rgba(56,189,248,.6);position:relative;overflow:hidden}
+.carte-niveau .brillance{position:absolute;top:0;bottom:0;width:34%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);animation:balayage 2.6s ease-in-out infinite}
+@keyframes balayage{0%{transform:translateX(-140%)}100%{transform:translateX(340%)}}
 .quetes{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:20px}
 .quetes h2{font-size:.95rem;color:#fff;margin-bottom:10px}
 .quete{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--muted);font-size:.9rem}
@@ -92,6 +106,8 @@ h1{font-size:1.6rem;color:#fff}
     <span class="avatar">🦉</span>
     <p id="message-pnj">Bienvenue, aventurier ! Choisis un royaume pour commencer ta quête.</p>
   </div>
+
+  <p class="legende-carte">🥚 Chaque royaume a un compagnon qui évolue tout seul — Œuf → Éveil → Croissance → forme finale — selon les coffres ouverts dans ce royaume. Détail complet dans l'<a href="inventaire.html">🎒 Inventaire</a>.</p>
 
   <div class="carte" id="carte"></div>
 </div>
@@ -183,7 +199,7 @@ h1{font-size:1.6rem;color:#fff}
       '<span style="flex:1">' +
       '<div class="titre-niveau">' + niveauActuel.titre + '</div>' +
       '<div class="xp">' + xp + ' XP · ' + (niveauSuivant.seuil - xp) + ' XP avant ' + niveauSuivant.titre + ' ' + niveauSuivant.icone + '</div>' +
-      '<div class="barre-xp"><div class="barre-xp-remplie" style="width:' + pctNiveau + '%"></div></div>' +
+      '<div class="barre-xp"><div class="barre-xp-remplie" style="width:' + pctNiveau + '%"><div class="brillance"></div></div></div>' +
       '</span>';
   } else {
     carteNiveau.innerHTML =
@@ -191,7 +207,7 @@ h1{font-size:1.6rem;color:#fff}
       '<span style="flex:1">' +
       '<div class="titre-niveau">' + niveauActuel.titre + '</div>' +
       '<div class="xp">' + xp + ' XP · niveau maximum atteint !</div>' +
-      '<div class="barre-xp"><div class="barre-xp-remplie" style="width:100%"></div></div>' +
+      '<div class="barre-xp"><div class="barre-xp-remplie" style="width:100%"><div class="brillance"></div></div></div>' +
       '</span>';
   }
 
@@ -212,7 +228,7 @@ h1{font-size:1.6rem;color:#fff}
     .concat(royaumes.map(function (r) { return { type: 'royaume', data: r }; }))
     .concat([{ type: 'fin', debloque: tousComplets }]);
 
-  var LARGEUR = 360, AMPL = 108, FREQ = 0.85, ESPY = 190, MARGE = 100;
+  var LARGEUR = 360, AMPL = 108, FREQ = 0.85, ESPY = 205, MARGE = 110;
   var hauteur = MARGE * 2 + ESPY * (items.length - 1);
   var pts = items.map(function (it, i) {
     return { x: LARGEUR / 2 + AMPL * Math.sin(i * FREQ), y: MARGE + i * ESPY, item: it };
@@ -289,9 +305,18 @@ h1{font-size:1.6rem;color:#fff}
       el.href = r.href;
       el.className = 'noeud';
       el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
+      el.style.setProperty('--rc', r.couleur);
       el.innerHTML =
         '<span class="anneau" style="background:conic-gradient(' + r.couleur + ' ' + r.pct + '%, var(--border) 0)">' +
-        '<span class="rond">' + r.icone + (r.complet ? '<span class="couronne">👑</span>' : '') + '<span class="mascotte" title="' + r.nomsMascotte[r.etape] + '">' + r.mascotte[r.etape] + '</span></span>' +
+        '<span class="rond royaume-decor">' +
+          '<span class="scene">' +
+            '<span class="etincelle-noeud" style="left:22%;top:20%"></span>' +
+            '<span class="etincelle-noeud" style="left:72%;top:32%;animation-delay:1.1s"></span>' +
+            '<span class="icone-centre">' + r.icone + '</span>' +
+          '</span>' +
+          (r.complet ? '<span class="couronne">👑</span>' : '') +
+          '<span class="mascotte" title="' + r.nomsMascotte[r.etape] + '">' + r.mascotte[r.etape] + '</span>' +
+        '</span>' +
         '</span>' +
         '<span class="titre">' + r.nom + '</span>' +
         '<span class="sous">🔑 ' + r.cles + '/' + r.cours.length + ' · 📦 ' + r.coffres + '/' + r.cours.length + '</span>';
