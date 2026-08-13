@@ -4,7 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mathématiques — Brevet Sprint 2027</title>
 <style>
-:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--green:#4ade80;--violet:#a78bfa;--or:#ffd700}
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--green:#4ade80;--violet:#a78bfa;--or:#ffd700;--rc:#38bdf8}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
 .top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:20}
@@ -15,14 +15,22 @@ h1{font-size:1.6rem;color:#fff;margin:24px 0 6px}
 h2{font-size:1.05rem;color:#fff;margin:30px 0 10px;text-align:center}
 p.note{color:var(--muted);margin-bottom:20px;font-size:.9rem}
 
-.chemin-wrap{position:relative;margin:0 auto 8px;width:340px;max-width:100%}
+.chemin-wrap{position:relative;margin:0 auto 8px;width:340px;max-width:100%;border-radius:18px;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--rc) 18%, transparent), transparent 45%),
+    linear-gradient(180deg, #0c1712, #0a1310 50%, color-mix(in srgb, var(--rc) 9%, #0a1310))}
 .chemin-svg{position:absolute;left:0;top:0;width:100%;height:100%}
 .trace{fill:none;stroke-linecap:round}
 .trace-fond{stroke:#000;stroke-opacity:.25;stroke-width:13}
 .trace-a-faire{stroke:var(--border);stroke-width:7;stroke-dasharray:2 12}
 .trace-faite{stroke:var(--or);stroke-width:7;stroke-dasharray:2 12;filter:drop-shadow(0 0 4px rgba(255,215,0,.5))}
+.nuage-donjon{position:absolute;font-size:1.3rem;opacity:.35;pointer-events:none;z-index:0;animation:derive-donjon 16s ease-in-out infinite}
+@keyframes derive-donjon{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+.etincelle-donjon{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 4px #fff;z-index:0;animation:scintille-donjon 3s ease-in-out infinite}
+@keyframes scintille-donjon{0%,100%{opacity:.1;transform:scale(.6)}50%{opacity:.9;transform:scale(1.3)}}
 .noeud{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;width:118px;text-align:center;z-index:2}
-.noeud .rond{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,.4);background:var(--card);border:2px solid var(--border);transition:background .5s ease,border-color .5s ease,box-shadow .5s ease}
+.noeud .rond{position:relative;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,.4);background:var(--card);border:2px solid var(--border);transition:background .5s ease,border-color .5s ease,box-shadow .5s ease}
+.noeud .rond::before{content:"";position:absolute;top:9%;left:20%;width:32%;height:22%;border-radius:50%;background:rgba(255,255,255,.32);filter:blur(2.5px);pointer-events:none}
 .noeud.verrouille .rond{opacity:.55}
 .noeud.ouvert .rond{background:linear-gradient(135deg,#0ea5e9,#38bdf8);border-color:var(--blue);box-shadow:0 0 14px rgba(56,189,248,.45)}
 .noeud.reussi .rond{background:linear-gradient(135deg,#f59e0b,#fbbf24);border-color:var(--or);box-shadow:0 0 16px rgba(255,215,0,.5)}
@@ -35,9 +43,11 @@ p.note{color:var(--muted);margin-bottom:20px;font-size:.9rem}
 .legende-item .txt{color:var(--muted);font-size:.68rem;display:block;margin-top:1px}
 .noeud.boss .rond{width:68px;height:68px;font-size:1.9rem}
 .noeud.boss.verrouille .rond{border-color:var(--violet)}
-.noeud.boss.debloque .rond{background:linear-gradient(135deg,rgba(167,139,250,.55),var(--card));border-color:var(--violet);box-shadow:0 0 18px rgba(167,139,250,.55)}
+.noeud.boss.debloque .rond{background:linear-gradient(135deg,rgba(167,139,250,.55),var(--card));border-color:var(--violet);box-shadow:0 0 18px rgba(167,139,250,.55);animation:pulse-boss 2.2s ease-in-out infinite}
+@keyframes pulse-boss{0%,100%{box-shadow:0 0 18px rgba(167,139,250,.55)}50%{box-shadow:0 0 30px rgba(167,139,250,.9)}}
 .noeud.retente .rond{background:linear-gradient(135deg,#fb923c,#f59e0b);border-color:#fb923c;box-shadow:0 0 12px rgba(251,146,60,.4)}
-.noeud.sansfaute .rond{background:linear-gradient(135deg,#38bdf8,#a78bfa);border-color:var(--violet);box-shadow:0 0 18px rgba(167,139,250,.6)}
+.noeud.sansfaute .rond{background:linear-gradient(135deg,#38bdf8,#a78bfa);border-color:var(--violet);box-shadow:0 0 18px rgba(167,139,250,.6);animation:pulse-sansfaute 2s ease-in-out infinite}
+@keyframes pulse-sansfaute{0%,100%{box-shadow:0 0 18px rgba(167,139,250,.6)}50%{box-shadow:0 0 30px rgba(167,139,250,.95)}}
 .pion-donjon{position:absolute;transform:translate(-50%,-50%);font-size:1.5rem;z-index:3;filter:drop-shadow(0 4px 6px rgba(0,0,0,.6));animation:rebond 1.6s ease-in-out infinite}
 @keyframes rebond{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
 </style>
@@ -94,6 +104,28 @@ p.note{color:var(--muted);margin-bottom:20px;font-size:.9rem}
     ]}
   ];
 
+  function ajouterAmbiance(conteneur, largeur, hauteur) {
+    var nClouds = Math.max(1, Math.round(hauteur / 260));
+    for (var i = 0; i < nClouds; i++) {
+      var n = document.createElement('span');
+      n.className = 'nuage-donjon';
+      n.textContent = '☁️';
+      n.style.left = (10 + (i % 2) * (largeur - 60)) + 'px';
+      n.style.top = (40 + i * (hauteur / nClouds)) + 'px';
+      n.style.animationDelay = (i * 2.3) + 's';
+      conteneur.appendChild(n);
+    }
+    var nSpark = Math.max(2, Math.round(hauteur / 160));
+    for (var j = 0; j < nSpark; j++) {
+      var s = document.createElement('span');
+      s.className = 'etincelle-donjon';
+      s.style.left = (20 + Math.random() * (largeur - 40)) + 'px';
+      s.style.top = (Math.random() * hauteur) + 'px';
+      s.style.animationDelay = (Math.random() * 2.4) + 's';
+      conteneur.appendChild(s);
+    }
+  }
+
   function dessinerChemin(conteneur, items, largeur) {
     var AMPL = 76, FREQ = 0.8, ESPY = 132, MARGE = 66;
     var hauteur = MARGE * 2 + ESPY * (items.length - 1);
@@ -101,6 +133,7 @@ p.note{color:var(--muted);margin-bottom:20px;font-size:.9rem}
       return { x: largeur / 2 + AMPL * Math.sin(i * FREQ), y: MARGE + i * ESPY, item: it };
     });
     conteneur.style.height = hauteur + 'px';
+    ajouterAmbiance(conteneur, largeur, hauteur);
 
     var svgNS = 'http://www.w3.org/2000/svg';
     var svg = document.createElementNS(svgNS, 'svg');
