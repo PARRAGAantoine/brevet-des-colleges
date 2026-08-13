@@ -283,6 +283,8 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
       } else {
         elFin.classList.add('revele');
         elTitre.textContent = 'Exercice terminé — retente sans révéler la réponse pour ouvrir le coffre 📦.';
+        var btnRefaireCache = document.getElementById('btn-refaire');
+        if (btnRefaireCache) btnRefaireCache.style.display = 'none';
       }
       elFin.classList.add('visible');
       demarrerRetourAuto();
