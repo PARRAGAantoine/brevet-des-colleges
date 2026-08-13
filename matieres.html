@@ -303,11 +303,16 @@ h1{font-size:1.6rem;color:#fff}
   var lundiActuel = dLundi.toISOString().slice(0, 10);
   var semaineLundiStocke = localStorage.getItem('brevet2027_semaine_lundi');
   var semaineReussites = (semaineLundiStocke === lundiActuel) ? parseInt(localStorage.getItem('brevet2027_semaine_reussites') || '0', 10) : 0;
+  var semaineAide1 = (semaineLundiStocke === lundiActuel) ? parseInt(localStorage.getItem('brevet2027_semaine_aide1_reussites') || '0', 10) : 0;
+  var semaineAide2 = (semaineLundiStocke === lundiActuel) ? parseInt(localStorage.getItem('brevet2027_semaine_aide2_reussites') || '0', 10) : 0;
+  var semaineSansAide = (semaineLundiStocke === lundiActuel) ? parseInt(localStorage.getItem('brevet2027_semaine_sansaide_reussites') || '0', 10) : 0;
   var lundiProchain = new Date(dLundi);
   lundiProchain.setDate(lundiProchain.getDate() + 7);
   var defisJour = [
-    { texte: 'Réussis 5 exercices cette semaine', fait: semaineReussites >= 5 },
-    { texte: 'Réussis 15 exercices cette semaine', fait: semaineReussites >= 15 }
+    { texte: 'Réussis 15 exercices cette semaine', fait: semaineReussites >= 15 },
+    { texte: 'Réussis 5 exercices avec une aide', fait: semaineAide1 >= 5 },
+    { texte: 'Réussis 5 exercices avec l\'aide supplémentaire', fait: semaineAide2 >= 5 },
+    { texte: 'Réussis 3 exercices sans aucune aide', fait: semaineSansAide >= 3 }
   ];
   var defisEl = document.getElementById('defis-semaine');
   defisEl.innerHTML = '<h2>🗓️ Défis de la semaine</h2>' + defisJour.map(function (q) {
