@@ -127,13 +127,10 @@ h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
   document.getElementById('nb-sansfaute').textContent = sansfaute + '/' + idsCours.length;
   document.getElementById('nb-erreurs').textContent = erreurs;
 
-  // Badges (voir badges.html) : bronze/argent/or, maître de royaume, secrets — chacun vaut +20 XP
-  var badgeOr = coffres >= idsCours.length;
-  var badgeArgent = coffres >= 40;
-  var badgeBronze = coffres >= 10;
-  var badgeLeveTot = localStorage.getItem('brevet2027_badge_leve_tot') === 'oui';
-  var badgeOiseauNuit = localStorage.getItem('brevet2027_badge_oiseau_nuit') === 'oui';
-  var nbBadges = (badgeBronze ? 1 : 0) + (badgeArgent ? 1 : 0) + (badgeOr ? 1 : 0) + royaumesConquis + (badgeLeveTot ? 1 : 0) + (badgeOiseauNuit ? 1 : 0);
+  // Succès « Maître de royaume » et secrets (voir succes.html) — chacun vaut +20 XP
+  var succesLeveTot = localStorage.getItem('brevet2027_badge_leve_tot') === 'oui';
+  var succesOiseauNuit = localStorage.getItem('brevet2027_badge_oiseau_nuit') === 'oui';
+  var nbBadges = royaumesConquis + (succesLeveTot ? 1 : 0) + (succesOiseauNuit ? 1 : 0);
 
   var xp = cles * 10 + coffres * 20 + sansfaute * 15 + royaumesConquis * 50 + nbBadges * 20 + Math.min(streakCompte, 30) * 5;
   var NIVEAUX = [
