@@ -80,6 +80,8 @@ h1{font-size:1.6rem;color:#fff}
 .quete{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--muted);font-size:.9rem}
 .quete.faite{color:var(--green)}
 .quete .puce{font-size:1.1rem}
+.defis-semaine{border-color:rgba(167,139,250,.35);background:linear-gradient(160deg, rgba(167,139,250,.08), var(--card))}
+.defis-semaine .reset{color:var(--muted);font-size:.72rem;margin-top:8px}
 </style>
 </head>
 <body>
@@ -102,6 +104,8 @@ h1{font-size:1.6rem;color:#fff}
   <div class="carte-niveau" id="carte-niveau"></div>
 
   <div class="quetes" id="quetes"></div>
+
+  <div class="quetes defis-semaine" id="defis-semaine"></div>
 
   <div class="pnj">
     <span class="avatar">🦉</span>
@@ -291,6 +295,24 @@ h1{font-size:1.6rem;color:#fff}
   quetesEl.innerHTML = '<h2>📋 Quêtes du jour</h2>' + quetesJour.map(function (q) {
     return '<div class="quete' + (q.fait ? ' faite' : '') + '"><span class="puce">' + (q.fait ? '✅' : '⬜') + '</span>' + q.texte + '</div>';
   }).join('');
+
+  // Défis de la semaine (reset chaque lundi)
+  var dLundi = new Date();
+  var jourSemaine = dLundi.getDay();
+  dLundi.setDate(dLundi.getDate() + (jourSemaine === 0 ? -6 : 1 - jourSemaine));
+  var lundiActuel = dLundi.toISOString().slice(0, 10);
+  var semaineLundiStocke = localStorage.getItem('brevet2027_semaine_lundi');
+  var semaineReussites = (semaineLundiStocke === lundiActuel) ? parseInt(localStorage.getItem('brevet2027_semaine_reussites') || '0', 10) : 0;
+  var lundiProchain = new Date(dLundi);
+  lundiProchain.setDate(lundiProchain.getDate() + 7);
+  var defisJour = [
+    { texte: 'Réussis 5 exercices cette semaine', fait: semaineReussites >= 5 },
+    { texte: 'Réussis 15 exercices cette semaine', fait: semaineReussites >= 15 }
+  ];
+  var defisEl = document.getElementById('defis-semaine');
+  defisEl.innerHTML = '<h2>🗓️ Défis de la semaine</h2>' + defisJour.map(function (q) {
+    return '<div class="quete' + (q.fait ? ' faite' : '') + '"><span class="puce">' + (q.fait ? '✅' : '⬜') + '</span>' + q.texte + '</div>';
+  }).join('') + '<div class="reset">Se renouvelle le ' + lundiProchain.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) + '.</div>';
 
   var items = [{ type: 'depart' }]
     .concat(royaumes.map(function (r) { return { type: 'royaume', data: r }; }))
