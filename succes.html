@@ -36,6 +36,9 @@ p.note{color:var(--muted);margin-bottom:8px;font-size:.9rem}
 .etiquette-bois{color:var(--bois);background:rgba(169,116,73,.15)}
 .etiquette-argent{color:var(--argent);background:rgba(192,201,212,.15)}
 .etiquette-legendaire{color:var(--legendaire);background:rgba(255,215,0,.15)}
+.etiquette-secret{color:var(--violet);background:rgba(167,139,250,.15)}
+.rarete-secret.debloque{border-color:var(--violet);box-shadow:0 0 16px rgba(167,139,250,.5)}
+.rarete-royaume.debloque{box-shadow:0 0 16px color-mix(in srgb, var(--rc) 55%, transparent)}
 </style>
 </head>
 <body>
@@ -47,7 +50,7 @@ p.note{color:var(--muted);margin-bottom:8px;font-size:.9rem}
   <p class="note">Des exploits variés à débloquer en explorant les 4 royaumes — aucun ne se perd, aucun ne se joue contre le temps.</p>
 
   <div class="progres-global">
-    <div class="chiffre" id="compte-succes">0/15</div>
+    <div class="chiffre" id="compte-succes">0/21</div>
     <div class="barre"><div class="barre-remplie" id="barre-succes" style="width:0%"></div></div>
   </div>
 
@@ -59,10 +62,10 @@ p.note{color:var(--muted);margin-bottom:8px;font-size:.9rem}
   ];
 
   var royaumes = [
-    { cours: ['accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre'] },
-    { cours: ['calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch'] },
-    { cours: ['construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique'] },
-    { cours: ['chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'] }
+    { nom: 'Maître des Lettres', couleur: '#4ade80', cours: ['accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre'] },
+    { nom: 'Maître des Nombres', couleur: '#38bdf8', cours: ['calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch'] },
+    { nom: 'Maître du Temps', couleur: '#fbbf24', cours: ['construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique'] },
+    { nom: 'Maître des Éléments', couleur: '#a78bfa', cours: ['chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'] }
   ];
 
   function etapeMascotte(pct) {
@@ -112,6 +115,13 @@ p.note{color:var(--muted);margin-bottom:8px;font-size:.9rem}
       { nom: 'Assidu', icone: '📅', rarete: 'bois', cond: '5 jours de quêtes complètes', debloque: quetesCompletees >= 5 },
       { nom: 'Régulier', icone: '🗓️', rarete: 'argent', cond: '20 jours de quêtes complètes', debloque: quetesCompletees >= 20 },
       { nom: 'Discipline de fer', icone: '⚙️', rarete: 'legendaire', cond: '60 jours de quêtes complètes', debloque: quetesCompletees >= 60 }
+    ]},
+    { nom: '👑 Maître de royaume', succes: royaumes.map(function (r) {
+      return { nom: r.nom, icone: '👑', rarete: 'royaume', couleur: r.couleur, cond: r.nom.replace('Maître ', 'Royaume ') + ' conquis à 100%', debloque: r.complet };
+    })},
+    { nom: '🌙 Secrets', succes: [
+      { nom: 'Lève-tôt', icone: '🌅', rarete: 'secret', cond: 'Réussir un exercice avant 8h', debloque: localStorage.getItem('brevet2027_badge_leve_tot') === 'oui' },
+      { nom: 'Oiseau de nuit', icone: '🌙', rarete: 'secret', cond: 'Réussir un exercice après 22h', debloque: localStorage.getItem('brevet2027_badge_oiseau_nuit') === 'oui' }
     ]}
   ];
 
@@ -126,11 +136,13 @@ p.note{color:var(--muted);margin-bottom:8px;font-size:.9rem}
     theme.succes.forEach(function (s) {
       totalSucces++;
       if (s.debloque) totalDebloques++;
-      var etiquetteTxt = s.rarete === 'bois' ? 'Bois' : (s.rarete === 'argent' ? 'Argent' : 'Légendaire');
+      var etiquettes = { bois: 'Bois', argent: 'Argent', legendaire: 'Légendaire', secret: 'Secret' };
+      var etiquetteHtml = etiquettes[s.rarete] ? '<div class="etiquette etiquette-' + s.rarete + '">' + etiquettes[s.rarete] + '</div>' : '';
       var div = document.createElement('div');
       div.className = 'succes rarete-' + s.rarete + (s.debloque ? ' debloque' : ' verrouille');
+      if (s.couleur) div.style.setProperty('--rc', s.couleur);
       div.innerHTML =
-        '<div class="etiquette etiquette-' + s.rarete + '">' + etiquetteTxt + '</div>' +
+        etiquetteHtml +
         '<div class="icone">' + s.icone + '</div>' +
         '<div class="nom">' + s.nom + '</div>' +
         '<div class="cond">' + s.cond + '</div>';
