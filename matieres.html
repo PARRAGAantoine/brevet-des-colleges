@@ -332,9 +332,9 @@ h1{font-size:1.6rem;color:#fff}
   lundiProchain.setDate(lundiProchain.getDate() + 7);
   var defisJour = [
     { texte: 'Réussis 15 exercices cette semaine', fait: semaineReussites >= 15 },
-    { texte: 'Réussis 5 exercices avec une aide', fait: semaineAide1 >= 5 },
+    { texte: 'Réussis 5 exercices avec maximum une aide', fait: semaineAide1 >= 5 },
     { texte: 'Réussis 5 exercices avec l\'aide supplémentaire', fait: semaineAide2 >= 5 },
-    { texte: 'Réussis 3 exercices sans aucune aide', fait: semaineSansAide >= 3 }
+    { texte: 'Réussis 20 exercices sans aucune aide', fait: semaineSansAide >= 20 }
   ];
   var defisEl = document.getElementById('defis-semaine');
   defisEl.innerHTML = '<h2>🗓️ Défis de la semaine</h2>' + defisJour.map(function (q) {
