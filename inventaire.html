@@ -4,7 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inventaire — Brevet Sprint 2027</title>
 <style>
-:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--bois:#a97449;--argent:#c0c0c0;--legendaire:#ffd700}
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--violet:#a78bfa;--bois:#a97449;--argent:#c0c9d4;--legendaire:#ffd700}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
 .top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10}
@@ -14,31 +14,36 @@ a{color:var(--blue);text-decoration:none;font-weight:600}
 h1{font-size:1.6rem;color:#fff;margin-bottom:20px}
 h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
 .resume{display:flex;gap:12px;flex-wrap:wrap}
-.stat{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center}
-.stat .icone{font-size:1.8rem}
-.stat .chiffre{font-size:1.5rem;font-weight:800;color:#fff;margin-top:6px}
-.stat .label{color:var(--muted);font-size:.8rem;margin-top:2px}
-.loot{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px}
-.loot.debloque{border-color:var(--medal, var(--blue))}
+.stat{position:relative;overflow:hidden;flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--stat-c, var(--blue));border-radius:14px;padding:18px;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.stat::before{content:"";position:absolute;top:-40%;left:-10%;width:70%;height:80%;background:radial-gradient(circle, rgba(255,255,255,.14), transparent 70%);pointer-events:none}
+.stat .icone{position:relative;font-size:1.8rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+.stat .chiffre{position:relative;font-size:1.5rem;font-weight:800;color:#fff;margin-top:6px}
+.stat .label{position:relative;color:var(--muted);font-size:.8rem;margin-top:2px}
+.loot{position:relative;display:flex;align-items:center;gap:18px;background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;transition:box-shadow .4s ease,border-color .4s ease}
+.loot.debloque{border-color:var(--medal, var(--blue));box-shadow:0 0 18px var(--medal-glow, transparent)}
+.loot.legendaire.debloque{border:2px solid transparent;background-image:linear-gradient(var(--card),var(--card)),conic-gradient(from 0deg,var(--legendaire),#fff7cc,var(--legendaire));background-origin:border-box;background-clip:padding-box, border-box;animation:tourne-loot 5s linear infinite}
+@keyframes tourne-loot{0%{background-image:linear-gradient(var(--card),var(--card)),conic-gradient(from 0deg,var(--legendaire),#fff7cc,var(--legendaire))}100%{background-image:linear-gradient(var(--card),var(--card)),conic-gradient(from 360deg,var(--legendaire),#fff7cc,var(--legendaire))}}
 .loot .medaille{font-size:2.2rem;filter:grayscale(1);opacity:.4}
-.loot.debloque .medaille{filter:none;opacity:1}
+.loot.debloque .medaille{filter:none;opacity:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
 .loot .titre{color:#fff;font-weight:700}
 .loot .desc{color:var(--muted);font-size:.85rem}
 .loot.debloque .desc{color:var(--green)}
-.carte-niveau{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:20px 0}
-.carte-niveau .icone-niveau{font-size:2.2rem}
+.carte-niveau{display:flex;align-items:center;gap:16px;background:linear-gradient(160deg, rgba(56,189,248,.10), var(--card));border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:20px 0;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.carte-niveau .icone-niveau{flex:none;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;background:radial-gradient(circle at 35% 30%, #ffe680, var(--legendaire) 70%);box-shadow:0 0 0 3px rgba(255,215,0,.18), 0 0 18px rgba(255,215,0,.55)}
 .carte-niveau .titre-niveau{color:#fff;font-weight:700;font-size:1.05rem}
 .carte-niveau .xp{color:var(--muted);font-size:.8rem;margin-top:2px}
-.carte-niveau .barre-xp{height:8px;border-radius:999px;background:var(--border);margin-top:8px;overflow:hidden}
-.carte-niveau .barre-xp-remplie{height:100%;background:linear-gradient(90deg,var(--blue),var(--legendaire))}
+.carte-niveau .barre-xp{height:12px;border-radius:999px;background:#0b1418;margin-top:8px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.6)}
+.carte-niveau .barre-xp-remplie{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--legendaire));box-shadow:0 0 12px rgba(56,189,248,.6);position:relative;overflow:hidden}
+.carte-niveau .brillance{position:absolute;top:0;bottom:0;width:34%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);animation:balayage 2.6s ease-in-out infinite}
+@keyframes balayage{0%{transform:translateX(-140%)}100%{transform:translateX(340%)}}
 .note-erreurs{color:var(--muted);font-size:.85rem;margin-top:6px}
 .compagnons{display:flex;flex-direction:column;gap:12px}
-.compagnon{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px}
-.compagnon .emoji{font-size:2.4rem}
+.compagnon{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.compagnon .emoji{flex:none;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;background:radial-gradient(circle at 35% 25%, color-mix(in srgb, var(--rc) 45%, #fff 15%), var(--rc) 75%);box-shadow:0 0 14px color-mix(in srgb, var(--rc) 55%, transparent)}
 .compagnon .nom-royaume{color:#fff;font-weight:700;font-size:1rem}
 .compagnon .etape{color:var(--muted);font-size:.85rem;margin:2px 0 6px}
-.compagnon .barre{height:6px;border-radius:999px;background:var(--border);overflow:hidden}
-.compagnon .barre-remplie{height:100%;background:var(--blue)}
+.compagnon .barre{height:7px;border-radius:999px;background:#0b1418;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)}
+.compagnon .barre-remplie{height:100%;box-shadow:0 0 8px color-mix(in srgb, var(--rc) 60%, transparent)}
 </style>
 </head>
 <body>
@@ -49,10 +54,10 @@ h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
   <h1>🎒 Inventaire</h1>
 
   <div class="resume">
-    <div class="stat"><div class="icone">🔑</div><div class="chiffre" id="nb-cles">0</div><div class="label">Clés trouvées</div></div>
-    <div class="stat"><div class="icone">📦</div><div class="chiffre" id="nb-coffres">0</div><div class="label">Coffres ouverts</div></div>
-    <div class="stat"><div class="icone">💎</div><div class="chiffre" id="nb-sansfaute">0</div><div class="label">Sans-faute</div></div>
-    <div class="stat"><div class="icone">🔁</div><div class="chiffre" id="nb-erreurs">0</div><div class="label">Erreurs corrigées</div></div>
+    <div class="stat" style="--stat-c:var(--blue)"><div class="icone">🔑</div><div class="chiffre" id="nb-cles">0</div><div class="label">Clés trouvées</div></div>
+    <div class="stat" style="--stat-c:var(--legendaire)"><div class="icone">📦</div><div class="chiffre" id="nb-coffres">0</div><div class="label">Coffres ouverts</div></div>
+    <div class="stat" style="--stat-c:var(--violet)"><div class="icone">💎</div><div class="chiffre" id="nb-sansfaute">0</div><div class="label">Sans-faute</div></div>
+    <div class="stat" style="--stat-c:var(--green)"><div class="icone">🔁</div><div class="chiffre" id="nb-erreurs">0</div><div class="label">Erreurs corrigées</div></div>
   </div>
   <p class="note-erreurs">Chaque erreur t'a rapproché de la réussite : elles comptent aussi dans ton parcours.</p>
 
@@ -105,6 +110,7 @@ h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
     var pctDansEtape = etape < 3 ? Math.round(((pctRoyaume - seuils[etape]) / (seuils[etape + 1] - seuils[etape])) * 100) : 100;
     var div = document.createElement('div');
     div.className = 'compagnon';
+    div.style.setProperty('--rc', r.couleur);
     div.innerHTML =
       '<span class="emoji">' + r.mascotte[etape] + '</span>' +
       '<span style="flex:1">' +
@@ -140,21 +146,21 @@ h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
     '<span style="flex:1">' +
     '<div class="titre-niveau">' + niveauActuel.titre + '</div>' +
     '<div class="xp">' + xp + ' XP' + (niveauSuivant ? (' · ' + (niveauSuivant.seuil - xp) + ' XP avant ' + niveauSuivant.titre + ' ' + niveauSuivant.icone) : ' · niveau maximum atteint !') + '</div>' +
-    '<div class="barre-xp"><div class="barre-xp-remplie" style="width:' + pctNiveau + '%"></div></div>' +
+    '<div class="barre-xp"><div class="barre-xp-remplie" style="width:' + pctNiveau + '%"><div class="brillance"></div></div></div>' +
     '</span>';
 
   var paliers = [
-    { seuil: 10, medaille: '🪵', titre: 'Loot Bois', couleur: 'var(--bois)' },
-    { seuil: 40, medaille: '🥈', titre: 'Loot Argent', couleur: 'var(--argent)' },
-    { seuil: idsCours.length, medaille: '🏆', titre: 'Loot Légendaire', couleur: 'var(--legendaire)' }
+    { seuil: 10, medaille: '🪵', titre: 'Loot Bois', couleur: 'var(--bois)', glow: 'rgba(169,116,73,.5)' },
+    { seuil: 40, medaille: '🥈', titre: 'Loot Argent', couleur: 'var(--argent)', glow: 'rgba(192,201,212,.5)' },
+    { seuil: idsCours.length, medaille: '🏆', titre: 'Loot Légendaire', couleur: 'var(--legendaire)', glow: 'rgba(255,215,0,.6)', legendaire: true }
   ];
 
   var conteneur = document.getElementById('loots');
   paliers.forEach(function (p) {
     var debloque = coffres >= p.seuil;
     var div = document.createElement('div');
-    div.className = 'loot' + (debloque ? ' debloque' : '');
-    if (debloque) div.style.setProperty('--medal', p.couleur);
+    div.className = 'loot' + (debloque ? ' debloque' : '') + (p.legendaire && debloque ? ' legendaire' : '');
+    if (debloque) { div.style.setProperty('--medal', p.couleur); div.style.setProperty('--medal-glow', p.glow); }
     div.innerHTML =
       '<span class="medaille">' + p.medaille + '</span>' +
       '<span>' +
