@@ -41,6 +41,8 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
 .reponse:disabled,.champ-reponse:disabled,.btn-valider:disabled{opacity:.7;cursor:default}
 .fin{background:var(--card);border:1px solid var(--green);border-radius:14px;padding:20px;margin:20px 0;text-align:center;display:none}
 .fin.visible{display:block}
+.fin.revele{border-color:var(--blue)}
+.fin.revele p{color:var(--blue)}
 .fin p{color:var(--green);font-weight:700;font-size:1.1rem;margin-bottom:14px}
 .actions-bas{margin-top:24px}
 @keyframes brevet-confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
@@ -60,7 +62,7 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
   <div id="questions"></div>
 
   <div id="fin" class="fin">
-    <p>Bravo, tu as réussi tous les exercices ! 🎉</p>
+    <p id="fin-titre">Bravo, tu as réussi tous les exercices ! 🎉</p>
     <p class="fin-compte" id="fin-compte"></p>
     <div class="fin-actions">
       <button id="btn-rester" class="btn" type="button">Rester ici</button>
@@ -239,6 +241,7 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
   var tirage = melanger(melanger(banqueQCM).slice(0, 2).concat(melanger(banqueTexte).slice(0, 2)));
   var reussies = {};
   var uneErreur = false;
+  var uneRevelee = false;
   var conteneur = document.getElementById('questions');
 
   function marquerTente() {
@@ -249,13 +252,20 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
 
   function verifierTout() {
     if (Object.keys(reussies).length === tirage.length) {
-      localStorage.setItem(keyReussi, 'oui');
-      if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
-      brevetReussiteJour();
-      document.getElementById('fin').classList.add('visible');
-      brevetConfetti();
-      brevetSon(true);
-      sessionStorage.setItem('brevet2027_arrivee', idCours);
+      var elFin = document.getElementById('fin');
+      var elTitre = document.getElementById('fin-titre');
+      if (!uneRevelee) {
+        localStorage.setItem(keyReussi, 'oui');
+        if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
+        brevetReussiteJour();
+        brevetConfetti();
+        brevetSon(true);
+        sessionStorage.setItem('brevet2027_arrivee', idCours);
+      } else {
+        elFin.classList.add('revele');
+        elTitre.textContent = 'Exercice terminé — retente sans révéler la réponse pour ouvrir le coffre 📦.';
+      }
+      elFin.classList.add('visible');
       demarrerRetourAuto();
     }
   }
@@ -310,6 +320,7 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
       feedback.className = 'feedback revele';
       reussies[qid] = true;
       uneErreur = true;
+      uneRevelee = true;
       div.querySelector('.aides').style.display = 'none';
       verifierTout();
     }
