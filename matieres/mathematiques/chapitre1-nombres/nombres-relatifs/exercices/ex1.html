@@ -154,7 +154,26 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
   function brevetReussiteJour() {
     brevetJournee();
     var n = parseInt(localStorage.getItem('brevet2027_jour_reussites') || '0', 10);
-    localStorage.setItem('brevet2027_jour_reussites', String(n + 1));
+    n = n + 1;
+    localStorage.setItem('brevet2027_jour_reussites', String(n));
+    if (n === 3) {
+      var jq = new Date().toISOString().slice(0, 10);
+      if (localStorage.getItem('brevet2027_quetes_jour_compte') !== jq) {
+        localStorage.setItem('brevet2027_quetes_jour_compte', jq);
+        var tq = parseInt(localStorage.getItem('brevet2027_quetes_completees_total') || '0', 10);
+        localStorage.setItem('brevet2027_quetes_completees_total', String(tq + 1));
+      }
+    }
+    var dLundi = new Date();
+    var jourSemaine = dLundi.getDay();
+    dLundi.setDate(dLundi.getDate() + (jourSemaine === 0 ? -6 : 1 - jourSemaine));
+    var lundi = dLundi.toISOString().slice(0, 10);
+    if (localStorage.getItem('brevet2027_semaine_lundi') !== lundi) {
+      localStorage.setItem('brevet2027_semaine_lundi', lundi);
+      localStorage.setItem('brevet2027_semaine_reussites', '0');
+    }
+    var ns = parseInt(localStorage.getItem('brevet2027_semaine_reussites') || '0', 10);
+    localStorage.setItem('brevet2027_semaine_reussites', String(ns + 1));
   }
   function brevetConfetti() {
     var c = document.createElement('div');
