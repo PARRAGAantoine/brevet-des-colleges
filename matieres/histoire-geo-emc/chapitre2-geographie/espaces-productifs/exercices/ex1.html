@@ -269,6 +269,9 @@ p.note{color:var(--muted);font-size:.85rem;margin-bottom:20px}
         localStorage.setItem(keyReussi, 'oui');
         if (!uneErreur) localStorage.setItem(keySansFaute, 'oui');
         brevetReussiteJour();
+        var heureActuelle = new Date().getHours();
+        if (heureActuelle < 8) localStorage.setItem('brevet2027_badge_leve_tot', 'oui');
+        if (heureActuelle >= 22) localStorage.setItem('brevet2027_badge_oiseau_nuit', 'oui');
         if (aide1Utilisee) {
           localStorage.setItem('brevet2027_semaine_aide1_reussites', String(parseInt(localStorage.getItem('brevet2027_semaine_aide1_reussites') || '0', 10) + 1));
         }
