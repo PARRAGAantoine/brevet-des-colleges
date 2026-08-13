@@ -4,24 +4,43 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Badges — Brevet Sprint 2027</title>
 <style>
-:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--bronze:#cd7f32;--argent:#c0c0c0;--or:#ffd700}
+:root{--bg:#0d1418;--card:#16222a;--border:#243442;--text:#e0e6ed;--muted:#94a3b8;--blue:#38bdf8;--yellow:#fbbf24;--red:#f87171;--green:#4ade80;--violet:#a78bfa;--bronze:#cd7f32;--argent:#c0c9d4;--or:#ffd700}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
 .top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,20,24,.95);backdrop-filter:blur(8px);z-index:10;flex-wrap:wrap;gap:10px}
 a{color:var(--blue);text-decoration:none;font-weight:600}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);color:var(--text);font-size:.9rem;background:var(--card);font-weight:700;cursor:pointer}
 .nav-liens{display:flex;gap:16px;flex-wrap:wrap}
-.container{max-width:720px;margin:0 auto;padding:28px 16px 60px}
+.container{max-width:760px;margin:0 auto;padding:28px 16px 60px}
 h1{font-size:1.6rem;color:#fff;margin-bottom:6px}
-p.note{color:var(--muted);margin-bottom:24px;font-size:.9rem}
-.grille{display:flex;flex-direction:column;gap:14px}
-.badge{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
-.badge.debloque{border-color:var(--medal, var(--blue))}
-.badge .medaille{font-size:2.4rem;filter:grayscale(1);opacity:.4}
-.badge.debloque .medaille{filter:none;opacity:1}
-.badge .titre{color:#fff;font-weight:700;font-size:1.05rem}
-.badge .desc{color:var(--muted);font-size:.85rem;margin-top:2px}
-.badge.debloque .desc{color:var(--green)}
+h2{font-size:1.05rem;color:#fff;margin:28px 0 12px}
+p.note{color:var(--muted);margin-bottom:8px;font-size:.9rem}
+
+.progres-global{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin:16px 0 8px;display:flex;align-items:center;gap:16px}
+.progres-global .chiffre{font-size:1.6rem;font-weight:800;color:#fff}
+.progres-global .barre{flex:1;height:10px;border-radius:999px;background:#0b1418;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.6)}
+.progres-global .barre-remplie{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--or));box-shadow:0 0 12px rgba(56,189,248,.5)}
+.progres-global .xp-note{color:var(--violet);font-size:.78rem;font-weight:700}
+
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.badge{position:relative;background:var(--card);border:2px solid var(--border);border-radius:14px;padding:18px;text-align:center;transition:filter .4s ease,opacity .4s ease}
+.badge .medaille{font-size:2.2rem;margin-bottom:8px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.badge .titre{color:#fff;font-weight:700;font-size:.95rem;margin-bottom:4px}
+.badge .desc{color:var(--muted);font-size:.78rem}
+.badge.verrouille{filter:grayscale(1);opacity:.5}
+.badge.verrouille .medaille::after{content:"🔒";position:absolute;top:10px;right:12px;font-size:.9rem;filter:none}
+
+.etiquette{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-bottom:6px}
+.etiquette-bronze{color:var(--bronze);background:rgba(205,127,50,.15)}
+.etiquette-argent{color:var(--argent);background:rgba(192,201,212,.15)}
+.etiquette-or{color:var(--or);background:rgba(255,215,0,.15)}
+.etiquette-secret{color:var(--violet);background:rgba(167,139,250,.15)}
+
+.rarete-bronze.debloque{border-color:var(--bronze);box-shadow:0 0 14px rgba(205,127,50,.4)}
+.rarete-argent.debloque{border-color:var(--argent);box-shadow:0 0 14px rgba(192,201,212,.4)}
+.rarete-or.debloque{border-color:var(--or);box-shadow:0 0 16px rgba(255,215,0,.5)}
+.rarete-secret.debloque{border-color:var(--violet);box-shadow:0 0 16px rgba(167,139,250,.5)}
+.rarete-royaume.debloque{box-shadow:0 0 16px color-mix(in srgb, var(--rc) 55%, transparent)}
 </style>
 </head>
 <body>
@@ -37,36 +56,97 @@ p.note{color:var(--muted);margin-bottom:24px;font-size:.9rem}
 </div>
 <div class="container">
   <h1>🏅 Mes badges</h1>
-  <p class="note">Un badge se débloque selon le nombre d'exercices réussis.</p>
-  <div class="grille" id="grille"></div>
+  <p class="note">Chaque badge débloqué rapporte <strong>+20 XP</strong> et le plus rare s'affiche à côté de ta série de jours sur la carte des royaumes.</p>
+
+  <div class="progres-global">
+    <div class="chiffre" id="compte-badges">0/9</div>
+    <div class="barre"><div class="barre-remplie" id="barre-badges" style="width:0%"></div></div>
+    <div class="xp-note" id="xp-badges">+0 XP</div>
+  </div>
+
+  <h2>🎖️ Exercices réussis</h2>
+  <div class="grille" id="grille-seuils"></div>
+
+  <h2>👑 Maître de royaume</h2>
+  <div class="grille" id="grille-royaumes"></div>
+
+  <h2>🌙 Secrets</h2>
+  <div class="grille" id="grille-secrets"></div>
 </div>
 <script>
-  var idsCours = [
-    'accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre', 'calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch', 'construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique', 'chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'
+  var royaumes = [
+    { nom: 'Royaume des Lettres', couleur: '#4ade80', cours: ['accord-participe', 'classes-mots', 'conjonctives', 'fonctions', 'homophones', 'imperatif-subjonctif', 'relatives', 'temps-composes', 'temps-simples', 'types-phrases', 'argumentatif', 'explicatif', 'lettre-formelle', 'recit', 'resumer', 'etude-recit', 'figures-style', 'poesie', 'registres', 'theatre'] },
+    { nom: 'Royaume des Nombres', couleur: '#38bdf8', cours: ['calcul-litteral', 'equations', 'fractions', 'inequations', 'nombres-relatifs', 'puissances', 'aires', 'angles-cercle', 'pythagore', 'thales', 'transformations', 'trigonometrie', 'volumes', 'proportionnalite', 'fonctions-affines', 'fonctions-lineaires', 'probabilites', 'representation-graphique', 'statistiques', 'algorithmique-scratch'] },
+    { nom: 'Royaume du Temps', couleur: '#fbbf24', cours: ['construction-europeenne', 'france-seconde-guerre-mondiale', 'guerre-froide', 'monde-depuis-1991', 'premiere-guerre-mondiale', 'seconde-guerre-mondiale', 'totalitarismes', 'aires-urbaines', 'espaces-faible-densite', 'espaces-productifs', 'france-europe-monde', 'mobilites', 'territoires-ue', 'citoyennete', 'defense-paix', 'droits-homme', 'numerique-droits', 'valeurs-republique'] },
+    { nom: 'Royaume des Éléments', couleur: '#a78bfa', cours: ['chaine-energetique', 'conversions', 'electricite', 'energie', 'etats-matiere', 'forces', 'gravitation', 'poids-masse', 'ressources-energetiques', 'signaux-lumineux', 'signaux-sonores', 'solutions', 'transformations', 'biodiversite', 'circulation', 'contraception', 'developpement-durable', 'impact-humain', 'muscles', 'nutrition', 'reproduction-humaine', 'respiration', 'risques-naturels', 'systeme-nerveux', 'tabac-alcool-drogues', 'transmission-vie', 'analyser-objet', 'bases-programmation', 'conception', 'evolution-techno', 'impact-environnemental', 'scratch-python'] }
   ];
+  var idsCours = [];
+  royaumes.forEach(function (r) { idsCours = idsCours.concat(r.cours); });
+
   var reussis = idsCours.filter(function (id) {
     return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui';
   }).length;
 
-  var paliers = [
-    { seuil: 10, medaille: '🥉', titre: 'Bronze', couleur: 'var(--bronze)' },
-    { seuil: 40, medaille: '🥈', titre: 'Argent', couleur: 'var(--argent)' },
-    { seuil: idsCours.length, medaille: '🥇', titre: 'Or', couleur: 'var(--or)' }
+  var badgesSeuils = [
+    { id: 'bronze', seuil: 10, medaille: '🥉', titre: 'Bronze', rarete: 'bronze', debloque: reussis >= 10, cond: '10 exercices réussis' },
+    { id: 'argent', seuil: 40, medaille: '🥈', titre: 'Argent', rarete: 'argent', debloque: reussis >= 40, cond: '40 exercices réussis' },
+    { id: 'or', seuil: idsCours.length, medaille: '🥇', titre: 'Or', rarete: 'or', debloque: reussis >= idsCours.length, cond: idsCours.length + ' exercices réussis (tous)' }
   ];
 
-  var grille = document.getElementById('grille');
-  paliers.forEach(function (p) {
-    var debloque = reussis >= p.seuil;
+  var noms = { 'Royaume des Lettres': ['📖', 'Maître des Lettres'], 'Royaume des Nombres': ['🔢', 'Maître des Nombres'], 'Royaume du Temps': ['🌍', 'Maître du Temps'], 'Royaume des Éléments': ['🔬', 'Maître des Éléments'] };
+  var badgesRoyaumes = royaumes.map(function (r) {
+    var coffres = r.cours.filter(function (id) { return localStorage.getItem('brevet2027_exo_' + id + '_reussi') === 'oui'; }).length;
+    return { id: r.nom, medaille: noms[r.nom][0], titre: noms[r.nom][1], couleur: r.couleur, debloque: coffres === r.cours.length, cond: r.nom + ' conquis à 100%' };
+  });
+
+  var badgesSecrets = [
+    { id: 'leve-tot', medaille: '🌅', titre: 'Lève-tôt', debloque: localStorage.getItem('brevet2027_badge_leve_tot') === 'oui', cond: 'Réussir un exercice avant 8h' },
+    { id: 'oiseau-nuit', medaille: '🌙', titre: 'Oiseau de nuit', debloque: localStorage.getItem('brevet2027_badge_oiseau_nuit') === 'oui', cond: 'Réussir un exercice après 22h' }
+  ];
+
+  var totalBadges = badgesSeuils.length + badgesRoyaumes.length + badgesSecrets.length;
+  var totalDebloques = badgesSeuils.filter(function (b) { return b.debloque; }).length
+    + badgesRoyaumes.filter(function (b) { return b.debloque; }).length
+    + badgesSecrets.filter(function (b) { return b.debloque; }).length;
+
+  document.getElementById('compte-badges').textContent = totalDebloques + '/' + totalBadges;
+  document.getElementById('barre-badges').style.width = Math.round((totalDebloques / totalBadges) * 100) + '%';
+  document.getElementById('xp-badges').textContent = '+' + (totalDebloques * 20) + ' XP';
+
+  var grilleSeuils = document.getElementById('grille-seuils');
+  badgesSeuils.forEach(function (b) {
     var div = document.createElement('div');
-    div.className = 'badge' + (debloque ? ' debloque' : '');
-    if (debloque) div.style.setProperty('--medal', p.couleur);
+    div.className = 'badge rarete-' + b.rarete + (b.debloque ? ' debloque' : ' verrouille');
     div.innerHTML =
-      '<span class="medaille">' + p.medaille + '</span>' +
-      '<span>' +
-      '<div class="titre">' + p.titre + '</div>' +
-      '<div class="desc">' + (debloque ? 'Débloqué !' : p.seuil + ' exercice' + (p.seuil > 1 ? 's' : '') + ' réussi' + (p.seuil > 1 ? 's' : '') + ' pour débloquer') + '</div>' +
-      '</span>';
-    grille.appendChild(div);
+      '<div class="etiquette etiquette-' + b.rarete + '">' + b.titre + '</div>' +
+      '<div class="medaille">' + b.medaille + '</div>' +
+      '<div class="titre">' + b.titre + '</div>' +
+      '<div class="desc">' + (b.debloque ? 'Débloqué !' : b.cond) + '</div>';
+    grilleSeuils.appendChild(div);
+  });
+
+  var grilleRoyaumes = document.getElementById('grille-royaumes');
+  badgesRoyaumes.forEach(function (b) {
+    var div = document.createElement('div');
+    div.className = 'badge rarete-royaume' + (b.debloque ? ' debloque' : ' verrouille');
+    div.style.setProperty('--rc', b.couleur);
+    div.innerHTML =
+      '<div class="medaille">' + b.medaille + '</div>' +
+      '<div class="titre">' + b.titre + '</div>' +
+      '<div class="desc">' + (b.debloque ? 'Débloqué !' : b.cond) + '</div>';
+    grilleRoyaumes.appendChild(div);
+  });
+
+  var grilleSecrets = document.getElementById('grille-secrets');
+  badgesSecrets.forEach(function (b) {
+    var div = document.createElement('div');
+    div.className = 'badge rarete-secret' + (b.debloque ? ' debloque' : ' verrouille');
+    div.innerHTML =
+      '<div class="etiquette etiquette-secret">Secret</div>' +
+      '<div class="medaille">' + b.medaille + '</div>' +
+      '<div class="titre">' + b.titre + '</div>' +
+      '<div class="desc">' + (b.debloque ? 'Débloqué !' : b.cond) + '</div>';
+    grilleSecrets.appendChild(div);
   });
 </script>
 </body>
