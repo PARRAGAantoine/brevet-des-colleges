@@ -23,11 +23,30 @@ body{
 @keyframes derive-fond{0%,100%{transform:translateX(0)}50%{transform:translateX(18px)}}
 
 .wrap{max-width:420px;width:100%;text-align:center;position:relative;z-index:2}
-.halo-logo{position:absolute;left:50%;top:38px;transform:translateX(-50%);width:160px;height:160px;border-radius:50%;background:radial-gradient(circle, rgba(56,189,248,.35), transparent 70%);filter:blur(6px);animation:respire-halo 3.4s ease-in-out infinite}
+.halo-logo{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:190px;height:190px;border-radius:50%;background:radial-gradient(circle, rgba(56,189,248,.30), transparent 70%);filter:blur(8px);animation:respire-halo 3.4s ease-in-out infinite}
 @keyframes respire-halo{0%,100%{opacity:.6;transform:translateX(-50%) scale(.94)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
-.logo{position:relative;font-size:4.5rem;display:inline-block;animation:flotter 3s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+
+.blason-anneau{position:relative;width:136px;height:136px;margin:0 auto;border-radius:50%;padding:5px;
+  background:conic-gradient(from 0deg, #4ade80, #38bdf8, #fbbf24, #a78bfa, #4ade80);
+  box-shadow:0 8px 22px rgba(0,0,0,.5), 0 0 26px rgba(56,189,248,.35);
+  animation:flotter 3s ease-in-out infinite}
 @keyframes flotter{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-h1{font-size:1.6rem;color:#fff;margin:20px 0 8px}
+.blason-coeur{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 35% 28%, #1c2e39, #0b141a 72%);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.08)}
+.blason-coeur svg{filter:drop-shadow(0 3px 5px rgba(0,0,0,.6))}
+
+.titre-jeu{margin:22px 0 4px;line-height:1.15}
+.titre-jeu .ligne1{display:block;font-size:1.55rem;font-weight:800;letter-spacing:.07em;
+  background:linear-gradient(90deg,#eaf6ff,#bfe4ff 45%,#38bdf8);-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 26px rgba(56,189,248,.3)}
+.titre-jeu .ligne2{display:block;font-size:2.15rem;font-weight:900;letter-spacing:.14em;margin-top:2px;
+  background:linear-gradient(90deg,#fbbf24,#ffe680 50%,#fbbf24);-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 22px rgba(251,191,36,.35)}
+
+.separateur{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 16px}
+.separateur .trait{display:inline-block;width:54px;height:1px;background:linear-gradient(90deg,transparent,var(--border))}
+.separateur .trait.droit{background:linear-gradient(90deg,var(--border),transparent)}
+.separateur .losange{font-size:.7rem;color:var(--yellow);filter:drop-shadow(0 0 4px rgba(251,191,36,.6))}
+
 p.slogan{color:var(--muted);font-size:1rem;margin-bottom:20px}
 
 .retour{display:none;align-items:center;justify-content:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:10px 18px;margin:0 auto 24px;font-size:.85rem;color:var(--text);font-weight:700;width:fit-content}
@@ -41,8 +60,33 @@ p.slogan{color:var(--muted);font-size:1rem;margin-bottom:20px}
 <body>
 <div class="wrap">
   <div class="halo-logo"></div>
-  <span class="logo">📖</span>
-  <h1>Brevet Sprint 2027</h1>
+  <div class="blason-anneau">
+    <div class="blason-coeur">
+      <svg viewBox="0 0 100 100" width="76" height="76">
+        <defs>
+          <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#c7d2dc"/>
+          </linearGradient>
+        </defs>
+        <rect x="48" y="22" width="4" height="52" fill="#38bdf8" opacity=".85"/>
+        <path d="M50,26 C36,21 21,23 13,29 L13,71 C21,65 36,63 50,69 Z" fill="url(#pageGrad)"/>
+        <path d="M50,26 C64,21 79,23 87,29 L87,71 C79,65 64,63 50,69 Z" fill="url(#pageGrad)"/>
+        <path d="M19,35 Q34,31 46,35" stroke="#94a3b8" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M19,43 Q34,39 46,43" stroke="#94a3b8" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M19,51 Q32,47 44,51" stroke="#94a3b8" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M54,35 Q66,31 81,35" stroke="#94a3b8" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M54,43 Q66,39 81,43" stroke="#94a3b8" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M56,51 Q68,47 81,51" stroke="#94a3b8" stroke-width="1.6" fill="none" opacity=".6"/>
+        <path d="M50,7 L52.5,13 L59,15.5 L52.5,18 L50,24 L47.5,18 L41,15.5 L47.5,13 Z" fill="#fbbf24"/>
+      </svg>
+    </div>
+  </div>
+  <h1 class="titre-jeu">
+    <span class="ligne1">BREVET SPRINT</span>
+    <span class="ligne2">2027</span>
+  </h1>
+  <div class="separateur"><span class="trait gauche"></span><span class="losange">◆</span><span class="trait droit"></span></div>
   <p class="slogan">Un cours. Un exercice. Un progrès.</p>
   <div class="retour" id="retour"></div>
   <div class="actions">
